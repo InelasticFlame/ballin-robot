@@ -18,10 +18,14 @@
 
 /* Declare the public functions */
 +(Database*)init;
+
+//Runs
 -(void)saveRun:(NSObject *)Run;
--(NSArray *)loadRunLocationsForRun:(NSObject *)run;
--(NSArray *)loadRunsForMonth:(NSString *)month;
--(void)saveShoe;
+-(NSArray *)loadRunsWithQuery:(NSString *)query;
 -(void)deleteRunWithID:(NSObject *)run;
+
+//Shoes
+-(void)saveShoe;
+
 
 @end

@@ -132,7 +132,8 @@ static Database *_database;
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
         NSString *date = [[[Conversions alloc] init] dateToString:run.dateTime];
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDate, RunTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%s', '%1.2f', '%li', '%li', '%1.2f', '%li')", date, "time", run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
+        NSString *time = [[[Conversions alloc] init] timeForInterface:run.dateTime];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDate, RunTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", date, time, run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
         
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
@@ -243,58 +244,14 @@ static Database *_database;
 
 #pragma mark Run Loading
 
--(NSArray *)loadAllRuns {
+/**
+ */
+-(NSArray *)loadRunsWithQuery:(NSString *)query {
     NSMutableArray *runs = [[NSMutableArray alloc] init];
     const char *charDbPath = [_databasePath UTF8String];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        const char *sqlChar = "SELECT * FROM tblRuns";
-        sqlite3_stmt *statement;
-        
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                int ID = (int)sqlite3_column_int(statement, 0);
-                char *dateStr = (char *)sqlite3_column_text(statement, 1);
-                char *timeStr = (char *)sqlite3_column_text(statement, 2);
-                double distance = (double)sqlite3_column_double(statement, 3);
-                int pace = (int)sqlite3_column_int(statement, 4);
-                int duration = (int)sqlite3_column_int(statement, 5);
-                double score = (double)sqlite3_column_double(statement, 6);
-                int shoeID = (int)sqlite3_column_int(statement, 7);
-                char *shoeName = (char *)sqlite3_column_text(statement, 8);
-                double shoeMiles = (double)sqlite3_column_double(statement, 9);
-                char *shoePath = (char *)sqlite3_column_text(statement, 10);
-                
-                NSDate *date = [[[Conversions alloc] init] stringToDateAndTime:[NSString stringWithUTF8String:dateStr] timeStr:[NSString stringWithUTF8String:timeStr]];
-            }
-        }
-    }
-    
-    return runs;
-}
-
--(Run *)loadRunWithDate:(NSDate *)date {
-    Run *run = [[Run alloc] init];
-    
-    return run;
-}
-
--(Run *)loadMostRecentRun {
-    Run *run = [[Run alloc] init];
-    
-    return run;
-}
-
-#warning "unfinished method"
-
-//load shoes with an image path, load image only when needed
--(NSArray *)loadRunsForMonth:(NSString *)month {
-    Conversions *converter = [[Conversions alloc] init];
-    NSMutableArray *runs = [[NSMutableArray alloc] init];
-    const char *charDbPath = [_databasePath UTF8String];
-    
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblRuns WHERE RunDate LIKE '___%@%%'", month];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblRuns %@", query];
         const char *sqlChar = [sql UTF8String];
         sqlite3_stmt *statement;
         
@@ -303,50 +260,35 @@ static Database *_database;
                 int ID = (int)sqlite3_column_int(statement, 0);
                 char *dateStr = (char *)sqlite3_column_text(statement, 1);
                 char *timeStr = (char *)sqlite3_column_text(statement, 2);
-                timeStr = "15:33:26";
                 double distance = (double)sqlite3_column_double(statement, 3);
                 int pace = (int)sqlite3_column_int(statement, 4);
                 int duration = (int)sqlite3_column_int(statement, 5);
                 double score = (double)sqlite3_column_double(statement, 6);
                 int shoeID = (int)sqlite3_column_int(statement, 7);
-                shoeID = 1;
                 char *shoeName = (char *)sqlite3_column_text(statement, 8);
-                shoeName = "New Balance";
                 double shoeMiles = (double)sqlite3_column_double(statement, 9);
-                shoeMiles = 192.5;
                 char *shoePath = (char *)sqlite3_column_text(statement, 10);
-                shoePath = "path";
                 
-                NSDate *date = [converter stringToDateAndTime:[NSString stringWithUTF8String:dateStr] timeStr:[NSString stringWithUTF8String:timeStr]];
                 
-                Shoe *runShoe;
-                if (shoeID != 0) {
-                    runShoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:shoeMiles imagePath:[NSString stringWithUTF8String:shoePath]];
-                } else {
-                    runShoe = nil;
-                }
-
-                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil runType:@"" splits:nil];
+                //Handle shoes
+                
+                NSDate *date = [[[Conversions alloc] init] stringToDateAndTime:[NSString stringWithUTF8String:dateStr] timeStr:[NSString stringWithUTF8String:timeStr]];
+                
+                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:nil runScore:score runLocations:nil runType:@"" splits:nil];
                 run.locations = [self loadRunLocationsForRun:run];
                 run.splits = [self loadRunSplitsForRun:run];
                 [runs addObject:run];
             }
-            sqlite3_finalize(statement); //vii
+            
+            sqlite3_finalize(statement);
             sqlite3_close(_database);
         }
     }
     
-    return runs;
-}
-
-
--(NSArray *)loadRunsForYear:(NSString *)year {
-    NSMutableArray *runs = [[NSMutableArray alloc] init];
-    
+    runs = [[NSMutableArray alloc] initWithArray: [[[Conversions alloc] init] sortRunsIntoDateOrderWithRuns:runs]];
     
     return runs;
 }
-
 
 /**
  1. Creates and initialises the local mutable array, locations
@@ -438,7 +380,7 @@ static Database *_database;
     const char *charDbPath = [_databasePath UTF8String];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblRuns  WHERE RunID = '%li'", (long)run.ID];
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblRuns WHERE RunID = '%li'", (long)run.ID];
         const char *sqlChar = [sql UTF8String];
         char *errorMessage;
         

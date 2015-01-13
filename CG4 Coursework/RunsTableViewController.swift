@@ -29,7 +29,9 @@ class RunsTableViewController: UITableViewController {
     }
 
     func loadRuns() {
-        self.runs = Database().loadRunsForMonth("01/2014") as Array<Run>
+        self.runs = Database().loadRunsWithQuery("") as Array<Run>
+        
+        println(self.runs)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,6 +50,7 @@ class RunsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
+        
         return runs.count
     }
 

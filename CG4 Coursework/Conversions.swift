@@ -13,6 +13,14 @@ class Conversions: NSObject {
     let kmToMiles = 0.621371192
     let milesToKm = 1.609344
     
+    func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
+        var runs = array //Create a mutable version of the array
+        
+        runs.sort({$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow})
+        
+        return runs
+    }
+    
     func metresPerSecondToMinPerMile(metresPerSec: Double) -> (Double) {
         let metresPerHour = metresPerSec * 3600
         let kmPerHour = metresPerHour/1000
@@ -36,7 +44,7 @@ class Conversions: NSObject {
         if paceUnit == "min/miles" {
             let minutes = pace/60
             let seconds = pace % 60
-            returnValue = "\(minutes):\(seconds) min/miles"
+            returnValue = NSString(format: "%02i:%02i", minutes, seconds) + " min/mile"
         } else if paceUnit == "km/h" {
             let mph = 3600/pace
             let kmh = Double(mph) * milesToKm
@@ -82,14 +90,14 @@ class Conversions: NSObject {
     
     func dateToString(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .ShortStyle
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         
         return dateFormatter.stringFromDate(date)
     }
     
     func timeForInterface(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "HH:mm:ss"
         dateFormatter.locale = NSLocale.currentLocale()
         
         return dateFormatter.stringFromDate(date)

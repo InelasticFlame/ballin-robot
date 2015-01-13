@@ -13,7 +13,6 @@
 		B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */; };
 		B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */; };
 		B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7441A48C65100A4A49C /* AppDelegate.swift */; };
-		B621B7471A48C65100A4A49C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7461A48C65100A4A49C /* FirstViewController.swift */; };
 		B621B74E1A48C65100A4A49C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B621B74D1A48C65100A4A49C /* Images.xcassets */; };
 		B621B7511A48C65100A4A49C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B621B74F1A48C65100A4A49C /* LaunchScreen.xib */; };
 		B621B75D1A48C65100A4A49C /* CG4_CourseworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B75C1A48C65100A4A49C /* CG4_CourseworkTests.swift */; };
@@ -58,7 +57,6 @@
 		B621B73F1A48C65100A4A49C /* CG4 Coursework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CG4 Coursework.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B621B7431A48C65100A4A49C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B621B7441A48C65100A4A49C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B621B7461A48C65100A4A49C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		B621B74D1A48C65100A4A49C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B621B7501A48C65100A4A49C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B621B7561A48C65100A4A49C /* CG4 CourseworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CG4 CourseworkTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +155,6 @@
 				B621B7761A48D2A500A4A49C /* Custom Objects */,
 				B621B7771A48D2B600A4A49C /* Database */,
 				B621B7441A48C65100A4A49C /* AppDelegate.swift */,
-				B621B7461A48C65100A4A49C /* FirstViewController.swift */,
 				B621B74D1A48C65100A4A49C /* Images.xcassets */,
 				B668DB0A1A4DE60800DC7CE6 /* Miles Ran This Month.png */,
 				B668DB0C1A4DE61100DC7CE6 /* Today's Calories.png */,
@@ -289,6 +286,7 @@
 				TargetAttributes = {
 					B621B73E1A48C65100A4A49C = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 65B7RMWPL4;
 					};
 					B621B7551A48C65100A4A49C = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -389,7 +387,6 @@
 				B67609381A49BB76005270ED /* StravaRuns.m in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
-				B621B7471A48C65100A4A49C /* FirstViewController.swift in Sources */,
 				B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */,
 				B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,
@@ -509,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -525,6 +523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

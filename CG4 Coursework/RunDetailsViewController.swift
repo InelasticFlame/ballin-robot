@@ -39,6 +39,10 @@ class RunDetailsViewController: UIViewController {
         Conversions().addBorderToView(mapKitView)
         Conversions().addBorderToView(overlayView.headerOverlay)
     }
+    
+    func drawRouteLineOnMap() {
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

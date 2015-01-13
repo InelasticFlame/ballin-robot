@@ -18,7 +18,7 @@
 
 -(void)loadRunsFromStrava {
     NSMutableArray *runs = [[NSMutableArray alloc] init];
-    [[FRDStravaClient sharedInstance] fetchActivitiesForCurrentAthleteWithPageSize:1 pageIndex:1 success:^(NSArray *activities) {
+    [[FRDStravaClient sharedInstance] fetchActivitiesForCurrentAthleteWithPageSize:30 pageIndex:1 success:^(NSArray *activities) {
         for (StravaActivity *activity in activities) {
             Conversions *converter = [[Conversions alloc] init];
             double distance = [converter metresToMiles:activity.distance];
