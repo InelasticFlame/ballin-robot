@@ -43,7 +43,7 @@ class HomeProgressTableViewCell: UITableViewCell {
     func loadMonthlyRunProgress() -> (progress: Double, goalMiles: Double, totalMiles: Double) {
         let goalMiles = NSUserDefaults.standardUserDefaults().doubleForKey("goalMiles")
         let currentMonth = Conversions().dateToMonthString(NSDate())
-        let runs: Array<Run> = Database().loadRunsWithQuery("WHERE RunDate LIKE '___\(currentMonth)%'") as Array<Run>
+        let runs: Array<Run> = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '___\(currentMonth)%'") as Array<Run>
         let totalMiles = Conversions().totalUpRunMiles(runs)
         var progress = totalMiles/goalMiles
         if progress > 1 {

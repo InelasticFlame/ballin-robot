@@ -95,6 +95,13 @@ class Conversions: NSObject {
         return dateFormatter.stringFromDate(date)
     }
     
+    func dateTimeToStringForDB(dateTime: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss"
+        
+        return dateFormatter.stringFromDate(dateTime)
+    }
+    
     func timeForInterface(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
@@ -103,12 +110,11 @@ class Conversions: NSObject {
         return dateFormatter.stringFromDate(date)
     }
     
-    func stringToDateAndTime(dateStr: String, timeStr: String) -> NSDate? {
+    func stringToDateAndTime(dateTimeStr: String) -> NSDate? {
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss"
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB")
-        let dateTimeString = dateStr + timeStr;
-        let date = dateFormatter.dateFromString(dateTimeString)
+        let date = dateFormatter.dateFromString(dateTimeStr)
         
         return date
     }
@@ -148,5 +154,13 @@ class Conversions: NSObject {
         let monthString = NSString(format: "%02i/%04i", month, year)
         
         return monthString
+    }
+    
+    func validateRun(run: Run) -> Bool {
+        if run.distance > 0 && run.duration > 0 && run.pace > 0 {
+            return true
+        } else {
+            return false
+        }
     }
 }

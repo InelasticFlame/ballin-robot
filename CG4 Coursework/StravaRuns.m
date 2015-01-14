@@ -18,7 +18,7 @@
 
 -(void)loadRunsFromStrava {
     NSMutableArray *runs = [[NSMutableArray alloc] init];
-    [[FRDStravaClient sharedInstance] fetchActivitiesForCurrentAthleteWithPageSize:30 pageIndex:1 success:^(NSArray *activities) {
+    [[FRDStravaClient sharedInstance] fetchActivitiesForCurrentAthleteWithPageSize:40 pageIndex:1 success:^(NSArray *activities) {
         for (StravaActivity *activity in activities) {
             Conversions *converter = [[Conversions alloc] init];
             double distance = [converter metresToMiles:activity.distance];
@@ -36,7 +36,9 @@
             Run *run = [[Run alloc] initWithRunID:activity.id distance:distance dateTime:dateTime pace:pace duration:duration shoe:nil runScore:0 runLocations:CLCoords runType:@"run" splits:nil];
             [run calculateRunScore];
             
-            [runs addObject:run];
+            if ([converter validateRun:run] == YES) {
+                [runs addObject:run];
+            }
         }
         
         for (Run *run in runs) {

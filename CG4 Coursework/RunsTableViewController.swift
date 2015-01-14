@@ -30,8 +30,7 @@ class RunsTableViewController: UITableViewController {
 
     func loadRuns() {
         self.runs = Database().loadRunsWithQuery("") as Array<Run>
-        
-        println(self.runs)
+
     }
     
     override func didReceiveMemoryWarning() {

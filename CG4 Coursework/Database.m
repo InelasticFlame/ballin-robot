@@ -67,7 +67,7 @@ static Database *_database;
     char *errorMessage; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        const char *sql = "CREATE TABLE IF NOT EXISTS tblRuns(RunID INTEGER PRIMARY KEY AUTOINCREMENT, RunDate TEXT, RunTime TEXT, RunDistance REAL, RunPace INTEGER, RunDuration INTEGER, RunScore REAL, ShoeID INTEGER)"; //a
+        const char *sql = "CREATE TABLE IF NOT EXISTS tblRuns(RunID INTEGER PRIMARY KEY AUTOINCREMENT, RunDateTime TEXT, RunDistance REAL, RunPace INTEGER, RunDuration INTEGER, RunScore REAL, ShoeID INTEGER)"; //a
         
         if (sqlite3_exec(_database, sql, NULL, NULL, &errorMessage) != SQLITE_OK) { //b
             NSString *error = [NSString stringWithUTF8String:errorMessage];
@@ -131,9 +131,8 @@ static Database *_database;
     const char *charDbPath = [_databasePath UTF8String]; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        NSString *date = [[[Conversions alloc] init] dateToString:run.dateTime];
-        NSString *time = [[[Conversions alloc] init] timeForInterface:run.dateTime];
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDate, RunTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", date, time, run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
+        NSString *dateTime = [[[Conversions alloc] init]  dateTimeToStringForDB:run.dateTime];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", dateTime, run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
         
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
@@ -258,21 +257,20 @@ static Database *_database;
         if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 int ID = (int)sqlite3_column_int(statement, 0);
-                char *dateStr = (char *)sqlite3_column_text(statement, 1);
-                char *timeStr = (char *)sqlite3_column_text(statement, 2);
-                double distance = (double)sqlite3_column_double(statement, 3);
-                int pace = (int)sqlite3_column_int(statement, 4);
-                int duration = (int)sqlite3_column_int(statement, 5);
-                double score = (double)sqlite3_column_double(statement, 6);
-                int shoeID = (int)sqlite3_column_int(statement, 7);
-                char *shoeName = (char *)sqlite3_column_text(statement, 8);
-                double shoeMiles = (double)sqlite3_column_double(statement, 9);
-                char *shoePath = (char *)sqlite3_column_text(statement, 10);
+                char *dateTimeStr = (char *)sqlite3_column_text(statement, 1);
+                double distance = (double)sqlite3_column_double(statement, 2);
+                int pace = (int)sqlite3_column_int(statement, 3);
+                int duration = (int)sqlite3_column_int(statement, 4);
+                double score = (double)sqlite3_column_double(statement, 5);
+                int shoeID = (int)sqlite3_column_int(statement, 6);
+                char *shoeName = (char *)sqlite3_column_text(statement, 7);
+                double shoeMiles = (double)sqlite3_column_double(statement, 8);
+                char *shoePath = (char *)sqlite3_column_text(statement, 9);
                 
                 
                 //Handle shoes
+                NSDate *date = [[[Conversions alloc] init] stringToDateAndTime:[NSString stringWithUTF8String:dateTimeStr]];
                 
-                NSDate *date = [[[Conversions alloc] init] stringToDateAndTime:[NSString stringWithUTF8String:dateStr] timeStr:[NSString stringWithUTF8String:timeStr]];
                 
                 Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:nil runScore:score runLocations:nil runType:@"" splits:nil];
                 run.locations = [self loadRunLocationsForRun:run];

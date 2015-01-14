@@ -1,0 +1,1335 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00CB3EACEDDC521E4B5A235F /* FRDStravaClient+Athlete.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C06CFE31AEA220741F4C642 /* FRDStravaClient+Athlete.h */; };
+		00D9AAADC67677DF7BF3CA98 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CD86D1923CD64889A02834 /* UIProgressView+AFNetworking.m */; };
+		056A9F78BB814F5B9448BAED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30A6ED7599D9F24CC9CEFBC /* CoreGraphics.framework */; };
+		06391EF0B11C2D6525D2D119 /* StravaStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 73B3A42DC239512A72E80964 /* StravaStream.m */; };
+		06CE7D01725DAA1F07B840FC /* NSValueTransformer+MTLPredefinedTransformerAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BDEDBA10ABFD6B85829529 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h */; };
+		098C51DDCA57FCE17A5942BD /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 70B7EAFDC7E764C084A2E9A8 /* UIProgressView+AFNetworking.h */; };
+		0D5DA96C00ADD2C111CAF728 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9A66131CAB26E68AB3A215 /* UIActivityIndicatorView+AFNetworking.m */; };
+		0DFDD328325F1D22FC15D686 /* FRDStravaClient+Segment.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E180572086A006E3CFA1B3 /* FRDStravaClient+Segment.h */; };
+		0E8D64903962669D2DF430A9 /* StravaMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E9DA2A556A43B71382ECEA1 /* StravaMap.h */; };
+		0F206359F3B63F35EF780A8C /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9092C2DA9FD69C32D47FF628 /* AFHTTPSessionManager.m */; };
+		1092AE181C7B9B826F03F948 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B20901C8124979F4B79884B /* AFURLConnectionOperation.m */; };
+		132D6758FA48318195E77AAC /* FRDStravaClient+Club.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E67B4916AB4339BE1FD0CFE /* FRDStravaClient+Club.m */; };
+		1368CA48EE694580AE4113B9 /* MTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CAF79164BAA47B24E610D8E /* MTLModel.h */; };
+		17DED3994CCA08EADE26CF7D /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 632A17191CE4FD53FD5476B0 /* AFHTTPSessionManager.h */; };
+		198A130381B6825DEC5D2498 /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 39CAAE3D30D720C4F23B051B /* MTLJSONAdapter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1B8131D2F34FB702F09FC18E /* StravaAthlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 708547052DDA04657A449636 /* StravaAthlete.m */; };
+		1E91B7DC2EAAB325458E50EF /* StravaActivityLap.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE7A45A8BDCF926CD3BBF /* StravaActivityLap.m */; };
+		214DB7964FFC204FDA30E6F5 /* FRDStravaClient+Access.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D7CBEC30B4D895DBA1D3B2 /* FRDStravaClient+Access.m */; };
+		28DF79436E720E21FE6D601E /* Pods-CG4 Coursework-FRDStravaClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BF65685A3F680A6AB94B755C /* Pods-CG4 Coursework-FRDStravaClient-dummy.m */; };
+		29CBBEACBBDD117BCB456A59 /* StravaActivityLap.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F469FC7C6C5979D0B1461FF /* StravaActivityLap.h */; };
+		2BE032093C9F2E1F8D3FD266 /* StravaStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 12435D909AC04A65E4489480 /* StravaStream.h */; };
+		3018D36E2BA76E0D0C00CA7A /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EF4971F08B991A45D92F4D /* UIRefreshControl+AFNetworking.m */; };
+		30F80500AA0A4AB561D09A31 /* StravaActivityZone.m in Sources */ = {isa = PBXBuildFile; fileRef = C227CE36B2486CCB4A7FA9AA /* StravaActivityZone.m */; };
+		344C8AA7208BE898F1823103 /* NSDictionary+MTLManipulationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE3FA2646B8FE01366C43D4 /* NSDictionary+MTLManipulationAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		3795343D566F8794D5E7BCCB /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DDCE3AD28B1AC219FEC3ED0E /* AFURLSessionManager.h */; };
+		3918DCB1E9B2195EBD2EF8BA /* StravaActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C603E36BBD6D6A8F3D0E273 /* StravaActivity.h */; };
+		39307A64D3D0844ED5F14CC7 /* StravaActivityComment.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B62E2FFCD8E58D6207AA41 /* StravaActivityComment.h */; };
+		3B517A1566D5FF0F40F97EEA /* NSError+MTLModelException.m in Sources */ = {isa = PBXBuildFile; fileRef = FB80B887F75BDFC9F91A4583 /* NSError+MTLModelException.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		434D39577D2E71AEAD788E46 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C788827326B9157890F9D24 /* Security.framework */; };
+		448CD3FA14B2501FC801B330 /* FRDStravaClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 965BBD748135B2CC4F2ACFE3 /* FRDStravaClient.m */; };
+		44AB10797A9FC2B24A5912E6 /* FRDStravaClient+Activity.h in Headers */ = {isa = PBXBuildFile; fileRef = 65787B9873FC4B8F80484225 /* FRDStravaClient+Activity.h */; };
+		4CF4DD1D73FEA0F0184A3DE3 /* FRDStravaClient+Gear.m in Sources */ = {isa = PBXBuildFile; fileRef = 5786AC0A7E7C36A24BCDB258 /* FRDStravaClient+Gear.m */; };
+		520CD46372D5E0DFA57DF9B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515FF7B48A2DB296D6BDABD9 /* Foundation.framework */; };
+		5399E7088BDD5BA7E74D8805 /* NSObject+MTLComparisonAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84180366CF36D8753AC00B6F /* NSObject+MTLComparisonAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		550802A0A6FA879451BE16B6 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 779879F09F043D9DC61C8E48 /* AFHTTPRequestOperation.h */; };
+		553F8AA45EC4916E54D01144 /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = C912CC3588A97F48EAFB3D6B /* AFSecurityPolicy.h */; };
+		57D14AC12DF106F5F721719A /* MTLManagedObjectAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E4C4B2D53E84A394408C60 /* MTLManagedObjectAdapter.h */; };
+		5A19CFB6E9FFD44C29E220AF /* FRDStravaClient+ActivityStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 598AB250405C08BB93A4E37A /* FRDStravaClient+ActivityStream.m */; };
+		5C7E62992E67C2C6DCA73980 /* StravaSegmentEffort.h in Headers */ = {isa = PBXBuildFile; fileRef = 67DD0AB6DAEF4104934B0205 /* StravaSegmentEffort.h */; };
+		5CB462D8661D75464D862768 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B21408B52BFE0C553AF635A /* UIImageView+AFNetworking.h */; };
+		5EE0C3928F431E82CFF45CA0 /* AFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = A321700172105097017AEE66 /* AFURLResponseSerialization.h */; };
+		5F49FD089F6BB466401F5E73 /* MTLReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 4162B883E5E7A340D82FB914 /* MTLReflection.h */; };
+		60466C7E6FE50FBFE6266D85 /* StravaActivityPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FABE68F1246698CE085CACC7 /* StravaActivityPhoto.m */; };
+		615026FA505406A5C611AA48 /* FRDStravaClient+Lap.h in Headers */ = {isa = PBXBuildFile; fileRef = 921F8B27A9FAAAFA495A3796 /* FRDStravaClient+Lap.h */; };
+		64A9D5F4EA18EEC865B61AAE /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C8CCEFDE0DD963CB60531D6B /* AFNetworking.h */; };
+		651661D5A61AF366D28084CF /* AFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 89D6A19B60DE87BF5DCFAFC4 /* AFURLConnectionOperation.h */; };
+		679CD0B6BC6FE246D2B247FC /* NSValueTransformer+MTLInversionAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = A773C342BE78623158D59CFC /* NSValueTransformer+MTLInversionAdditions.h */; };
+		6A204703A5D4D8E91FA6200C /* UIRefreshControl+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 47528ACEE80CE734D12035D0 /* UIRefreshControl+AFNetworking.h */; };
+		6A610161801B5F679D569C21 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EF92972ACE2544B7A98AB5A3 /* UIImageView+AFNetworking.m */; };
+		6BACB9BD7FD9291DEAF95B04 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55614656A956A5A6F522A883 /* AFURLSessionManager.m */; };
+		6CC766000EED5297DBA3D370 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515FF7B48A2DB296D6BDABD9 /* Foundation.framework */; };
+		736FDE321420994C9706B17F /* FRDStravaClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 188A3EF2DE5C8D78D3AADD20 /* FRDStravaClient.h */; };
+		73C70E1D935DE05EAA7DC804 /* StravaAccessTokenResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F410293A0EACA3604DF1FCA8 /* StravaAccessTokenResponse.m */; };
+		7547EF38A8A02BDAD4EED120 /* FRDStravaClient+Club.h in Headers */ = {isa = PBXBuildFile; fileRef = 940776CB38603EE71D7521AE /* FRDStravaClient+Club.h */; };
+		772A1D5EFBE113B740E46346 /* StravaClub.h in Headers */ = {isa = PBXBuildFile; fileRef = CDB2562F5502ED9F482FA14F /* StravaClub.h */; };
+		7A893A780AA8216793126F3C /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = E61A06D75BB87DE9237187CD /* AFURLRequestSerialization.m */; };
+		7C0378B45E0FB5FC5C524717 /* StravaMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 218DA2749B0C557A4BBE2007 /* StravaMap.m */; };
+		7E4CA82F955ECC6B429E0DBA /* NSError+MTLModelException.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BDA6F1EB80DF1243BEA01F /* NSError+MTLModelException.h */; };
+		84E9F7292D8238B6D42616A3 /* MTLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 250B68D0471D5DA973E31C71 /* MTLValueTransformer.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		86732D5C4CDB86D55E8F3A10 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EE604A89A53861A43B4332C /* metamacros.h */; };
+		87B1DF8515F211867E7B95D9 /* Mantle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E883F2AC9F83322F075402F /* Mantle.h */; };
+		87CD097911658730FAB576BF /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A42E4CA02EE4D76FFB67 /* AFSecurityPolicy.m */; };
+		87D5F59D6E6E6296CCCD6693 /* StravaCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8223CF6F47FDEBDE4A1736EE /* StravaCommon.h */; };
+		880434C3F4BE51905FB64E59 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 385D563102C36BEC9F6866BB /* EXTRuntimeExtensions.h */; };
+		8BF706A1126B969683F7E61D /* FRDStravaClientImports.h in Headers */ = {isa = PBXBuildFile; fileRef = BE43C7807B37A291B4446BE4 /* FRDStravaClientImports.h */; };
+		8C9855F5C057DB68CC94D16A /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 550DD0FD3B078990E0D7617A /* UIButton+AFNetworking.m */; };
+		8CA34A713033C0E80BC8CCCF /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F279E4A8DE886AC3E90C6D /* EXTScope.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		9373C94EBC7B75E61DEF2527 /* NSArray+MTLManipulationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F2DABCCDE52AFC3D997B6949 /* NSArray+MTLManipulationAdditions.h */; };
+		969B3EFC93C9324230892F0D /* StravaSegmentEffort.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A90CB20BA4ACEFFE676817 /* StravaSegmentEffort.m */; };
+		9706A2DC5104F7B0A2698227 /* StravaAthlete.h in Headers */ = {isa = PBXBuildFile; fileRef = 8317A17FE298EB069590BE1B /* StravaAthlete.h */; };
+		9707D37AAA075E634EE4B1DE /* StravaActivityComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B504A6927B7582CD0079F20 /* StravaActivityComment.m */; };
+		98DFD3170608653750840BA3 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 70D97FFA1785EC5265E6196A /* UIWebView+AFNetworking.h */; };
+		999065EDC364F16014EF70F1 /* StravaCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 108D1B948B6B855FCA8785E9 /* StravaCommon.m */; };
+		9B909D505ADB068D7744CF86 /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F1DC564B0924C05856C27DF /* UIActivityIndicatorView+AFNetworking.h */; };
+		9CA0DDA0297DFE720CD7F8AD /* FRDStravaClient+Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F591D0F0FB44F8595AD767E /* FRDStravaClient+Activity.m */; };
+		A00D358EDB1A1DB631C7D4A7 /* FRDStravaClient+Access.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B4A42C0CF9D3FFD745996C /* FRDStravaClient+Access.h */; };
+		A02FA8F970E9ED5368AB9228 /* StravaSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CA188ADE40883C8538975E3 /* StravaSegment.h */; };
+		A351D116D358C574654E1A60 /* StravaActivityPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5AEFE6F7AA2984A72EE10D /* StravaActivityPhoto.h */; };
+		A58604B972D8204B8AB6401F /* Pods-CG4 Coursework-Mantle-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 009ABB7FB193D63A538DE6A1 /* Pods-CG4 Coursework-Mantle-dummy.m */; };
+		ADDF9C0EA98A4C61EB4BD044 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9954BD2AC864F464E70BCDBF /* UIWebView+AFNetworking.m */; };
+		AF10B7BE38F61DAF5D0FA71F /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 89825B9FCBE7EACEDAE786A6 /* AFNetworkActivityIndicatorManager.h */; };
+		AFB07B1D79A99B676F33B04E /* StravaClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C7612A19D39467CDFB28E /* StravaClub.m */; };
+		B195826ABA946BB176F5EFFC /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF440124D50A84A4B2AE3FC /* AFNetworkActivityIndicatorManager.m */; };
+		B31323AE97617625BB61B55A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C4C086EC54A8FD51160E96 /* AFURLResponseSerialization.m */; };
+		B46FB9B69CB23030292CCF8D /* MTLModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = D8BF1042C3DE715F89E77107 /* MTLModel+NSCoding.h */; };
+		B567473F23D831465EC28671 /* AFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A3BCADF6BF0583399D3AF4 /* AFNetworkReachabilityManager.h */; };
+		B56F3ABAF027152A625DA7FE /* Pods-CG4 Coursework-AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F8D9930050F51C2688A36 /* Pods-CG4 Coursework-AFNetworking-dummy.m */; };
+		B5846FC52BBE9FD21C5B10B1 /* FRDStravaClient+Athlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 8328C7D5FED36A3E29105F13 /* FRDStravaClient+Athlete.m */; };
+		B69DB33D907BAD866F84E32B /* StravaGear.m in Sources */ = {isa = PBXBuildFile; fileRef = F605234543188025FC52BEE1 /* StravaGear.m */; };
+		B759358077E56E3563876A9B /* FRDStravaClient+Upload.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC9570CC03F317A9D910B49 /* FRDStravaClient+Upload.h */; };
+		BAC36CF1F56D64A76EB1AA07 /* FRDStravaClient+Upload.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7672FF0C766818D3149B1 /* FRDStravaClient+Upload.m */; };
+		BCE1643826A6CB10808BA154 /* StravaSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = EB98D1A0B282D7E6E2585088 /* StravaSegment.m */; };
+		C02B14F1F6FD1C87CDD97A9B /* MTLReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D9A17284ED07266B020061 /* MTLReflection.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		C30E4101E6701E68CDF1866F /* NSValueTransformer+MTLInversionAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7D37FC477C1C194AF7521C /* NSValueTransformer+MTLInversionAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		C4D674AF4B02104DD5A591D6 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B6FF1C580193768E90AF278 /* EXTScope.h */; };
+		C5307C132745A5C2B78A5F7E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515FF7B48A2DB296D6BDABD9 /* Foundation.framework */; };
+		C655940343941B8272D81A92 /* MTLModel+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 58861FD96C35C6FC8404F234 /* MTLModel+NSCoding.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		C87C198F00A6B24DFDED7C8B /* StravaActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7090AAA41732D119262080 /* StravaActivity.m */; };
+		C89CC8526B76391DD40ACDB0 /* UIAlertView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = CFC8359B7607358D8C952BB2 /* UIAlertView+AFNetworking.h */; };
+		C8B33687F5FA886B983D934B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F32E2C4EECF70C369A8140 /* AFHTTPRequestOperation.m */; };
+		CAAF373A9741DB87459FF613 /* NSObject+MTLComparisonAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4137D853B6EDE98032404888 /* NSObject+MTLComparisonAdditions.h */; };
+		CAC2C0EC3CE697A4072BA91D /* FRDStravaClient+Gear.h in Headers */ = {isa = PBXBuildFile; fileRef = BC4E1A251368FCE40FEDEADA /* FRDStravaClient+Gear.h */; };
+		CEA1C50F09D9BE268493A993 /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 12E60CACCE643CB223C6945B /* UIKit+AFNetworking.h */; };
+		CF5EB67FA1985C9B9B3E5B68 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515FF7B48A2DB296D6BDABD9 /* Foundation.framework */; };
+		D118142C4D9627A948E4233E /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 547801A34A68F65B5BDC3F78 /* AFURLRequestSerialization.h */; };
+		D173FA98FA12896F21541392 /* FRDStravaClient+Segment.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AF191D2726B3C0E2B82A03 /* FRDStravaClient+Segment.m */; };
+		D208E9AD5BC487E41B5F3E5E /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7046C287F74E8833FB72F819 /* EXTRuntimeExtensions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		D25EF99A5B998E637FFDDF11 /* StravaActivityUploadStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C28700650763DD1C46D4C /* StravaActivityUploadStatus.m */; };
+		D67B12572DA390E22D20392D /* EXTKeyPathCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = EF1CDAAA29AAC54777D5F33F /* EXTKeyPathCoding.h */; };
+		D6B6F63AE45ED1D33B291074 /* NSDictionary+MTLManipulationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35C52F73AEBB7D125D61EE /* NSDictionary+MTLManipulationAdditions.h */; };
+		D7E38717A0A1D37A0EE1F106 /* StravaActivityZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 186DFAA12CCE24B257018534 /* StravaActivityZone.h */; };
+		DA1962B8AE124EEF0487CAD0 /* UIButton+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D64E463414DB691A8ABD200 /* UIButton+AFNetworking.h */; };
+		DF69DEA7202F0CED1984B0D2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A06C804440CE0671EB2D88 /* MobileCoreServices.framework */; };
+		DFB793292F4B869FB29F4CE9 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B1F6C5B0B75EE21EF02388 /* UIAlertView+AFNetworking.m */; };
+		E1A02EAD45BCF56B1D5F8EA8 /* AFHTTPRequestOperationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 68CB2F5D106BFDD86E288E71 /* AFHTTPRequestOperationManager.h */; };
+		E328CFB36F573E4FCAA72612 /* StravaActivityUploadStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D1886C2D2A4487A6E220531 /* StravaActivityUploadStatus.h */; };
+		E4F731A96D0FBF379D399DE9 /* MTLValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B55832604E5F20021B2E494 /* MTLValueTransformer.h */; };
+		E728382EC33E62E1FBB8DEDC /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E050B9C035D58F9077C3015 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E882F823E137FDBB651B322C /* Pods-CG4 Coursework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 592E795F824C9E5FB4281040 /* Pods-CG4 Coursework-dummy.m */; };
+		E92FFABF65607CE436AF0282 /* MTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA3EF62CDB2D564908C5111 /* MTLModel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E9FBCB298A5E08660564C629 /* StravaAccessTokenResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 80FF32437C97A87BAA5542B6 /* StravaAccessTokenResponse.h */; };
+		EBBDE87AD6812C95BA1306B6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E49D5B5F87E2065D99FBBD7A /* AFHTTPRequestOperationManager.m */; };
+		EED1A570FC445D1451DB4060 /* StravaGear.h in Headers */ = {isa = PBXBuildFile; fileRef = 07E426A93852D0C84F04F4EF /* StravaGear.h */; };
+		F380EC4609EE1F2C62E6D4B7 /* NSArray+MTLManipulationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 494645A959EA53038807CC49 /* NSArray+MTLManipulationAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F5049EA720868F753266CA05 /* FRDStravaClient+Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = A37853F4983497332AF24C90 /* FRDStravaClient+Lap.m */; };
+		F734BEEFAD43E172808B3341 /* FRDStravaClient+ActivityStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2091BB70E882674D6DA7588B /* FRDStravaClient+ActivityStream.h */; };
+		F7F4FB268336EF0E8A02818F /* MTLManagedObjectAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5399AF47BB182CCFAE6F3654 /* MTLManagedObjectAdapter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F9BC9E987F6D9077565B4FDF /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0F46BA34572208935CE74E /* AFNetworkReachabilityManager.m */; };
+		FA2C9BE160466A014B208FFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E09E7567E35AC7ED45C84F /* SystemConfiguration.framework */; };
+		FBAC81C074A6E0B5EACC285A /* MTLJSONAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BAE126BD30F6FFE1AD936270 /* MTLJSONAdapter.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		19176C659E21D19ACBBFE4E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E011ECFDEBB79E17853F68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 569DCFB1CC47FF36A4B7B122;
+			remoteInfo = "Pods-CG4 Coursework-FRDStravaClient";
+		};
+		2FE078815A16AFA63B52D4AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E011ECFDEBB79E17853F68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 543931C36CB6D8775803671F;
+			remoteInfo = "Pods-CG4 Coursework-AFNetworking";
+		};
+		92A0D28670B8039212581C9A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E011ECFDEBB79E17853F68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 543931C36CB6D8775803671F;
+			remoteInfo = "Pods-CG4 Coursework-AFNetworking";
+		};
+		A2ECCCE045DD43038FC7529B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E011ECFDEBB79E17853F68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5562F06DA924167504E5E243;
+			remoteInfo = "Pods-CG4 Coursework-Mantle";
+		};
+		B041F36AA31A1E2B33B007B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E011ECFDEBB79E17853F68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5562F06DA924167504E5E243;
+			remoteInfo = "Pods-CG4 Coursework-Mantle";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		009ABB7FB193D63A538DE6A1 /* Pods-CG4 Coursework-Mantle-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CG4 Coursework-Mantle-dummy.m"; sourceTree = "<group>"; };
+		00EF4971F08B991A45D92F4D /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+AFNetworking.m"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
+		07E426A93852D0C84F04F4EF /* StravaGear.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaGear.h; path = Classes/StravaGear.h; sourceTree = "<group>"; };
+		0D909A6352FEE1E2C53470D4 /* Pods-CG4 Coursework-FRDStravaClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CG4 Coursework-FRDStravaClient-prefix.pch"; sourceTree = "<group>"; };
+		0E35C52F73AEBB7D125D61EE /* NSDictionary+MTLManipulationAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+MTLManipulationAdditions.h"; path = "Mantle/NSDictionary+MTLManipulationAdditions.h"; sourceTree = "<group>"; };
+		0E66A42E4CA02EE4D76FFB67 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = AFNetworking/AFSecurityPolicy.m; sourceTree = "<group>"; };
+		0E9DA2A556A43B71382ECEA1 /* StravaMap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaMap.h; path = Classes/StravaMap.h; sourceTree = "<group>"; };
+		0F469FC7C6C5979D0B1461FF /* StravaActivityLap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaActivityLap.h; path = Classes/StravaActivityLap.h; sourceTree = "<group>"; };
+		108D1B948B6B855FCA8785E9 /* StravaCommon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaCommon.m; path = Classes/StravaCommon.m; sourceTree = "<group>"; };
+		12074D83AF0F76C1C17D593D /* libPods-CG4 Coursework-AFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework-AFNetworking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		12435D909AC04A65E4489480 /* StravaStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaStream.h; path = Classes/StravaStream.h; sourceTree = "<group>"; };
+		12E60CACCE643CB223C6945B /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIKit+AFNetworking.h"; path = "UIKit+AFNetworking/UIKit+AFNetworking.h"; sourceTree = "<group>"; };
+		155BAF1F81673EB65DAFB0A1 /* Pods-CG4 Coursework-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CG4 Coursework-environment.h"; sourceTree = "<group>"; };
+		186DFAA12CCE24B257018534 /* StravaActivityZone.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaActivityZone.h; path = Classes/StravaActivityZone.h; sourceTree = "<group>"; };
+		188A3EF2DE5C8D78D3AADD20 /* FRDStravaClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FRDStravaClient.h; path = Classes/FRDStravaClient.h; sourceTree = "<group>"; };
+		1C603E36BBD6D6A8F3D0E273 /* StravaActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaActivity.h; path = Classes/StravaActivity.h; sourceTree = "<group>"; };
+		1D1886C2D2A4487A6E220531 /* StravaActivityUploadStatus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaActivityUploadStatus.h; path = Classes/StravaActivityUploadStatus.h; sourceTree = "<group>"; };
+		1DA7672FF0C766818D3149B1 /* FRDStravaClient+Upload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Upload.m"; path = "Classes/FRDStravaClient+Upload.m"; sourceTree = "<group>"; };
+		1E67B4916AB4339BE1FD0CFE /* FRDStravaClient+Club.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Club.m"; path = "Classes/FRDStravaClient+Club.m"; sourceTree = "<group>"; };
+		20157470B0859C521D75F0C8 /* Pods-CG4 Coursework-FRDStravaClient-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework-FRDStravaClient-Private.xcconfig"; sourceTree = "<group>"; };
+		2091BB70E882674D6DA7588B /* FRDStravaClient+ActivityStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+ActivityStream.h"; path = "Classes/FRDStravaClient+ActivityStream.h"; sourceTree = "<group>"; };
+		218DA2749B0C557A4BBE2007 /* StravaMap.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaMap.m; path = Classes/StravaMap.m; sourceTree = "<group>"; };
+		250B68D0471D5DA973E31C71 /* MTLValueTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLValueTransformer.m; path = Mantle/MTLValueTransformer.m; sourceTree = "<group>"; };
+		2B21408B52BFE0C553AF635A /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		2BAA60D06945A53590E53BCD /* Pods-CG4 Coursework-FRDStravaClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework-FRDStravaClient.xcconfig"; sourceTree = "<group>"; };
+		2BE3FA2646B8FE01366C43D4 /* NSDictionary+MTLManipulationAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MTLManipulationAdditions.m"; path = "Mantle/NSDictionary+MTLManipulationAdditions.m"; sourceTree = "<group>"; };
+		37D9A17284ED07266B020061 /* MTLReflection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLReflection.m; path = Mantle/MTLReflection.m; sourceTree = "<group>"; };
+		385D563102C36BEC9F6866BB /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTRuntimeExtensions.h; path = Mantle/extobjc/EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		39CAAE3D30D720C4F23B051B /* MTLJSONAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLJSONAdapter.m; path = Mantle/MTLJSONAdapter.m; sourceTree = "<group>"; };
+		3C023C7BDCEA460D02343A8A /* Pods-CG4 Coursework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework.debug.xcconfig"; sourceTree = "<group>"; };
+		3C788827326B9157890F9D24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		3F1DC564B0924C05856C27DF /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
+		3FC9570CC03F317A9D910B49 /* FRDStravaClient+Upload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Upload.h"; path = "Classes/FRDStravaClient+Upload.h"; sourceTree = "<group>"; };
+		4137D853B6EDE98032404888 /* NSObject+MTLComparisonAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+MTLComparisonAdditions.h"; path = "Mantle/NSObject+MTLComparisonAdditions.h"; sourceTree = "<group>"; };
+		4162B883E5E7A340D82FB914 /* MTLReflection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLReflection.h; path = Mantle/MTLReflection.h; sourceTree = "<group>"; };
+		41B4A42C0CF9D3FFD745996C /* FRDStravaClient+Access.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Access.h"; path = "Classes/FRDStravaClient+Access.h"; sourceTree = "<group>"; };
+		41D7CBEC30B4D895DBA1D3B2 /* FRDStravaClient+Access.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Access.m"; path = "Classes/FRDStravaClient+Access.m"; sourceTree = "<group>"; };
+		47528ACEE80CE734D12035D0 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
+		494645A959EA53038807CC49 /* NSArray+MTLManipulationAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MTLManipulationAdditions.m"; path = "Mantle/NSArray+MTLManipulationAdditions.m"; sourceTree = "<group>"; };
+		4C06CFE31AEA220741F4C642 /* FRDStravaClient+Athlete.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Athlete.h"; path = "Classes/FRDStravaClient+Athlete.h"; sourceTree = "<group>"; };
+		4CAF79164BAA47B24E610D8E /* MTLModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLModel.h; path = Mantle/MTLModel.h; sourceTree = "<group>"; };
+		515FF7B48A2DB296D6BDABD9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		51F279E4A8DE886AC3E90C6D /* EXTScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = Mantle/extobjc/EXTScope.m; sourceTree = "<group>"; };
+		5399AF47BB182CCFAE6F3654 /* MTLManagedObjectAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLManagedObjectAdapter.m; path = Mantle/MTLManagedObjectAdapter.m; sourceTree = "<group>"; };
+		547801A34A68F65B5BDC3F78 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		550DD0FD3B078990E0D7617A /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+AFNetworking.m"; path = "UIKit+AFNetworking/UIButton+AFNetworking.m"; sourceTree = "<group>"; };
+		554EB068A1600F2DA5560B61 /* libPods-CG4 Coursework-Mantle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework-Mantle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55614656A956A5A6F522A883 /* AFURLSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLSessionManager.m; path = AFNetworking/AFURLSessionManager.m; sourceTree = "<group>"; };
+		5786AC0A7E7C36A24BCDB258 /* FRDStravaClient+Gear.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Gear.m"; path = "Classes/FRDStravaClient+Gear.m"; sourceTree = "<group>"; };
+		58861FD96C35C6FC8404F234 /* MTLModel+NSCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MTLModel+NSCoding.m"; path = "Mantle/MTLModel+NSCoding.m"; sourceTree = "<group>"; };
+		592E795F824C9E5FB4281040 /* Pods-CG4 Coursework-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CG4 Coursework-dummy.m"; sourceTree = "<group>"; };
+		598AB250405C08BB93A4E37A /* FRDStravaClient+ActivityStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+ActivityStream.m"; path = "Classes/FRDStravaClient+ActivityStream.m"; sourceTree = "<group>"; };
+		5A464F58403DED4D1AF0D41E /* Pods-CG4 Coursework-AFNetworking.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework-AFNetworking.xcconfig"; sourceTree = "<group>"; };
+		5E883F2AC9F83322F075402F /* Mantle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Mantle.h; path = Mantle/Mantle.h; sourceTree = "<group>"; };
+		5EE604A89A53861A43B4332C /* metamacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = Mantle/extobjc/metamacros.h; sourceTree = "<group>"; };
+		60CD86D1923CD64889A02834 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIProgressView+AFNetworking.m"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
+		632A17191CE4FD53FD5476B0 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		63AF191D2726B3C0E2B82A03 /* FRDStravaClient+Segment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Segment.m"; path = "Classes/FRDStravaClient+Segment.m"; sourceTree = "<group>"; };
+		65787B9873FC4B8F80484225 /* FRDStravaClient+Activity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Activity.h"; path = "Classes/FRDStravaClient+Activity.h"; sourceTree = "<group>"; };
+		65A3BCADF6BF0583399D3AF4 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		679DE800DD01950B4D1EA2AB /* Pods-CG4 Coursework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework.release.xcconfig"; sourceTree = "<group>"; };
+		67DD0AB6DAEF4104934B0205 /* StravaSegmentEffort.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaSegmentEffort.h; path = Classes/StravaSegmentEffort.h; sourceTree = "<group>"; };
+		68CB2F5D106BFDD86E288E71 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperationManager.h; path = AFNetworking/AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
+		6D64E463414DB691A8ABD200 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
+		6DA4C90632BA2886CE88F038 /* Pods-CG4 Coursework-Mantle-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework-Mantle-Private.xcconfig"; sourceTree = "<group>"; };
+		7046C287F74E8833FB72F819 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTRuntimeExtensions.m; path = Mantle/extobjc/EXTRuntimeExtensions.m; sourceTree = "<group>"; };
+		708547052DDA04657A449636 /* StravaAthlete.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaAthlete.m; path = Classes/StravaAthlete.m; sourceTree = "<group>"; };
+		70B7EAFDC7E764C084A2E9A8 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIProgressView+AFNetworking.h"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
+		70D97FFA1785EC5265E6196A /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AFNetworking.h"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
+		72A06C804440CE0671EB2D88 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		73B3A42DC239512A72E80964 /* StravaStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaStream.m; path = Classes/StravaStream.m; sourceTree = "<group>"; };
+		764F8D9930050F51C2688A36 /* Pods-CG4 Coursework-AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CG4 Coursework-AFNetworking-dummy.m"; sourceTree = "<group>"; };
+		779879F09F043D9DC61C8E48 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = AFNetworking/AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		7B5AEFE6F7AA2984A72EE10D /* StravaActivityPhoto.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaActivityPhoto.h; path = Classes/StravaActivityPhoto.h; sourceTree = "<group>"; };
+		7E050B9C035D58F9077C3015 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValueTransformer+MTLPredefinedTransformerAdditions.m"; path = "Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
+		80FF32437C97A87BAA5542B6 /* StravaAccessTokenResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaAccessTokenResponse.h; path = Classes/StravaAccessTokenResponse.h; sourceTree = "<group>"; };
+		8223CF6F47FDEBDE4A1736EE /* StravaCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaCommon.h; path = Classes/StravaCommon.h; sourceTree = "<group>"; };
+		8317A17FE298EB069590BE1B /* StravaAthlete.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaAthlete.h; path = Classes/StravaAthlete.h; sourceTree = "<group>"; };
+		8328C7D5FED36A3E29105F13 /* FRDStravaClient+Athlete.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Athlete.m"; path = "Classes/FRDStravaClient+Athlete.m"; sourceTree = "<group>"; };
+		84180366CF36D8753AC00B6F /* NSObject+MTLComparisonAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+MTLComparisonAdditions.m"; path = "Mantle/NSObject+MTLComparisonAdditions.m"; sourceTree = "<group>"; };
+		89825B9FCBE7EACEDAE786A6 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
+		89D6A19B60DE87BF5DCFAFC4 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLConnectionOperation.h; path = AFNetworking/AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		8B504A6927B7582CD0079F20 /* StravaActivityComment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaActivityComment.m; path = Classes/StravaActivityComment.m; sourceTree = "<group>"; };
+		8B55832604E5F20021B2E494 /* MTLValueTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLValueTransformer.h; path = Mantle/MTLValueTransformer.h; sourceTree = "<group>"; };
+		8B6FF1C580193768E90AF278 /* EXTScope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = Mantle/extobjc/EXTScope.h; sourceTree = "<group>"; };
+		8D7090AAA41732D119262080 /* StravaActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaActivity.m; path = Classes/StravaActivity.m; sourceTree = "<group>"; };
+		8E12504BE674B597221BA00C /* Pods-CG4 Coursework-AFNetworking-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework-AFNetworking-Private.xcconfig"; sourceTree = "<group>"; };
+		8F591D0F0FB44F8595AD767E /* FRDStravaClient+Activity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Activity.m"; path = "Classes/FRDStravaClient+Activity.m"; sourceTree = "<group>"; };
+		9092C2DA9FD69C32D47FF628 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		91E180572086A006E3CFA1B3 /* FRDStravaClient+Segment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Segment.h"; path = "Classes/FRDStravaClient+Segment.h"; sourceTree = "<group>"; };
+		921F8B27A9FAAAFA495A3796 /* FRDStravaClient+Lap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Lap.h"; path = "Classes/FRDStravaClient+Lap.h"; sourceTree = "<group>"; };
+		940776CB38603EE71D7521AE /* FRDStravaClient+Club.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Club.h"; path = "Classes/FRDStravaClient+Club.h"; sourceTree = "<group>"; };
+		965BBD748135B2CC4F2ACFE3 /* FRDStravaClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FRDStravaClient.m; path = Classes/FRDStravaClient.m; sourceTree = "<group>"; };
+		9954BD2AC864F464E70BCDBF /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		9B20901C8124979F4B79884B /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLConnectionOperation.m; path = AFNetworking/AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		9CA188ADE40883C8538975E3 /* StravaSegment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaSegment.h; path = Classes/StravaSegment.h; sourceTree = "<group>"; };
+		9F11FD67F8E833CDC99BF9F7 /* Pods-CG4 Coursework-Mantle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CG4 Coursework-Mantle.xcconfig"; sourceTree = "<group>"; };
+		9F6C7612A19D39467CDFB28E /* StravaClub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaClub.m; path = Classes/StravaClub.m; sourceTree = "<group>"; };
+		A321700172105097017AEE66 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		A37853F4983497332AF24C90 /* FRDStravaClient+Lap.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FRDStravaClient+Lap.m"; path = "Classes/FRDStravaClient+Lap.m"; sourceTree = "<group>"; };
+		A5BCE7A45A8BDCF926CD3BBF /* StravaActivityLap.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaActivityLap.m; path = Classes/StravaActivityLap.m; sourceTree = "<group>"; };
+		A63873B2AC4CFCE845D649EE /* Pods-CG4 Coursework-Mantle-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CG4 Coursework-Mantle-prefix.pch"; sourceTree = "<group>"; };
+		A773C342BE78623158D59CFC /* NSValueTransformer+MTLInversionAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSValueTransformer+MTLInversionAdditions.h"; path = "Mantle/NSValueTransformer+MTLInversionAdditions.h"; sourceTree = "<group>"; };
+		AC7900D80602AEDE646D8402 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B1A90CB20BA4ACEFFE676817 /* StravaSegmentEffort.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaSegmentEffort.m; path = Classes/StravaSegmentEffort.m; sourceTree = "<group>"; };
+		B1BDEDBA10ABFD6B85829529 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSValueTransformer+MTLPredefinedTransformerAdditions.h"; path = "Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
+		B42111852D959F404A546E1F /* Pods-CG4 Coursework-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CG4 Coursework-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BAE126BD30F6FFE1AD936270 /* MTLJSONAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLJSONAdapter.h; path = Mantle/MTLJSONAdapter.h; sourceTree = "<group>"; };
+		BC0F46BA34572208935CE74E /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		BC4E1A251368FCE40FEDEADA /* FRDStravaClient+Gear.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FRDStravaClient+Gear.h"; path = "Classes/FRDStravaClient+Gear.h"; sourceTree = "<group>"; };
+		BE43C7807B37A291B4446BE4 /* FRDStravaClientImports.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FRDStravaClientImports.h; path = Classes/FRDStravaClientImports.h; sourceTree = "<group>"; };
+		BF65685A3F680A6AB94B755C /* Pods-CG4 Coursework-FRDStravaClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CG4 Coursework-FRDStravaClient-dummy.m"; sourceTree = "<group>"; };
+		C227CE36B2486CCB4A7FA9AA /* StravaActivityZone.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaActivityZone.m; path = Classes/StravaActivityZone.m; sourceTree = "<group>"; };
+		C2740F6E4B4C3049EE0CC81F /* libPods-CG4 Coursework-FRDStravaClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework-FRDStravaClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C29A24C5226A69399FA982C6 /* Pods-CG4 Coursework-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CG4 Coursework-resources.sh"; sourceTree = "<group>"; };
+		C2B1F6C5B0B75EE21EF02388 /* UIAlertView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+AFNetworking.m"; path = "UIKit+AFNetworking/UIAlertView+AFNetworking.m"; sourceTree = "<group>"; };
+		C8CCEFDE0DD963CB60531D6B /* AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = AFNetworking/AFNetworking.h; sourceTree = "<group>"; };
+		C912CC3588A97F48EAFB3D6B /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
+		C9E09E7567E35AC7ED45C84F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		CB30F229FC0065CC5A15BCC0 /* libPods-CG4 Coursework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDB2562F5502ED9F482FA14F /* StravaClub.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaClub.h; path = Classes/StravaClub.h; sourceTree = "<group>"; };
+		CFC8359B7607358D8C952BB2 /* UIAlertView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+AFNetworking.h"; path = "UIKit+AFNetworking/UIAlertView+AFNetworking.h"; sourceTree = "<group>"; };
+		D6F32E2C4EECF70C369A8140 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperation.m; path = AFNetworking/AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		D8BF1042C3DE715F89E77107 /* MTLModel+NSCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MTLModel+NSCoding.h"; path = "Mantle/MTLModel+NSCoding.h"; sourceTree = "<group>"; };
+		DA9A66131CAB26E68AB3A215 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
+		DDCE3AD28B1AC219FEC3ED0E /* AFURLSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFURLSessionManager.h; sourceTree = "<group>"; };
+		DE7D37FC477C1C194AF7521C /* NSValueTransformer+MTLInversionAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValueTransformer+MTLInversionAdditions.m"; path = "Mantle/NSValueTransformer+MTLInversionAdditions.m"; sourceTree = "<group>"; };
+		E11190977C1FB5EFB3B4492E /* Pods-CG4 Coursework-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CG4 Coursework-acknowledgements.plist"; sourceTree = "<group>"; };
+		E2BDA6F1EB80DF1243BEA01F /* NSError+MTLModelException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSError+MTLModelException.h"; path = "Mantle/NSError+MTLModelException.h"; sourceTree = "<group>"; };
+		E49D5B5F87E2065D99FBBD7A /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperationManager.m; path = AFNetworking/AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		E61A06D75BB87DE9237187CD /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = AFNetworking/AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		E8B62E2FFCD8E58D6207AA41 /* StravaActivityComment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StravaActivityComment.h; path = Classes/StravaActivityComment.h; sourceTree = "<group>"; };
+		EB98D1A0B282D7E6E2585088 /* StravaSegment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaSegment.m; path = Classes/StravaSegment.m; sourceTree = "<group>"; };
+		EE3C28700650763DD1C46D4C /* StravaActivityUploadStatus.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaActivityUploadStatus.m; path = Classes/StravaActivityUploadStatus.m; sourceTree = "<group>"; };
+		EF1CDAAA29AAC54777D5F33F /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTKeyPathCoding.h; path = Mantle/extobjc/EXTKeyPathCoding.h; sourceTree = "<group>"; };
+		EF92972ACE2544B7A98AB5A3 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		EFF440124D50A84A4B2AE3FC /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
+		F0C4C086EC54A8FD51160E96 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		F2DABCCDE52AFC3D997B6949 /* NSArray+MTLManipulationAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MTLManipulationAdditions.h"; path = "Mantle/NSArray+MTLManipulationAdditions.h"; sourceTree = "<group>"; };
+		F30A6ED7599D9F24CC9CEFBC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		F410293A0EACA3604DF1FCA8 /* StravaAccessTokenResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaAccessTokenResponse.m; path = Classes/StravaAccessTokenResponse.m; sourceTree = "<group>"; };
+		F5E4C4B2D53E84A394408C60 /* MTLManagedObjectAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTLManagedObjectAdapter.h; path = Mantle/MTLManagedObjectAdapter.h; sourceTree = "<group>"; };
+		F605234543188025FC52BEE1 /* StravaGear.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaGear.m; path = Classes/StravaGear.m; sourceTree = "<group>"; };
+		FABE68F1246698CE085CACC7 /* StravaActivityPhoto.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StravaActivityPhoto.m; path = Classes/StravaActivityPhoto.m; sourceTree = "<group>"; };
+		FAC351A923F9397CF70A43B9 /* Pods-CG4 Coursework-AFNetworking-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CG4 Coursework-AFNetworking-prefix.pch"; sourceTree = "<group>"; };
+		FB80B887F75BDFC9F91A4583 /* NSError+MTLModelException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSError+MTLModelException.m"; path = "Mantle/NSError+MTLModelException.m"; sourceTree = "<group>"; };
+		FCA3EF62CDB2D564908C5111 /* MTLModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTLModel.m; path = Mantle/MTLModel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0272810F9271EE4F2EFB47CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CC766000EED5297DBA3D370 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24F773D401CA2D16DB33E24F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056A9F78BB814F5B9448BAED /* CoreGraphics.framework in Frameworks */,
+				520CD46372D5E0DFA57DF9B7 /* Foundation.framework in Frameworks */,
+				DF69DEA7202F0CED1984B0D2 /* MobileCoreServices.framework in Frameworks */,
+				434D39577D2E71AEAD788E46 /* Security.framework in Frameworks */,
+				FA2C9BE160466A014B208FFB /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FE335D370F6078960E6401E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF5EB67FA1985C9B9B3E5B68 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2A5B23C6A4C825B1206D954 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5307C132745A5C2B78A5F7E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E682DBDF08DED22F6A9DB05 /* Mantle */ = {
+			isa = PBXGroup;
+			children = (
+				BAE126BD30F6FFE1AD936270 /* MTLJSONAdapter.h */,
+				39CAAE3D30D720C4F23B051B /* MTLJSONAdapter.m */,
+				F5E4C4B2D53E84A394408C60 /* MTLManagedObjectAdapter.h */,
+				5399AF47BB182CCFAE6F3654 /* MTLManagedObjectAdapter.m */,
+				4CAF79164BAA47B24E610D8E /* MTLModel.h */,
+				FCA3EF62CDB2D564908C5111 /* MTLModel.m */,
+				D8BF1042C3DE715F89E77107 /* MTLModel+NSCoding.h */,
+				58861FD96C35C6FC8404F234 /* MTLModel+NSCoding.m */,
+				4162B883E5E7A340D82FB914 /* MTLReflection.h */,
+				37D9A17284ED07266B020061 /* MTLReflection.m */,
+				8B55832604E5F20021B2E494 /* MTLValueTransformer.h */,
+				250B68D0471D5DA973E31C71 /* MTLValueTransformer.m */,
+				5E883F2AC9F83322F075402F /* Mantle.h */,
+				F2DABCCDE52AFC3D997B6949 /* NSArray+MTLManipulationAdditions.h */,
+				494645A959EA53038807CC49 /* NSArray+MTLManipulationAdditions.m */,
+				0E35C52F73AEBB7D125D61EE /* NSDictionary+MTLManipulationAdditions.h */,
+				2BE3FA2646B8FE01366C43D4 /* NSDictionary+MTLManipulationAdditions.m */,
+				E2BDA6F1EB80DF1243BEA01F /* NSError+MTLModelException.h */,
+				FB80B887F75BDFC9F91A4583 /* NSError+MTLModelException.m */,
+				4137D853B6EDE98032404888 /* NSObject+MTLComparisonAdditions.h */,
+				84180366CF36D8753AC00B6F /* NSObject+MTLComparisonAdditions.m */,
+				A773C342BE78623158D59CFC /* NSValueTransformer+MTLInversionAdditions.h */,
+				DE7D37FC477C1C194AF7521C /* NSValueTransformer+MTLInversionAdditions.m */,
+				B1BDEDBA10ABFD6B85829529 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h */,
+				7E050B9C035D58F9077C3015 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */,
+				F3866B5FFAAC21D336C3265E /* Support Files */,
+				DA19E070A8D8BDDF28DCE219 /* extobjc */,
+			);
+			path = Mantle;
+			sourceTree = "<group>";
+		};
+		19FFA1A96C08B718C8B34A3B /* FRDStravaClient */ = {
+			isa = PBXGroup;
+			children = (
+				188A3EF2DE5C8D78D3AADD20 /* FRDStravaClient.h */,
+				965BBD748135B2CC4F2ACFE3 /* FRDStravaClient.m */,
+				41B4A42C0CF9D3FFD745996C /* FRDStravaClient+Access.h */,
+				41D7CBEC30B4D895DBA1D3B2 /* FRDStravaClient+Access.m */,
+				65787B9873FC4B8F80484225 /* FRDStravaClient+Activity.h */,
+				8F591D0F0FB44F8595AD767E /* FRDStravaClient+Activity.m */,
+				2091BB70E882674D6DA7588B /* FRDStravaClient+ActivityStream.h */,
+				598AB250405C08BB93A4E37A /* FRDStravaClient+ActivityStream.m */,
+				4C06CFE31AEA220741F4C642 /* FRDStravaClient+Athlete.h */,
+				8328C7D5FED36A3E29105F13 /* FRDStravaClient+Athlete.m */,
+				940776CB38603EE71D7521AE /* FRDStravaClient+Club.h */,
+				1E67B4916AB4339BE1FD0CFE /* FRDStravaClient+Club.m */,
+				BC4E1A251368FCE40FEDEADA /* FRDStravaClient+Gear.h */,
+				5786AC0A7E7C36A24BCDB258 /* FRDStravaClient+Gear.m */,
+				921F8B27A9FAAAFA495A3796 /* FRDStravaClient+Lap.h */,
+				A37853F4983497332AF24C90 /* FRDStravaClient+Lap.m */,
+				91E180572086A006E3CFA1B3 /* FRDStravaClient+Segment.h */,
+				63AF191D2726B3C0E2B82A03 /* FRDStravaClient+Segment.m */,
+				3FC9570CC03F317A9D910B49 /* FRDStravaClient+Upload.h */,
+				1DA7672FF0C766818D3149B1 /* FRDStravaClient+Upload.m */,
+				BE43C7807B37A291B4446BE4 /* FRDStravaClientImports.h */,
+				80FF32437C97A87BAA5542B6 /* StravaAccessTokenResponse.h */,
+				F410293A0EACA3604DF1FCA8 /* StravaAccessTokenResponse.m */,
+				1C603E36BBD6D6A8F3D0E273 /* StravaActivity.h */,
+				8D7090AAA41732D119262080 /* StravaActivity.m */,
+				E8B62E2FFCD8E58D6207AA41 /* StravaActivityComment.h */,
+				8B504A6927B7582CD0079F20 /* StravaActivityComment.m */,
+				0F469FC7C6C5979D0B1461FF /* StravaActivityLap.h */,
+				A5BCE7A45A8BDCF926CD3BBF /* StravaActivityLap.m */,
+				7B5AEFE6F7AA2984A72EE10D /* StravaActivityPhoto.h */,
+				FABE68F1246698CE085CACC7 /* StravaActivityPhoto.m */,
+				1D1886C2D2A4487A6E220531 /* StravaActivityUploadStatus.h */,
+				EE3C28700650763DD1C46D4C /* StravaActivityUploadStatus.m */,
+				186DFAA12CCE24B257018534 /* StravaActivityZone.h */,
+				C227CE36B2486CCB4A7FA9AA /* StravaActivityZone.m */,
+				8317A17FE298EB069590BE1B /* StravaAthlete.h */,
+				708547052DDA04657A449636 /* StravaAthlete.m */,
+				CDB2562F5502ED9F482FA14F /* StravaClub.h */,
+				9F6C7612A19D39467CDFB28E /* StravaClub.m */,
+				8223CF6F47FDEBDE4A1736EE /* StravaCommon.h */,
+				108D1B948B6B855FCA8785E9 /* StravaCommon.m */,
+				07E426A93852D0C84F04F4EF /* StravaGear.h */,
+				F605234543188025FC52BEE1 /* StravaGear.m */,
+				0E9DA2A556A43B71382ECEA1 /* StravaMap.h */,
+				218DA2749B0C557A4BBE2007 /* StravaMap.m */,
+				9CA188ADE40883C8538975E3 /* StravaSegment.h */,
+				EB98D1A0B282D7E6E2585088 /* StravaSegment.m */,
+				67DD0AB6DAEF4104934B0205 /* StravaSegmentEffort.h */,
+				B1A90CB20BA4ACEFFE676817 /* StravaSegmentEffort.m */,
+				12435D909AC04A65E4489480 /* StravaStream.h */,
+				73B3A42DC239512A72E80964 /* StravaStream.m */,
+				48052A2EFA6A31F77198273E /* Support Files */,
+			);
+			path = FRDStravaClient;
+			sourceTree = "<group>";
+		};
+		1EF66F78EDBEBD262C538BBD /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				C912CC3588A97F48EAFB3D6B /* AFSecurityPolicy.h */,
+				0E66A42E4CA02EE4D76FFB67 /* AFSecurityPolicy.m */,
+			);
+			name = Security;
+			sourceTree = "<group>";
+		};
+		30002ECBAD50465A2A4886D2 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				65A3BCADF6BF0583399D3AF4 /* AFNetworkReachabilityManager.h */,
+				BC0F46BA34572208935CE74E /* AFNetworkReachabilityManager.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
+		3D93E43E7B3AEF4352C04B4F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F30A6ED7599D9F24CC9CEFBC /* CoreGraphics.framework */,
+				515FF7B48A2DB296D6BDABD9 /* Foundation.framework */,
+				72A06C804440CE0671EB2D88 /* MobileCoreServices.framework */,
+				3C788827326B9157890F9D24 /* Security.framework */,
+				C9E09E7567E35AC7ED45C84F /* SystemConfiguration.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		48052A2EFA6A31F77198273E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2BAA60D06945A53590E53BCD /* Pods-CG4 Coursework-FRDStravaClient.xcconfig */,
+				20157470B0859C521D75F0C8 /* Pods-CG4 Coursework-FRDStravaClient-Private.xcconfig */,
+				BF65685A3F680A6AB94B755C /* Pods-CG4 Coursework-FRDStravaClient-dummy.m */,
+				0D909A6352FEE1E2C53470D4 /* Pods-CG4 Coursework-FRDStravaClient-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-CG4 Coursework-FRDStravaClient";
+			sourceTree = "<group>";
+		};
+		501A7F9066AC647D6800C107 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FD49A237FC0661F642EE71E1 /* Pods-CG4 Coursework */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		515864651BE96C2B11A99F4D /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				547801A34A68F65B5BDC3F78 /* AFURLRequestSerialization.h */,
+				E61A06D75BB87DE9237187CD /* AFURLRequestSerialization.m */,
+				A321700172105097017AEE66 /* AFURLResponseSerialization.h */,
+				F0C4C086EC54A8FD51160E96 /* AFURLResponseSerialization.m */,
+			);
+			name = Serialization;
+			sourceTree = "<group>";
+		};
+		63A4D90CE8A457FD8FE7D1FF /* NSURLSession */ = {
+			isa = PBXGroup;
+			children = (
+				632A17191CE4FD53FD5476B0 /* AFHTTPSessionManager.h */,
+				9092C2DA9FD69C32D47FF628 /* AFHTTPSessionManager.m */,
+				DDCE3AD28B1AC219FEC3ED0E /* AFURLSessionManager.h */,
+				55614656A956A5A6F522A883 /* AFURLSessionManager.m */,
+			);
+			name = NSURLSession;
+			sourceTree = "<group>";
+		};
+		63B60EBF0B9738D32DE53671 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D93E43E7B3AEF4352C04B4F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6707AE354D4979095692B7E7 = {
+			isa = PBXGroup;
+			children = (
+				AC7900D80602AEDE646D8402 /* Podfile */,
+				63B60EBF0B9738D32DE53671 /* Frameworks */,
+				9B8419F62B440F4124E49FE0 /* Pods */,
+				EE1041817464C14565BB9A7B /* Products */,
+				501A7F9066AC647D6800C107 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		6C410326EC77A9BBC4582893 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				C8CCEFDE0DD963CB60531D6B /* AFNetworking.h */,
+				FA885011F4CD57DF9ECA0520 /* NSURLConnection */,
+				63A4D90CE8A457FD8FE7D1FF /* NSURLSession */,
+				30002ECBAD50465A2A4886D2 /* Reachability */,
+				1EF66F78EDBEBD262C538BBD /* Security */,
+				515864651BE96C2B11A99F4D /* Serialization */,
+				7BA7A94C2666F3E8C279287D /* Support Files */,
+				D43BFFAF66E56B23DC8D62BE /* UIKit */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		7BA7A94C2666F3E8C279287D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A464F58403DED4D1AF0D41E /* Pods-CG4 Coursework-AFNetworking.xcconfig */,
+				8E12504BE674B597221BA00C /* Pods-CG4 Coursework-AFNetworking-Private.xcconfig */,
+				764F8D9930050F51C2688A36 /* Pods-CG4 Coursework-AFNetworking-dummy.m */,
+				FAC351A923F9397CF70A43B9 /* Pods-CG4 Coursework-AFNetworking-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-CG4 Coursework-AFNetworking";
+			sourceTree = "<group>";
+		};
+		9B8419F62B440F4124E49FE0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C410326EC77A9BBC4582893 /* AFNetworking */,
+				19FFA1A96C08B718C8B34A3B /* FRDStravaClient */,
+				0E682DBDF08DED22F6A9DB05 /* Mantle */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D43BFFAF66E56B23DC8D62BE /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				89825B9FCBE7EACEDAE786A6 /* AFNetworkActivityIndicatorManager.h */,
+				EFF440124D50A84A4B2AE3FC /* AFNetworkActivityIndicatorManager.m */,
+				3F1DC564B0924C05856C27DF /* UIActivityIndicatorView+AFNetworking.h */,
+				DA9A66131CAB26E68AB3A215 /* UIActivityIndicatorView+AFNetworking.m */,
+				CFC8359B7607358D8C952BB2 /* UIAlertView+AFNetworking.h */,
+				C2B1F6C5B0B75EE21EF02388 /* UIAlertView+AFNetworking.m */,
+				6D64E463414DB691A8ABD200 /* UIButton+AFNetworking.h */,
+				550DD0FD3B078990E0D7617A /* UIButton+AFNetworking.m */,
+				2B21408B52BFE0C553AF635A /* UIImageView+AFNetworking.h */,
+				EF92972ACE2544B7A98AB5A3 /* UIImageView+AFNetworking.m */,
+				12E60CACCE643CB223C6945B /* UIKit+AFNetworking.h */,
+				70B7EAFDC7E764C084A2E9A8 /* UIProgressView+AFNetworking.h */,
+				60CD86D1923CD64889A02834 /* UIProgressView+AFNetworking.m */,
+				47528ACEE80CE734D12035D0 /* UIRefreshControl+AFNetworking.h */,
+				00EF4971F08B991A45D92F4D /* UIRefreshControl+AFNetworking.m */,
+				70D97FFA1785EC5265E6196A /* UIWebView+AFNetworking.h */,
+				9954BD2AC864F464E70BCDBF /* UIWebView+AFNetworking.m */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
+		DA19E070A8D8BDDF28DCE219 /* extobjc */ = {
+			isa = PBXGroup;
+			children = (
+				EF1CDAAA29AAC54777D5F33F /* EXTKeyPathCoding.h */,
+				385D563102C36BEC9F6866BB /* EXTRuntimeExtensions.h */,
+				7046C287F74E8833FB72F819 /* EXTRuntimeExtensions.m */,
+				8B6FF1C580193768E90AF278 /* EXTScope.h */,
+				51F279E4A8DE886AC3E90C6D /* EXTScope.m */,
+				5EE604A89A53861A43B4332C /* metamacros.h */,
+			);
+			name = extobjc;
+			sourceTree = "<group>";
+		};
+		EE1041817464C14565BB9A7B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB30F229FC0065CC5A15BCC0 /* libPods-CG4 Coursework.a */,
+				12074D83AF0F76C1C17D593D /* libPods-CG4 Coursework-AFNetworking.a */,
+				C2740F6E4B4C3049EE0CC81F /* libPods-CG4 Coursework-FRDStravaClient.a */,
+				554EB068A1600F2DA5560B61 /* libPods-CG4 Coursework-Mantle.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3866B5FFAAC21D336C3265E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9F11FD67F8E833CDC99BF9F7 /* Pods-CG4 Coursework-Mantle.xcconfig */,
+				6DA4C90632BA2886CE88F038 /* Pods-CG4 Coursework-Mantle-Private.xcconfig */,
+				009ABB7FB193D63A538DE6A1 /* Pods-CG4 Coursework-Mantle-dummy.m */,
+				A63873B2AC4CFCE845D649EE /* Pods-CG4 Coursework-Mantle-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-CG4 Coursework-Mantle";
+			sourceTree = "<group>";
+		};
+		FA885011F4CD57DF9ECA0520 /* NSURLConnection */ = {
+			isa = PBXGroup;
+			children = (
+				779879F09F043D9DC61C8E48 /* AFHTTPRequestOperation.h */,
+				D6F32E2C4EECF70C369A8140 /* AFHTTPRequestOperation.m */,
+				68CB2F5D106BFDD86E288E71 /* AFHTTPRequestOperationManager.h */,
+				E49D5B5F87E2065D99FBBD7A /* AFHTTPRequestOperationManager.m */,
+				89D6A19B60DE87BF5DCFAFC4 /* AFURLConnectionOperation.h */,
+				9B20901C8124979F4B79884B /* AFURLConnectionOperation.m */,
+			);
+			name = NSURLConnection;
+			sourceTree = "<group>";
+		};
+		FD49A237FC0661F642EE71E1 /* Pods-CG4 Coursework */ = {
+			isa = PBXGroup;
+			children = (
+				B42111852D959F404A546E1F /* Pods-CG4 Coursework-acknowledgements.markdown */,
+				E11190977C1FB5EFB3B4492E /* Pods-CG4 Coursework-acknowledgements.plist */,
+				592E795F824C9E5FB4281040 /* Pods-CG4 Coursework-dummy.m */,
+				155BAF1F81673EB65DAFB0A1 /* Pods-CG4 Coursework-environment.h */,
+				C29A24C5226A69399FA982C6 /* Pods-CG4 Coursework-resources.sh */,
+				3C023C7BDCEA460D02343A8A /* Pods-CG4 Coursework.debug.xcconfig */,
+				679DE800DD01950B4D1EA2AB /* Pods-CG4 Coursework.release.xcconfig */,
+			);
+			name = "Pods-CG4 Coursework";
+			path = "Target Support Files/Pods-CG4 Coursework";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1B918FFA492B2A9C2D6EB09A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00D358EDB1A1DB631C7D4A7 /* FRDStravaClient+Access.h in Headers */,
+				44AB10797A9FC2B24A5912E6 /* FRDStravaClient+Activity.h in Headers */,
+				F734BEEFAD43E172808B3341 /* FRDStravaClient+ActivityStream.h in Headers */,
+				00CB3EACEDDC521E4B5A235F /* FRDStravaClient+Athlete.h in Headers */,
+				7547EF38A8A02BDAD4EED120 /* FRDStravaClient+Club.h in Headers */,
+				CAC2C0EC3CE697A4072BA91D /* FRDStravaClient+Gear.h in Headers */,
+				615026FA505406A5C611AA48 /* FRDStravaClient+Lap.h in Headers */,
+				0DFDD328325F1D22FC15D686 /* FRDStravaClient+Segment.h in Headers */,
+				B759358077E56E3563876A9B /* FRDStravaClient+Upload.h in Headers */,
+				736FDE321420994C9706B17F /* FRDStravaClient.h in Headers */,
+				8BF706A1126B969683F7E61D /* FRDStravaClientImports.h in Headers */,
+				E9FBCB298A5E08660564C629 /* StravaAccessTokenResponse.h in Headers */,
+				3918DCB1E9B2195EBD2EF8BA /* StravaActivity.h in Headers */,
+				39307A64D3D0844ED5F14CC7 /* StravaActivityComment.h in Headers */,
+				29CBBEACBBDD117BCB456A59 /* StravaActivityLap.h in Headers */,
+				A351D116D358C574654E1A60 /* StravaActivityPhoto.h in Headers */,
+				E328CFB36F573E4FCAA72612 /* StravaActivityUploadStatus.h in Headers */,
+				D7E38717A0A1D37A0EE1F106 /* StravaActivityZone.h in Headers */,
+				9706A2DC5104F7B0A2698227 /* StravaAthlete.h in Headers */,
+				772A1D5EFBE113B740E46346 /* StravaClub.h in Headers */,
+				87D5F59D6E6E6296CCCD6693 /* StravaCommon.h in Headers */,
+				EED1A570FC445D1451DB4060 /* StravaGear.h in Headers */,
+				0E8D64903962669D2DF430A9 /* StravaMap.h in Headers */,
+				A02FA8F970E9ED5368AB9228 /* StravaSegment.h in Headers */,
+				5C7E62992E67C2C6DCA73980 /* StravaSegmentEffort.h in Headers */,
+				2BE032093C9F2E1F8D3FD266 /* StravaStream.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		733986CCF29D8EA3EC5690A5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D67B12572DA390E22D20392D /* EXTKeyPathCoding.h in Headers */,
+				880434C3F4BE51905FB64E59 /* EXTRuntimeExtensions.h in Headers */,
+				C4D674AF4B02104DD5A591D6 /* EXTScope.h in Headers */,
+				FBAC81C074A6E0B5EACC285A /* MTLJSONAdapter.h in Headers */,
+				57D14AC12DF106F5F721719A /* MTLManagedObjectAdapter.h in Headers */,
+				B46FB9B69CB23030292CCF8D /* MTLModel+NSCoding.h in Headers */,
+				1368CA48EE694580AE4113B9 /* MTLModel.h in Headers */,
+				5F49FD089F6BB466401F5E73 /* MTLReflection.h in Headers */,
+				E4F731A96D0FBF379D399DE9 /* MTLValueTransformer.h in Headers */,
+				87B1DF8515F211867E7B95D9 /* Mantle.h in Headers */,
+				9373C94EBC7B75E61DEF2527 /* NSArray+MTLManipulationAdditions.h in Headers */,
+				D6B6F63AE45ED1D33B291074 /* NSDictionary+MTLManipulationAdditions.h in Headers */,
+				7E4CA82F955ECC6B429E0DBA /* NSError+MTLModelException.h in Headers */,
+				CAAF373A9741DB87459FF613 /* NSObject+MTLComparisonAdditions.h in Headers */,
+				679CD0B6BC6FE246D2B247FC /* NSValueTransformer+MTLInversionAdditions.h in Headers */,
+				06CE7D01725DAA1F07B840FC /* NSValueTransformer+MTLPredefinedTransformerAdditions.h in Headers */,
+				86732D5C4CDB86D55E8F3A10 /* metamacros.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3A8A55F9143B560422C82CC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				550802A0A6FA879451BE16B6 /* AFHTTPRequestOperation.h in Headers */,
+				E1A02EAD45BCF56B1D5F8EA8 /* AFHTTPRequestOperationManager.h in Headers */,
+				17DED3994CCA08EADE26CF7D /* AFHTTPSessionManager.h in Headers */,
+				AF10B7BE38F61DAF5D0FA71F /* AFNetworkActivityIndicatorManager.h in Headers */,
+				B567473F23D831465EC28671 /* AFNetworkReachabilityManager.h in Headers */,
+				64A9D5F4EA18EEC865B61AAE /* AFNetworking.h in Headers */,
+				553F8AA45EC4916E54D01144 /* AFSecurityPolicy.h in Headers */,
+				651661D5A61AF366D28084CF /* AFURLConnectionOperation.h in Headers */,
+				D118142C4D9627A948E4233E /* AFURLRequestSerialization.h in Headers */,
+				5EE0C3928F431E82CFF45CA0 /* AFURLResponseSerialization.h in Headers */,
+				3795343D566F8794D5E7BCCB /* AFURLSessionManager.h in Headers */,
+				9B909D505ADB068D7744CF86 /* UIActivityIndicatorView+AFNetworking.h in Headers */,
+				C89CC8526B76391DD40ACDB0 /* UIAlertView+AFNetworking.h in Headers */,
+				DA1962B8AE124EEF0487CAD0 /* UIButton+AFNetworking.h in Headers */,
+				5CB462D8661D75464D862768 /* UIImageView+AFNetworking.h in Headers */,
+				CEA1C50F09D9BE268493A993 /* UIKit+AFNetworking.h in Headers */,
+				098C51DDCA57FCE17A5942BD /* UIProgressView+AFNetworking.h in Headers */,
+				6A204703A5D4D8E91FA6200C /* UIRefreshControl+AFNetworking.h in Headers */,
+				98DFD3170608653750840BA3 /* UIWebView+AFNetworking.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		543931C36CB6D8775803671F /* Pods-CG4 Coursework-AFNetworking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDAD793CAE0F371162F7B220 /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework-AFNetworking" */;
+			buildPhases = (
+				DA59A70042F31C2D781B6392 /* Sources */,
+				24F773D401CA2D16DB33E24F /* Frameworks */,
+				E3A8A55F9143B560422C82CC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-CG4 Coursework-AFNetworking";
+			productName = "Pods-CG4 Coursework-AFNetworking";
+			productReference = 12074D83AF0F76C1C17D593D /* libPods-CG4 Coursework-AFNetworking.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5562F06DA924167504E5E243 /* Pods-CG4 Coursework-Mantle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B06C2527B16E0EFB5EE844B6 /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework-Mantle" */;
+			buildPhases = (
+				6A7C0594308C25BDB418FFD1 /* Sources */,
+				8FE335D370F6078960E6401E /* Frameworks */,
+				733986CCF29D8EA3EC5690A5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-CG4 Coursework-Mantle";
+			productName = "Pods-CG4 Coursework-Mantle";
+			productReference = 554EB068A1600F2DA5560B61 /* libPods-CG4 Coursework-Mantle.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		569DCFB1CC47FF36A4B7B122 /* Pods-CG4 Coursework-FRDStravaClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 209D5760FE8ED273C50815C8 /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework-FRDStravaClient" */;
+			buildPhases = (
+				9F331726084DC4FA6AFF7A8F /* Sources */,
+				C2A5B23C6A4C825B1206D954 /* Frameworks */,
+				1B918FFA492B2A9C2D6EB09A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8A0DAC888EFF54743CC86D0 /* PBXTargetDependency */,
+				D0DA3E206234D51BBAB978AF /* PBXTargetDependency */,
+			);
+			name = "Pods-CG4 Coursework-FRDStravaClient";
+			productName = "Pods-CG4 Coursework-FRDStravaClient";
+			productReference = C2740F6E4B4C3049EE0CC81F /* libPods-CG4 Coursework-FRDStravaClient.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		6CCA6013C21813DD5B01D667 /* Pods-CG4 Coursework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E84350D29DC9D9D4E10D24BC /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework" */;
+			buildPhases = (
+				886929A79A2879C8C36D409D /* Sources */,
+				0272810F9271EE4F2EFB47CD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52A2B3A3093758480D41F306 /* PBXTargetDependency */,
+				B6AC9EBBF3A60BD9E9F634A0 /* PBXTargetDependency */,
+				B4840A158C2F9316728624BA /* PBXTargetDependency */,
+			);
+			name = "Pods-CG4 Coursework";
+			productName = "Pods-CG4 Coursework";
+			productReference = CB30F229FC0065CC5A15BCC0 /* libPods-CG4 Coursework.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10E011ECFDEBB79E17853F68 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = 517CB8BF38BCA6731C0B704E /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6707AE354D4979095692B7E7;
+			productRefGroup = EE1041817464C14565BB9A7B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6CCA6013C21813DD5B01D667 /* Pods-CG4 Coursework */,
+				543931C36CB6D8775803671F /* Pods-CG4 Coursework-AFNetworking */,
+				569DCFB1CC47FF36A4B7B122 /* Pods-CG4 Coursework-FRDStravaClient */,
+				5562F06DA924167504E5E243 /* Pods-CG4 Coursework-Mantle */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6A7C0594308C25BDB418FFD1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D208E9AD5BC487E41B5F3E5E /* EXTRuntimeExtensions.m in Sources */,
+				8CA34A713033C0E80BC8CCCF /* EXTScope.m in Sources */,
+				198A130381B6825DEC5D2498 /* MTLJSONAdapter.m in Sources */,
+				F7F4FB268336EF0E8A02818F /* MTLManagedObjectAdapter.m in Sources */,
+				C655940343941B8272D81A92 /* MTLModel+NSCoding.m in Sources */,
+				E92FFABF65607CE436AF0282 /* MTLModel.m in Sources */,
+				C02B14F1F6FD1C87CDD97A9B /* MTLReflection.m in Sources */,
+				84E9F7292D8238B6D42616A3 /* MTLValueTransformer.m in Sources */,
+				F380EC4609EE1F2C62E6D4B7 /* NSArray+MTLManipulationAdditions.m in Sources */,
+				344C8AA7208BE898F1823103 /* NSDictionary+MTLManipulationAdditions.m in Sources */,
+				3B517A1566D5FF0F40F97EEA /* NSError+MTLModelException.m in Sources */,
+				5399E7088BDD5BA7E74D8805 /* NSObject+MTLComparisonAdditions.m in Sources */,
+				C30E4101E6701E68CDF1866F /* NSValueTransformer+MTLInversionAdditions.m in Sources */,
+				E728382EC33E62E1FBB8DEDC /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */,
+				A58604B972D8204B8AB6401F /* Pods-CG4 Coursework-Mantle-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		886929A79A2879C8C36D409D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E882F823E137FDBB651B322C /* Pods-CG4 Coursework-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F331726084DC4FA6AFF7A8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				214DB7964FFC204FDA30E6F5 /* FRDStravaClient+Access.m in Sources */,
+				9CA0DDA0297DFE720CD7F8AD /* FRDStravaClient+Activity.m in Sources */,
+				5A19CFB6E9FFD44C29E220AF /* FRDStravaClient+ActivityStream.m in Sources */,
+				B5846FC52BBE9FD21C5B10B1 /* FRDStravaClient+Athlete.m in Sources */,
+				132D6758FA48318195E77AAC /* FRDStravaClient+Club.m in Sources */,
+				4CF4DD1D73FEA0F0184A3DE3 /* FRDStravaClient+Gear.m in Sources */,
+				F5049EA720868F753266CA05 /* FRDStravaClient+Lap.m in Sources */,
+				D173FA98FA12896F21541392 /* FRDStravaClient+Segment.m in Sources */,
+				BAC36CF1F56D64A76EB1AA07 /* FRDStravaClient+Upload.m in Sources */,
+				448CD3FA14B2501FC801B330 /* FRDStravaClient.m in Sources */,
+				28DF79436E720E21FE6D601E /* Pods-CG4 Coursework-FRDStravaClient-dummy.m in Sources */,
+				73C70E1D935DE05EAA7DC804 /* StravaAccessTokenResponse.m in Sources */,
+				C87C198F00A6B24DFDED7C8B /* StravaActivity.m in Sources */,
+				9707D37AAA075E634EE4B1DE /* StravaActivityComment.m in Sources */,
+				1E91B7DC2EAAB325458E50EF /* StravaActivityLap.m in Sources */,
+				60466C7E6FE50FBFE6266D85 /* StravaActivityPhoto.m in Sources */,
+				D25EF99A5B998E637FFDDF11 /* StravaActivityUploadStatus.m in Sources */,
+				30F80500AA0A4AB561D09A31 /* StravaActivityZone.m in Sources */,
+				1B8131D2F34FB702F09FC18E /* StravaAthlete.m in Sources */,
+				AFB07B1D79A99B676F33B04E /* StravaClub.m in Sources */,
+				999065EDC364F16014EF70F1 /* StravaCommon.m in Sources */,
+				B69DB33D907BAD866F84E32B /* StravaGear.m in Sources */,
+				7C0378B45E0FB5FC5C524717 /* StravaMap.m in Sources */,
+				BCE1643826A6CB10808BA154 /* StravaSegment.m in Sources */,
+				969B3EFC93C9324230892F0D /* StravaSegmentEffort.m in Sources */,
+				06391EF0B11C2D6525D2D119 /* StravaStream.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA59A70042F31C2D781B6392 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8B33687F5FA886B983D934B /* AFHTTPRequestOperation.m in Sources */,
+				EBBDE87AD6812C95BA1306B6 /* AFHTTPRequestOperationManager.m in Sources */,
+				0F206359F3B63F35EF780A8C /* AFHTTPSessionManager.m in Sources */,
+				B195826ABA946BB176F5EFFC /* AFNetworkActivityIndicatorManager.m in Sources */,
+				F9BC9E987F6D9077565B4FDF /* AFNetworkReachabilityManager.m in Sources */,
+				87CD097911658730FAB576BF /* AFSecurityPolicy.m in Sources */,
+				1092AE181C7B9B826F03F948 /* AFURLConnectionOperation.m in Sources */,
+				7A893A780AA8216793126F3C /* AFURLRequestSerialization.m in Sources */,
+				B31323AE97617625BB61B55A /* AFURLResponseSerialization.m in Sources */,
+				6BACB9BD7FD9291DEAF95B04 /* AFURLSessionManager.m in Sources */,
+				B56F3ABAF027152A625DA7FE /* Pods-CG4 Coursework-AFNetworking-dummy.m in Sources */,
+				0D5DA96C00ADD2C111CAF728 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				DFB793292F4B869FB29F4CE9 /* UIAlertView+AFNetworking.m in Sources */,
+				8C9855F5C057DB68CC94D16A /* UIButton+AFNetworking.m in Sources */,
+				6A610161801B5F679D569C21 /* UIImageView+AFNetworking.m in Sources */,
+				00D9AAADC67677DF7BF3CA98 /* UIProgressView+AFNetworking.m in Sources */,
+				3018D36E2BA76E0D0C00CA7A /* UIRefreshControl+AFNetworking.m in Sources */,
+				ADDF9C0EA98A4C61EB4BD044 /* UIWebView+AFNetworking.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		52A2B3A3093758480D41F306 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-CG4 Coursework-AFNetworking";
+			target = 543931C36CB6D8775803671F /* Pods-CG4 Coursework-AFNetworking */;
+			targetProxy = 92A0D28670B8039212581C9A /* PBXContainerItemProxy */;
+		};
+		A8A0DAC888EFF54743CC86D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-CG4 Coursework-AFNetworking";
+			target = 543931C36CB6D8775803671F /* Pods-CG4 Coursework-AFNetworking */;
+			targetProxy = 2FE078815A16AFA63B52D4AE /* PBXContainerItemProxy */;
+		};
+		B4840A158C2F9316728624BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-CG4 Coursework-Mantle";
+			target = 5562F06DA924167504E5E243 /* Pods-CG4 Coursework-Mantle */;
+			targetProxy = A2ECCCE045DD43038FC7529B /* PBXContainerItemProxy */;
+		};
+		B6AC9EBBF3A60BD9E9F634A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-CG4 Coursework-FRDStravaClient";
+			target = 569DCFB1CC47FF36A4B7B122 /* Pods-CG4 Coursework-FRDStravaClient */;
+			targetProxy = 19176C659E21D19ACBBFE4E6 /* PBXContainerItemProxy */;
+		};
+		D0DA3E206234D51BBAB978AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-CG4 Coursework-Mantle";
+			target = 5562F06DA924167504E5E243 /* Pods-CG4 Coursework-Mantle */;
+			targetProxy = B041F36AA31A1E2B33B007B4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		04BAD328810B425DC51B618C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 679DE800DD01950B4D1EA2AB /* Pods-CG4 Coursework.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		135DD3D58AFD93286CAA17CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E12504BE674B597221BA00C /* Pods-CG4 Coursework-AFNetworking-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-CG4 Coursework-AFNetworking/Pods-CG4 Coursework-AFNetworking-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1AD913C14895E8F974F36C4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20157470B0859C521D75F0C8 /* Pods-CG4 Coursework-FRDStravaClient-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-CG4 Coursework-FRDStravaClient/Pods-CG4 Coursework-FRDStravaClient-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4214B8C2690DD8D83FB6ADF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		6DFF27373C468AFB634D396F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20157470B0859C521D75F0C8 /* Pods-CG4 Coursework-FRDStravaClient-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-CG4 Coursework-FRDStravaClient/Pods-CG4 Coursework-FRDStravaClient-prefix.pch";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		72F6AC2AB22BE345C2C46C1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DA4C90632BA2886CE88F038 /* Pods-CG4 Coursework-Mantle-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-CG4 Coursework-Mantle/Pods-CG4 Coursework-Mantle-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9CF415F3FD87A5FCAB0BF0AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DA4C90632BA2886CE88F038 /* Pods-CG4 Coursework-Mantle-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-CG4 Coursework-Mantle/Pods-CG4 Coursework-Mantle-prefix.pch";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B901E4F6C21C432701A8DC29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E12504BE674B597221BA00C /* Pods-CG4 Coursework-AFNetworking-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-CG4 Coursework-AFNetworking/Pods-CG4 Coursework-AFNetworking-prefix.pch";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3A8E5149CFB6A4C35117DB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C023C7BDCEA460D02343A8A /* Pods-CG4 Coursework.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F9B74E4ECEEC7732F2CACD86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		209D5760FE8ED273C50815C8 /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework-FRDStravaClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AD913C14895E8F974F36C4C /* Debug */,
+				6DFF27373C468AFB634D396F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		517CB8BF38BCA6731C0B704E /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4214B8C2690DD8D83FB6ADF8 /* Debug */,
+				F9B74E4ECEEC7732F2CACD86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B06C2527B16E0EFB5EE844B6 /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework-Mantle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72F6AC2AB22BE345C2C46C1C /* Debug */,
+				9CF415F3FD87A5FCAB0BF0AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E84350D29DC9D9D4E10D24BC /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3A8E5149CFB6A4C35117DB4 /* Debug */,
+				04BAD328810B425DC51B618C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDAD793CAE0F371162F7B220 /* Build configuration list for PBXNativeTarget "Pods-CG4 Coursework-AFNetworking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				135DD3D58AFD93286CAA17CE /* Debug */,
+				B901E4F6C21C432701A8DC29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 10E011ECFDEBB79E17853F68 /* Project object */;
+}
