@@ -10,8 +10,8 @@ import UIKit
 
 class Conversions: NSObject {
     
-    let kmToMiles = 0.621371192
-    let milesToKm = 1.609344
+    let kmToMiles = 0.621371192 //Constant double, used to convert kilometres into miles
+    let milesToKm = 1.609344 //Constant double, used to convert miles into kilometres
     
     func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
         var runs = array //Create a mutable version of the array
