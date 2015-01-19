@@ -9,9 +9,9 @@
 import UIKit
 import MapKit
 
-class RunDetailsViewController: UIViewController {
+class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     var run: Run?
-    @IBOutlet var mapKitView: UIView!
+    @IBOutlet var mapKitView: MKMapView!
     @IBOutlet var overlayView: MapOverlay!
     
     /**
@@ -23,7 +23,10 @@ class RunDetailsViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapKitView.delegate = self
 
+        drawRouteLineOnMap()
+        
         if let run = run { //1
             overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //a
             overlayView.scoreLabel.text = NSString(format: "%1.1lf points", run.score) //b
@@ -61,11 +64,27 @@ class RunDetailsViewController: UIViewController {
     func drawRouteLineOnMap() {
         if let run = run {
             if let locations = run.locations {
-                
+                var coords = Array<CLLocationCoordinate2D>()
+                for location in locations {
+                    coords.append(location.coordinate)
+                }
+                let polyLine = MKPolyline(coordinates: &coords, count: coords.count)
+                mapKitView.addOverlay(polyLine)
             }
         }
     }
 
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        
+        if overlay is MKPolyline {
+            var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            polylineRenderer.strokeColor = UIColor.redColor()
+            polylineRenderer.lineWidth = 4
+            return polylineRenderer
+        }
+        return nil
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

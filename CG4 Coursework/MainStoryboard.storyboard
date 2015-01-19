@@ -473,6 +473,7 @@
             <objects>
                 <tableViewController id="FEb-bB-T3h" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vGv-Ah-UbC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -516,14 +517,14 @@
                                                                     </constraints>
                                                                     <variation key="default">
                                                                         <mask key="constraints">
-                                                                            <exclude reference="a76-Cx-FJM"/>
                                                                             <exclude reference="U7O-iT-7ze"/>
+                                                                            <exclude reference="a76-Cx-FJM"/>
                                                                         </mask>
                                                                     </variation>
                                                                     <variation key="heightClass=regular-widthClass=compact">
                                                                         <mask key="constraints">
-                                                                            <include reference="a76-Cx-FJM"/>
                                                                             <include reference="U7O-iT-7ze"/>
+                                                                            <include reference="a76-Cx-FJM"/>
                                                                         </mask>
                                                                     </variation>
                                                                 </imageView>
@@ -550,13 +551,13 @@
                                                                     <exclude reference="yG1-Oj-lH5"/>
                                                                 </mask>
                                                                 <mask key="constraints">
-                                                                    <exclude reference="JD5-7u-joD"/>
-                                                                    <exclude reference="P9L-4A-eiI"/>
-                                                                    <exclude reference="d8E-Yh-J8N"/>
                                                                     <exclude reference="1IE-Jg-yes"/>
                                                                     <exclude reference="EXC-n8-Zw2"/>
                                                                     <exclude reference="MiX-80-4PG"/>
                                                                     <exclude reference="qsK-fM-LGg"/>
+                                                                    <exclude reference="JD5-7u-joD"/>
+                                                                    <exclude reference="P9L-4A-eiI"/>
+                                                                    <exclude reference="d8E-Yh-J8N"/>
                                                                 </mask>
                                                             </variation>
                                                             <variation key="heightClass=regular-widthClass=compact">
@@ -565,13 +566,13 @@
                                                                     <include reference="yG1-Oj-lH5"/>
                                                                 </mask>
                                                                 <mask key="constraints">
-                                                                    <include reference="JD5-7u-joD"/>
-                                                                    <include reference="P9L-4A-eiI"/>
-                                                                    <include reference="d8E-Yh-J8N"/>
                                                                     <include reference="1IE-Jg-yes"/>
                                                                     <include reference="EXC-n8-Zw2"/>
                                                                     <include reference="MiX-80-4PG"/>
                                                                     <include reference="qsK-fM-LGg"/>
+                                                                    <include reference="JD5-7u-joD"/>
+                                                                    <include reference="P9L-4A-eiI"/>
+                                                                    <include reference="d8E-Yh-J8N"/>
                                                                 </mask>
                                                             </variation>
                                                         </view>
@@ -624,6 +625,11 @@
                                                             <exclude reference="FOI-dm-Vrk"/>
                                                         </mask>
                                                         <mask key="constraints">
+                                                            <exclude reference="EQj-RC-smE"/>
+                                                            <exclude reference="gaj-MP-OMC"/>
+                                                            <exclude reference="rTe-z1-d2u"/>
+                                                            <exclude reference="Cyn-0X-hJU"/>
+                                                            <exclude reference="eep-vP-FmC"/>
                                                             <exclude reference="4y2-kT-ms3"/>
                                                             <exclude reference="6Fu-AU-Ls5"/>
                                                             <exclude reference="mJI-9S-bPp"/>
@@ -631,11 +637,6 @@
                                                             <exclude reference="OG9-Ls-xIs"/>
                                                             <exclude reference="Tnb-Ad-gQM"/>
                                                             <exclude reference="t79-N8-bKJ"/>
-                                                            <exclude reference="Cyn-0X-hJU"/>
-                                                            <exclude reference="eep-vP-FmC"/>
-                                                            <exclude reference="EQj-RC-smE"/>
-                                                            <exclude reference="gaj-MP-OMC"/>
-                                                            <exclude reference="rTe-z1-d2u"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
@@ -646,6 +647,11 @@
                                                             <include reference="FOI-dm-Vrk"/>
                                                         </mask>
                                                         <mask key="constraints">
+                                                            <include reference="EQj-RC-smE"/>
+                                                            <include reference="gaj-MP-OMC"/>
+                                                            <include reference="rTe-z1-d2u"/>
+                                                            <include reference="Cyn-0X-hJU"/>
+                                                            <include reference="eep-vP-FmC"/>
                                                             <include reference="4y2-kT-ms3"/>
                                                             <include reference="6Fu-AU-Ls5"/>
                                                             <include reference="mJI-9S-bPp"/>
@@ -653,11 +659,6 @@
                                                             <include reference="OG9-Ls-xIs"/>
                                                             <include reference="Tnb-Ad-gQM"/>
                                                             <include reference="t79-N8-bKJ"/>
-                                                            <include reference="Cyn-0X-hJU"/>
-                                                            <include reference="eep-vP-FmC"/>
-                                                            <include reference="EQj-RC-smE"/>
-                                                            <include reference="gaj-MP-OMC"/>
-                                                            <include reference="rTe-z1-d2u"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
