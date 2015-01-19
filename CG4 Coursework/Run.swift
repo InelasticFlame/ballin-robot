@@ -11,7 +11,7 @@ import UIKit
 class Run: NSObject {
     
     let consecutiveRunMultiplier = 0.1
-    let numberOfConsecutiveRuns = 0.0
+    var numberOfConsecutiveRuns = 0.0
     
     var ID: Int
     var distance: Double
@@ -20,9 +20,19 @@ class Run: NSObject {
     var duration: Int
     var shoe: Shoe?
     var score: Double
-    var locations: Array<CLLocation>?
+    var locations = Array<CLLocation>()
     var type: String
-    var splits: Array<Int>?
+    var splits = Array<Int>()
+    
+    override init() { //Creates a new run object with default values
+        self.ID = 0
+        self.distance = 0
+        self.dateTime = NSDate()
+        self.pace = 0
+        self.duration = 0
+        self.score = 0
+        self.type = ""
+    }
     
     init(runID: Int, distance: Double, dateTime: NSDate, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, runType: String, splits: Array<Int>?) {
         self.ID = runID
@@ -32,15 +42,28 @@ class Run: NSObject {
         self.duration = duration
         self.shoe = shoe
         self.score = runScore
-        self.locations = runLocations
         self.type = runType
-        self.splits = splits
+        if let _locations = runLocations { //if there are locations, store them
+            self.locations = _locations
+        }
+        if let _splits = splits { //if there are splits, store them
+            self.splits = _splits
+        }
     }
     
+    /**
+    This method calculates the score for a run in the following way:
+    1.
+    2.
+    3.
+    4.
+    */
     func calculateRunScore() {
+        //Check for consecutive runs
+        
         let pointsFromPaceMultiplier = 1000.0/Float(self.pace)
         let pointsFromAveragePace = Double(pow(2.4, pointsFromPaceMultiplier) * 120)
-        
+
         let pointsFromDistanceMultiplier = 1000.0/Float(self.distance)
         let pointsFromDistance = Double(pow(2.2, pointsFromPaceMultiplier)) * 75
         
@@ -51,10 +74,6 @@ class Run: NSObject {
     }
     
     func addSplit(split: Int) {
-        if let splits = splits {
-            self.splits!.append(split)
-        } else {
-            self.splits = [split]
-        }
+        self.splits.append(split)
     }
 }

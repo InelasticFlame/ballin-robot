@@ -24,8 +24,10 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapKitView.delegate = self
-
-        drawRouteLineOnMap()
+        
+        if run?.locations.count > 0 {
+            drawRouteLineOnMap()
+        }
         
         if let run = run { //1
             overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //a
@@ -61,28 +63,46 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         Conversions().addBorderToView(overlayView.headerOverlay) //3
     }
     
+    
     func drawRouteLineOnMap() {
+        if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "SATALITE" {
+            mapKitView.mapType = MKMapType.Satellite
+        } else if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "HYBRID" {
+            mapKitView.mapType = MKMapType.Hybrid
+        } else {
+            mapKitView.mapType = MKMapType.Standard
+        }
+        
         if let run = run {
-            if let locations = run.locations {
-                var coords = Array<CLLocationCoordinate2D>()
-                for location in locations {
-                    coords.append(location.coordinate)
-                }
-                let polyLine = MKPolyline(coordinates: &coords, count: coords.count)
-                mapKitView.addOverlay(polyLine)
+            var coords = Array<CLLocationCoordinate2D>()
+            for location in run.locations {
+                coords.append(location.coordinate)
             }
+            let polyLine = MKPolyline(coordinates: &coords, count: coords.count)
+            mapKitView.addOverlay(polyLine)
+            
         }
     }
 
+    
+    /**
+    This method is called by the system whenever there is a request to add an overlay to the MapKit View.
+    1. IF the overlay ot be added is a MKPolyline 
+        a. Create the polyline renderer for this overlay
+        b. Set the line colour
+        c. Set the line width
+        d. Return the renderer
+    2. Otherwise return nil
+    */
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         
-        if overlay is MKPolyline {
-            var polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.redColor()
-            polylineRenderer.lineWidth = 4
-            return polylineRenderer
+        if overlay is MKPolyline { //1
+            var polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
+            polylineRenderer.strokeColor = UIColor.redColor() //b
+            polylineRenderer.lineWidth = 4 //c
+            return polylineRenderer //d
         }
-        return nil
+        return nil //2
     }
     
     override func didReceiveMemoryWarning() {
