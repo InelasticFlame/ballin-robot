@@ -67,11 +67,11 @@ static Database *_database;
     char *errorMessage; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        const char *sql = "CREATE TABLE IF NOT EXISTS tblRuns(RunID INTEGER PRIMARY KEY AUTOINCREMENT, RunDateTime TEXT, RunDistance REAL, RunPace INTEGER, RunDuration INTEGER, RunScore REAL, ShoeID INTEGER)"; //a
+        const char *sql = "CREATE TABLE IF NOT EXISTS tblRuns(RunID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, RunDateTime TEXT, RunDistance REAL, RunPace INTEGER, RunDuration INTEGER, RunScore REAL, ShoeID INTEGER)"; //a
         
         if (sqlite3_exec(_database, sql, NULL, NULL, &errorMessage) != SQLITE_OK) { //b
             NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error creating tblRuns, %@", error]); //i
+            NSLog([NSString stringWithFormat:@"Error creating tblRuns; %@", error]); //i
         }
         
         
@@ -79,7 +79,7 @@ static Database *_database;
         
         if (sqlite3_exec(_database, sqlSplits, NULL, NULL, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error creating tblSplits, %@", error]);
+            NSLog([NSString stringWithFormat:@"Error creating tblSplits; %@", error]);
         }
         
         
@@ -87,14 +87,14 @@ static Database *_database;
         
         if (sqlite3_exec(_database, sqlLocations, NULL, NULL, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error creating tblLocations, %@", error]);
+            NSLog([NSString stringWithFormat:@"Error creating tblLocations; %@", error]);
         }
         
         const char *sqlShoes = "CREATE TABLE IF NOT EXISTS tblShoes(ShoeID INTEGER PRIMARY KEY AUTOINCREMENT, ShoeName TEXT, CurrentMiles REAL, ShoeImagePath TEXT)";
         
         if (sqlite3_exec(_database, sqlShoes, NULL, NULL, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error creating tblShoes, %@", error]);
+            NSLog([NSString stringWithFormat:@"Error creating tblShoes; %@", error]);
         }
         
         

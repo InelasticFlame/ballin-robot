@@ -13,7 +13,13 @@ class Conversions: NSObject {
     let kmToMiles = 0.621371192 //Constant double, used to convert kilometres into miles
     let milesToKm = 1.609344 //Constant double, used to convert miles into kilometres
     
+    /**
+    This method sorts an array of Run objects into order of their dates.
+    */
     func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
+        //EXPLANATION: Due to Swift and Objective-C interaction a mutable array has to be created as Objective-C would not interact
+        //with a function with mutable inputs. The following method was done in Swift due to the inbuilt array sort methods in Swift.
+        
         var runs = array //Create a mutable version of the array
         
         runs.sort({$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow})
@@ -21,7 +27,18 @@ class Conversions: NSObject {
         return runs
     }
     
-    func metresPerSecondToMinPerMile(metresPerSec: Double) -> (Double) {
+    func addBorderToView(view: UIView) {
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.darkGrayColor().CGColor
+        view.layer.masksToBounds = true
+    }
+    
+    //MARK: - Conversion Methods
+    
+    /**
+    This method takes an input of a speed in metres per second and converts it into seconds per mile.
+    */
+    func metresPerSecondToSecondsPerMile(metresPerSec: Double) -> (Double) {
         let metresPerHour = metresPerSec * 3600
         let kmPerHour = metresPerHour/1000
         let milesPerHour = kmPerHour * kmToMiles
@@ -30,11 +47,40 @@ class Conversions: NSObject {
         return secPerMile
     }
     
-    func addBorderToView(view: UIView) {
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.darkGrayColor().CGColor
-        view.layer.masksToBounds = true
+    /**
+    This method takes a distance in metres and returns it as a distance in miles
+    */
+    func metresToMiles(metres: Double) -> (Double) {
+        let miles = (metres/1000)*kmToMiles
+        
+        return miles
     }
+    
+    /**
+    This method takes a date-time string in the form "dd/MM/yyyyHH:mm:ss" and returns it as an NSDate object.
+    */
+    func stringToDateAndTime(dateTimeStr: String) -> NSDate? {
+        var dateFormatter = NSDateFormatter() //Create the NSDateFormatter
+        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //Set the date format
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //Set the locale
+        let date = dateFormatter.dateFromString(dateTimeStr) //Create the date
+        
+        return date //Return the date
+    }
+    
+    /**
+    This method takes a location string in the form "latitude, longitude" and returns it as a CLLocation object.
+    (NOT USED)
+    */
+    func stringToLocation(locationString: String) -> CLLocation {
+        let latString = locationString.componentsSeparatedByString(", ").first! as NSString
+        let longString = locationString.componentsSeparatedByString(", ").last! as NSString
+        let locationQuantity = CLLocation(latitude: latString.doubleValue, longitude: longString.doubleValue)
+        
+        return locationQuantity
+    }
+    
+    //MARK: - Stringify Methods
     
     func averagePaceForInterface(pace: Int) -> String {
         var returnValue = ""
@@ -81,12 +127,6 @@ class Conversions: NSObject {
         
         return returnValue
     }
-
-    func metresToMiles(metres: Double) -> (Double) {
-        let miles = (metres/1000)*kmToMiles
-        
-        return miles
-    }
     
     func dateToString(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
@@ -108,23 +148,6 @@ class Conversions: NSObject {
         dateFormatter.locale = NSLocale.currentLocale()
         
         return dateFormatter.stringFromDate(date)
-    }
-    
-    func stringToDateAndTime(dateTimeStr: String) -> NSDate? {
-        var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss"
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB")
-        let date = dateFormatter.dateFromString(dateTimeStr)
-        
-        return date
-    }
-    
-    func stringToLocation(locationString: String) -> CLLocation {
-        let latString = locationString.componentsSeparatedByString(", ").first
-        let longString = locationString.componentsSeparatedByString(", ").last
-        let locationQuantity = CLLocation(latitude: 0, longitude: 0)
-
-        return locationQuantity
     }
     
     func totalUpRunMiles(runs: Array<Run>) -> Double {

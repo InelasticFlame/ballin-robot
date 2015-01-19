@@ -23,7 +23,7 @@
             Conversions *converter = [[Conversions alloc] init];
             double distance = [converter metresToMiles:activity.distance];
             NSDate *dateTime = activity.startDate;
-            NSInteger pace = [converter metresPerSecondToMinPerMile:activity.averageSpeed];
+            NSInteger pace = [converter metresPerSecondToSecondsPerMile:activity.averageSpeed];
             NSInteger duration = activity.movingTime;
             
             NSMutableArray *CLCoords = [[NSMutableArray alloc] init];
@@ -44,7 +44,7 @@
         for (Run *run in runs) {
             [[FRDStravaClient sharedInstance] fetchLapsForActivity:run.ID success:^(NSArray *laps){
                 for (StravaActivityLap *lap in laps) {
-                    NSInteger lapPace = [[[Conversions alloc] init] metresPerSecondToMinPerMile:lap.averageSpeed];
+                    NSInteger lapPace = [[[Conversions alloc] init] metresPerSecondToSecondsPerMile:lap.averageSpeed];
                     [run addSplit:lapPace];
                 }
                 [[Database init] saveRun:run];

@@ -113,7 +113,7 @@ class RunsTableViewController: UITableViewController {
         let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell)
         
         if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
-            destinationVC.optionalRun = runs[selectedIndex!.row]
+            destinationVC.run = runs[selectedIndex!.row]
         }
     }
     
