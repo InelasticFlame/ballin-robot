@@ -80,8 +80,53 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             }
             let polyLine = MKPolyline(coordinates: &coords, count: coords.count)
             mapKitView.addOverlay(polyLine)
-            
+            centreMapOnRunArea()
         }
+    }
+    
+    
+    func centreMapOnRunArea() {
+        var minLat, minLong, maxLat, maxLong: Double
+        
+        if let run = run {
+            if let firstLocation = run.locations.first {
+                minLat = firstLocation.coordinate.latitude
+                maxLat = firstLocation.coordinate.latitude
+                minLong = firstLocation.coordinate.longitude
+                maxLong = firstLocation.coordinate.longitude
+                
+                for var i = 1; i < run.locations.count; i++ {
+                    let currentCoordinate = run.locations[i].coordinate
+        
+                    if Double(currentCoordinate.latitude) < minLat {
+                        minLat = currentCoordinate.latitude
+                    }
+                    if Double(currentCoordinate.latitude) > maxLat {
+                        maxLat = currentCoordinate.latitude
+                    }
+                    
+                    if Double(currentCoordinate.longitude) < minLong {
+                        minLong = currentCoordinate.longitude
+                    }
+                    if Double(currentCoordinate.longitude) > maxLong {
+                        maxLong = currentCoordinate.longitude
+                    }
+                }
+                
+                let centreLat = (minLat + maxLat) / 2.0
+                let centreLong = (minLong + maxLong) / 2.0
+                let centreCoord = CLLocationCoordinate2D(latitude: centreLat, longitude: centreLong)
+                
+                let latDelta = (maxLat - minLat) * 0.8
+                let longDelta = (maxLong - minLong) * 0.8
+                let coordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+                
+                let region = MKCoordinateRegion(center: centreCoord, span: coordinateSpan)
+                
+                self.mapKitView.setRegion(region, animated: true)
+            }
+        }
+        
     }
 
     

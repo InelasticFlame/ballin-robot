@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //StravaAuth().authorise()
         //StravaRuns().loadRunsFromStrava()
         
+        NSUserDefaults.standardUserDefaults().setObject("HYBRID", forKey: "mapStyle")
+        
         return true
     }
 
