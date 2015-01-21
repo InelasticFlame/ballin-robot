@@ -10,17 +10,11 @@ import UIKit
 
 class MapOverlay: UIView {
 
+    //This class stores the properties for the map's overlay.
+    
     @IBOutlet var headerOverlay: UIView!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var scoreLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 }

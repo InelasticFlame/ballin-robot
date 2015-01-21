@@ -15,7 +15,7 @@ class RunsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loadRuns()
+        self.runs = Database().loadRunsWithQuery("") as Array<Run>
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -27,11 +27,6 @@ class RunsTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
     }
-
-    func loadRuns() {
-        self.runs = Database().loadRunsWithQuery("") as Array<Run>
-
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -41,7 +36,6 @@ class RunsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }

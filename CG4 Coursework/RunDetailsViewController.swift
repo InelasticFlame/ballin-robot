@@ -14,6 +14,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet var mapKitView: MKMapView!
     @IBOutlet var overlayView: MapOverlay!
     
+    //MARK: - View Methods
+    
     /**
     1. IF there is a run
         a. Convert the run distance to a string and set the distanceLabel text as the string
@@ -27,6 +29,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         
         if run?.locations.count > 0 {
             drawRouteLineOnMap()
+        } else {
+            hideMapForNoLocations()
         }
         
         if let run = run { //1
@@ -44,7 +48,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         c. Make the background slightly transparent
         d. Set the width of the view to it's current width times the decimal of the run score
         e. Add the view as a subview of the headerOverlay
-        f. Re-order the views so the date and time labels are at the front of the background
+       fg. Re-order the views so the date and time labels are at the front of the background
     2. Add a border to the mapKitView
     3. Add a border to the headerOverlay
     */
@@ -63,6 +67,12 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         Conversions().addBorderToView(overlayView.headerOverlay) //3
     }
     
+    func hideMapForNoLocations() {
+        self.mapKitView.hidden = true
+        //Add filler content
+    }
+    
+    //MARK: - Map Drawing Methods
     
     func drawRouteLineOnMap() {
         if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "SATALITE" {
@@ -117,8 +127,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                 let centreLong = (minLong + maxLong) / 2.0
                 let centreCoord = CLLocationCoordinate2D(latitude: centreLat, longitude: centreLong)
                 
-                let latDelta = (maxLat - minLat) * 0.8
-                let longDelta = (maxLong - minLong) * 0.8
+                let latDelta = (maxLat - minLat) * 1.1
+                let longDelta = (maxLong - minLong) * 1.1
                 let coordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
                 
                 let region = MKCoordinateRegion(center: centreCoord, span: coordinateSpan)
@@ -132,7 +142,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     
     /**
     This method is called by the system whenever there is a request to add an overlay to the MapKit View.
-    1. IF the overlay ot be added is a MKPolyline 
+    1. IF the overlay to be added is a MKPolyline
         a. Create the polyline renderer for this overlay
         b. Set the line colour
         c. Set the line width

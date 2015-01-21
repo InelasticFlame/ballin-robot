@@ -14,6 +14,13 @@ class HomeTableViewController: UITableViewController {
         //tableView.reloadData()
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as HomeProgressTableViewCell
         cell.setUpCell()
+        
+        
+        if !NSUserDefaults.standardUserDefaults().boolForKey("initialSetupPerformed") {
+            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
+            let newVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController
+            self.presentViewController(newVC, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -97,7 +104,7 @@ class HomeTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -105,6 +112,4 @@ class HomeTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    */
-
 }
