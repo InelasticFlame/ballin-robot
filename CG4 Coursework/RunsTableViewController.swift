@@ -100,10 +100,13 @@ class RunsTableViewController: UITableViewController {
     
     //MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /**
+    This method prepares the new view.
+    1. Find the indexPath of the selected cell
+    2. IF the destinationViewController is a RunDetailsViewController
+        a. Set the run of the selected view controller to the run for the selected cell
+    */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
         let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell)
         
         if let destinationVC = segue.destinationViewController as? RunDetailsViewController {

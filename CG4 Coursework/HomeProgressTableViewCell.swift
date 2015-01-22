@@ -31,13 +31,13 @@ class HomeProgressTableViewCell: UITableViewCell {
     }
     
     func setUpCell() {
-        if !loaded {
+        //if !loaded {
             let progressBar = ProgressBar(progress: progress, frame: self.mainView.frame)
             progressBar.center = CGPoint(x: progressBar.center.x - 16, y: progressBar.center.y)
             self.progressView.addSubview(progressBar)
             self.progressLabel.text = NSString(format: "%1.0lf%%", progress*100)
             loaded = true
-        }
+        //}
     }
     
     func loadMonthlyRunProgress() -> (progress: Double, goalMiles: Double, totalMiles: Double) {

@@ -70,7 +70,6 @@ class Conversions: NSObject {
     
     /**
     This method takes a location string in the form "latitude, longitude" and returns it as a CLLocation object.
-    (NOT USED)
     */
     func stringToLocation(locationString: String) -> CLLocation {
         let latString = locationString.componentsSeparatedByString(", ").first! as NSString
@@ -179,6 +178,9 @@ class Conversions: NSObject {
         return monthString
     }
     
+    /**
+    Checks a run is valid; that is it has a distance, duration and pace greater than 0.
+    */
     func validateRun(run: Run) -> Bool {
         if run.distance > 0 && run.duration > 0 && run.pace > 0 {
             return true

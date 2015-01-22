@@ -67,6 +67,9 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         Conversions().addBorderToView(overlayView.headerOverlay) //3
     }
     
+    /**
+    Where there aren't any locations, this method hides the map and adds some filler content.
+    */
     func hideMapForNoLocations() {
         self.mapKitView.hidden = true
         //Add filler content
@@ -74,66 +77,101 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: - Map Drawing Methods
     
+    
+    /**
+    This method is used to drawn the run route onto the map.
+    1. IF the user preference is for a Satellite map, set the map to Satellite
+    2. IF the user preference is for a Hybrid map, set the map to Hybrid
+    3. ELSE set the map to standard
+    4. IF there is a run
+        a. Create an array of CLLocationCoordinate2D
+        b. FOR each location, and the locations coordinates to the array
+        c. Create the polyline for the array of coordinates
+        d. Add the polyline to the map as an overlay
+        e. Call the function centreMapOnRunArea
+    */
     func drawRouteLineOnMap() {
-        if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "SATALITE" {
-            mapKitView.mapType = MKMapType.Satellite
-        } else if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "HYBRID" {
-            mapKitView.mapType = MKMapType.Hybrid
-        } else {
-            mapKitView.mapType = MKMapType.Standard
+        if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "SATELLITE" { //1
+            mapKitView.mapType = .Satellite
+        } else if NSUserDefaults.standardUserDefaults().stringForKey("mapStyle") == "HYBRID" { //2
+            mapKitView.mapType = .Hybrid
+        } else { //3
+            mapKitView.mapType = .Standard
         }
         
-        if let run = run {
-            var coords = Array<CLLocationCoordinate2D>()
-            for location in run.locations {
+        if let run = run { //4
+            var coords = Array<CLLocationCoordinate2D>() //a
+            for location in run.locations { //b
                 coords.append(location.coordinate)
             }
-            let polyLine = MKPolyline(coordinates: &coords, count: coords.count)
-            mapKitView.addOverlay(polyLine)
-            centreMapOnRunArea()
+            let polyLine = MKPolyline(coordinates: &coords, count: coords.count) //c
+            mapKitView.addOverlay(polyLine) //d
+            centreMapOnRunArea() //e
         }
     }
     
     
+    /**
+    This method is used to centre the map on the run area.
+    1. Declares the local variables minLat, minLong, maxLat and maxLong of type Double
+    2. IF there is a run
+        a. IF there is a location
+            b. Set the minLat and maxLat to the firstLocation latitude
+            c. Set the minLong and the maxLong to the firstLocation longitude
+            d. For each location in the array
+                i. Set the currentCoordinate to the coordinate at the current index
+               ii. If the currentCoordinate latitude is less than the minLat, set the minLat to the currentCoordinate latitude
+              iii. If the currentCoordinate latitude is more than the maxLat, set the maxLat to the currentCoordinate latitude
+               iv. If the currentCoordinate longitude is less than the minLong, set the minLong to the currentCoordinate longitude
+                v. If the currentCoordinate longitude is more than the maxLong, set the maxLong to the currentCoordinate longitude
+            e. Set the centreLat to the middle of the maxLat and minLat
+            f. Set the centreLong to the middle of the maxLong and minLong
+            g. Create the centreCoord using the centreLat and centreLong
+            h. Find the change in latitude, and multiply by 1.1 (to add padding)
+            i. Find the change in longitude, and multiply by 1.1 (to add padding)
+            j. Create the coordinateSpan using the latDelta and longDelta
+            k. Create the region to show on the map using the centreCoord and the coordinateSpan
+            l. Set the region currently displayed on the map to the new region
+    */
     func centreMapOnRunArea() {
-        var minLat, minLong, maxLat, maxLong: Double
+        var minLat, minLong, maxLat, maxLong: Double //1
         
-        if let run = run {
-            if let firstLocation = run.locations.first {
-                minLat = firstLocation.coordinate.latitude
+        if let run = run { //2
+            if let firstLocation = run.locations.first { //a
+                minLat = firstLocation.coordinate.latitude //b
                 maxLat = firstLocation.coordinate.latitude
-                minLong = firstLocation.coordinate.longitude
+                minLong = firstLocation.coordinate.longitude //c
                 maxLong = firstLocation.coordinate.longitude
                 
-                for var i = 1; i < run.locations.count; i++ {
-                    let currentCoordinate = run.locations[i].coordinate
+                for var i = 1; i < run.locations.count; i++ { //d
+                    let currentCoordinate = run.locations[i].coordinate //i
         
-                    if Double(currentCoordinate.latitude) < minLat {
+                    if currentCoordinate.latitude < minLat { //ii
                         minLat = currentCoordinate.latitude
                     }
-                    if Double(currentCoordinate.latitude) > maxLat {
+                    if currentCoordinate.latitude > maxLat { //iii
                         maxLat = currentCoordinate.latitude
                     }
                     
-                    if Double(currentCoordinate.longitude) < minLong {
+                    if currentCoordinate.longitude < minLong { //iv
                         minLong = currentCoordinate.longitude
                     }
-                    if Double(currentCoordinate.longitude) > maxLong {
+                    if currentCoordinate.longitude > maxLong { //v
                         maxLong = currentCoordinate.longitude
                     }
                 }
                 
-                let centreLat = (minLat + maxLat) / 2.0
-                let centreLong = (minLong + maxLong) / 2.0
-                let centreCoord = CLLocationCoordinate2D(latitude: centreLat, longitude: centreLong)
+                let centreLat = (minLat + maxLat) / 2.0 //e
+                let centreLong = (minLong + maxLong) / 2.0 //f
+                let centreCoord = CLLocationCoordinate2D(latitude: centreLat, longitude: centreLong) //g
                 
-                let latDelta = (maxLat - minLat) * 1.1
-                let longDelta = (maxLong - minLong) * 1.1
-                let coordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+                let latDelta = (maxLat - minLat) * 1.1 //h
+                let longDelta = (maxLong - minLong) * 1.1 //i
+                let coordinateSpan = MKCoordinateSpanMake(latDelta, longDelta) //j
                 
-                let region = MKCoordinateRegion(center: centreCoord, span: coordinateSpan)
+                let region = MKCoordinateRegion(center: centreCoord, span: coordinateSpan) //k
                 
-                self.mapKitView.setRegion(region, animated: true)
+                self.mapKitView.setRegion(region, animated: true) //l
             }
         }
         

@@ -262,6 +262,7 @@ static Database *_database;
                 int pace = (int)sqlite3_column_int(statement, 3);
                 int duration = (int)sqlite3_column_int(statement, 4);
                 double score = (double)sqlite3_column_double(statement, 5);
+                
                 int shoeID = (int)sqlite3_column_int(statement, 6);
                 char *shoeName = (char *)sqlite3_column_text(statement, 7);
                 double shoeMiles = (double)sqlite3_column_double(statement, 8);
@@ -297,11 +298,11 @@ static Database *_database;
     c. Declares an SQLite3 statement
     d. Executes the statement, IF it excutes
         i. While there are rows to read
-           ii. Declares the local variables latitude and longitude
-          iii. Retrieves the coordinates of the location from the database as a string
-           iv. Splits the string based on the criteria of "double, double" storing the parts in latitude and longitude
-            v. Creates a CLLocation object using the latitude and longitude
-           vi. Adds the CLLocation object to the array, locations
+           ii. Retrieves the coordinates of the location from the database as a string
+          iii. Creates a CLLocation object using the location string
+           iv. Adds the CLLocation object to the array, locations
+        v. Release the statement
+       vi. Close the database
     e. Else logs "Error Loading Locations"
  4. Returns the locations array
  */
@@ -316,14 +317,12 @@ static Database *_database;
         
         if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //d
             while (sqlite3_step(statement) == SQLITE_ROW) { //i
-                double latitude, longitude; //ii
-                char *locationStr = (char *)sqlite3_column_text(statement, 0); //iii
-                sscanf(locationStr, "%lf, %lf", &latitude, &longitude); //iv
-                CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude]; //v
-                [locations addObject:location]; //vi
+                char *locationStr = (char *)sqlite3_column_text(statement, 0); //ii
+                CLLocation *location = [[[Conversions alloc] init] stringToLocation:[NSString stringWithUTF8String:locationStr]]; //iii
+                [locations addObject:location]; //iv
             }
-            sqlite3_finalize(statement); //vii
-            sqlite3_close(_database);
+            sqlite3_finalize(statement); //v
+            sqlite3_close(_database); //vi
         }
     } else { //e
         NSLog(@"Error Loading Locations");
@@ -398,25 +397,44 @@ static Database *_database;
 #pragma mark Shoe Saving
 
 -(void)saveShoe:(Shoe *)shoe {
-    const char *charDbPath = [_databasePath UTF8String]; //1
+    const char *charDbPath = [_databasePath UTF8String];
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
-        //a
-            //i
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imagePath]; //ii
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imagePath];
         const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement; //iii
-            
-        sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil); //iv
-            
-        if (sqlite3_step(statement) == SQLITE_DONE) { //v
+        sqlite3_stmt *statement;
+        
+        sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil);
+        
+        if (sqlite3_step(statement) == SQLITE_DONE) {
             NSLog(@"Saving Successful");
-        } else { //vi
+        } else {
             NSLog(@"Error Saving");
         }
-            
-        sqlite3_finalize(statement); //vii
-        sqlite3_close(_database); //b
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
+    }
+}
+
+-(void)updateShoeMiles:(Shoe *)shoe {
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles, (long)shoe.ID];
+        const char *sqlChar = [sql UTF8String];
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            if (sqlite3_step(statement) == SQLITE_DONE) {
+                NSLog(@"Saving Successful");
+            } else {
+                NSLog(@"Error Saving");
+            }
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
     }
 }
 

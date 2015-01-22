@@ -11,10 +11,8 @@ import UIKit
 class HomeTableViewController: UITableViewController {
 
     override func viewDidAppear(animated: Bool) {
-        //tableView.reloadData()
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as HomeProgressTableViewCell
         cell.setUpCell()
-        
         
         if !NSUserDefaults.standardUserDefaults().boolForKey("initialSetupPerformed") {
             let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
@@ -27,7 +25,7 @@ class HomeTableViewController: UITableViewController {
         super.viewDidLoad()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
