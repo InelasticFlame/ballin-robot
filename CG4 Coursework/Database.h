@@ -22,7 +22,7 @@
 //Runs
 -(void)saveRun:(NSObject *)Run;
 -(NSArray *)loadRunsWithQuery:(NSString *)query;
--(void)deleteRunWithID:(NSObject *)run;
+-(BOOL)deleteRunWithID:(NSObject *)run;
 
 //Shoes
 -(void)saveShoe;

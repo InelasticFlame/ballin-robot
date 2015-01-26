@@ -178,6 +178,20 @@ class Conversions: NSObject {
         return monthString
     }
     
+    func calculateRunFinishTimes(run: Run) -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
+        let fiveK = Int(Double(run.pace) * 3.1)
+        let tenK = Int(Double(run.pace) * 6.2)
+        let halfMarathon = Int(Double(run.pace) * 13.1)
+        let fullMarathon = Int(Double(run.pace) * 26.2)
+        
+        let fiveKStr = runDurationForInterface(fiveK)
+        let tenKStr = runDurationForInterface(tenK)
+        let halfMarathonStr = runDurationForInterface(halfMarathon)
+        let fullMarathonStr = runDurationForInterface(fullMarathon)
+        
+        return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr)
+    }
+    
     /**
     Checks a run is valid; that is it has a distance, duration and pace greater than 0.
     */

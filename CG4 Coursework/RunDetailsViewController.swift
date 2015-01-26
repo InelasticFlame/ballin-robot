@@ -13,31 +13,50 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     var run: Run?
     @IBOutlet var mapKitView: MKMapView!
     @IBOutlet var overlayView: MapOverlay!
+    @IBOutlet weak var fiveKLabel: UILabel!
+    @IBOutlet weak var tenKLabel: UILabel!
+    @IBOutlet weak var halfLabel: UILabel!
+    @IBOutlet weak var fullLabel: UILabel!
+    
     
     //MARK: - View Methods
     
     /**
-    1. IF there is a run
-        a. Convert the run distance to a string and set the distanceLabel text as the string
-        b. Convert the run score to a string and set the scoreLabel text as the string
-        c. Convert the run time to a string and set the timeLabel text as the string
-        d. Convert the run date to a string and set the dateLabel text as the string
+    1. Sets the delegate of the mapKitView to this view controller
+    2. IF the run has locations
+        a. Calls the function drawRouteLineOnMap
+    3. ELSE
+        b. Calls the function hideMapForNoLocations
+    4. IF there is a run
+        c. Convert the run distance to a string and set the distanceLabel text as the string
+        d. Convert the run score to a string and set the scoreLabel text as the string
+        e. Convert the run time to a string and set the timeLabel text as the string
+        f. Convert the run date to a string and set the dateLabel text as the string
+    
+        g. Retrieves the finish times for other distances
+        h. Displays the finish times on the interface
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapKitView.delegate = self
+        mapKitView.delegate = self //1
         
-        if run?.locations.count > 0 {
-            drawRouteLineOnMap()
-        } else {
-            hideMapForNoLocations()
+        if run?.locations.count > 0 { //2
+            drawRouteLineOnMap() //a
+        } else { //3
+            hideMapForNoLocations() //b
         }
         
-        if let run = run { //1
-            overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //a
-            overlayView.scoreLabel.text = NSString(format: "%1.1lf points", run.score) //b
-            overlayView.timeLabel.text = Conversions().timeForInterface(run.dateTime) //c
-            overlayView.dateLabel.text = Conversions().dateToString(run.dateTime) //d
+        if let run = run { //4
+            overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //c
+            overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) //d
+            overlayView.timeLabel.text = Conversions().timeForInterface(run.dateTime) //e
+            overlayView.dateLabel.text = Conversions().dateToString(run.dateTime) //f
+            
+            let finishTimes = Conversions().calculateRunFinishTimes(run) //g
+            fiveKLabel.text = "5k: " + finishTimes.fiveK //h
+            tenKLabel.text = "10k: " + finishTimes.tenK
+            halfLabel.text = "Half: " + finishTimes.halfMarathon
+            fullLabel.text = "Full: " + finishTimes.fullMarathon
         }
     }
     

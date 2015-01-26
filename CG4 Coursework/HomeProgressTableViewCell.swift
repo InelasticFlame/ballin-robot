@@ -27,7 +27,7 @@ class HomeProgressTableViewCell: UITableViewCell {
         Conversions().addBorderToView(self.mainView)
         let returnValues = self.loadMonthlyRunProgress()
         self.progress = returnValues.0
-        self.progressDetailLabel.text = "\(returnValues.2) miles ran towards goal of \(returnValues.1)"
+        self.progressDetailLabel.text = "\(returnValues.2) miles of \(returnValues.1) completed."
     }
     
     func setUpCell() {

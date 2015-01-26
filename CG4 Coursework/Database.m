@@ -56,10 +56,10 @@ static Database *_database;
  1. Converts the databasePath from an NSString into an array of characters for use with the database
  2. Creates the errorMessage
  3. IF the database opens at the databasePath
- a. Create the SQL
- b. Execute the SQL, storing any errors in errorMessage. IF the SQL does not execute correctly
- i. Log the error message
- c. Closes the database
+    a. Create the SQL
+    b. Execute the SQL, storing any errors in errorMessage. IF the SQL does not execute correctly
+        i. Log the error message
+    c. Closes the database
  4. Else log "Failed to Open Database"
  */
 -(void)createDatabaseTables {
@@ -112,19 +112,19 @@ static Database *_database;
  1. Declares the local variable saveSuccessful as NO
  2. Converts the databasePath from an NSString into an array of characters for use with the database
  3. IF the database opens at the databasePath
- a. Creates the SQL
- b. Converts the SQL to an array of characters for use with the database
- c. Declares an sqlite3 statement
- d. Executes the SQL
- e. IF the statement executes succesfully
- i. Sets saveSuccessful to YES
- ii. Sets the run.ID to the last inserts row ID (this is the run's primary key)
- f. ELSE logs "Error Saving"
- g. Releases the statement
- h. Closes the database
+    a. Creates the SQL
+    b. Converts the SQL to an array of characters for use with the database
+    c. Declares an sqlite3 statement
+    d. Executes the SQL
+    e. IF the statement executes succesfully
+        i. Sets saveSuccessful to YES
+       ii. Sets the run.ID to the last inserts row ID (this is the run's primary key)
+    f. ELSE logs "Error Saving"
+    g. Releases the statement
+    h. Closes the database
  4. IF the save was successful
- a. IF the run has locations, call saveLocationsForRun function
- b. IF the run has splits, call saveSplitsForRun function
+    a. IF the run has locations, call saveLocationsForRun function
+    b. IF the run has splits, call saveSplitsForRun function
  */
 -(void)saveRun:(Run *)run {
     BOOL saveSuccessful = NO; //1
@@ -166,16 +166,16 @@ static Database *_database;
 /**
  1. Converts the databasePath from an NSString into an array of characters for use with the database
  2. IF opening the database is successful
- a. FOR each location in the run.locations array
- i. Creates the location coordinates as a string
- ii. Creates the SQL
- iii. Converts the SQL to an array of characters for use with the database
- iv. Declares an sqlite3 statement
- v. Executes the SQL
- vi. IF the statement executes succesfully, log "Saving Successful"
- vii. ELSE log "Error Saving"
- viii. Realeses the statement
- b. Closes the database
+    a. FOR each location in the run.locations array
+        i. Creates the location coordinates as a string
+       ii. Creates the SQL
+      iii. Converts the SQL to an array of characters for use with the database
+       iv. Declares an sqlite3 statement
+        v. Executes the SQL
+       vi. IF the statement executes succesfully, log "Saving Successful"
+      vii. ELSE log "Error Saving"
+     viii. Realeses the statement
+    b. Closes the database
  */
 -(void)saveLocationsForRun:(Run *)run {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -241,6 +241,24 @@ static Database *_database;
     }
 }
 
+-(BOOL)removeShoeFromRuns:(Shoe *)shoe {
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    NSArray *runsWithShoe = [self loadRunsWithQuery:[NSString stringWithFormat:@"WHERE ShoeID = '%li'", (long)shoe.ID]];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = @"UPDATE tblRuns SET ShoeID = '0' WHERE";
+        for (Run *run in runsWithShoe) {
+            [sql stringByAppendingString:[NSString stringWithFormat:@" RunID = '%li'", (long)run.ID]];
+        }
+        const char *sqlChar = [sql UTF8String];
+        
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 #pragma mark Run Loading
 
 /**
@@ -264,9 +282,6 @@ static Database *_database;
                 double score = (double)sqlite3_column_double(statement, 5);
                 
                 int shoeID = (int)sqlite3_column_int(statement, 6);
-                char *shoeName = (char *)sqlite3_column_text(statement, 7);
-                double shoeMiles = (double)sqlite3_column_double(statement, 8);
-                char *shoePath = (char *)sqlite3_column_text(statement, 9);
                 
                 
                 //Handle shoes
@@ -373,7 +388,7 @@ static Database *_database;
 
 #pragma mark Run Deleting
 
--(void)deleteRunWithID:(Run *)run {
+-(BOOL)deleteRunWithID:(Run *)run {
     const char *charDbPath = [_databasePath UTF8String];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
@@ -384,9 +399,13 @@ static Database *_database;
         if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
             NSLog([NSString stringWithFormat:@"Error deleting run: %@", error]);
+            return  NO;
         } else {
             NSLog(@"Run Deleted Successfully");
+            return YES;
         }
+    } else {
+        return NO;
     }
 }
 
@@ -447,5 +466,29 @@ static Database *_database;
     
     return shoes;
 }
+
+#pragma mark Shoe Deleting
+
+-(BOOL)deleteShoeWithID:(Shoe *)shoe {
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblShoes WHERE ShoeID = '%li'", (long)shoe.ID];
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
+            NSString *error = [NSString stringWithUTF8String:errorMessage];
+            NSLog([NSString stringWithFormat:@"Error deleting shoe: %@", error]);
+            return  NO;
+        } else {
+            NSLog(@"Shoe Deleted Successfully");
+            return YES;
+        }
+    } else {
+        return NO;
+    }
+}
+
 
 @end
