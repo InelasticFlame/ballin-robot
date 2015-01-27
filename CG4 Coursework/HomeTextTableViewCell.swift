@@ -9,9 +9,10 @@
 import UIKit
 
 class HomeTextTableViewCell: UITableViewCell {
-    @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var headerView: UIView!
-    @IBOutlet var mainView: UIView!
+    
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var mainView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

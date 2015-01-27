@@ -10,13 +10,13 @@ import UIKit
 
 class HomeProgressTableViewCell: UITableViewCell {
 
-    @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var headerView: UIView!
-    @IBOutlet var mainView: UIView!
-    @IBOutlet var headerImageView: UIImageView!
-    @IBOutlet var progressLabel: UILabel!
-    @IBOutlet var progressDetailLabel: UILabel!
-    @IBOutlet var progressView: UIView!
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var headerImageView: UIImageView!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressDetailLabel: UILabel!
+    @IBOutlet weak var progressView: UIView!
     var progress = 0.0
     var loaded = false
     

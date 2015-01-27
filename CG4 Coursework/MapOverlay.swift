@@ -12,9 +12,10 @@ class MapOverlay: UIView {
 
     //This class stores the properties for the map's overlay.
     
-    @IBOutlet var headerOverlay: UIView!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var scoreLabel: UILabel!
-    @IBOutlet var distanceLabel: UILabel!
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
+    @IBOutlet weak var headerOverlay: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
 }

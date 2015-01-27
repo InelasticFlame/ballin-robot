@@ -10,11 +10,12 @@ import UIKit
 
 class RunTableViewCell: UITableViewCell {
 
-    @IBOutlet var paceLabel: UILabel!
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var durationLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var progressView: UIView!
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
+    @IBOutlet weak var paceLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var progressView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

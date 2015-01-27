@@ -11,8 +11,10 @@ import MapKit
 
 class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     var run: Run?
-    @IBOutlet var mapKitView: MKMapView!
-    @IBOutlet var overlayView: MapOverlay!
+    
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
+    @IBOutlet weak var mapKitView: MKMapView!
+    @IBOutlet weak var overlayView: MapOverlay!
     @IBOutlet weak var fiveKLabel: UILabel!
     @IBOutlet weak var tenKLabel: UILabel!
     @IBOutlet weak var halfLabel: UILabel!
