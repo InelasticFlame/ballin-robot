@@ -247,10 +247,14 @@ static Database *_database;
     NSArray *runsWithShoe = [self loadRunsWithQuery:[NSString stringWithFormat:@"WHERE ShoeID = '%li'", (long)shoe.ID]];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = @"UPDATE tblRuns SET ShoeID = '0' WHERE";
-        for (Run *run in runsWithShoe) {
-            [sql stringByAppendingString:[NSString stringWithFormat:@" RunID = '%li'", (long)run.ID]];
+        Run *firstRun = (Run *)runsWithShoe[0];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", firstRun.ID];
+        
+        for (int i = 1; i < runsWithShoe.count; i++) {
+            Run *run = (Run *)runsWithShoe[i];
+            [sql stringByAppendingString:[NSString stringWithFormat:@" OR RunID = '%li'", (long)run.ID]];
         }
+        
         const char *sqlChar = [sql UTF8String];
         
         return YES;

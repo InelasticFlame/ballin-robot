@@ -18,7 +18,6 @@ class HomeTextTableViewCell: UITableViewCell {
         // Initialization code
         Conversions().addBorderToView(self.headerView)
         Conversions().addBorderToView(self.mainView)
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
