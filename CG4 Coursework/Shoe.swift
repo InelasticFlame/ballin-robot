@@ -19,6 +19,7 @@ class Shoe: NSObject {
         self.ID = ID
         self.name = name
         self.miles = miles
+        
         if let _imagePath = imagePath {
             self.imagePath = _imagePath
         } else {

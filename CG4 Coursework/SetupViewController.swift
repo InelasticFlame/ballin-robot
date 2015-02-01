@@ -38,30 +38,31 @@ class SetupViewController: UIViewController {
     
     func saveSettings() {
         if distanceSegment.selectedSegmentIndex == 0 {
-            NSUserDefaults.standardUserDefaults().setObject("miles", forKey: "distanceUnit")
-            NSUserDefaults.standardUserDefaults().setDouble(goalDistanceStepper.value, forKey: "goalDistance")
+            NSUserDefaults.standardUserDefaults().setObject("miles", forKey: Constants.DefaultsKeys.Distance.unitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.goalKey)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("kilometres", forKey: "distanceUnit")
-            NSUserDefaults.standardUserDefaults().setDouble(Conversions().milesToKm * goalDistanceStepper.value, forKey: "goalDistance")
+            NSUserDefaults.standardUserDefaults().setObject("kilometres", forKey: Constants.DefaultsKeys.Distance.unitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(Conversions().milesToKm * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.goalKey)
         }
         
         if paceSegment.selectedSegmentIndex == 0 {
-            NSUserDefaults.standardUserDefaults().setObject("min/mile", forKey: "paceUnit")
+            NSUserDefaults.standardUserDefaults().setObject("min/mile", forKey: Constants.DefaultsKeys.Pace.unitKey)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("km/h", forKey: "paceUnit")
+            NSUserDefaults.standardUserDefaults().setObject("km/h", forKey: Constants.DefaultsKeys.Pace.unitKey)
         }
         
         if weightSegment.selectedSegmentIndex == 0 {
-            NSUserDefaults.standardUserDefaults().setObject("kg", forKey: "weightUnit")
+            NSUserDefaults.standardUserDefaults().setObject("kg", forKey: Constants.DefaultsKeys.Weight.unitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value, forKey: Constants.DefaultsKeys.Weight.goalKey)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("pounds", forKey: "weightUnit")
+            NSUserDefaults.standardUserDefaults().setObject("pounds", forKey: Constants.DefaultsKeys.Weight.unitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.goalKey)
         }
         
-        NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value, forKey: "weightGoal")
-        NSUserDefaults.standardUserDefaults().setInteger(Int(calorieStepper.value), forKey: "calorieGoal")
+        NSUserDefaults.standardUserDefaults().setInteger(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.unitKey)
         
         self.dismissViewControllerAnimated(true, completion: nil)
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "initialSetupPerformed")
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.DefaultsKeys.InitialSetup.setupKey)
 
     }
 
@@ -85,6 +86,9 @@ class SetupViewController: UIViewController {
         calorieStepperLabel.text = "\(Int(calorieStepper.value))"
     }
     
+    /**
+    This method changes the text of the weight goal label to the new value of the goal weight stepper, in either kilograms or pounds based on which setting is currently selected.
+    */
     @IBAction func weightStepperValueChanged(sender: UIStepper) {
         if weightSegment.selectedSegmentIndex == 0 {
             weightStepperLabel.text = "\(Int(weightStepper.value)) kg"
@@ -93,6 +97,9 @@ class SetupViewController: UIViewController {
         }
     }
     
+    /** 
+    This method changes the text of the goal distance label to the new value of the goal distance stepper, in either kilometres or miles based on which setting is currently selected.
+    */
     @IBAction func goalDistanceStepperValueChanged(sender: UIStepper) {
         if distanceSegment.selectedSegmentIndex == 0 {
             goalDistanceStepperLabel.text = "\(Int(goalDistanceStepper.value)) mi"

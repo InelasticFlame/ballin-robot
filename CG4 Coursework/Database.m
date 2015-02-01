@@ -14,6 +14,13 @@
 
 @implementation Database
 
+/* 
+ The following units are used in the database:
+    Distance: Miles
+    Average Pace: Seconds Per Mile
+    Run Duration: Seconds
+*/
+
 static Database *_database;
 
 /**

@@ -18,7 +18,6 @@ class HomeProgressTableViewCell: UITableViewCell {
     @IBOutlet weak var progressDetailLabel: UILabel!
     @IBOutlet weak var progressView: UIView!
     var progress = 0.0
-    var loaded = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,17 +30,14 @@ class HomeProgressTableViewCell: UITableViewCell {
     }
     
     func setUpCell() {
-        //if !loaded {
-            let progressBar = ProgressBar(progress: progress, frame: self.mainView.frame)
-            progressBar.center = CGPoint(x: progressBar.center.x - 16, y: progressBar.center.y)
-            self.progressView.addSubview(progressBar)
-            self.progressLabel.text = NSString(format: "%1.0lf%%", progress*100)
-            loaded = true
-        //}
+        let progressBar = ProgressBar(progress: progress, frame: self.mainView.frame)
+        progressBar.center = CGPoint(x: progressBar.center.x - 16, y: progressBar.center.y)
+        self.progressView.addSubview(progressBar)
+        self.progressLabel.text = NSString(format: "%1.0lf%%", progress*100)
     }
     
     func loadMonthlyRunProgress() -> (progress: Double, goalMiles: Double, totalMiles: Double) {
-        let goalMiles = NSUserDefaults.standardUserDefaults().doubleForKey("goalDistance")
+        let goalMiles = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Distance.goalKey)
         let currentMonth = Conversions().dateToMonthString(NSDate())
         let runs: Array<Run> = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '___\(currentMonth)%'") as Array<Run>
         let totalMiles = Conversions().totalUpRunMiles(runs)

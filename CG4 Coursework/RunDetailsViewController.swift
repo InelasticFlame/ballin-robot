@@ -11,14 +11,17 @@ import MapKit
 
 class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     var run: Run?
+    var finishTimes: (String, String, String, String)?
+    var currentFinishTime = "5k"
     
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var overlayView: MapOverlay!
-    @IBOutlet weak var fiveKLabel: UILabel!
-    @IBOutlet weak var tenKLabel: UILabel!
-    @IBOutlet weak var halfLabel: UILabel!
-    @IBOutlet weak var fullLabel: UILabel!
+    @IBOutlet weak var finishTimesLabel: UILabel!
+    @IBOutlet weak var avgPaceView: UIView!
+    @IBOutlet weak var avgPaceLabel: UILabel!
+    @IBOutlet weak var durationView: UIView!
+    @IBOutlet weak var durationLabel: UILabel!
     
     
     //MARK: - View Methods
@@ -36,7 +39,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         f. Convert the run date to a string and set the dateLabel text as the string
     
         g. Retrieves the finish times for other distances
-        h. Displays the finish times on the interface
+        h. Calls the function updateFinishTimesLabel
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +57,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             overlayView.timeLabel.text = Conversions().timeForInterface(run.dateTime) //e
             overlayView.dateLabel.text = Conversions().dateToString(run.dateTime) //f
             
-            let finishTimes = Conversions().calculateRunFinishTimes(run) //g
-            fiveKLabel.text = "5k: " + finishTimes.fiveK //h
-            tenKLabel.text = "10k: " + finishTimes.tenK
-            halfLabel.text = "Half: " + finishTimes.halfMarathon
-            fullLabel.text = "Full: " + finishTimes.fullMarathon
+            finishTimes = Conversions().calculateRunFinishTimes(run) //g
+            updateFinishTimesLabel() //h
         }
     }
     
@@ -82,6 +82,11 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             overlayView.headerOverlay.addSubview(progressBackground) //e
             overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //f
             overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //g
+            
+            avgPaceLabel.text = Conversions().averagePaceForInterface(run.pace)
+            durationLabel.text = "Time: " + Conversions().runDurationForInterface(run.duration)
+            Conversions().addBorderToView(durationView)
+            Conversions().addBorderToView(avgPaceView)
         }
         
         Conversions().addBorderToView(mapKitView) //2
@@ -94,6 +99,44 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     func hideMapForNoLocations() {
         self.mapKitView.hidden = true
         //Add filler content
+    }
+    
+    
+    /**
+    1. Creates and starts a timer that calls the function 'updateFinishTimesLabel' after 4 seconds
+    2. IF there are finishTimes
+        a. IF the currentFinishTime is 5k
+            i. Set the text of finishTimesLabel to the first stored finishTime
+           ii. Change the currentFinishTime to '10k'
+        b. ELSE IF the currentFinishTime is 10k
+            i. Set the text of finishTimesLabel to the second stored finishTime
+           ii. Change the currentFinishTime to 'Half'
+        c. ELSE IF the currentFinishTime is Half
+            i. Set the text of finishTimesLabel to the third stored finishTime
+           ii. Change the currentFinishTime to 'Full'
+        d. ELSE IF the currentFinishTime is Full
+            i. Set the text of finishTimesLabel to the fourth stored finishTime
+           ii. Change the currentFinishTime to '5k'
+    */
+    func updateFinishTimesLabel() {
+        NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "updateFinishTimesLabel", userInfo: nil, repeats: false) //1
+        
+        if let finishTimes = finishTimes { //2
+            if currentFinishTime == "5k" { //a
+                finishTimesLabel.text = finishTimes.0 //i
+                currentFinishTime = "10k" //ii
+            } else if currentFinishTime == "10k" { //b
+                finishTimesLabel.text = finishTimes.1 //i
+                currentFinishTime = "Half" //ii
+            } else if currentFinishTime == "Half" { //c
+                finishTimesLabel.text = finishTimes.2 //i
+                currentFinishTime = "Full" //ii
+            } else if currentFinishTime == "Full" { //d
+                finishTimesLabel.text = finishTimes.3 //i
+                currentFinishTime = "5k" //ii
+            }
+        }
+        
     }
     
     //MARK: - Map Drawing Methods
@@ -212,7 +255,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         
         if overlay is MKPolyline { //1
             var polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
-            polylineRenderer.strokeColor = UIColor.redColor() //b
+            polylineRenderer.strokeColor = UIColor.greenColor() //b
             polylineRenderer.lineWidth = 4 //c
             return polylineRenderer //d
         }

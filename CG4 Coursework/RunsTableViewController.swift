@@ -111,10 +111,12 @@ class RunsTableViewController: UITableViewController {
         a. Set the run of the selected view controller to the run for the selected cell
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell)
-        
-        if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
-            destinationVC.run = runs[selectedIndex!.row]
+        if segue.identifier == "runDetails" {
+            let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell)
+            
+            if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
+                destinationVC.run = runs[selectedIndex!.row]
+            }
         }
     }
     

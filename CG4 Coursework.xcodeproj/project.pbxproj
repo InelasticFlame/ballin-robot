@@ -34,6 +34,7 @@
 		B676093A1A49D256005270ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67609391A49D256005270ED /* MapKit.framework */; };
 		B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */; };
 		B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */; };
+		B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		B67609391A49D256005270ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunsTableViewController.swift; sourceTree = "<group>"; };
 		B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
+				B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */,
 				B668DB0E1A4DE8F800DC7CE6 /* ProgressBar.swift */,
 				B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */,
 				B6E0B66C1A4B1BF100D1CEC4 /* Home View */,
@@ -382,6 +385,7 @@
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
+				B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */,
 				B668DB0F1A4DE8F800DC7CE6 /* ProgressBar.swift in Sources */,
 				B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */,
 				B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */,

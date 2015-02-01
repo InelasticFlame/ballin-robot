@@ -12,6 +12,7 @@ class Conversions: NSObject {
     
     let kmToMiles = 0.621371192 //Constant double, used to convert kilometres into miles
     let milesToKm = 1.609344 //Constant double, used to convert miles into kilometres
+    let poundsToKg = 0.453592 //Constant double, used to convert pounds into kilograms
     
     /**
     This method sorts an array of Run objects into order of their dates.
@@ -81,17 +82,19 @@ class Conversions: NSObject {
     
     //MARK: - Stringify Methods
     
+    /**
+    
+    */
     func averagePaceForInterface(pace: Int) -> String {
         var returnValue = ""
-        var paceUnit = NSUserDefaults.standardUserDefaults().stringForKey("paceUnit")
-        paceUnit = "min/miles"
+        var paceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Pace.unitKey)
         
         if paceUnit == "min/miles" {
             let minutes = pace/60
             let seconds = pace % 60
             returnValue = NSString(format: "%02i:%02i", minutes, seconds) + " min/mile"
         } else if paceUnit == "km/h" {
-            let mph = 3600/pace
+            let mph = 3600.0/Double(pace)
             let kmh = Double(mph) * milesToKm
             returnValue = NSString(format: "%1.2f", kmh) + " km/h"
         }
@@ -106,20 +109,23 @@ class Conversions: NSObject {
         let minutes = minutesInSeconds/60
         let seconds = duration % 60
         
-        returnValue = NSString(format: "%02i:%02i:%02i", hours, minutes, seconds)
+        if hours > 0 {
+            returnValue = NSString(format: "%ih %02im %02is", hours, minutes, seconds)
+        } else {
+            returnValue = NSString(format: "%02im %02is", minutes, seconds)
+        }
         
         return returnValue
     }
     
     func distanceForInterface(distance: Double) -> String {
         var returnValue = ""
-        var distanceUnit = NSUserDefaults.standardUserDefaults().stringForKey("distanceUnit")
-        distanceUnit = "miles"
+        var distanceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Distance.unitKey)
         
         if distanceUnit == "miles" {
             returnValue = "\(distance) miles"
             
-        } else if distanceUnit == "km" {
+        } else if distanceUnit == "kilometres" {
             let kilometers = distance * milesToKm
             returnValue = NSString(format: "%1.2f", kilometers) + " km"
         }
@@ -143,7 +149,7 @@ class Conversions: NSObject {
     
     func timeForInterface(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.dateFormat = "hh:mm a"
         dateFormatter.locale = NSLocale.currentLocale()
         
         return dateFormatter.stringFromDate(date)
@@ -184,10 +190,10 @@ class Conversions: NSObject {
         let halfMarathon = Int(Double(run.pace) * 13.1)
         let fullMarathon = Int(Double(run.pace) * 26.2)
         
-        let fiveKStr = runDurationForInterface(fiveK)
-        let tenKStr = runDurationForInterface(tenK)
-        let halfMarathonStr = runDurationForInterface(halfMarathon)
-        let fullMarathonStr = runDurationForInterface(fullMarathon)
+        let fiveKStr = "5k: " + runDurationForInterface(fiveK)
+        let tenKStr = "10k: " + runDurationForInterface(tenK)
+        let halfMarathonStr = "Half: " + runDurationForInterface(halfMarathon)
+        let fullMarathonStr = "Full: " + runDurationForInterface(fullMarathon)
         
         return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr)
     }
