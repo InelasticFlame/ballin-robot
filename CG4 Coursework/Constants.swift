@@ -33,5 +33,12 @@ struct Constants {
         struct Calories {
             static let unitKey = "CALORIE_UNIT"
         }
+        
+        struct MapStyle {
+            static let styleKey = "MAP_STYLE"
+            static let hybrid = "HYBRID"
+            static let satellite = "SATELLITE"
+            static let standard = "STANDARD"
+        }
     }
 }

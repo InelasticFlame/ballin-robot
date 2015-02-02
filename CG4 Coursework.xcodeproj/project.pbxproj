@@ -24,6 +24,7 @@
 		B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B77A1A48DB5400A4A49C /* Plan.swift */; };
 		B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */; };
 		B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */; };
+		B659D8491A7FB87900BB5189 /* AddRunPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B659D8481A7FB87900BB5189 /* AddRunPickerViewController.swift */; };
 		B668DB051A4C782100DC7CE6 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */; };
 		B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */; };
 		B668DB091A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668DB081A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift */; };
@@ -35,6 +36,7 @@
 		B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */; };
 		B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */; };
 		B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */; };
+		B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,7 @@
 		B621B77A1A48DB5400A4A49C /* Plan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRun.swift; sourceTree = "<group>"; };
 		B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTextTableViewCell.swift; sourceTree = "<group>"; };
+		B659D8481A7FB87900BB5189 /* AddRunPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRunPickerViewController.swift; sourceTree = "<group>"; };
 		B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		B668DB081A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProgressTableViewCell.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunsTableViewController.swift; sourceTree = "<group>"; };
 		B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRunTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 				B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */,
 				B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */,
 				B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */,
+				B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */,
+				B659D8481A7FB87900BB5189 /* AddRunPickerViewController.swift */,
 			);
 			name = "Runs View";
 			sourceTree = "<group>";
@@ -382,6 +388,7 @@
 				B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */,
 				B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */,
 				B668DB091A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift in Sources */,
+				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
@@ -397,6 +404,7 @@
 				B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */,
 				B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */,
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
+				B659D8491A7FB87900BB5189 /* AddRunPickerViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
