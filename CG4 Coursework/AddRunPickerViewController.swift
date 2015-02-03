@@ -9,8 +9,26 @@
 import UIKit
 
 class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var numberOfComponents = 0
+    var numberOfRows = [Int]()
+    var componentFormat = [String]()
+    var componentContent = [[String]()]
     
-    var pickerValue = ""
+    
+    var pickerNumberOfComponents = 0
+    var pickerComponentRows = [Int]()
+    var pickerUnits = [String]()
+    
+    init(pickerType: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        setupPickerView(pickerType)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,15 +58,24 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
         pickerViewHolder.addSubview(doneButton)
     }
     
-    func setupPickerView() {
+    func setupPickerView(pickerType: String) {
         
-        switch pickerValue {
+        switch pickerType {
             case Constants.PickerViewTypes.Distance:
-                println()
+                numberOfComponents = Constants.PickerViewTypes.PickerViewAttributes.Distance.NumberOfComponents
+                numberOfRows = Constants.PickerViewTypes.PickerViewAttributes.Distance.NumberOfRows
+                componentFormat = Constants.PickerViewTypes.PickerViewAttributes.Distance.Format
+                componentContent = Constants.PickerViewTypes.PickerViewAttributes.Distance.Content
             case Constants.PickerViewTypes.Duration:
-                println()
+                numberOfComponents = Constants.PickerViewTypes.PickerViewAttributes.Duration.NumberOfComponents
+                numberOfRows = Constants.PickerViewTypes.PickerViewAttributes.Duration.NumberOfRows
+                componentFormat = Constants.PickerViewTypes.PickerViewAttributes.Duration.Format
+                componentContent = Constants.PickerViewTypes.PickerViewAttributes.Duration.Content
             case Constants.PickerViewTypes.Pace:
-                println()
+                numberOfComponents = Constants.PickerViewTypes.PickerViewAttributes.Pace.NumberOfComponents
+                numberOfRows = Constants.PickerViewTypes.PickerViewAttributes.Pace.NumberOfRows
+                componentFormat = Constants.PickerViewTypes.PickerViewAttributes.Pace.Format
+                componentContent = Constants.PickerViewTypes.PickerViewAttributes.Pace.Content
             case Constants.PickerViewTypes.RunType:
                 println()
             case Constants.PickerViewTypes.Shoe:
@@ -82,30 +109,23 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     
     // MARK: - PickerView
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        
+        if componentContent[component][0] == "row" {
+            return NSString(format: componentFormat[component], row)
+        } else {
+            return NSString(format: componentFormat[component], componentContent[component][row])
+        }
         
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        if component == 0 {
-            return "\(row)"
-        } else if component == 1 {
-            return NSString(format: ".%02i", row)
-        } else {
-            return "unit"
-        }
-    }
-    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 3
+        return numberOfComponents
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component != 2 {
-            return 100
-        } else {
-            return 2
-        }
+        return numberOfRows[component]
     }
 
     /*

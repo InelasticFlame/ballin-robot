@@ -43,7 +43,7 @@ class AddRunTableViewController: UITableViewController {
     }
     
     func createPickerView() {
-        let pickerViewController = AddRunPickerViewController()
+        let pickerViewController = AddRunPickerViewController(pickerType: Constants.PickerViewTypes.Duration)
         pickerViewController.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         
         self.presentViewController(pickerViewController, animated: true, completion: nil)
