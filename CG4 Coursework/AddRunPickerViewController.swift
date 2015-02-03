@@ -9,7 +9,8 @@
 import UIKit
 
 class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
+    var pickerValue = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,6 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
         pickerView.backgroundColor = UIColor.lightGrayColor()
         pickerViewHolder.addSubview(pickerView)
         
-        
         let cancelButton = UIButton(frame: CGRect(x: 8, y: 5 , width: 0, height: 0))
         cancelButton.setTitle("Cancel", forState: .Normal)
         cancelButton.sizeToFit()
@@ -38,6 +38,24 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
         doneButton.addTarget(self, action: "donePress:", forControlEvents: .TouchUpInside)
         doneButton.sizeToFit()
         pickerViewHolder.addSubview(doneButton)
+    }
+    
+    func setupPickerView() {
+        
+        switch pickerValue {
+            case Constants.PickerViewTypes.Distance:
+                println()
+            case Constants.PickerViewTypes.Duration:
+                println()
+            case Constants.PickerViewTypes.Pace:
+                println()
+            case Constants.PickerViewTypes.RunType:
+                println()
+            case Constants.PickerViewTypes.Shoe:
+                println()
+            default:
+                println()
+        }
     }
     
     func cancelPress(sender:UIButton!) {

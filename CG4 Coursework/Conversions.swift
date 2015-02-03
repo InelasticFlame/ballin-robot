@@ -87,7 +87,7 @@ class Conversions: NSObject {
     */
     func averagePaceForInterface(pace: Int) -> String {
         var returnValue = ""
-        var paceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Pace.unitKey)
+        var paceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Pace.UnitKey)
         
         if paceUnit == "min/miles" {
             let minutes = pace/60
@@ -120,7 +120,7 @@ class Conversions: NSObject {
     
     func distanceForInterface(distance: Double) -> String {
         var returnValue = ""
-        var distanceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Distance.unitKey)
+        var distanceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Distance.UnitKey)
         
         if distanceUnit == "miles" {
             returnValue = "\(distance) miles"

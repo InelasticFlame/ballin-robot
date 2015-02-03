@@ -13,32 +13,40 @@ struct Constants {
     struct DefaultsKeys {
         
         struct InitialSetup {
-            static let setupKey = "INITIAL_SETUP"
+            static let SetupKey = "INITIAL_SETUP"
         }
         
         struct Distance {
-            static let unitKey = "DISTANCE_UNIT"
-            static let goalKey = "GOAL_DISTANCE"
+            static let UnitKey = "DISTANCE_UNIT"
+            static let GoalKey = "GOAL_DISTANCE"
         }
         
         struct Pace {
-            static let unitKey = "PACE_UNIT"
+            static let UnitKey = "PACE_UNIT"
         }
         
         struct Weight {
-            static let unitKey = "WEIGHT_UNIT"
-            static let goalKey = "WEIGHT_GOAL"
+            static let UnitKey = "WEIGHT_UNIT"
+            static let GoalKey = "WEIGHT_GOAL"
         }
         
         struct Calories {
-            static let unitKey = "CALORIE_UNIT"
+            static let UnitKey = "CALORIE_UNIT"
         }
         
         struct MapStyle {
-            static let styleKey = "MAP_STYLE"
-            static let hybrid = "HYBRID"
-            static let satellite = "SATELLITE"
-            static let standard = "STANDARD"
+            static let StyleKey = "MAP_STYLE"
+            static let Hybrid = "HYBRID"
+            static let Satellite = "SATELLITE"
+            static let Standard = "STANDARD"
         }
+    }
+    
+    struct PickerViewTypes {
+        static let Distance = "DISTANCE_PICKER"
+        static let Pace = "PACE_PICKER"
+        static let Shoe = "SHOE_PICKER"
+        static let Duration = "DURATION_PICKER"
+        static let RunType = "RUN_TYPE_PICKER"
     }
 }

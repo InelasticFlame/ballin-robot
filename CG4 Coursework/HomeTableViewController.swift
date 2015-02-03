@@ -14,7 +14,7 @@ class HomeTableViewController: UITableViewController {
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as HomeProgressTableViewCell
         cell.setUpCell()
         
-        if !NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.setupKey) {
+        if !NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) {
             let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
             let newVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController
             self.presentViewController(newVC, animated: true, completion: nil)

@@ -155,9 +155,9 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         e. Call the function centreMapOnRunArea
     */
     func drawRouteLineOnMap() {
-        if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.MapStyle.styleKey) == Constants.DefaultsKeys.MapStyle.satellite { //1
+        if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.MapStyle.StyleKey) == Constants.DefaultsKeys.MapStyle.Satellite { //1
             mapKitView.mapType = .Satellite
-        } else if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.MapStyle.styleKey) == Constants.DefaultsKeys.MapStyle.hybrid { //2
+        } else if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.MapStyle.styleKey) == Constants.DefaultsKeys.MapStyle.Hybrid { //2
             mapKitView.mapType = .Hybrid
         } else { //3
             mapKitView.mapType = .Standard
