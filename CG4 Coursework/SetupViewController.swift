@@ -38,31 +38,31 @@ class SetupViewController: UIViewController {
     
     func saveSettings() {
         if distanceSegment.selectedSegmentIndex == 0 {
-            NSUserDefaults.standardUserDefaults().setObject("miles", forKey: Constants.DefaultsKeys.Distance.unitKey)
-            NSUserDefaults.standardUserDefaults().setDouble(goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.goalKey)
+            NSUserDefaults.standardUserDefaults().setObject("miles", forKey: Constants.DefaultsKeys.Distance.UnitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("kilometres", forKey: Constants.DefaultsKeys.Distance.unitKey)
-            NSUserDefaults.standardUserDefaults().setDouble(Conversions().milesToKm * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.goalKey)
+            NSUserDefaults.standardUserDefaults().setObject("kilometres", forKey: Constants.DefaultsKeys.Distance.UnitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(Conversions().milesToKm * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey)
         }
         
         if paceSegment.selectedSegmentIndex == 0 {
-            NSUserDefaults.standardUserDefaults().setObject("min/mile", forKey: Constants.DefaultsKeys.Pace.unitKey)
+            NSUserDefaults.standardUserDefaults().setObject("min/mile", forKey: Constants.DefaultsKeys.Pace.UnitKey)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("km/h", forKey: Constants.DefaultsKeys.Pace.unitKey)
+            NSUserDefaults.standardUserDefaults().setObject("km/h", forKey: Constants.DefaultsKeys.Pace.UnitKey)
         }
         
         if weightSegment.selectedSegmentIndex == 0 {
-            NSUserDefaults.standardUserDefaults().setObject("kg", forKey: Constants.DefaultsKeys.Weight.unitKey)
-            NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value, forKey: Constants.DefaultsKeys.Weight.goalKey)
+            NSUserDefaults.standardUserDefaults().setObject("kg", forKey: Constants.DefaultsKeys.Weight.UnitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value, forKey: Constants.DefaultsKeys.Weight.GoalKey)
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("pounds", forKey: Constants.DefaultsKeys.Weight.unitKey)
-            NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.goalKey)
+            NSUserDefaults.standardUserDefaults().setObject("pounds", forKey: Constants.DefaultsKeys.Weight.UnitKey)
+            NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey)
         }
         
-        NSUserDefaults.standardUserDefaults().setInteger(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.unitKey)
+        NSUserDefaults.standardUserDefaults().setInteger(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.UnitKey)
         
         self.dismissViewControllerAnimated(true, completion: nil)
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.DefaultsKeys.InitialSetup.setupKey)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey)
 
     }
 
