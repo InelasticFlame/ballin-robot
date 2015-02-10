@@ -43,17 +43,20 @@ struct Constants {
     }
     
     struct SQLQuerys {
-    
+
     }
     
-    struct PickerViewTypes {
-        static let Distance = "DISTANCE_PICKER"
-        static let Pace = "PACE_PICKER"
-        static let Shoe = "SHOE_PICKER"
-        static let Duration = "DURATION_PICKER"
-        static let RunType = "RUN_TYPE_PICKER"
+    struct PickerView {
         
-        struct PickerViewAttributes {
+        struct Type {
+            static let Distance = "DISTANCE_PICKER"
+            static let Pace = "PACE_PICKER"
+            static let Shoe = "SHOE_PICKER"
+            static let Duration = "DURATION_PICKER"
+            static let RunType = "RUN_TYPE_PICKER"
+        }
+        
+        struct Attributes {
             
             struct Distance {
                 static let NumberOfRows = [100, 100, 2]
@@ -66,7 +69,7 @@ struct Constants {
                 static let NumberOfRows = [60, 60, 2]
                 static let NumberOfComponents = 3
                 static let Format = ["%im", "%02is", "%@"]
-                static let Content = [["row"], ["row"], ["min/mi", "min/km"]]
+                static let Content = [["row"], ["row"], ["/mi", "/km"]]
             }
             
             struct Duration {
@@ -77,11 +80,17 @@ struct Constants {
             }
             
             struct RunType {
+                static let NumberOfRows = [4]
                 static let NumberOfComponents = 1
+                static let Format = ["%@"]
+                static let Content = [["Run", "Jog", "Road", "Trail"]]
             }
             
             struct Shoe {
+                static let NumberOfRows = [0]
                 static let NumberOfComponents = 1
+                static let Format = ["%@"]
+                static let Content = [["DB_LOOKUP"]]
             }
         }
     }

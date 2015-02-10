@@ -23,10 +23,8 @@ class ProgressBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        // Drawing code
+        
         let arcRadius = (rect.size.width*3) / 8
         let arcCentrePoint = CGPoint(x: rect.size.width/2, y: (rect.size.height)/2)
         let fullArc = UIBezierPath(arcCenter: arcCentrePoint, radius: arcRadius, startAngle: startAngle, endAngle: endAngle, clockwise: true)

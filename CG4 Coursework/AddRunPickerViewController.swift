@@ -15,13 +15,12 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
     var componentFormat = [String]()
     var componentContent = [[String]()]
     
-    
-    var pickerNumberOfComponents = 0
-    var pickerComponentRows = [Int]()
-    var pickerUnits = [String]()
+    var pickerView = UIPickerView()
+    var pickerType = ""
     
     init(pickerType: String) {
         super.init(nibName: nil, bundle: nil)
+        self.pickerType = pickerType
         
         setupPickerView(pickerType)
     }
@@ -32,14 +31,17 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let pickerViewHolder = UIView(frame: CGRect(x: 20, y: 300, width: self.view.frame.size.width - 40, height: 200))
+    
+        let windowHeight = self.view.frame.size.height
+        let windowWidth = self.view.frame.size.width
+            
+        let pickerViewHolder = UIView(frame: CGRect(x: 20, y: windowHeight - 249, width: windowWidth - 40, height: 200))
         pickerViewHolder.backgroundColor = UIColor.grayColor()
         pickerViewHolder.layer.borderWidth = 5
         pickerViewHolder.layer.borderColor = UIColor.blackColor().CGColor
         self.view.addSubview(pickerViewHolder)
         
-        let pickerView = UIPickerView(frame: CGRect(x: 10, y: 35, width: self.view.frame.size.width - 60, height: 120))
+        pickerView = UIPickerView(frame: CGRect(x: 10, y: 35, width: windowWidth - 60, height: 120))
         pickerView.delegate = self
         pickerView.showsSelectionIndicator = true
         pickerView.backgroundColor = UIColor.lightGrayColor()
@@ -51,37 +53,37 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
         cancelButton.addTarget(self, action: "cancelPress:", forControlEvents: .TouchUpInside)
         pickerViewHolder.addSubview(cancelButton)
         
-        let doneButton = UIButton(frame: CGRect(x: self.view.frame.size.width - 96, y: 5, width: 0, height: 0))
+        let doneButton = UIButton(frame: CGRect(x: windowWidth - 96, y: 5, width: 0, height: 0))
         doneButton.setTitle("Done", forState: .Normal)
         doneButton.addTarget(self, action: "donePress:", forControlEvents: .TouchUpInside)
         doneButton.sizeToFit()
         pickerViewHolder.addSubview(doneButton)
     }
-    
+
     func setupPickerView(pickerType: String) {
         
         switch pickerType {
-            case Constants.PickerViewTypes.Distance:
-                numberOfComponents = Constants.PickerViewTypes.PickerViewAttributes.Distance.NumberOfComponents
-                numberOfRows = Constants.PickerViewTypes.PickerViewAttributes.Distance.NumberOfRows
-                componentFormat = Constants.PickerViewTypes.PickerViewAttributes.Distance.Format
-                componentContent = Constants.PickerViewTypes.PickerViewAttributes.Distance.Content
-            case Constants.PickerViewTypes.Duration:
-                numberOfComponents = Constants.PickerViewTypes.PickerViewAttributes.Duration.NumberOfComponents
-                numberOfRows = Constants.PickerViewTypes.PickerViewAttributes.Duration.NumberOfRows
-                componentFormat = Constants.PickerViewTypes.PickerViewAttributes.Duration.Format
-                componentContent = Constants.PickerViewTypes.PickerViewAttributes.Duration.Content
-            case Constants.PickerViewTypes.Pace:
-                numberOfComponents = Constants.PickerViewTypes.PickerViewAttributes.Pace.NumberOfComponents
-                numberOfRows = Constants.PickerViewTypes.PickerViewAttributes.Pace.NumberOfRows
-                componentFormat = Constants.PickerViewTypes.PickerViewAttributes.Pace.Format
-                componentContent = Constants.PickerViewTypes.PickerViewAttributes.Pace.Content
-            case Constants.PickerViewTypes.RunType:
+            case Constants.PickerView.Type.Distance:
+                numberOfComponents = Constants.PickerView.Attributes.Distance.NumberOfComponents
+                numberOfRows = Constants.PickerView.Attributes.Distance.NumberOfRows
+                componentFormat = Constants.PickerView.Attributes.Distance.Format
+                componentContent = Constants.PickerView.Attributes.Distance.Content
+            case Constants.PickerView.Type.Duration:
+                numberOfComponents = Constants.PickerView.Attributes.Duration.NumberOfComponents
+                numberOfRows = Constants.PickerView.Attributes.Duration.NumberOfRows
+                componentFormat = Constants.PickerView.Attributes.Duration.Format
+                componentContent = Constants.PickerView.Attributes.Duration.Content
+            case Constants.PickerView.Type.Pace:
+                numberOfComponents = Constants.PickerView.Attributes.Pace.NumberOfComponents
+                numberOfRows = Constants.PickerView.Attributes.Pace.NumberOfRows
+                componentFormat = Constants.PickerView.Attributes.Pace.Format
+                componentContent = Constants.PickerView.Attributes.Pace.Content
+            case Constants.PickerView.Type.RunType:
                 println()
-            case Constants.PickerViewTypes.Shoe:
+            case Constants.PickerView.Type.Shoe:
                 println()
             default:
-                println()
+                println("Error Setting Up PickerView for type: \(pickerType)")
         }
     }
     
@@ -91,16 +93,24 @@ class AddRunPickerViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     func donePress(sender:UIButton!) {
         if let presentingVC = self.presentingViewController {
-            for VC in presentingVC.childViewControllers {
-                if let ViewC = VC as? AddRunTableViewController {
-                    ViewC.updateDetail()
+            for viewController in presentingVC.childViewControllers {
+                if let previousVC = viewController as? AddRunTableViewController {
+                    var returnValues = [String]()
+                    
+                    for var i = 0; i < numberOfComponents; i++ {
+                        let value = self.pickerView(pickerView, titleForRow: pickerView.selectedRowInComponent(i), forComponent: i)
+                        
+                        returnValues.append(value)
+                    }
+                    
+                    previousVC.updateDetail(returnValues)
                 }
             }
         }
 
         dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

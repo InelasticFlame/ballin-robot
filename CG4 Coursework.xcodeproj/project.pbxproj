@@ -37,6 +37,10 @@
 		B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */; };
 		B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */; };
 		B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */; };
+		B6F9A0DB1A8A4A3300C5828F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */; };
+		B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */; };
+		B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */; };
+		B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +94,10 @@
 		B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRunTableViewController.swift; sourceTree = "<group>"; };
+		B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCreatePlanTableViewController.swift; sourceTree = "<group>"; };
+		B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailsViewController.swift; sourceTree = "<group>"; };
+		B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +166,7 @@
 		B621B7411A48C65100A4A49C /* CG4 Coursework */ = {
 			isa = PBXGroup;
 			children = (
+				B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
 				B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */,
 				B668DB0E1A4DE8F800DC7CE6 /* ProgressBar.swift */,
@@ -165,6 +174,7 @@
 				B6E0B66C1A4B1BF100D1CEC4 /* Home View */,
 				B618ABF41A51FC4D0050EFF0 /* Runs View */,
 				B621B7761A48D2A500A4A49C /* Custom Objects */,
+				B6FB78101A86A7CE00667897 /* Planned Runs */,
 				B621B7771A48D2B600A4A49C /* Database */,
 				B621B7441A48C65100A4A49C /* AppDelegate.swift */,
 				B621B74D1A48C65100A4A49C /* Images.xcassets */,
@@ -245,6 +255,16 @@
 				B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */,
 			);
 			name = "Home View";
+			sourceTree = "<group>";
+		};
+		B6FB78101A86A7CE00667897 /* Planned Runs */ = {
+			isa = PBXGroup;
+			children = (
+				B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */,
+				B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */,
+				B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */,
+			);
+			name = "Planned Runs";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +405,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */,
+				B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */,
 				B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */,
 				B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */,
 				B668DB091A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift in Sources */,
@@ -398,11 +420,13 @@
 				B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */,
 				B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */,
 				B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */,
+				B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */,
 				B67609381A49BB76005270ED /* StravaRuns.m in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
 				B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */,
 				B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */,
+				B6F9A0DB1A8A4A3300C5828F /* DatePickerViewController.swift in Sources */,
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
 				B659D8491A7FB87900BB5189 /* AddRunPickerViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,

@@ -21,7 +21,9 @@ class SetupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        //Load view with current settings
+        
         calorieStepperLabel.text = "\(Int(calorieStepper.value))"
         weightStepperLabel.text = "\(Int(weightStepper.value)) kg"
     }

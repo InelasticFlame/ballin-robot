@@ -14,20 +14,6 @@ class Conversions: NSObject {
     let milesToKm = 1.609344 //Constant double, used to convert miles into kilometres
     let poundsToKg = 0.453592 //Constant double, used to convert pounds into kilograms
     
-    /**
-    This method sorts an array of Run objects into order of their dates.
-    */
-    func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
-        //EXPLANATION: Due to Swift and Objective-C interaction a mutable array has to be created as Objective-C would not interact
-        //with a function with mutable inputs. The following method was done in Swift due to the inbuilt array sort methods in Swift.
-        
-        var runs = array //Create a mutable version of the array
-        
-        runs.sort({$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow})
-        
-        return runs
-    }
-    
     func addBorderToView(view: UIView) {
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.darkGrayColor().CGColor
@@ -147,6 +133,9 @@ class Conversions: NSObject {
         return dateFormatter.stringFromDate(dateTime)
     }
     
+    /**
+    This method takes an NSDate object and returns the time as a string, in the form "hh:mm" using the 12 hour system.
+    */
     func timeForInterface(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
@@ -155,6 +144,11 @@ class Conversions: NSObject {
         return dateFormatter.stringFromDate(date)
     }
     
+    //MARK: - Array Sorting
+    
+    /**
+    This method takes an array of Run objects and returns the total of their distances.
+    */
     func totalUpRunMiles(runs: Array<Run>) -> Double {
         var total = 0.0
         for run: Run in runs {
@@ -164,16 +158,23 @@ class Conversions: NSObject {
         return total
     }
     
-    func returnScoreColour(run: Run) -> UIColor {
-        if run.score < 300 {
-            return UIColor.redColor()
-        } else if run.score < 700 {
-            return UIColor.orangeColor()
-        } else {
-            return UIColor.greenColor()
-        }
+    /**
+    This method sorts an array of Run objects into order of their dates.
+    */
+    func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
+        //EXPLANATION: Due to Swift and Objective-C interaction a mutable array has to be created as Objective-C would not interact
+        //with a function with mutable inputs. The following method was done in Swift due to the inbuilt array sort methods in Swift.
+        
+        var runs = array //Create a mutable version of the array
+        
+        runs.sort({$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow})
+        
+        return runs
     }
     
+    /**
+    
+    */
     func dateToMonthString(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
         let month = dateFormatter.calendar.component(.MonthCalendarUnit, fromDate: date)
@@ -184,6 +185,27 @@ class Conversions: NSObject {
         return monthString
     }
     
+    //MARK: - Runs
+    
+    /**
+    This method returns the colour for the progress bar based on a run's score.
+    Red < 300
+    Orange 300 <= score < 700
+    Green >= 700
+    */
+    func returnScoreColour(run: Run) -> UIColor {
+        if run.score < 300 {
+            return UIColor.redColor()
+        } else if run.score < 700 {
+            return UIColor.orangeColor()
+        } else {
+            return UIColor.greenColor()
+        }
+    }
+    
+    /**
+    
+    */
     func calculateRunFinishTimes(run: Run) -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
         let fiveK = Int(Double(run.pace) * 3.1)
         let tenK = Int(Double(run.pace) * 6.2)
@@ -199,7 +221,7 @@ class Conversions: NSObject {
     }
     
     /**
-    Checks a run is valid; that is it has a distance, duration and pace greater than 0.
+    Checks a run is valid; that is, it has a distance, duration and pace greater than 0.
     */
     func validateRun(run: Run) -> Bool {
         if run.distance > 0 && run.duration > 0 && run.pace > 0 {
