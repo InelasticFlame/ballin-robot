@@ -897,7 +897,7 @@
                         <sections>
                             <tableViewSection id="h9k-fz-ynR">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="GI9-hL-KPG">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="GI9-hL-KPG">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GI9-hL-KPG" id="5Bh-lD-swh">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="43.5"/>
@@ -906,7 +906,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Plan Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hEV-e5-0Z5">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -937,6 +937,24 @@
                                                     <include reference="k7r-82-44t"/>
                                                 </mask>
                                             </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="Pot-PJ-4Yh" style="IBUITableViewCellStyleDefault" id="Bsq-Eo-U5s">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bsq-Eo-U5s" id="jVE-P2-1YX">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pot-PJ-4Yh">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -1092,11 +1110,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Create Plan" id="hzn-wR-FQx">
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="HMU-gy-BVP"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="HMU-gy-BVP">
+                            <connections>
+                                <segue destination="kdk-Fk-eLo" kind="show" identifier="createPress" id="mLJ-aW-w2Z"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="endDateDetailLabel" destination="0KS-IY-5Mz" id="gNZ-US-Gq0"/>
                         <outlet property="endDatePicker" destination="r8r-QX-Za8" id="M7p-52-BKX"/>
+                        <outlet property="planNameTextField" destination="hEV-e5-0Z5" id="64s-t5-hII"/>
+                        <outlet property="startDateDetailLabel" destination="Vun-0z-vyp" id="92d-pR-GCu"/>
                         <outlet property="startDatePicker" destination="y9E-7L-1gb" id="FG4-dh-QK2"/>
+                        <outlet property="warningLabel" destination="Pot-PJ-4Yh" id="3Tt-mh-r3U"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07C-JQ-YWL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2351,5 +2377,8 @@
         <image name="Tick Image" width="37" height="37"/>
         <image name="home.png" width="60" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mLJ-aW-w2Z"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

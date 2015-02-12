@@ -10,6 +10,7 @@ import UIKit
 
 class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var planDetailsTableView: UITableView!
     

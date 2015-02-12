@@ -230,4 +230,9 @@ class Conversions: NSObject {
             return false
         }
     }
+    
+    func validatePlanName(planName: String) -> Bool {
+
+        return true
+    }
 }

@@ -410,9 +410,11 @@ static Database *_database;
         if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
             NSLog([NSString stringWithFormat:@"Error deleting run: %@", error]);
+            sqlite3_close(_database);
             return  NO;
         } else {
             NSLog(@"Run Deleted Successfully");
+            sqlite3_close(_database);
             return YES;
         }
     } else {
@@ -422,6 +424,33 @@ static Database *_database;
 
 #pragma mark - Plan Methods
 #pragma mark Plan Saving
+-(Plan*)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
+    NSInteger planID;
+    Plan *plan;
+    
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *startDateStr = [[[Conversions alloc] init] dateToString:startDate];
+        NSString *endDateStr = [[[Conversions alloc] init] dateToString:startDate];
+        
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlans(PlanName, StartDate, EndDate) VALUES ('%@', '%@', '%@')", name, startDateStr, endDateStr];
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
+                NSLog(@"Error Saving");
+        } else {
+            planID = (NSInteger)sqlite3_last_insert_rowid(_database);
+            plan = [[Plan alloc] initWithID:planID name:name startDate:startDate endDate:endDate];
+            NSLog(@"Saving Successful");
+            return plan;
+        }
+    }
+    
+    return nil;
+}
+
 
 #pragma mark - Shoe Methods
 #pragma mark Shoe Saving
