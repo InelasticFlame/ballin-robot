@@ -60,7 +60,7 @@ static Database *_database;
 }
 
 /**
- 1. Converts the databasePath from an NSString into an array of characters for use with the database
+ 1. Converts the databasePath from an NSString into a pure string for use with the database
  2. Creates the errorMessage
  3. IF the database opens at the databasePath
     a. Create the SQL
@@ -104,6 +104,13 @@ static Database *_database;
             NSLog([NSString stringWithFormat:@"Error creating tblShoes; %@", error]);
         }
         
+        const char *sqlPlans = "CREATE TABLE IF NOT EXISTS tblTrainingPlans(PlanID INTEGER PRIMARY KEY AUTOINCREMENT, PlanName TEXT, StartDate TEXT, EndDate TEXT)";
+        
+        if (sqlite3_exec(_database, sqlPlans, NULL, NULL, &errorMessage) != SQLITE_OK) {
+            NSString *error = [NSString stringWithUTF8String:errorMessage];
+            NSLog([NSString stringWithFormat:@"Error creating tblTrainingPlans; %@", error]);
+        }
+        
         
         sqlite3_close(_database); //c
         
@@ -117,7 +124,7 @@ static Database *_database;
 #pragma mark Run Saving
 /**
  1. Declares the local variable saveSuccessful as NO
- 2. Converts the databasePath from an NSString into an array of characters for use with the database
+ 2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF the database opens at the databasePath
     a. Creates the SQL
     b. Converts the SQL to an array of characters for use with the database
@@ -171,7 +178,7 @@ static Database *_database;
 }
 
 /**
- 1. Converts the databasePath from an NSString into an array of characters for use with the database
+ 1. Converts the databasePath from an NSString into a pure string for use with the database
  2. IF opening the database is successful
     a. FOR each location in the run.locations array
         i. Creates the location coordinates as a string
@@ -211,7 +218,7 @@ static Database *_database;
 }
 
 /**
- 1. Converts the databasePath from an NSString into an array of characters for use with the database
+ 1. Converts the databasePath from an NSString into a pure string for use with the database
  2. IF opening the database is successful
     a. FOR each split in the run.splits array
         i. Creates the SQL
@@ -317,7 +324,7 @@ static Database *_database;
 
 /**
  1. Creates and initialises the local mutable array, locations
- 2. Converts the databasePath from an NSString into an array of characters for use with the database
+ 2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF opening the database is successful
     a. Creates the SQL
     b. Converts the SQL to an array of characters for use with the database
@@ -359,7 +366,7 @@ static Database *_database;
 
 /**
  1. Creates and initialises the local mutable array, splits
- 2. Converts the databasePath from an NSString into an array of characters for use with the database
+ 2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF opening the database is successful
     a. Creates the SQL
     b. Converts the SQL to an array of characters for use with the database
@@ -424,33 +431,91 @@ static Database *_database;
 
 #pragma mark - Plan Methods
 #pragma mark Plan Saving
--(Plan*)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
-    NSInteger planID;
+
+/**
+ 1. Declares the local variables planID, an NSInteger and the plan an new Plan object
+ 2. Converts the databasePath from an NSString into a pure string for use with the database
+ 3. IF the database opens successfully
+    a. Converts the plan start date into a string using the Conversions class
+    b. Converts the plan end date into a string using the Conversions class
+    c. Creates the SQL
+    d. Converts the SQL to an array of characters for use with the database
+    e. Declares the local variable errorMessage to store any errors from the database
+    f. IF the SQL does not execute successfully
+        i. Logs "Error Saving: " followed by the error message from the database
+    g. ELSE
+        i. Retrieves the planID of the plan just created (this is the rowID of the last insert)
+       ii. Creates a new plan, with the planID the name, the startDate and the endDate
+      iii. Logs "Plan Saving Successful"
+       iv. Returns the plan
+    h. Closes the database
+ 4. Returns nil as the default case
+ */
+-(Plan *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
+    NSInteger planID; //1
     Plan *plan;
     
+    const char *charDbPath = [_databasePath UTF8String]; //2
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        NSString *startDateStr = [[[Conversions alloc] init] dateToString:startDate]; //a
+        NSString *endDateStr = [[[Conversions alloc] init] dateToString:endDate]; //b
+        
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblTrainingPlans(PlanName, StartDate, EndDate) VALUES ('%@', '%@', '%@')", name, startDateStr, endDateStr]; //c
+        const char *sqlChar = [sql UTF8String]; //d
+        char *errorMessage; //e
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //f
+                NSLog(@"Error Saving: %@", [NSString stringWithUTF8String:errorMessage]); //i
+        } else { //g
+            planID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
+            plan = [[Plan alloc] initWithID:planID name:name startDate:startDate endDate:endDate]; //ii
+            NSLog(@"Plan Saving Successful"); //iii
+            return plan; //iv
+        }
+        
+        sqlite3_close(_database); //h
+    } else {
+        NSLog(@"Error Opening Database");
+    }
+    
+    return nil; //4
+}
+
+#pragma mark Plan Loading
+
+-(NSArray *)loadAllTrainingPlans {
+    NSMutableArray *trainingPlans = [[NSMutableArray alloc] init];
     const char *charDbPath = [_databasePath UTF8String];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *startDateStr = [[[Conversions alloc] init] dateToString:startDate];
-        NSString *endDateStr = [[[Conversions alloc] init] dateToString:startDate];
+        const char *sqlChar = "SELECT * FROM tblTrainingPlans";
+        sqlite3_stmt *statement;
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlans(PlanName, StartDate, EndDate) VALUES ('%@', '%@', '%@')", name, startDateStr, endDateStr];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
-        
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-                NSLog(@"Error Saving");
-        } else {
-            planID = (NSInteger)sqlite3_last_insert_rowid(_database);
-            plan = [[Plan alloc] initWithID:planID name:name startDate:startDate endDate:endDate];
-            NSLog(@"Saving Successful");
-            return plan;
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                int planID = (int)sqlite3_column_int(statement, 0);
+                char *name = (char *)sqlite3_column_text(statement, 1);
+                char *startDateStr = (char *)sqlite3_column_text(statement, 2);
+                char *endDateStr = (char *)sqlite3_column_text(statement, 3);
+                
+                NSDate *startDate = [[[Conversions alloc] init] stringToDate:[NSString stringWithUTF8String:startDateStr]];
+                NSDate *endDate = [[[Conversions alloc] init] stringToDate:[NSString stringWithUTF8String:endDateStr]];
+                
+                Plan *plan = [[Plan alloc] initWithID:planID name:[NSString stringWithUTF8String:name] startDate:startDate endDate:endDate];
+                [trainingPlans addObject:plan];
+            }
         }
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
+
+        
+    } else {
+        NSLog(@"Error Opening Database");
     }
     
-    return nil;
+    return trainingPlans;
 }
-
 
 #pragma mark - Shoe Methods
 #pragma mark Shoe Saving

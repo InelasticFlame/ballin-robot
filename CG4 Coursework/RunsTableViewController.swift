@@ -9,31 +9,34 @@
 import UIKit
 
 class RunsTableViewController: UITableViewController {
+    //MARK: - Global Variables
     
     var runs = [Run]() //Creates and inititalises a global array of Run objects
     
+    //MARK: - View Life Cycle
+    
     /**
-    This method:
-    1. Loads all the runs from the database
-    2. Sets the right button on the navigation bar as an Edit button
+    This method is called by the system when the view is first loaded
+    1. Sets the right button on the navigation bar as an Edit button
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.runs = Database().loadRunsWithQuery("") as Array<Run>
 
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem() //1
     }
     
     /**
-    This method reloads the data in the table when the view appears, this ensures that all views are correctly formatted as all constraits have been fully updated.
+    This method reloads the data in the table when the view is about to appear, this ensures that the table is always up to date after further navigation through the app (the view is not reloaded fully each time)
+    1. Loads all the runs from the database, storing them in the global array of Run objects, runs
+    2. Reloads the tableView
     */
-    override func viewDidAppear(animated: Bool) {
-        tableView.reloadData()
+    override func viewWillAppear(animated: Bool) {
+        self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
+        tableView.reloadData() //2
     }
     
 
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
 
     /**
     This method is called by the system whenevr the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
@@ -119,10 +122,4 @@ class RunsTableViewController: UITableViewController {
             }
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }

@@ -55,6 +55,15 @@ class Conversions: NSObject {
         return date //Return the date
     }
     
+    func stringToDate(dateStr: String) -> NSDate? {
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB")
+        let date = dateFormatter.dateFromString(dateStr)
+        
+        return date
+    }
+    
     /**
     This method takes a location string in the form "latitude, longitude" and returns it as a CLLocation object.
     */

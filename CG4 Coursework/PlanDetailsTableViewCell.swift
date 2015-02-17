@@ -11,22 +11,11 @@ import UIKit
 class PlanDetailsTableViewCell: UITableViewCell {
     /* This class stores the links to the controls for a PlanDetailsTableViewCell */
     
+    //MARK: - Storyboard Links
     
     /* Links to user interface controls */
     @IBOutlet weak var distanceDurationLabel: UILabel!
     @IBOutlet weak var progressImage: UIImageView!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

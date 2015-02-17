@@ -24,8 +24,11 @@
 -(NSArray *)loadRunsWithQuery:(NSString *)query;
 -(BOOL)deleteRunWithID:(NSObject *)run;
 
+//Plans
+-(NSObject *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate;
+-(NSArray *)loadAllTrainingPlans;
+
 //Shoes
 -(void)saveShoe;
-
 
 @end

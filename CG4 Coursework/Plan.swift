@@ -28,7 +28,7 @@ class Plan: NSObject {
     
     func checkIfActive() {
         let today = NSDate()
-        let endDate = self.endDate.dateByAddingTimeInterval(86400)
+        let endDate = self.endDate.dateByAddingTimeInterval(86400) //Add a day to the date.
         
         if today.earlierDate(startDate) == startDate && today.laterDate(endDate) == endDate {
             self.active = true

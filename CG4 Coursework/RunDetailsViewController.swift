@@ -10,9 +10,8 @@ import UIKit
 import MapKit
 
 class RunDetailsViewController: UIViewController, MKMapViewDelegate {
-    var run: Run?
-    var finishTimes: (String, String, String, String)?
-    var currentFinishTime = "5k"
+    
+    //MARK: - Storyboard Links
     
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var mapKitView: MKMapView!
@@ -23,8 +22,13 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var durationView: UIView!
     @IBOutlet weak var durationLabel: UILabel!
     
+    //MARK: - Global Variables
     
-    //MARK: - View Methods
+    var run: Run?
+    var finishTimes: (String, String, String, String)?
+    var currentFinishTime = "5k"
+    
+    //MARK: - View Life Cycle
     
     /**
     1. Sets the delegate of the mapKitView to this view controller
@@ -92,15 +96,6 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         Conversions().addBorderToView(mapKitView) //2
         Conversions().addBorderToView(overlayView.headerOverlay) //3
     }
-    
-    /**
-    Where there aren't any locations, this method hides the map and adds some filler content.
-    */
-    func hideMapForNoLocations() {
-        self.mapKitView.hidden = true
-        //Add filler content
-    }
-    
     
     /**
     1. Creates and starts a timer that calls the function 'updateFinishTimesLabel' after 4 seconds
@@ -262,8 +257,13 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         return nil //2
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    /**
+    Where there aren't any locations, this method hides the map and adds some filler content.
+    */
+    func hideMapForNoLocations() {
+        self.mapKitView.hidden = true
+        //Add filler content
     }
+
 }

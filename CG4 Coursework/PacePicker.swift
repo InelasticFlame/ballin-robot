@@ -1,5 +1,5 @@
 //
-//  DurationPicker.swift
+//  PacePicker.swift
 //  CG4 Coursework
 //
 //  Created by William Ray on 17/02/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DurationPicker: UIPickerView, UIPickerViewDelegate {
+class PacePicker: UIPickerView, UIPickerViewDelegate {
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -21,8 +21,8 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return 24
+        if component == 2 {
+            return 2
         } else {
             return 60
         }
@@ -30,11 +30,15 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         if component == 0 {
-            return NSString(format: "%ih", row)
+            return NSString(format: "%im", row)
         } else if component == 1 {
-            return NSString(format: "%02im", row)
-        } else {
             return NSString(format: "%02is", row)
+        } else {
+            if row == 0 {
+                return "/mi"
+            } else {
+                return "/km"
+            }
         }
     }
 }

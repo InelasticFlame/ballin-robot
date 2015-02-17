@@ -10,44 +10,57 @@ import UIKit
 
 class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDelegate {
     
+    
+    //MARK: - Storyboard Links
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var startDateDetailLabel: UILabel!
     @IBOutlet weak var endDateDetailLabel: UILabel!
     @IBOutlet weak var planNameTextField: UITextField!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
-    
-    
     @IBOutlet weak var warningLabel: UILabel!
+    
+    //MARK: - Global Variables
     /* Boolean values that track whether the date picker cells are currently being shown */
     var editingStartDate = false
     var editingEndDate = false
     var showNameWarning = false
     
     
+    //MARK: - View Life Cycle
+    /**
+    This method is called by the system when the view initially loads.
+    1. Sets the delegate of the planNameTextField to this viewController
+    2. Adds a target to each date picker that calls the appropriate method whenever the date picker has its value changed
+    3. Updates the text of the startDateDetailLabel and endDateDetailLabel to the currently selected value from the date picker, using the date formatter from the Conversions class
+    4. Sets the minimum date for the endDatePicker to be the currently selected date of the start date picker
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        planNameTextField.delegate = self
-        startDatePicker.addTarget(self, action: "updateStartDate:", forControlEvents: .ValueChanged)
+        planNameTextField.delegate = self //1
+        startDatePicker.addTarget(self, action: "updateStartDate:", forControlEvents: .ValueChanged) //2
         endDatePicker.addTarget(self, action: "updateEndDate:", forControlEvents: .ValueChanged)
         
-        startDateDetailLabel.text = Conversions().dateToString(startDatePicker.date)
-        endDateDetailLabel.text = Conversions().dateToString(endDatePicker.date)
-        endDatePicker.minimumDate = startDatePicker.date
+        startDateDetailLabel.text = Conversions().dateToString(startDatePicker.date) //3
+        endDateDetailLabel.text = Conversions().dateToString(endDatePicker.date) //4
+        endDatePicker.minimumDate = startDatePicker.date //5
     }
     
-    func reloadTableViewCells() {
-        self.tableView.beginUpdates()
-        self.tableView.reloadData()
-        self.tableView.endUpdates()
-    }
+    //MARK: - Text Field
     
+    /**
+    This methid is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
+    2. Returns false
+    */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        textField.resignFirstResponder() //1
         
-        return false
+        return false //2
     }
+    
+    //MARK: - Date Picker Control
     
     func updateStartDate(sender: AnyObject) {
         startDateDetailLabel.text = Conversions().dateToString(startDatePicker.date)
@@ -58,6 +71,8 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     func updateEndDate(sender: AnyObject) {
         endDateDetailLabel.text = Conversions().dateToString(endDatePicker.date)
     }
+    
+    //MARK: - TableView
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 {
@@ -92,11 +107,8 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
                     editingEndDate = false
                     reloadTableViewCells()
                     editingStartDate = true
-                    reloadTableViewCells()
-                    
                 } else {
                     editingStartDate = false
-                    reloadTableViewCells()
                 }
                 
             } else if indexPath.row == 2 {
@@ -104,13 +116,19 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
                     editingStartDate = false
                     reloadTableViewCells()
                     editingEndDate = true
-                    reloadTableViewCells()
                 } else {
                     editingEndDate = false
-                    reloadTableViewCells()
                 }
             }
         }
+        
+        reloadTableViewCells()
+    }
+    
+    func reloadTableViewCells() {
+        self.tableView.beginUpdates()
+        self.tableView.reloadData()
+        self.tableView.endUpdates()
     }
     
     /**
@@ -143,37 +161,46 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
 
     // MARK: - Navigation
 
+    /**
+    This method is called by the system when is segue is about to be performed.
+    1. IF the segue being performed is called "createPress"
+        a. Calls the function createNewPlanWithName from the Database class, IF it returns a plan
+            i. IF the destinationViewController for the segue is a CreatePlanViewController
+                ii. Set the plan of the destinationViewController to the plan returned from the database
+    */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        let plan = Plan(ID: 1, name: planNameTextField.text, startDate: startDatePicker.date, endDate: endDatePicker.date)
-        
-        println(plan.active)
+        if segue.identifier == "createPress" { //1
+            if let plan = Database().createNewPlanWithName(planNameTextField.text, startDate: startDatePicker.date, andEndDate:endDatePicker.date) as? Plan { //a
+                
+                if let destinationVC = segue.destinationViewController as? CreatePlanViewController { //i
+                    destinationVC.plan = plan //ii
+                }
+            }
+        }
     }
     
     /**
     This method is called by the system when the create button is pressed, it checks to see whether it should perform the tranistion to the next view.
+    1. IF the segue to be performed is called "createPress"
+        a. Calls the function validatePlanName, IF it returns true
+            i. Returns true
+        b. ELSE
+            i. Sets showNameWarning to true
+           ii. Calls the function reloadTableViewCells
+          iii. Returns false
+    2. In the default case returns true
     */
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if identifier == "createPress" {
-            if validatePlanName() {
-                showNameWarning = false
-                reloadTableViewCells()
-                return true
-            } else {
-                showNameWarning = true
-                reloadTableViewCells()
-                return false
+        if identifier == "createPress" { //1
+            if validatePlanName() { //a
+                return true //i
+            } else { //b
+                showNameWarning = true //i
+                reloadTableViewCells() //ii
+                return false //iii
             }
         }
         
-        return true
+        return true //2
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
