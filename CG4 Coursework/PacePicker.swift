@@ -16,6 +16,14 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
         self.delegate = self
     }
     
+    /*
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.delegate = self
+    }
+    */
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 3
     }

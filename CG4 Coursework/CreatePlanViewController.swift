@@ -8,8 +8,10 @@
 
 import UIKit
 
-class CreatePlanViewController: UIViewController {
+class CreatePlanViewController: UIViewController, UITableViewDelegate {
 
+    
+    
     var plan: Plan?
     
     override func viewDidLoad() {
@@ -25,6 +27,9 @@ class CreatePlanViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - TableView Data Source
+    
     
     /*
     // MARK: - Navigation

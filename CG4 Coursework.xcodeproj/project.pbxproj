@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4C9EF87FA95EE29E916D1818 /* libPods-CG4 Coursework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
+		B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */; };
+		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
+		B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */; };
 		B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */; };
 		B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */; };
 		B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */; };
@@ -41,6 +44,7 @@
 		B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */; };
 		B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */; };
 		B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7381A93D776009FE6C0 /* PacePicker.swift */; };
+		B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */; };
 		B6F9A0DB1A8A4A3300C5828F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */; };
 		B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */; };
 		B6F9A0DF1A9222CA00C5828F /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DE1A9222CA00C5828F /* CreatePlanViewController.swift */; };
@@ -65,6 +69,9 @@
 		404B3079BACA5930E7B1519D /* Pods-CG4 Coursework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CG4 Coursework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework.debug.xcconfig"; sourceTree = "<group>"; };
 		B609B82A1A49B47A006664D5 /* StravaAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAuth.h; sourceTree = "<group>"; };
 		B609B82B1A49B47A006664D5 /* StravaAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAuth.m; sourceTree = "<group>"; };
+		B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanRepetitionPicker.swift; sourceTree = "<group>"; };
+		B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatsTableViewController.swift; sourceTree = "<group>"; };
+		B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatSettingsTableViewController.swift; sourceTree = "<group>"; };
 		B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTableViewCell.swift; sourceTree = "<group>"; };
 		B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunDetailsViewController.swift; sourceTree = "<group>"; };
 		B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
@@ -104,6 +111,7 @@
 		B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRunTableViewController.swift; sourceTree = "<group>"; };
 		B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		B6ECC7381A93D776009FE6C0 /* PacePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
+		B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedRunTableViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCreatePlanTableViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DE1A9222CA00C5828F /* CreatePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +274,9 @@
 				B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */,
 				B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */,
 				B6F9A0DE1A9222CA00C5828F /* CreatePlanViewController.swift */,
+				B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */,
+				B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */,
+				B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */,
 			);
 			name = "Plan Creation";
 			sourceTree = "<group>";
@@ -275,6 +286,7 @@
 			children = (
 				B6ECC7381A93D776009FE6C0 /* PacePicker.swift */,
 				B68962F81A93D07600CCCFEA /* DistancePicker.swift */,
+				B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */,
 				B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */,
 			);
 			name = "Picker Views";
@@ -448,17 +460,21 @@
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
+				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
 				B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */,
 				B68962F91A93D07600CCCFEA /* DistancePicker.swift in Sources */,
 				B668DB0F1A4DE8F800DC7CE6 /* ProgressBar.swift in Sources */,
 				B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */,
+				B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */,
 				B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */,
+				B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */,
 				B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */,
 				B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */,
 				B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */,
 				B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */,
 				B67609381A49BB76005270ED /* StravaRuns.m in Sources */,
+				B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
 				B6F9A0DF1A9222CA00C5828F /* CreatePlanViewController.swift in Sources */,

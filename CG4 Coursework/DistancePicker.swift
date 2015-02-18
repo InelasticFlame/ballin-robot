@@ -15,7 +15,7 @@ class DistancePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate
         
         self.delegate = self
     }
-    
+
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 3
     }

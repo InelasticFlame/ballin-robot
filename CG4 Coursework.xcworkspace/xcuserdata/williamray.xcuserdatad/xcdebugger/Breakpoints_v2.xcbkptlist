@@ -136,11 +136,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/DurationPicker.swift"
-            timestampString = "445896751.947545"
+            timestampString = "445952474.213826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
-            endingLineNumber = "42">
+            endingLineNumber = "42"
+            landmarkName = "DurationPicker"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -150,11 +152,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/DurationPicker.swift"
-            timestampString = "445896751.947545"
+            timestampString = "445952474.213826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
-            endingLineNumber = "53">
+            endingLineNumber = "53"
+            landmarkName = "DurationPicker"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -164,11 +168,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/DurationPicker.swift"
-            timestampString = "445896751.947545"
+            timestampString = "445952474.213826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
-            endingLineNumber = "57">
+            endingLineNumber = "57"
+            landmarkName = "DurationPicker"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CG4 Coursework/NewPlannedRunTableViewController.swift"
+            timestampString = "445978199.83459"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "tableView(_:heightForRowAtIndexPath:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
