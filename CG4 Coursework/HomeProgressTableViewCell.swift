@@ -22,8 +22,8 @@ class HomeProgressTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.headerView.addBorder()
-        self.mainView.addBorder()
+        self.headerView.addBorder(2)
+        self.mainView.addBorder(2)
         let returnValues = self.loadMonthlyRunProgress()
         self.progress = returnValues.0
         self.progressDetailLabel.text = "\(returnValues.2) miles of \(returnValues.1) completed."

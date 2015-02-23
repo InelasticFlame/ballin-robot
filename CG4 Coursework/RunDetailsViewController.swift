@@ -89,12 +89,12 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             
             avgPaceLabel.text = Conversions().averagePaceForInterface(run.pace)
             durationLabel.text = "Time: " + Conversions().runDurationForInterface(run.duration)
-            durationView.addBorder()
-            avgPaceView.addBorder()
+            durationView.addBorder(2)
+            avgPaceView.addBorder(2)
         }
         
-        mapKitView.addBorder() //2
-        overlayView.headerOverlay.addBorder() //3
+        mapKitView.addBorder(2) //2
+        overlayView.headerOverlay.addBorder(2) //3
     }
     
     /**

@@ -9,10 +9,13 @@
 import UIKit
 
 class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
+    @IBOutlet weak var myNavigationItem: UINavigationItem!
     @IBOutlet weak var plannedRunsTableView: UITableView!
     
     var plan: Plan?
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,18 +25,25 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
             println("Plan \(plan.name)")
         }
         
+        self.navigationItem.hidesBackButton = true
+        
         plannedRunsTableView.dataSource = self
         plannedRunsTableView.delegate = self
+        
+        myNavigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         plan?.loadPlannedRuns()
         plannedRunsTableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: - Editing
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        plannedRunsTableView.setEditing(editing, animated: animated)
     }
     
     // MARK: - TableView Data Source
@@ -68,6 +78,18 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         return 60
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            if let plan = plan {
+                if Database().deletePlannedRun(plan.plannedRuns[indexPath.row]) {
+                    plan.plannedRuns.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                }
+            }
+        }
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -77,5 +99,9 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
                 destinationVC.plan = plan
             }
         }
+    }
+    
+    @IBAction func doneButtonPressed(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

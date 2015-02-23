@@ -13,6 +13,11 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var planDetailsTableView: UITableView!
+    @IBOutlet weak var runsMetView: UIView!
+    @IBOutlet weak var runsMissedView: UIView!
+    @IBOutlet weak var runsAlmostMetView: UIView!
+    @IBOutlet weak var runsTotalView: UIView!
+    
     
     /* */
     var plan: Plan?
@@ -23,7 +28,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         planDetailsTableView.delegate = self
         planDetailsTableView.dataSource = self
         
-        // Do any additional setup after loading the view.
+        runsMetView.addBorder(1)
+        runsMissedView.addBorder(1)
+        runsAlmostMetView.addBorder(1)
+        runsTotalView.addBorder(1)
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,11 +64,11 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         }
             let match = plannedRun.checkForCompletedRun()
             if match == 0 {
-                cell.progressImage.image = UIImage(named: "Cross Image")
+                cell.progressImage.image = UIImage(named: "Cross37px")
             } else if match == 1 {
-                cell.progressImage.image = UIImage(named: "Almost Image")
+                cell.progressImage.image = UIImage(named: "Almost37px")
             } else if match == 2 {
-                cell.progressImage.image = UIImage(named: "Tick Image")
+                cell.progressImage.image = UIImage(named: "Tick37px")
             }
         }
         return cell

@@ -12,8 +12,8 @@ extension UIView {
    
     //MARK: Methods
 
-    func addBorder() {
-        self.layer.borderWidth = 2
+    func addBorder(borderWidth: CGFloat) {
+        self.layer.borderWidth = borderWidth
         self.layer.borderColor = UIColor.darkGrayColor().CGColor
         self.layer.masksToBounds = true
     }

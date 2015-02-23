@@ -567,6 +567,74 @@ static Database *_database;
     return plannedRuns;
 }
 
+#pragma mark - Plan Deleting
+
+-(BOOL)deletePlan:(Plan *)plan {
+    const char *charDbPath = [_databasePath UTF8String];
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblTrainingPlans WHERE PlanID = '%li'", (long)plan.ID];
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
+            NSString *error = [NSString stringWithUTF8String:errorMessage];
+            NSLog([NSString stringWithFormat:@"Error deleting plan: %@", error]);
+            sqlite3_close(_database);
+            return  NO;
+        } else {
+            NSLog(@"Plan Deleted Successfully");
+            sqlite3_close(_database);
+            return [self deletePlannedRunsForPlan:plan];
+        }
+    }
+    
+    return NO;
+}
+
+-(BOOL)deletePlannedRunsForPlan:(Plan *)plan {
+    const char *charDbPath = [_databasePath UTF8String];
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblPlannedRuns WHERE PlanID = '%li'", (long)plan.ID];
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
+            NSString *error = [NSString stringWithUTF8String:errorMessage];
+            NSLog([NSString stringWithFormat:@"Error deleting planned runs: %@", error]);
+            sqlite3_close(_database);
+            return  NO;
+        } else {
+            NSLog(@"Planned Runs Deleted Successfully");
+            sqlite3_close(_database);
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+-(BOOL)deletePlannedRun:(PlannedRun *)plannedRun {
+    const char *charDbPath = [_databasePath UTF8String];
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblPlannedRuns WHERE PlannedRunID = '%li'", (long)plannedRun.ID];
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
+            NSString *error = [NSString stringWithUTF8String:errorMessage];
+            NSLog([NSString stringWithFormat:@"Error deleting planned run: %@", error]);
+            sqlite3_close(_database);
+            return  NO;
+        } else {
+            NSLog(@"Planned Run Deleted Successfully");
+            sqlite3_close(_database);
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 #pragma mark - Shoe Methods
 #pragma mark Shoe Saving
 

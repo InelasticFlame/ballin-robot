@@ -31,6 +31,9 @@
 -(NSArray *)loadAllTrainingPlans;
 -(NSArray *)loadPlannedRunsForPlan:(NSObject *)plan;
 
+-(BOOL)deletePlan:(NSObject *)plan;
+-(BOOL)deletePlannedRun:(NSObject *)plannedRun;
+
 //Shoes
 -(void)saveShoe;
 
