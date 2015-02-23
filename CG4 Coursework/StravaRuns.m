@@ -36,7 +36,7 @@
             Run *run = [[Run alloc] initWithRunID:activity.id distance:distance dateTime:dateTime pace:pace duration:duration shoe:nil runScore:0 runLocations:CLCoords runType:@"run" splits:nil];
             [run calculateRunScore];
             
-            if ([converter validateRun:run] == YES) {
+            if ([run valid] == YES) {
                 [runs addObject:run];
             }
         }

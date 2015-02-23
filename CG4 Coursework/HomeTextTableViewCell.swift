@@ -17,8 +17,9 @@ class HomeTextTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        Conversions().addBorderToView(self.headerView)
-        Conversions().addBorderToView(self.mainView)
+        
+        self.headerView.addBorder()
+        self.mainView.addBorder()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

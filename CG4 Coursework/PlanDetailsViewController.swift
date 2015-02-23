@@ -14,6 +14,9 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var planDetailsTableView: UITableView!
     
+    /* */
+    var plan: Plan?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,29 +36,43 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        if let plan = plan {
+            return plan.plannedRuns.count
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("PlanDetails", forIndexPath: indexPath) as PlanDetailsTableViewCell
+        if let plannedRun = plan?.plannedRuns[indexPath.row] {
         
-        cell.dateLabel.text = "12/02/15"
-        cell.distanceDurationLabel.text = "6.7 miles"
-        cell.detailLabel.text = "with Magic Mile"
-        
+        cell.dateLabel.text = plannedRun.date.shortDateString()
+        cell.detailLabel.text = plannedRun.details
+        if plannedRun.distance > 0 {
+            cell.distanceDurationLabel.text = Conversions().distanceForInterface(plannedRun.distance)
+        } else {
+            cell.distanceDurationLabel.text = Conversions().runDurationForInterface(plannedRun.duration)
+        }
+            let match = plannedRun.checkForCompletedRun()
+            if match == 0 {
+                cell.progressImage.image = UIImage(named: "Cross Image")
+            } else if match == 1 {
+                cell.progressImage.image = UIImage(named: "Almost Image")
+            } else if match == 2 {
+                cell.progressImage.image = UIImage(named: "Tick Image")
+            }
+        }
         return cell
     }
     
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destinationVC = segue.destinationViewController as? CreatePlanViewController {
+            if let plan = plan {
+                destinationVC.plan = plan
+            }
+        }
     }
-    */
-
 }

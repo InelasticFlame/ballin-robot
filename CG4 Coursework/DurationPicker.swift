@@ -37,4 +37,22 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
             return NSString(format: "%02is", row)
         }
     }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDurationLabel", object: nil)
+    }
+    
+    func selectedDuration() -> (duration: Int, durationStr: String) {
+        var duration = 0
+        var durationStr = ""
+        
+        let hours = self.selectedRowInComponent(0)
+        let minutes = self.selectedRowInComponent(1)
+        let seconds = self.selectedRowInComponent(2)
+        
+        duration = (hours * 3600) + (minutes * 60) + seconds
+        durationStr = NSString(format: "%ih %02im %02is", hours, minutes, seconds)
+        
+        return (duration, durationStr)
+    }
 }

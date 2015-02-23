@@ -111,6 +111,12 @@ static Database *_database;
             NSLog([NSString stringWithFormat:@"Error creating tblTrainingPlans; %@", error]);
         }
         
+        const char *sqlPlannedRuns = "CREATE TABLE IF NOT EXISTS tblPlannedRuns(PlannedRunID INTEGER PRIMARY KEY AUTOINCREMENT, PlannedDate TEXT, RunDistance REAL, RunDuration INTEGER, Details TEXT, PlanID INTEGER NOT NULL)";
+        
+        if (sqlite3_exec(_database, sqlPlannedRuns, NULL, NULL, &errorMessage) != SQLITE_OK) {
+            NSString *error = [NSString stringWithUTF8String:errorMessage];
+            NSLog([NSString stringWithFormat:@"Error creating tblPlannedRuns; %@", error]);
+        }
         
         sqlite3_close(_database); //c
         
@@ -145,8 +151,7 @@ static Database *_database;
     const char *charDbPath = [_databasePath UTF8String]; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        NSString *dateTime = [[[Conversions alloc] init]  dateTimeToStringForDB:run.dateTime];
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", dateTime, run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
         
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
@@ -303,7 +308,7 @@ static Database *_database;
                 
                 
                 //Handle shoes
-                NSDate *date = [[[Conversions alloc] init] stringToDateAndTime:[NSString stringWithUTF8String:dateTimeStr]];
+                NSDate *date = [[NSDate alloc] initWithDatabaseString:[NSString stringWithUTF8String:dateTimeStr]];
                 
                 
                 Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:nil runScore:score runLocations:nil runType:@"" splits:nil];
@@ -351,7 +356,7 @@ static Database *_database;
         if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //d
             while (sqlite3_step(statement) == SQLITE_ROW) { //i
                 char *locationStr = (char *)sqlite3_column_text(statement, 0); //ii
-                CLLocation *location = [[[Conversions alloc] init] stringToLocation:[NSString stringWithUTF8String:locationStr]]; //iii
+                CLLocation *location = [[CLLocation alloc] initWithLocationString:[NSString stringWithUTF8String:locationStr]]; //iii
                 [locations addObject:location]; //iv
             }
             sqlite3_finalize(statement); //v
@@ -436,19 +441,17 @@ static Database *_database;
  1. Declares the local variables planID, an NSInteger and the plan an new Plan object
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF the database opens successfully
-    a. Converts the plan start date into a string using the Conversions class
-    b. Converts the plan end date into a string using the Conversions class
-    c. Creates the SQL
-    d. Converts the SQL to an array of characters for use with the database
-    e. Declares the local variable errorMessage to store any errors from the database
-    f. IF the SQL does not execute successfully
+    a. Creates the SQL
+    b. Converts the SQL to an array of characters for use with the database
+    c. Declares the local variable errorMessage to store any errors from the database
+    d. IF the SQL does not execute successfully
         i. Logs "Error Saving: " followed by the error message from the database
-    g. ELSE
+    e. ELSE
         i. Retrieves the planID of the plan just created (this is the rowID of the last insert)
        ii. Creates a new plan, with the planID the name, the startDate and the endDate
       iii. Logs "Plan Saving Successful"
        iv. Returns the plan
-    h. Closes the database
+    f. Closes the database
  4. Returns nil as the default case
  */
 -(Plan *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
@@ -458,28 +461,48 @@ static Database *_database;
     const char *charDbPath = [_databasePath UTF8String]; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        NSString *startDateStr = [[[Conversions alloc] init] dateToString:startDate]; //a
-        NSString *endDateStr = [[[Conversions alloc] init] dateToString:endDate]; //b
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblTrainingPlans(PlanName, StartDate, EndDate) VALUES ('%@', '%@', '%@')", name, startDate.shortDateString, endDate.shortDateString]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblTrainingPlans(PlanName, StartDate, EndDate) VALUES ('%@', '%@', '%@')", name, startDateStr, endDateStr]; //c
-        const char *sqlChar = [sql UTF8String]; //d
-        char *errorMessage; //e
-        
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //f
-                NSLog(@"Error Saving: %@", [NSString stringWithUTF8String:errorMessage]); //i
-        } else { //g
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+                NSLog(@"Error Creating Plan: %@", [NSString stringWithUTF8String:errorMessage]); //i
+        } else { //e
             planID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
             plan = [[Plan alloc] initWithID:planID name:name startDate:startDate endDate:endDate]; //ii
-            NSLog(@"Plan Saving Successful"); //iii
+            NSLog(@"Plan Creation Successful"); //iii
             return plan; //iv
         }
         
-        sqlite3_close(_database); //h
+        sqlite3_close(_database); //f
     } else {
         NSLog(@"Error Opening Database");
     }
     
     return nil; //4
+}
+
+-(BOOL)savePlannedRun:(PlannedRun *)plannedRun ForPlan:(Plan *)plan {
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.distance, (long)plannedRun.duration, plannedRun.details, (long)plan.ID];
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
+            NSLog(@"Error Saving Planned Run: %@", [NSString stringWithUTF8String:errorMessage]);
+            sqlite3_close(_database);
+            return NO;
+        } else {
+            NSLog(@"Planned Run Successfully Saved.");
+            sqlite3_close(_database);
+            return YES;
+        }
+    } else {
+        NSLog(@"Error Opening Database");
+        return NO;
+    }
 }
 
 #pragma mark Plan Loading
@@ -499,8 +522,8 @@ static Database *_database;
                 char *startDateStr = (char *)sqlite3_column_text(statement, 2);
                 char *endDateStr = (char *)sqlite3_column_text(statement, 3);
                 
-                NSDate *startDate = [[[Conversions alloc] init] stringToDate:[NSString stringWithUTF8String:startDateStr]];
-                NSDate *endDate = [[[Conversions alloc] init] stringToDate:[NSString stringWithUTF8String:endDateStr]];
+                NSDate *startDate = [[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:startDateStr]];
+                NSDate *endDate = [[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:endDateStr]];
                 
                 Plan *plan = [[Plan alloc] initWithID:planID name:[NSString stringWithUTF8String:name] startDate:startDate endDate:endDate];
                 [trainingPlans addObject:plan];
@@ -515,6 +538,33 @@ static Database *_database;
     }
     
     return trainingPlans;
+}
+
+-(NSArray *)loadPlannedRunsForPlan:(Plan *)plan {
+    NSMutableArray *plannedRuns = [[NSMutableArray alloc] init];
+    const char *charDbPath = [_databasePath UTF8String];
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblPlannedRuns WHERE PlanID = '%li'", (long)plan.ID];
+        const char *sqlChar = [sql UTF8String];
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                int plannedRunID = (int)sqlite3_column_int(statement, 0);
+                char *plannedDateStr = (char *)sqlite3_column_text(statement, 1);
+                double distance = (double)sqlite3_column_double(statement, 2);
+                int duration = (int)sqlite3_column_int(statement, 3);
+                char *details = (char *)sqlite3_column_text(statement, 4);
+                
+                PlannedRun *plannedRun = [[PlannedRun alloc] initWithID:plannedRunID date:[[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:plannedDateStr]] distance: distance duration:duration details:[NSString stringWithUTF8String:details]];
+                [plannedRuns addObject:plannedRun];
+            }
+            
+            sqlite3_close(_database);
+        }
+    }
+    
+    return plannedRuns;
 }
 
 #pragma mark - Shoe Methods

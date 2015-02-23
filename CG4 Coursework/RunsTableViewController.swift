@@ -35,7 +35,6 @@ class RunsTableViewController: UITableViewController {
         tableView.reloadData() //2
     }
     
-
     // MARK: - Table View Data Source
 
     /**
@@ -57,22 +56,25 @@ class RunsTableViewController: UITableViewController {
     /**
     This method is called by the system when the data is loaded in the table, it creates a new cell and populates it with the data for a particular run.
     1. Creates a new cell with the identifier runCell, that is of type RunTableViewCell
-    2. Sets the labels in the cell to the approriate text, using the stringify methods from the Conversions class
-    3. Calls the function returnScoreColour from the Conversions class, passing the run for the current cell, setting the background of the progressView to the returned colour
-    4. Sets the alpha of the progressView to 0.4
+    2. Gets the run object for the current cell
+    3. Sets the labels in the cell to the approriate text, using the stringify methods from the Conversions class
+    4. Retrieves the score colour for the current run and sets the background colour of the cell to that colour
+    5. Sets the alpha of the progressView to 0.4
+    6. Returns the cell
     */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("runCell", forIndexPath: indexPath) as RunTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("runCell", forIndexPath: indexPath) as RunTableViewCell //1
+        let run = runs[indexPath.row] //2
         
-        cell.distanceLabel.text = Conversions().distanceForInterface(runs[indexPath.row].distance)
-        cell.dateLabel.text = Conversions().dateToString(runs[indexPath.row].dateTime)
-        cell.paceLabel.text = Conversions().averagePaceForInterface(runs[indexPath.row].pace)
-        cell.durationLabel.text = Conversions().runDurationForInterface(runs[indexPath.row].duration)
+        cell.distanceLabel.text = Conversions().distanceForInterface(run.distance) //3
+        cell.dateLabel.text = run.dateTime.shortDateString()
+        cell.paceLabel.text = Conversions().averagePaceForInterface(run.pace)
+        cell.durationLabel.text = Conversions().runDurationForInterface(run.duration)
         
-        cell.progressView.backgroundColor = Conversions().returnScoreColour(runs[indexPath.row])
-        cell.progressView.alpha = 0.4;
+        cell.progressView.backgroundColor = run.scoreColour() //4
+        cell.progressView.alpha = 0.4; //5
         
-        return cell
+        return cell //6
     }
 
     /**
@@ -115,10 +117,10 @@ class RunsTableViewController: UITableViewController {
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "runDetails" {
-            let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell)
-            
-            if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
-                destinationVC.run = runs[selectedIndex!.row]
+            if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) {
+                if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
+                    destinationVC.run = runs[selectedIndex.row]
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateDetailLabel.text = Conversions().dateToString(repeatEndDatePicker.date)
+        dateDetailLabel.text = repeatEndDatePicker.date.shortDateString()
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -42,7 +42,7 @@ class RepeatSettingsTableViewController: UITableViewController {
         
             if let previousVC = self.navigationController?.viewControllers[viewControllers - 2] as? NewPlannedRunTableViewController {
                 if tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text == "Date" {
-                    let selectedEndDate = Conversions().dateToString(repeatEndDatePicker.date)
+                    let selectedEndDate = repeatEndDatePicker.date.shortDateString()
                     previousVC.setRepeatEndDetailLabelText(selectedEndDate)
                 } else {
                     if let selectedRepeatEndOption = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text {
@@ -68,7 +68,8 @@ class RepeatSettingsTableViewController: UITableViewController {
             if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
                 cell.accessoryType = .Checkmark
             }
-        } else if let repeatEndDate = Conversions().stringToDate(repeatEnd!) {
+        } else {
+            let repeatEndDate = NSDate(shortDateString: repeatEnd!)
             tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark
             repeatEndDatePicker.date = repeatEndDate
             dateDetailLabel.text = repeatEnd
@@ -76,7 +77,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     }
 
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
-        dateDetailLabel.text = Conversions().dateToString(repeatEndDatePicker.date)
+        dateDetailLabel.text = repeatEndDatePicker.date.shortDateString()
     }
     
 }

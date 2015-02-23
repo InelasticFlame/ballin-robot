@@ -32,7 +32,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     This method is called by the system when the view initially loads.
     1. Sets the delegate of the planNameTextField to this viewController
     2. Adds a target to each date picker that calls the appropriate method whenever the date picker has its value changed
-    3. Updates the text of the startDateDetailLabel and endDateDetailLabel to the currently selected value from the date picker, using the date formatter from the Conversions class
+    3. Updates the text of the startDateDetailLabel and endDateDetailLabel to the currently selected value from the date picker, using their short date strings
     4. Sets the minimum date for the endDatePicker to be the currently selected date of the start date picker
     */
     override func viewDidLoad() {
@@ -42,9 +42,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         startDatePicker.addTarget(self, action: "updateStartDate:", forControlEvents: .ValueChanged) //2
         endDatePicker.addTarget(self, action: "updateEndDate:", forControlEvents: .ValueChanged)
         
-        startDateDetailLabel.text = Conversions().dateToString(startDatePicker.date) //3
-        endDateDetailLabel.text = Conversions().dateToString(endDatePicker.date) //4
-        endDatePicker.minimumDate = startDatePicker.date //5
+        startDateDetailLabel.text = startDatePicker.date.shortDateString() //3
+        endDateDetailLabel.text = endDatePicker.date.shortDateString()
+        endDatePicker.minimumDate = startDatePicker.date //4
     }
     
     //MARK: - Text Field
@@ -63,13 +63,13 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     //MARK: - Date Picker Control
     
     func updateStartDate(sender: AnyObject) {
-        startDateDetailLabel.text = Conversions().dateToString(startDatePicker.date)
+        startDateDetailLabel.text = startDatePicker.date.shortDateString()
         endDatePicker.minimumDate = startDatePicker.date
-        endDateDetailLabel.text = Conversions().dateToString(endDatePicker.date)
+        endDateDetailLabel.text = endDatePicker.date.shortDateString()
     }
     
     func updateEndDate(sender: AnyObject) {
-        endDateDetailLabel.text = Conversions().dateToString(endDatePicker.date)
+        endDateDetailLabel.text = endDatePicker.date.shortDateString()
     }
     
     //MARK: - TableView
@@ -130,34 +130,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         self.tableView.reloadData()
         self.tableView.endUpdates()
     }
-    
-    /**
-    This method checks that a plan name is valid.
-    1. Declares and initialises the regular expression to check the string against; the string is valid for all letters A to Z (in both upper and lower case), all numbers and the symbols ?!.
-    2. Declares and initialises the local variable planName, setting its value to the text in the planNameTextField with all spaces removed.
-    3. IF the planName contains nothing
-        a. Sets the text of the warning label
-        b. Returns false
-    4. Declares and creates a NSPredicate to test the string against the regular expression, IF it is created
-        a. Sets the text of the warning label
-        b. Returns the evaluation of the NSPredicate on the planName
-    5. In the default case, returns false
-    */
-    func validatePlanName() -> Bool {
-        let regEx = "[A-Z0-9a-z?!.]*" //1
-        let planName = planNameTextField.text.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil) //2
-        
-        if planName.isEmpty { //3
-            warningLabel.text = "A plan name must contain at least 1 letter or number." //a
-            return false //b
-        } else if let stringTester = NSPredicate(format: "SELF MATCHES %@", regEx) { //4
-            warningLabel.text = "A plan name must only contain letters, numbers or ?!." //a
-            return stringTester.evaluateWithObject(planName) //b
-        }
-        
-        return false //5
-    }
-    
 
     // MARK: - Navigation
 
@@ -165,7 +137,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     This method is called by the system when is segue is about to be performed.
     1. IF the segue being performed is called "createPress"
         a. Calls the function createNewPlanWithName from the Database class, IF it returns a plan
-            i. IF the destinationViewController for the segue is a CreatePlanViewController
+            i. IF the destinationViewController for the segue is a CreatePlanTableViewController
                 ii. Set the plan of the destinationViewController to the plan returned from the database
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -186,18 +158,21 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
             i. Returns true
         b. ELSE
             i. Sets showNameWarning to true
-           ii. Calls the function reloadTableViewCells
-          iii. Returns false
+           ii. Sets the text of the warning label to the returned error
+          iii. Calls the function reloadTableViewCells
+           iv. Returns false
     2. In the default case returns true
     */
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         if identifier == "createPress" { //1
-            if validatePlanName() { //a
+            let stringValidation = planNameTextField.text.validateString("A plan name", maxLength: 20, minLength: 3)
+            if  stringValidation.valid { //a
                 return true //i
             } else { //b
                 showNameWarning = true //i
-                reloadTableViewCells() //ii
-                return false //iii
+                warningLabel.text = stringValidation.error //ii
+                reloadTableViewCells() //iii
+                return false //iv
             }
         }
         

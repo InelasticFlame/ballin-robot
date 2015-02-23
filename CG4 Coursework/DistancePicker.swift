@@ -41,4 +41,31 @@ class DistancePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate
             }
         }
     }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDistanceLabel", object: nil)
+    }
+    
+    func selectedDistance() -> (distance: Double, distanceStr: String) {
+        var distance = 0.00
+        var distanceStr = ""
+        
+        if self.selectedRowInComponent(2) == 0 {
+            let miles = self.selectedRowInComponent(0)
+            let tenthsMiles = self.selectedRowInComponent(1)
+            
+            distance = Double(miles) + (Double(tenthsMiles)/100)
+            distanceStr = "\(distance) mi"
+        } else {
+            let kilometres = self.selectedRowInComponent(0)
+            let tenthsKilometres = self.selectedRowInComponent(1)
+            
+            let totalKmDistance = Double(kilometres) + (Double(tenthsKilometres)/100)
+            
+            distance = Conversions().kmToMiles * totalKmDistance
+            distanceStr = "\(totalKmDistance) km"
+        }
+        
+        return (distance, distanceStr)
+    }
 }

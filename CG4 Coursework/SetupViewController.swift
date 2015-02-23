@@ -9,6 +9,7 @@
 import UIKit
 
 class SetupViewController: UIViewController {
+    
     @IBOutlet weak var distanceSegment: UISegmentedControl!
     @IBOutlet weak var paceSegment: UISegmentedControl!
     @IBOutlet weak var weightSegment: UISegmentedControl!

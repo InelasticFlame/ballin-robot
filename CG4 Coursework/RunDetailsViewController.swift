@@ -40,7 +40,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         c. Convert the run distance to a string and set the distanceLabel text as the string
         d. Convert the run score to a string and set the scoreLabel text as the string
         e. Convert the run time to a string and set the timeLabel text as the string
-        f. Convert the run date to a string and set the dateLabel text as the string
+        f. Gets the run date's short date string and set it as the dateLabel text
     
         g. Retrieves the finish times for other distances
         h. Calls the function updateFinishTimesLabel
@@ -59,9 +59,9 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //c
             overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) //d
             overlayView.timeLabel.text = Conversions().timeForInterface(run.dateTime) //e
-            overlayView.dateLabel.text = Conversions().dateToString(run.dateTime) //f
+            overlayView.dateLabel.text = run.dateTime.shortDateString() //f
             
-            finishTimes = Conversions().calculateRunFinishTimes(run) //g
+            finishTimes = run.calculateRunFinishTimes() //g
             updateFinishTimesLabel() //h
         }
     }
@@ -80,7 +80,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(animated: Bool) {
         if let run = run { //1
             let progressBackground = UIView(frame: overlayView.headerOverlay.frame) //a
-            progressBackground.backgroundColor = Conversions().returnScoreColour(run) //b
+            progressBackground.backgroundColor = run.scoreColour() //b
             progressBackground.alpha = 0.4 //c
             progressBackground.frame.size.width = progressBackground.frame.size.width * CGFloat(run.score / 1000) //d
             overlayView.headerOverlay.addSubview(progressBackground) //e
@@ -89,12 +89,12 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             
             avgPaceLabel.text = Conversions().averagePaceForInterface(run.pace)
             durationLabel.text = "Time: " + Conversions().runDurationForInterface(run.duration)
-            Conversions().addBorderToView(durationView)
-            Conversions().addBorderToView(avgPaceView)
+            durationView.addBorder()
+            avgPaceView.addBorder()
         }
         
-        Conversions().addBorderToView(mapKitView) //2
-        Conversions().addBorderToView(overlayView.headerOverlay) //3
+        mapKitView.addBorder() //2
+        overlayView.headerOverlay.addBorder() //3
     }
     
     /**

@@ -15,6 +15,7 @@ class Plan: NSObject {
     var startDate: NSDate
     var endDate: NSDate
     var active = false
+    var plannedRuns = [PlannedRun]()
     
     init(ID: Int, name: String, startDate: NSDate, endDate: NSDate) {
         self.ID = ID
@@ -24,6 +25,7 @@ class Plan: NSObject {
         
         super.init()
         self.checkIfActive()
+        self.loadPlannedRuns()
     }
     
     func checkIfActive() {
@@ -35,5 +37,9 @@ class Plan: NSObject {
         } else {
             self.active = false
         }
+    }
+    
+    func loadPlannedRuns() {
+        plannedRuns = Database().loadPlannedRunsForPlan(self) as Array<PlannedRun>
     }
 }

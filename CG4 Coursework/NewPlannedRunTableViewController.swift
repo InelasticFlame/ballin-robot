@@ -8,26 +8,67 @@
 
 import UIKit
 
-class NewPlannedRunTableViewController: UITableViewController {
+class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Storyboard Links
     @IBOutlet weak var distanceDurationSegement: UISegmentedControl!
-    @IBOutlet weak var distanceDurationPicker: UIPickerView!
-
+    @IBOutlet weak var plannedRunDate: UIDatePicker!
+    @IBOutlet weak var plannedDistancePicker: DistancePicker!
+    @IBOutlet weak var plannedDurationPicker: DurationPicker!
+    @IBOutlet weak var runDateDetailLabel: UILabel!
+    @IBOutlet weak var runDistanceDurationDetailLabel: UILabel!
+    @IBOutlet weak var runDetailsTextField: UITextField!
+    
     // MARK: - Global Variables
     var editingRunDate = false
     var editingRunDistanceDuration = false
     var showRepeat = false
+    var plan: Plan?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        plannedRunDate.minimumDate = plan?.startDate //Prevents a user from planning a run before the plan begins
+        plannedRunDate.maximumDate = plan?.endDate //Prevents a user from planning a run after the plan ends
+        
+        runDateDetailLabel.text = plannedRunDate.date.shortDateString()
+        updateDistanceLabel()
+        updateDurationLabel()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDistanceLabel", name: "UpdateDistanceLabel", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDurationLabel", name: "UpdateDurationLabel", object: nil)
     }
-
 
     @IBAction func distanceDurationSegmentValueChanged(sender: UISegmentedControl) {
         reloadTableViewCells()
+        updateDistanceLabel()
+        updateDurationLabel()
     }
     
+    func updateDistanceLabel() {
+        if distanceDurationSegement.selectedSegmentIndex == 0 {
+            runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr
+        }
+    }
+    
+    func updateDurationLabel() {
+        if distanceDurationSegement.selectedSegmentIndex == 1 {
+            runDistanceDurationDetailLabel.text = plannedDurationPicker.selectedDuration().durationStr
+        }
+    }
+    
+    //MARK: - Text Field
+    
+    /**
+    This methid is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
+    2. Returns false
+    */
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder() //1
+        
+        return false //2
+    }
     
     // MARK: - Table view data source
 
@@ -112,5 +153,35 @@ class NewPlannedRunTableViewController: UITableViewController {
     
     func setRepeatEndDetailLabelText(repeatEndOption: String) {
         tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text = repeatEndOption
+    }
+    
+    @IBAction func donePressed(sender: AnyObject) {
+        var error = ""
+        var planDistance = 0.0
+        var planDuration = 0
+        
+        if distanceDurationSegement.selectedSegmentIndex == 0 {
+            planDistance = plannedDistancePicker.selectedDistance().distance
+        } else if distanceDurationSegement.selectedSegmentIndex == 1 {
+            planDuration = plannedDurationPicker.selectedDuration().duration
+        }
+        
+        if planDistance == 0 && planDuration == 0 {
+            error += "A plan must have a distance or duration greater than 0. \n"
+        }
+        
+        let stringValidation = runDetailsTextField.text.validateString("Plan details", maxLength: 40, minLength: 0)
+        if !stringValidation.valid {
+            error += "\(stringValidation.error) \n"
+        }
+        
+        let plannedRun = PlannedRun(ID: 0, date: plannedRunDate.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text)
+        
+        if error == "" {
+            Database().savePlannedRun(plannedRun, forPlan: plan)
+            self.navigationController!.popViewControllerAnimated(true)
+        } else {
+            println(error)
+        }
     }
 }

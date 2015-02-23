@@ -22,8 +22,8 @@ class HomeProgressTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        Conversions().addBorderToView(self.headerView)
-        Conversions().addBorderToView(self.mainView)
+        self.headerView.addBorder()
+        self.mainView.addBorder()
         let returnValues = self.loadMonthlyRunProgress()
         self.progress = returnValues.0
         self.progressDetailLabel.text = "\(returnValues.2) miles of \(returnValues.1) completed."
@@ -38,7 +38,7 @@ class HomeProgressTableViewCell: UITableViewCell {
     
     func loadMonthlyRunProgress() -> (progress: Double, goalMiles: Double, totalMiles: Double) {
         let goalMiles = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Distance.GoalKey)
-        let currentMonth = Conversions().dateToMonthString(NSDate())
+        let currentMonth = NSDate().monthYearString()
         let runs: Array<Run> = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '___\(currentMonth)%'") as Array<Run>
         let totalMiles = Conversions().totalUpRunMiles(runs)
         var progress = totalMiles/goalMiles

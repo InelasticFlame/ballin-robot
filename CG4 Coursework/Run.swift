@@ -76,4 +76,37 @@ class Run: NSObject {
     func addSplit(split: Int) {
         self.splits.append(split)
     }
+    
+    func scoreColour() -> UIColor {
+        if self.score < 300 {
+            return UIColor.redColor()
+        } else if self.score < 700 {
+            return UIColor.orangeColor()
+        } else {
+            return UIColor.greenColor()
+        }
+    }
+    
+    func calculateRunFinishTimes() -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
+        let fiveK = Int(Double(self.pace) * 3.1)
+        let tenK = Int(Double(self.pace) * 6.2)
+        let halfMarathon = Int(Double(self.pace) * 13.1)
+        let fullMarathon = Int(Double(self.pace) * 26.2)
+        
+        let fiveKStr = "5k: " + Conversions().runDurationForInterface(fiveK)
+        let tenKStr = "10k: " + Conversions().runDurationForInterface(tenK)
+        let halfMarathonStr = "Half: " + Conversions().runDurationForInterface(halfMarathon)
+        let fullMarathonStr = "Full: " + Conversions().runDurationForInterface(fullMarathon)
+        
+        return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr)
+    }
+
+    func valid() -> Bool {
+        if self.distance > 0 && self.duration > 0 && self.pace > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+
 }

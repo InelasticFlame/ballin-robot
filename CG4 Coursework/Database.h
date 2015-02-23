@@ -26,7 +26,10 @@
 
 //Plans
 -(NSObject *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate;
+-(BOOL)savePlannedRun:(NSObject *)plannedRun ForPlan:(NSObject *)plan;
+
 -(NSArray *)loadAllTrainingPlans;
+-(NSArray *)loadPlannedRunsForPlan:(NSObject *)plan;
 
 //Shoes
 -(void)saveShoe;

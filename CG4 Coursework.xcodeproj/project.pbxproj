@@ -12,6 +12,7 @@
 		B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
 		B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */; };
+		B60B10CE1A96306D003B30C9 /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CD1A96306D003B30C9 /* CreatePlanViewController.swift */; };
 		B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */; };
 		B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */; };
 		B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */; };
@@ -26,6 +27,8 @@
 		B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7781A48D2D100A4A49C /* Conversions.swift */; };
 		B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B77A1A48DB5400A4A49C /* Plan.swift */; };
 		B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */; };
+		B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B636014F1A9A0ACA0020FB80 /* Extensions.swift */; };
+		B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */; };
 		B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */; };
 		B659D8491A7FB87900BB5189 /* AddRunPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B659D8481A7FB87900BB5189 /* AddRunPickerViewController.swift */; };
 		B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */; };
@@ -45,9 +48,7 @@
 		B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */; };
 		B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7381A93D776009FE6C0 /* PacePicker.swift */; };
 		B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */; };
-		B6F9A0DB1A8A4A3300C5828F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */; };
 		B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */; };
-		B6F9A0DF1A9222CA00C5828F /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DE1A9222CA00C5828F /* CreatePlanViewController.swift */; };
 		B6F9A0E11A9226AC00C5828F /* TrainingPlansTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0E01A9226AC00C5828F /* TrainingPlansTableViewController.swift */; };
 		B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */; };
 		B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */; };
@@ -72,6 +73,7 @@
 		B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanRepetitionPicker.swift; sourceTree = "<group>"; };
 		B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatsTableViewController.swift; sourceTree = "<group>"; };
 		B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatSettingsTableViewController.swift; sourceTree = "<group>"; };
+		B60B10CD1A96306D003B30C9 /* CreatePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
 		B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTableViewCell.swift; sourceTree = "<group>"; };
 		B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunDetailsViewController.swift; sourceTree = "<group>"; };
 		B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
@@ -92,6 +94,8 @@
 		B621B7781A48D2D100A4A49C /* Conversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversions.swift; sourceTree = "<group>"; };
 		B621B77A1A48DB5400A4A49C /* Plan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRun.swift; sourceTree = "<group>"; };
+		B636014F1A9A0ACA0020FB80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRunTableViewCell.swift; sourceTree = "<group>"; };
 		B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTextTableViewCell.swift; sourceTree = "<group>"; };
 		B659D8481A7FB87900BB5189 /* AddRunPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRunPickerViewController.swift; sourceTree = "<group>"; };
 		B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanBackSegue.swift; sourceTree = "<group>"; };
@@ -112,9 +116,7 @@
 		B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		B6ECC7381A93D776009FE6C0 /* PacePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedRunTableViewController.swift; sourceTree = "<group>"; };
-		B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCreatePlanTableViewController.swift; sourceTree = "<group>"; };
-		B6F9A0DE1A9222CA00C5828F /* CreatePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
 		B6F9A0E01A9226AC00C5828F /* TrainingPlansTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingPlansTableViewController.swift; sourceTree = "<group>"; };
 		B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailsViewController.swift; sourceTree = "<group>"; };
 		B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailsTableViewCell.swift; sourceTree = "<group>"; };
@@ -186,8 +188,8 @@
 		B621B7411A48C65100A4A49C /* CG4 Coursework */ = {
 			isa = PBXGroup;
 			children = (
-				B6F9A0DA1A8A4A3300C5828F /* DatePickerViewController.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
+				B636014F1A9A0ACA0020FB80 /* Extensions.swift */,
 				B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */,
 				B668DB0E1A4DE8F800DC7CE6 /* ProgressBar.swift */,
 				B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */,
@@ -268,15 +270,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B63601511A9A36290020FB80 /* New Planned Run */ = {
+			isa = PBXGroup;
+			children = (
+				B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */,
+				B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */,
+				B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */,
+			);
+			name = "New Planned Run";
+			sourceTree = "<group>";
+		};
+		B63601541A9A37090020FB80 /* Create Plan */ = {
+			isa = PBXGroup;
+			children = (
+				B60B10CD1A96306D003B30C9 /* CreatePlanViewController.swift */,
+				B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */,
+			);
+			name = "Create Plan";
+			sourceTree = "<group>";
+		};
 		B68962F61A939C8D00CCCFEA /* Plan Creation */ = {
 			isa = PBXGroup;
 			children = (
 				B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */,
 				B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */,
-				B6F9A0DE1A9222CA00C5828F /* CreatePlanViewController.swift */,
-				B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */,
-				B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */,
-				B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */,
+				B63601541A9A37090020FB80 /* Create Plan */,
+				B63601511A9A36290020FB80 /* New Planned Run */,
 			);
 			name = "Plan Creation";
 			sourceTree = "<group>";
@@ -469,6 +488,7 @@
 				B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */,
 				B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */,
 				B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */,
+				B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */,
 				B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */,
 				B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */,
 				B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */,
@@ -477,10 +497,10 @@
 				B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
-				B6F9A0DF1A9222CA00C5828F /* CreatePlanViewController.swift in Sources */,
 				B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */,
+				B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */,
 				B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */,
-				B6F9A0DB1A8A4A3300C5828F /* DatePickerViewController.swift in Sources */,
+				B60B10CE1A96306D003B30C9 /* CreatePlanViewController.swift in Sources */,
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
 				B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */,
 				B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */,
@@ -610,6 +630,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -626,6 +647,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

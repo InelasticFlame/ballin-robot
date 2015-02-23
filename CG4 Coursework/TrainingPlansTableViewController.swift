@@ -68,7 +68,7 @@ class TrainingPlansTableViewController: UITableViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("activePlan", forIndexPath: indexPath) as UITableViewCell
             cell.textLabel?.text = plans[0][indexPath.row].name
-            cell.detailTextLabel?.text = Conversions().dateToString(plans[0][indexPath.row].endDate)
+            cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.shortDateString()
             
             return cell
         } else {
@@ -94,30 +94,15 @@ class TrainingPlansTableViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if let destinationVC = segue.destinationViewController as? PlanDetailsViewController {
+            if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) {
+                destinationVC.plan = plans[selectedIndex.section][selectedIndex.row]
+            }
+        }
     }
-    */
-
 }
