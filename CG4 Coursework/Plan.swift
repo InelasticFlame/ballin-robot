@@ -26,11 +26,12 @@ class Plan: NSObject {
         super.init()
         self.checkIfActive()
         self.loadPlannedRuns()
+        self.plannedRuns = Conversions().sortPlansIntoDateOrder(plannedRuns: self.plannedRuns)
     }
     
     func checkIfActive() {
         let today = NSDate()
-        let endDate = self.endDate.dateByAddingTimeInterval(86400) //Add a day to the date.
+        let endDate = self.endDate.dateByAddingTimeInterval(86399) //Add a just less than a day to the date.
         
         if today.earlierDate(startDate) == startDate && today.laterDate(endDate) == endDate {
             self.active = true

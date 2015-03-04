@@ -68,8 +68,8 @@ class RepeatSettingsTableViewController: UITableViewController {
             if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
                 cell.accessoryType = .Checkmark
             }
-        } else {
-            let repeatEndDate = NSDate(shortDateString: repeatEnd!)
+        } else if let repeatEnd = repeatEnd {
+            let repeatEndDate = NSDate(shortDateString: repeatEnd)
             tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark
             repeatEndDatePicker.date = repeatEndDate
             dateDetailLabel.text = repeatEnd

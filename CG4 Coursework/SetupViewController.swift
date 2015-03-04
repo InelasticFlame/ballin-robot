@@ -62,7 +62,7 @@ class SetupViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().setDouble(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey)
         }
         
-        NSUserDefaults.standardUserDefaults().setInteger(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.UnitKey)
+        NSUserDefaults.standardUserDefaults().setInteger(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.GoalKey)
         
         self.dismissViewControllerAnimated(true, completion: nil)
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey)

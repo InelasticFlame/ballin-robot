@@ -32,27 +32,20 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         plannedRunDate.maximumDate = plan?.endDate //Prevents a user from planning a run after the plan ends
         
         runDateDetailLabel.text = plannedRunDate.date.shortDateString()
-        updateDistanceLabel()
-        updateDurationLabel()
+        updateDetailLabels()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDistanceLabel", name: "UpdateDistanceLabel", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDurationLabel", name: "UpdateDurationLabel", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels", name: "UpdateDetailLabel", object: nil)
     }
 
     @IBAction func distanceDurationSegmentValueChanged(sender: UISegmentedControl) {
         reloadTableViewCells()
-        updateDistanceLabel()
-        updateDurationLabel()
+        updateDetailLabels()
     }
     
-    func updateDistanceLabel() {
+    func updateDetailLabels() {
         if distanceDurationSegement.selectedSegmentIndex == 0 {
             runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr
-        }
-    }
-    
-    func updateDurationLabel() {
-        if distanceDurationSegement.selectedSegmentIndex == 1 {
+        } else if distanceDurationSegement.selectedSegmentIndex == 1 {
             runDistanceDurationDetailLabel.text = plannedDurationPicker.selectedDuration().durationStr
         }
     }
@@ -60,7 +53,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     //MARK: - Text Field
     
     /**
-    This methid is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
     */

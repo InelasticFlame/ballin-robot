@@ -14,12 +14,17 @@ class HomeTextTableViewCell: UITableViewCell {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var mainView: UIView!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         self.headerView.addBorder(2)
         self.mainView.addBorder(2)
+        
+        let graph = Graph(frame: CGRect(x: 30, y: 50, width: 250, height: 250), graphStyle: .Bar, coordinates: [GraphCoordinate]())
+        graph.backgroundColor = UIColor.clearColor()
+        self.addSubview(graph)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

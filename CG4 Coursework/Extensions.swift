@@ -1,5 +1,5 @@
 //
-//  Extension.swift
+//  Extensions.swift
 //  CG4 Coursework
 //
 //  Created by William Ray on 22/02/2015.
@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HealthKit
 
 extension UIView {
    
@@ -58,6 +59,13 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
+    func shortestDateString() -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        
+        return dateFormatter.stringFromDate(self)
+    }
+    
     func monthYearString() -> String {
         let dateFormatter = NSDateFormatter()
         let month = dateFormatter.calendar.component(.MonthCalendarUnit, fromDate: self)
@@ -67,6 +75,24 @@ extension NSDate {
         
         return monthString
 
+    }
+    
+    func isToday() -> Bool {
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        
+        return calendar!.isDateInToday(self)
+    }
+    
+    func isYesterday() -> Bool {
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        
+        return calendar!.isDateInYesterday(self)
+    }
+    
+    func isTomorrow() -> Bool {
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        
+        return calendar!.isDateInTomorrow(self)
     }
 }
 
@@ -115,5 +141,49 @@ extension String {
         
         return (false, error) //5
 
+    }
+}
+
+extension HKHealthStore {
+    
+    //By retrieving the most recent sample, if there have been multiple weight updates in one day (e.g. 10am; 72.3 kg and then 5pm; 72.2 kg) the final update for the day will be returned (72.2 kg) ensure that the data is as up to date as it can be for that day
+    func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: ((HKSample!, NSError!) -> Void)!) {
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        
+        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
+            
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            if completion != nil && results.first != nil {
+                completion(results.first as HKSample, nil)
+            }
+        }
+        
+        self.executeQuery(query)
+    }
+    
+    
+    func retrieveSumOfSample(sampleType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: ((Double!, NSError!) -> Void)!) {
+        
+        let query: HKStatisticsQuery = HKStatisticsQuery(quantityType: sampleType, quantitySamplePredicate: predicate, options: HKStatisticsOptions.CumulativeSum) { (query, result, error) in
+            
+            let sum = result.sumQuantity()
+            
+            if (completion != nil) {
+                if let sum = sum {
+                    completion(sum.doubleValueForUnit(unit), nil)
+                } else {
+                    completion(0, nil)
+                }
+            } else if (error != nil) {
+                completion(nil, error)
+            }
+            
+        }
+        
+        self.executeQuery(query)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DistancePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
+class DistancePicker: UIPickerView, UIPickerViewDelegate {
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,7 +43,7 @@ class DistancePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDistanceLabel", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "DISTANCE", forKey: "valueChanged"))
     }
     
     func selectedDistance() -> (distance: Double, distanceStr: String) {
@@ -67,5 +67,14 @@ class DistancePicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate
         }
         
         return (distance, distanceStr)
+    }
+    
+    func setDistance(distance: Double) {
+        let miles = Int(distance)
+        let tenthsMiles = Int((distance - Double(miles)) * 100)
+        
+        self.selectRow(miles, inComponent: 0, animated: false)
+        self.selectRow(tenthsMiles, inComponent: 1, animated: false)
+        self.selectRow(0, inComponent: 2, animated: false)
     }
 }

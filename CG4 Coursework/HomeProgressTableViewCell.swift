@@ -17,7 +17,7 @@ class HomeProgressTableViewCell: UITableViewCell {
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressDetailLabel: UILabel!
     @IBOutlet weak var progressView: UIView!
-    var progress = 0.0
+    var progress: CGFloat = 0.0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +25,7 @@ class HomeProgressTableViewCell: UITableViewCell {
         self.headerView.addBorder(2)
         self.mainView.addBorder(2)
         let returnValues = self.loadMonthlyRunProgress()
-        self.progress = returnValues.0
+        self.progress = CGFloat(returnValues.0)
         self.progressDetailLabel.text = "\(returnValues.2) miles of \(returnValues.1) completed."
     }
     

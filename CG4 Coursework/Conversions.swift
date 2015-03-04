@@ -48,7 +48,7 @@ class Conversions: NSObject {
         var returnValue = ""
         var paceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Pace.UnitKey)
         
-        if paceUnit == "min/miles" {
+        if paceUnit == "min/mile" {
             let minutes = pace/60
             let seconds = pace % 60
             returnValue = NSString(format: "%02i:%02i", minutes, seconds) + " min/mile"
@@ -129,5 +129,16 @@ class Conversions: NSObject {
         runs.sort({$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow})
         
         return runs
+    }
+    
+    /**
+    This method sorts an array of Planned Run objects into order of their dates.
+    */
+    func sortPlansIntoDateOrder(plannedRuns array: Array<PlannedRun>) -> Array<PlannedRun> {
+        var plannedRuns = array
+        
+        plannedRuns.sort({$0.date.timeIntervalSinceNow < $1.date.timeIntervalSinceNow})
+        
+        return plannedRuns
     }
 }

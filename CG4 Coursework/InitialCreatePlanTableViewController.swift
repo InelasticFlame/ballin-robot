@@ -26,7 +26,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     var editingEndDate = false
     var showNameWarning = false
     
-    
     //MARK: - View Life Cycle
     /**
     This method is called by the system when the view initially loads.

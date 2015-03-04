@@ -267,7 +267,7 @@ static Database *_database;
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
         Run *firstRun = (Run *)runsWithShoe[0];
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", firstRun.ID];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", (long)firstRun.ID];
         
         for (int i = 1; i < runsWithShoe.count; i++) {
             Run *run = (Run *)runsWithShoe[i];

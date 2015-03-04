@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeTableViewController: UITableViewController {
-
+    
     override func viewDidAppear(animated: Bool) {
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as HomeProgressTableViewCell
         cell.setUpCell()
@@ -54,7 +54,8 @@ class HomeTableViewController: UITableViewController {
             cell.headerImageView.image = UIImage(named: cellHeaders[indexPath.section])
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("TextCard", forIndexPath: indexPath) as UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("TextCard", forIndexPath: indexPath) as HomeTextTableViewCell
+            
             return cell
         }
 

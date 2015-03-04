@@ -24,26 +24,31 @@ class PlannedRun: NSObject {
         self.details = details
     }
     
-    func checkForCompletedRun() -> Int {
-        let runs = Database().loadRunsWithQuery("WHERE RunDate = '\(self.date.shortDateString())'") as Array<Run>
-        var match = 0
+    func checkForCompletedRun() -> (rank: Int, run: Run?) {
+        let runs = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as Array<Run>
+        var rank = 0
+        var matchingRun: Run?
         
         for run: Run in runs {
-            if match < 2 {
+            if rank < 2 {
                 if run.distance >= self.distance {
-                    match = 2
+                    rank = 2
+                    matchingRun = run
                 } else if run.duration >= self.duration {
-                    match = 2
+                    rank = 2
+                    matchingRun = run
                 }
-            } else if match < 1 {
+            } else if rank < 1 {
                 if run.distance >= self.distance {
-                    match = 1
+                    rank = 1
+                    matchingRun = run
                 } else if run.duration >= self.duration {
-                    match = 1
+                    rank = 1
+                    matchingRun = run
                 }
             }
         }
         
-        return match
+        return (rank, matchingRun)
     }
 }

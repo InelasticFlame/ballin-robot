@@ -34,7 +34,7 @@ class RunsTableViewController: UITableViewController {
         self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
         tableView.reloadData() //2
     }
-    
+
     // MARK: - Table View Data Source
 
     /**
@@ -80,30 +80,18 @@ class RunsTableViewController: UITableViewController {
     /**
     This method is called when a user presses the delete button whilst the table is in edit mode.
     1. IF the edit being performed is a delete
-        a. Create an alert titled "Delete run?" with the message "Deleting this run will permanently remove it." and 2 buttons, a Delete button and a Cancel button
-        b. When the Delete button is pressed
-            i. Get the run for the row to be deleted
-           ii. Calls the function deleteRunWithID from the Database class, IF it is successful
-              iii. Remove the run from the array of runs
-               iv. Delete the row from the table view
-            v. Dismiss the alrt
+            a. Get the run for the row to be deleted
+            b. Calls the function deleteRunWithID from the Database class, IF it is successful
+                i. Remove the run from the array of runs
+               ii. Delete the row from the table view
     */
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete { //1
-            let alert = UIAlertController(title: "Delete run?", message: "Deleting this run will permanently remove it.", preferredStyle: UIAlertControllerStyle.Alert) //a
-            alert.addAction(UIAlertAction(title: "Delete", style: .Default, handler: { action in
-                /* Block Start */
-                //b
-                let run = self.runs[indexPath.row] //i
-                if Database().deleteRunWithID(run) { //ii
-                    self.runs.removeAtIndex(indexPath.row) //iii
-                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //iv
-                }
-                self.dismissViewControllerAnimated(true, completion: nil) //v
-                /* Block End */
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let run = self.runs[indexPath.row] //a
+            if Database().deleteRunWithID(run) { //b
+                self.runs.removeAtIndex(indexPath.row) //i
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+            }
         }
     }
     

@@ -49,4 +49,40 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
             }
         }
     }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "PACE", forKey: "valueChanged"))
+    }
+    
+    func selectedPace() -> (pace: Int, paceStr: String) {
+        var pace = 0
+        var paceStr = ""
+        
+        if self.selectedRowInComponent(2) == 0 {
+            let minutesPerMile = self.selectedRowInComponent(0)
+            let secondsPerMile = self.selectedRowInComponent(1)
+            
+            pace = (60 * minutesPerMile) + secondsPerMile
+            paceStr = NSString(format: "%02i:%02i /mi", minutesPerMile, secondsPerMile)
+            
+        } else {
+            let minutesPerKm = self.selectedRowInComponent(0)
+            let secondsPerKm = self.selectedRowInComponent(1)
+            
+            let doublePace = (60.0 * (Double(minutesPerKm)) * Conversions().kmToMiles) + ((Double(secondsPerKm)) * Conversions().kmToMiles)
+            pace = Int(doublePace)
+            paceStr = NSString(format: "%02i:%02i /km", minutesPerKm, secondsPerKm)
+        }
+        
+        return (pace, paceStr)
+    }
+    
+    func setPace(pace: Int) {
+        let minutes = pace / 60
+        let seconds = pace % 60
+        
+        self.selectRow(minutes, inComponent: 0, animated: false)
+        self.selectRow(seconds, inComponent: 1, animated: false)
+        self.selectRow(0, inComponent: 2, animated: false)
+    }
 }
