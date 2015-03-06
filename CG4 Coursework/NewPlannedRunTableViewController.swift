@@ -20,9 +20,10 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var runDetailsTextField: UITextField!
     
     // MARK: - Global Variables
-    var editingRunDate = false
-    var editingRunDistanceDuration = false
-    var showRepeat = false
+    private var editingRunDate = false
+    private var editingRunDistanceDuration = false
+    private var showRepeat = false
+    private let secondsInDay: Double = 86400
     var plan: Plan?
     
     override func viewDidLoad() {
@@ -168,13 +169,53 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             error += "\(stringValidation.error) \n"
         }
         
-        let plannedRun = PlannedRun(ID: 0, date: plannedRunDate.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text)
-        
         if error == "" {
-            Database().savePlannedRun(plannedRun, forPlan: plan)
+            
+            var timeInterval: Double = 0
+            var repeatEndDate = NSDate()
+            
+            if showRepeat { //If this is true then a user is selecting a repeat option
+                if let repeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0)) {
+                    if let text = repeatCell.detailTextLabel?.text as String? {
+                        switch text {
+                        case "Every Day":
+                            timeInterval = secondsInDay
+                        case "Every Week":
+                            timeInterval = secondsInDay * 7
+                        case "Every 2 Weeks":
+                            timeInterval = secondsInDay * 14
+                        case "Every 3 Weeks":
+                            timeInterval = secondsInDay * 21
+                        case "Every 4 Weeks":
+                            timeInterval = secondsInDay * 28
+                        default:
+                            println("Every Identifying Repeat Option")
+                        }
+                    }
+                }
+                if let endRepeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0)) {
+                    if endRepeatCell.detailTextLabel?.text == "Until Plan End" {
+                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: plan!.endDate)
+                    } else {
+                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!))
+                    }
+                }
+                
+                var plannedRunDates = plannedRunDate.date
+                
+                while plannedRunDates.compare(repeatEndDate) == .OrderedAscending {
+                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDates, distance: planDistance, duration: planDuration, details: runDetailsTextField.text)
+                    Database().savePlannedRun(plannedRun, forPlan: plan)
+                    plannedRunDates = NSDate(timeInterval: timeInterval, sinceDate: plannedRunDates)
+                }
+            } else {
+                let plannedRun = PlannedRun(ID: 0, date: plannedRunDate.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text)
+                
+                Database().savePlannedRun(plannedRun, forPlan: plan)
+            }
             self.navigationController!.popViewControllerAnimated(true)
         } else {
-            println(error)
+            println(error) //Handle validation error
         }
     }
 }

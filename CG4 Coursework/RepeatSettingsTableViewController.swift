@@ -57,7 +57,6 @@ class RepeatSettingsTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
-    
     func setSelectedOption(repeatEnd: String?) {
 
         //Fix this: - Check that table view is loaded before running this method
@@ -78,6 +77,7 @@ class RepeatSettingsTableViewController: UITableViewController {
 
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
         dateDetailLabel.text = repeatEndDatePicker.date.shortDateString()
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark
     }
     
 }

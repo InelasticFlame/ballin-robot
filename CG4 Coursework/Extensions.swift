@@ -149,7 +149,7 @@ extension HKHealthStore {
     //By retrieving the most recent sample, if there have been multiple weight updates in one day (e.g. 10am; 72.3 kg and then 5pm; 72.2 kg) the final update for the day will be returned (72.2 kg) ensure that the data is as up to date as it can be for that day
     func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: ((HKSample!, NSError!) -> Void)!) {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        
+
         let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
             
             if let error = error {
@@ -157,8 +157,12 @@ extension HKHealthStore {
                 return
             }
             
-            if completion != nil && results.first != nil {
-                completion(results.first as HKSample, nil)
+            if completion != nil {
+                if results.first != nil {
+                    completion(results.first as HKSample, nil)
+                } else {
+                    completion(nil, nil)
+                }
             }
         }
         

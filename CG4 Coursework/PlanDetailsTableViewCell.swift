@@ -18,6 +18,4 @@ class PlanDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var progressImage: UIImageView!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
-    var matchingRun: Run?
 }

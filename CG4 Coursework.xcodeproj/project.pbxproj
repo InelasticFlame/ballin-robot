@@ -49,6 +49,9 @@
 		B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */; };
 		B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */; };
 		B6CFA95C1A9F6067000EDB00 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA95B1A9F6067000EDB00 /* Graph.swift */; };
+		B6DD2D171AA79E2D0081BAE7 /* WeightHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD2D161AA79E2D0081BAE7 /* WeightHistoryViewController.swift */; };
+		B6DD2D1A1AA8C7C10081BAE7 /* MyShoesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD2D191AA8C7C10081BAE7 /* MyShoesTableViewController.swift */; };
+		B6DD2D1E1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD2D1D1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift */; };
 		B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */; };
 		B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7381A93D776009FE6C0 /* PacePicker.swift */; };
 		B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */; };
@@ -122,6 +125,9 @@
 		B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRunTableViewController.swift; sourceTree = "<group>"; };
 		B6CFA95B1A9F6067000EDB00 /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		B6DD2D161AA79E2D0081BAE7 /* WeightHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightHistoryViewController.swift; sourceTree = "<group>"; };
+		B6DD2D191AA8C7C10081BAE7 /* MyShoesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShoesTableViewController.swift; sourceTree = "<group>"; };
+		B6DD2D1D1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewShoeTableViewController.swift; sourceTree = "<group>"; };
 		B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		B6ECC7381A93D776009FE6C0 /* PacePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedRunTableViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +215,7 @@
 				B618ABF41A51FC4D0050EFF0 /* Runs View */,
 				B6FB78101A86A7CE00667897 /* Planned Runs */,
 				B649540A1AA35BBA00A00C1B /* Calories and Weight */,
+				B6DD2D181AA8C7AC0081BAE7 /* Shoes */,
 				B621B7761A48D2A500A4A49C /* Custom Objects */,
 				B621B7771A48D2B600A4A49C /* Database */,
 				B621B7441A48C65100A4A49C /* AppDelegate.swift */,
@@ -308,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */,
+				B6DD2D161AA79E2D0081BAE7 /* WeightHistoryViewController.swift */,
 			);
 			name = "Calories and Weight";
 			sourceTree = "<group>";
@@ -332,6 +340,15 @@
 				B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */,
 			);
 			name = "Picker Views";
+			sourceTree = "<group>";
+		};
+		B6DD2D181AA8C7AC0081BAE7 /* Shoes */ = {
+			isa = PBXGroup;
+			children = (
+				B6DD2D191AA8C7C10081BAE7 /* MyShoesTableViewController.swift */,
+				B6DD2D1D1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift */,
+			);
+			name = Shoes;
 			sourceTree = "<group>";
 		};
 		B6E0B66C1A4B1BF100D1CEC4 /* Home View */ = {
@@ -508,6 +525,7 @@
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */,
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
+				B6DD2D1A1AA8C7C10081BAE7 /* MyShoesTableViewController.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
 				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
@@ -536,7 +554,9 @@
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
 				B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */,
 				B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */,
+				B6DD2D1E1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,
+				B6DD2D171AA79E2D0081BAE7 /* WeightHistoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

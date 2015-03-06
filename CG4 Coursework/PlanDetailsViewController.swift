@@ -42,6 +42,18 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         
         if let plan = plan {
             runsPlannedLabel.text = "\(plan.plannedRuns.count)"
+            for plannedRun in plan.plannedRuns {
+                if plannedRun.matchRank == 0 {
+                    missedRuns += 1
+                } else if plannedRun.matchRank == 1 {
+                    almostMetRuns += 1
+                } else if plannedRun.matchRank == 2 {
+                    metRuns += 1
+                }
+            }
+            runsMissedLabel.text = "\(missedRuns)"
+            runsAlmostMetLabel.text = "\(almostMetRuns)"
+            runsMetLabel.text = "\(metRuns)"
         }
     }
     
@@ -65,31 +77,29 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         
         let cell = tableView.dequeueReusableCellWithIdentifier("PlanDetails", forIndexPath: indexPath) as PlanDetailsTableViewCell
         if let plannedRun = plan?.plannedRuns[indexPath.row] {
-        
-        cell.dateLabel.text = plannedRun.date.shortestDateString()
-        cell.detailLabel.text = plannedRun.details
-        if plannedRun.distance > 0 {
-            cell.distanceDurationLabel.text = Conversions().distanceForInterface(plannedRun.distance)
-        } else {
-            cell.distanceDurationLabel.text = Conversions().runDurationForInterface(plannedRun.duration)
-        }
-            let match = plannedRun.checkForCompletedRun()
-            if match.rank == 0 {
+            
+            cell.dateLabel.text = plannedRun.date.shortestDateString()
+            cell.detailLabel.text = plannedRun.details
+            
+            if plannedRun.distance > 0 {
+                cell.distanceDurationLabel.text = Conversions().distanceForInterface(plannedRun.distance)
+            } else {
+                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(plannedRun.duration)
+            }
+            
+            if plannedRun.matchRank == 0 {
                 cell.progressImage.image = UIImage(named: "Cross37px")
                 cell.accessoryType = .None
                 cell.selectionStyle = .None
-                missedRuns += 1
-                runsMissedLabel.text = "\(missedRuns)"
-            } else if match.rank == 1 {
+            } else if plannedRun.matchRank == 1 {
                 cell.progressImage.image = UIImage(named: "Almost37px")
-                almostMetRuns += 1
-                runsAlmostMetLabel.text = "\(almostMetRuns)"
-            } else if match.rank == 2 {
+            } else if plannedRun.matchRank == 2 {
                 cell.progressImage.image = UIImage(named: "Tick37px")
-                metRuns += 1
-                runsMetLabel.text = "\(metRuns)"
+            } else if plannedRun.matchRank == 3 {
+                cell.accessoryType = .None
+                cell.selectionStyle = .None
+                cell.progressImage.image = nil
             }
-            cell.matchingRun = match.run
         }
         return cell
     }
@@ -97,9 +107,11 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Navigation
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if let cell = sender as? PlanDetailsTableViewCell {
-            if let matchingRun = cell.matchingRun {
-                return true
+        if let cell = sender as? PlanDetailsTableViewCell { //CHECK IF THERE IS A PLANNED RUN
+            if let indexPath = planDetailsTableView.indexPathForCell(cell) {
+                if let plannedRun = plan?.plannedRuns[indexPath.row].matchingRun {
+                    return true
+                }
             }
         } else if identifier == "edit" {
             return true
@@ -117,9 +129,11 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         
         if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
             if let cell = sender as? PlanDetailsTableViewCell {
-                if let run = cell.matchingRun {
-                    cell.selected = false
-                    destinationVC.run = run
+                if let indexPath = planDetailsTableView.indexPathForCell(cell) {
+                    if let plannedRun = plan?.plannedRuns[indexPath.row].matchingRun {
+                        destinationVC.run = plannedRun
+                        cell.selected = false
+                    }
                 }
             }
         }

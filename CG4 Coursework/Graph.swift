@@ -40,101 +40,117 @@ class Graph: UIView {
         case Pace
         case Distance
         case Duration
+        case Weight
     }
     
     init(frame: CGRect, graphStyle: GraphStyle, coordinates: [GraphCoordinate]) {
-        values = [GraphCoordinate(x: "Mile 1", y: 728), GraphCoordinate(x: "Mile 2", y: 681), GraphCoordinate(x: "Mile 3", y: 678), GraphCoordinate(x: "Mile 4", y: 650), GraphCoordinate(x: "Mile 5", y: 813)]
+//        values = [GraphCoordinate(x: "Mile 1", y: 728), GraphCoordinate(x: "Mile 2", y: 681), GraphCoordinate(x: "Mile 3", y: 678), GraphCoordinate(x: "Mile 4", y: 650), GraphCoordinate(x: "Mile 5", y: 813)]
+        values = coordinates
         self.graphStyle = graphStyle
-        self.graphType = .Pace
+        self.graphType = .Weight
         super.init(frame: frame)
     }
     
     required init(coder aDecoder: NSCoder) {
         self.graphStyle = .Line
-        self.graphType = .Pace
+        self.graphType = .Weight
         super.init(coder: aDecoder)
     }
     
     override func drawRect(rect: CGRect) {
-        originX = axesIndent
-        originY = rect.height - axesIndent
-        yAxisMax = indent
-        xAxisMax = rect.width - indent
-        yAxisLength = originY - yAxisMax
-        xAxisLength = rect.width - axesIndent - indent
-        xScale = xAxisLength/CGFloat(values.count)
-        
-        if graphType == .Pace {
-            majorStep = 60
-            minorStep = 10
-        } else if graphType == .Duration {
-            majorStep = 3600
-            minorStep = 600
-        }
-        
-        getYScale()
-        
-        if graphStyle == .Line {
-            plotLineGraph()
-        } else {
-            plotBarGraph()
-        }
-        
-        let currentContext = UIGraphicsGetCurrentContext()
-        CGContextSetStrokeColorWithColor(currentContext, UIColor.blackColor().CGColor)
-        CGContextSetLineWidth(currentContext, 2)
-        
-        //Draw Axes
-        //Y
-        CGContextMoveToPoint(currentContext, originX, originY)
-        CGContextAddLineToPoint(currentContext, originX, yAxisMax)
-        
         if values.count > 0 {
-            for markerNo in 0...Int(maxYCoord/majorStep) { //10 MARKERS
-                let yMarkerY = yScale * majorStep * CGFloat(markerNo)
-                CGContextMoveToPoint(currentContext, originX, originY - yMarkerY)
-                CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY)
-                self.addTextToGraph(self.yAxisLabel(markerNo), xCoord: originX - 20, yCoord: originY - yMarkerY - 5)
+            originX = axesIndent
+            originY = rect.height - axesIndent
+            yAxisMax = indent
+            xAxisMax = rect.width - indent
+            yAxisLength = originY - yAxisMax
+            xAxisLength = rect.width - axesIndent - indent
+            xScale = xAxisLength/CGFloat(values.count)
+            
+            if graphType == .Pace {
+                majorStep = 60
+                minorStep = 10
+            } else if graphType == .Duration {
+                majorStep = 3600
+                minorStep = 600
             }
-            CGContextStrokePath(currentContext)
-            CGContextSetLineWidth(currentContext, 0.4)
-            //                if yScale > 5 {
-            for markerNo in 0...Int(maxYCoord/minorStep) { //2 MARKERS
-                let yMarkerY = yScale * minorStep * CGFloat(markerNo)
-                CGContextMoveToPoint(currentContext, originX, originY - yMarkerY)
-                CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY)
-                //                    }
+            
+            getYScale()
+            
+            if graphStyle == .Line {
+                xScale = xAxisLength/CGFloat(values.count - 1)
+                plotLineGraph()
+            } else {
+                plotBarGraph()
             }
-            CGContextStrokePath(currentContext)
+            
+            let currentContext = UIGraphicsGetCurrentContext()
+            CGContextSetStrokeColorWithColor(currentContext, UIColor.blackColor().CGColor)
             CGContextSetLineWidth(currentContext, 2)
+            
+            //Draw Axes
+            //Y
+            CGContextMoveToPoint(currentContext, originX, originY)
+            CGContextAddLineToPoint(currentContext, originX, yAxisMax)
+            
+            if values.count > 0 {
+                for markerNo in 0...Int(maxYCoord/majorStep) { //10 MARKERS
+                    let yMarkerY = yScale * majorStep * CGFloat(markerNo)
+                    CGContextMoveToPoint(currentContext, originX, originY - yMarkerY)
+                    CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY)
+                    self.addTextToGraph(self.yAxisLabel(markerNo), xCoord: originX - 20, yCoord: originY - yMarkerY - 5)
+                }
+                CGContextStrokePath(currentContext)
+                CGContextSetLineWidth(currentContext, 0.4)
+                //                if yScale > 5 {
+                for markerNo in 0...Int(maxYCoord/minorStep) { //2 MARKERS
+                    let yMarkerY = yScale * minorStep * CGFloat(markerNo)
+                    CGContextMoveToPoint(currentContext, originX, originY - yMarkerY)
+                    CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY)
+                    //                    }
+                }
+                CGContextStrokePath(currentContext)
+                CGContextSetLineWidth(currentContext, 2)
+            }
+            
+            //X
+            CGContextMoveToPoint(currentContext, axesIndent, rect.height - axesIndent)
+            CGContextAddLineToPoint(currentContext, rect.width - indent, rect.height - axesIndent)
+            
+            for markerNumber in 0...values.count {
+                let xMarkerX = xScale * CGFloat(markerNumber)
+                CGContextMoveToPoint(currentContext, axesIndent + xMarkerX, rect.height - axesIndent)
+                CGContextAddLineToPoint(currentContext, axesIndent + xMarkerX, rect.height - axesIndent + markerHeight)
+            }
+            
+            CGContextStrokePath(currentContext)
         }
-        
-        //X
-        CGContextMoveToPoint(currentContext, axesIndent, rect.height - axesIndent)
-        CGContextAddLineToPoint(currentContext, rect.width - indent, rect.height - axesIndent)
-        
-        for markerNumber in 0...values.count {
-            let xMarkerX = xScale * CGFloat(markerNumber)
-            CGContextMoveToPoint(currentContext, axesIndent + xMarkerX, rect.height - axesIndent)
-            CGContextAddLineToPoint(currentContext, axesIndent + xMarkerX, rect.height - axesIndent + markerHeight)
-        }
-        
-        CGContextStrokePath(currentContext)
     }
     
     func plotLineGraph() {
+        let context = UIGraphicsGetCurrentContext()
+        CGContextSetLineWidth(context, 2)
+        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
         
+        CGContextMoveToPoint(context, axesIndent, frame.height - (values[0].y * yScale) - axesIndent)
+        for i in 1...values.count - 1 {
+            CGContextAddLineToPoint(context, (CGFloat(i) * xScale) + axesIndent, frame.height - (values[i].y * yScale) - axesIndent)
+        }
+        CGContextStrokePath(context)
     }
     
     func plotBarGraph() {
+        let context = UIGraphicsGetCurrentContext()
+        
         for i in 0...values.count - 1 {
             let barRect = CGRect(x: (CGFloat(i) * xScale) + axesIndent + 5, y: frame.height - (values[i].y * yScale) - axesIndent, width: xScale - 10, height: values[i].y * yScale)
-            CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), UIColor.redColor().CGColor)
-            CGContextFillRect(UIGraphicsGetCurrentContext(), barRect)
+            CGContextSetFillColorWithColor(context, UIColor.redColor().CGColor)
+            CGContextFillRect(context, barRect)
         }
     }
     
     func getYScale() {
+        var yInterval: CGFloat = 10.0
         var maxYCoord: CGFloat = 0.0
         for coordinate in values {
             if coordinate.y > maxYCoord {
@@ -150,7 +166,9 @@ class Graph: UIView {
             maxYValue = maxYCoord
         }
         
-        let yInterval = CGFloat(yAxisLength / (maxYValue))
+        if maxYValue != 0 {
+            yInterval = CGFloat(yAxisLength / (maxYValue))
+        }
         
         yScale = yInterval
         self.maxYCoord = maxYValue

@@ -34,7 +34,6 @@ class CaloriesAndWeightViewController: UIViewController {
         super.viewDidLoad()
         
         setDateLabel()
-        loadViewForCurrentDate()
         requestAuthorisationForHealthKitAccess()
     }
     
@@ -56,6 +55,10 @@ class CaloriesAndWeightViewController: UIViewController {
     }
 
     func addCalorieProgressBar() {
+        for view in caloriesProgressBarView.subviews as [UIView] {
+            view.removeFromSuperview()
+        }
+        
         let frame = CGRect(x: 0, y: 0, width: caloriesProgressBarView.frame.width, height: caloriesProgressBarView.frame.height)
         
         let netCalories = caloriesConsumed - caloriesBurnt
@@ -65,7 +68,10 @@ class CaloriesAndWeightViewController: UIViewController {
         
         let progressBar = ProgressBar(progress: CGFloat(progress), frame: frame)
         self.caloriesProgressBarView.addSubview(progressBar)
-
+        
+        calorieSummaryLabel.text = NSString(format: "%1.0f calories used of %1.0f", netCalories, calorieGoal)
+        burntCaloriesLabel.text = NSString(format: "%1.0f calories burnt", caloriesBurnt)
+        eatenCaloriesLabel.text = NSString(format: "%1.0f calories consumed", caloriesConsumed)
     }
     
     func setDateLabel() {
@@ -76,12 +82,6 @@ class CaloriesAndWeightViewController: UIViewController {
             self.navigationItem.prompt = "Yesterday"
         } else {
             self.navigationItem.prompt = currentDate.shortDateString()
-        }
-    }
-    
-    func loadViewForCurrentDate() {
-        for view in caloriesProgressBarView.subviews as [UIView] {
-            view.removeFromSuperview()
         }
     }
     
