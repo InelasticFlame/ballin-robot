@@ -10,7 +10,7 @@ import UIKit
 
 class PlannedRun: NSObject {
     
-    var ID: Int
+    private(set) var ID: Int
     var date: NSDate
     var distance: Double
     var duration: Int

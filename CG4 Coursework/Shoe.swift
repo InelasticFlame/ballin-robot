@@ -10,7 +10,7 @@ import UIKit
 
 class Shoe: NSObject {
     
-    var ID: Int
+    private(set) var ID: Int
     var name: String
     var miles: Double
     var imagePath: String

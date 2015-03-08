@@ -10,100 +10,133 @@ import UIKit
 
 class TrainingPlansTableViewController: UITableViewController {
 
-    var plans = [[Plan](), [Plan]()]
+    private var plans = [[Plan](), [Plan]()] //A global array that contains 2 arrays of Plan objects, [[ActivePlans], [InactivePlans]]
     
+    //MARK: - View Life Cycle
+    
+    /**
+    This method is called by the system when the view is first loaded
+    1. Sets the right button on the navigation bar as an Edit button
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = editButtonItem()
+        self.navigationItem.rightBarButtonItem = editButtonItem() //1
     }
     
     /**
     This method is called each time the view will appear on screen.
-    1. Clears the arrays of any existing plans
-    2. Retrieves the plans from the database using the Database class
+    1. Clears the arrays of any existing plans, without keeping its current size
+    2. Retrieves the plans from the database using the Database class as an array of Plan objects
     3. FOR each plan in unsortedPlans
         a. IF the plan is active
             i. Add the plan to the first array (Active Plans)
         b. ELSE
             i. Adds the plan to the second array (In-active Plans)
+    4. Reloads the data in the table view
     */
     override func viewWillAppear(animated: Bool) {
-        plans[0].removeAll(keepCapacity: false)
+        plans[0].removeAll(keepCapacity: false) //1
         plans[1].removeAll(keepCapacity: false)
         
-        let unsortedPlans: [Plan] = Database().loadAllTrainingPlans() as [Plan]
+        let unsortedPlans: [Plan] = Database().loadAllTrainingPlans() as [Plan] //1
         
-        for plan: Plan in unsortedPlans {
-            if plan.active {
-                plans[0].append(plan)
-            } else {
-                plans[1].append(plan)
+        for plan: Plan in unsortedPlans { //3
+            if plan.active { //3a
+                plans[0].append(plan) //3ai
+            } else { //3b
+                plans[1].append(plan) //3bi
             }
         }
         
-        tableView.reloadData()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        tableView.reloadData() //4
     }
 
     // MARK: - Table view data source
 
+    /**
+    This method is called by the system whenevr the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 2.
+    */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 2
     }
 
+    /**
+    This method is called by the system whenever the tableView loads its data. It returns the number of rows in a section, which is the number of plans in the array of plans for the current section.
+    (ActivePlans in section 0, InactivePlans in section 1)
+    */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return plans[section].count
     }
 
-    
+    /**
+    This method is called by the system when the data is loaded in the table, it creates a new cell and populates it with the data for a particular Plan.
+    1. IF the section is 0
+        a. Create an 'activePlan' cell
+        b. Set the textLabel text to the name of the ActivePlan at the current row
+        c. Sets the detailTextLabel text to the endDate of the ActivePlan at the current row, as a shortDateString
+        d. Returns the cell
+    2. ELSE
+        a. Creates an 'inactivePlan' cell
+        b. Set the textLabel text to the name of the InactivePlan at the current row
+        c. Returns the cell
+    */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("activePlan", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = plans[0][indexPath.row].name
-            cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.shortDateString()
+        if indexPath.section == 0 { //1
+            let cell = tableView.dequeueReusableCellWithIdentifier("activePlan", forIndexPath: indexPath) as UITableViewCell //1a
+            cell.textLabel?.text = plans[0][indexPath.row].name //1b
+            cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.shortDateString() //1c
             
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("inactivePlan", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = plans[1][indexPath.row].name
+            return cell //1d
+        } else { //2
+            let cell = tableView.dequeueReusableCellWithIdentifier("inactivePlan", forIndexPath: indexPath) as UITableViewCell //2a
+            cell.textLabel?.text = plans[1][indexPath.row].name //2b
             
-            return cell
+            return cell //2c
         }
-        
     }
     
+    /**
+    This method is called by the system whenever the tableView loads it data. It returns the title for the header of a section.
+    1. IF the section is 0, return "Active Plans"
+    2. ELSE return "In-active Plans"
+    */
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+        if section == 0 { //1
             return "Active Plans"
-        } else {
+        } else { //2
             return "In-active Plans"
         }
     }
 
+    /**
+    This method is called when a user presses the delete button whilst the table is in edit mode.
+    1. IF the edit being performed is a delete
+        a. IF the plan for the selected row in the selected section is successfully deleted from the database
+            i. Remove the plan from the array of plans
+           ii. Remove the row selected with the Fade animation
+    */
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            if Database().deletePlan(plans[indexPath.section][indexPath.row]) {
-                plans[indexPath.section].removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        if editingStyle == .Delete { //1
+            if Database().deletePlan(plans[indexPath.section][indexPath.row]) { //a
+                plans[indexPath.section].removeAtIndex(indexPath.row) //i
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
             }
         }
     }
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /**
+    This method is called by the system when it is about to perform a segue.
+    1. IF the destination view controller is a PlanDetailsViewController
+        a. IF the selectedIndex for the cell is successfully retrieved
+            i. Set the plan property of the destination view controller to the plan for the selected row in the selected section
+    */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationVC = segue.destinationViewController as? PlanDetailsViewController {
-            if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) {
-                destinationVC.plan = plans[selectedIndex.section][selectedIndex.row]
+        if let destinationVC = segue.destinationViewController as? PlanDetailsViewController { //1
+            if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) { //1a
+                destinationVC.plan = plans[selectedIndex.section][selectedIndex.row] //1ai
             }
         }
     }

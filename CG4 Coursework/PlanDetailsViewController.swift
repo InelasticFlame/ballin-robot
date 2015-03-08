@@ -10,6 +10,8 @@ import UIKit
 
 class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    //MARK: - Storyboard Links
+    
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var planDetailsTableView: UITableView!
@@ -23,7 +25,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var runsPlannedLabel: UILabel!
     
     
-    /* */
+    //MARK: - Global Variables
     var plan: Plan?
     var metRuns = 0
     var almostMetRuns = 0

@@ -24,9 +24,9 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: - Global Variables
     
-    var run: Run?
-    var finishTimes: (String, String, String, String)?
-    var currentFinishTime = "5k"
+    var run: Run? //An optional variable to store a Run object
+    var finishTimes: (String, String, String, String)? //An option tuple storing 4 strings for each finish time (5k, 10k, half, full)
+    var currentFinishTime = "5k" //A string variable used to track which finish time is currently being displayed
     
     //MARK: - View Life Cycle
     
@@ -58,7 +58,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         if let run = run { //4
             overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //c
             overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) //d
-            overlayView.timeLabel.text = Conversions().timeForInterface(run.dateTime) //e
+            overlayView.timeLabel.text = run.dateTime.timeString12Hour() //e
             overlayView.dateLabel.text = run.dateTime.shortDateString() //f
             
             finishTimes = run.calculateRunFinishTimes() //g
@@ -135,7 +135,6 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     }
     
     //MARK: - Map Drawing Methods
-    
     
     /**
     This method is used to drawn the run route onto the map.

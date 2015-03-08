@@ -9,8 +9,9 @@
 import UIKit
 
 class MapOverlay: UIView {
-
-    //This class stores the properties for the map's overlay.
+    /* This class stores the links to the controls for a MapOverlay view */
+    
+    //MARK: - Storyboard Links
     
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var headerOverlay: UIView!

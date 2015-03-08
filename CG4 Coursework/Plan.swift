@@ -10,7 +10,7 @@ import UIKit
 
 class Plan: NSObject {
 
-    var ID: Int
+    private(set) var ID: Int
     var name: String
     var startDate: NSDate
     var endDate: NSDate

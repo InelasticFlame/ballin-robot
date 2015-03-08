@@ -44,7 +44,6 @@ class Graph: UIView {
     }
     
     init(frame: CGRect, graphStyle: GraphStyle, coordinates: [GraphCoordinate]) {
-//        values = [GraphCoordinate(x: "Mile 1", y: 728), GraphCoordinate(x: "Mile 2", y: 681), GraphCoordinate(x: "Mile 3", y: 678), GraphCoordinate(x: "Mile 4", y: 650), GraphCoordinate(x: "Mile 5", y: 813)]
         values = coordinates
         self.graphStyle = graphStyle
         self.graphType = .Weight

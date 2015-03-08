@@ -92,17 +92,6 @@ class Conversions: NSObject {
         return returnValue
     }
     
-    /**
-    This method takes an NSDate object and returns the time as a string, in the form "hh:mm" using the 12 hour system.
-    */
-    func timeForInterface(date: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        dateFormatter.locale = NSLocale.currentLocale()
-        
-        return dateFormatter.stringFromDate(date)
-    }
-    
     //MARK: - Array Sorting
     
     /**

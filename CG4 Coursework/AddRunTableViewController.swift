@@ -10,26 +10,29 @@ import UIKit
 
 class AddRunTableViewController: UITableViewController {
     
+    //MARK: - Storyboard Links
+    
     @IBOutlet weak var runDatePicker: UIDatePicker!
     @IBOutlet weak var runDistancePicker: DistancePicker!
     @IBOutlet weak var runPacePicker: PacePicker!
     @IBOutlet weak var runDurationPicker: DurationPicker!
     @IBOutlet weak var runShoePicker: UIPickerView!
-    
     @IBOutlet weak var runDateDetailLabel: UILabel!
     @IBOutlet weak var runDistanceDetailLabel: UILabel!
     @IBOutlet weak var runPaceDetailLabel: UILabel!
     @IBOutlet weak var runDurationDetailLabel: UILabel!
     @IBOutlet weak var runShoeDetailLabel: UILabel!
     
+    //MARK: - Global Variables
     
-    
-    private let pickerRowHeight: CGFloat = 162
-    private let defaultRowHeight: CGFloat = 44
+    private let pickerRowHeight: CGFloat = 162 //A constant GCFloat that stores the height of a cell that contains a picker view
+    private let defaultRowHeight: CGFloat = 44 //A constant CGFloat that stores the default height for a cell
     
     private var indexPathToShow: NSIndexPath?
     private var lastPicker = ""
     private var currentPicker = ""
+    
+    //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +41,7 @@ class AddRunTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels:", name: "UpdateDetailLabel", object: nil)
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row % 2 == 0 {
@@ -66,6 +69,12 @@ class AddRunTableViewController: UITableViewController {
         reloadTableViewCells()
     }
     
+    /**
+    This function is called whenever a new row is shown/hidden in the table view
+    1. Calls the beginUpdates function of the table view, this tells the system that the following lines should be animated and performed
+    2. Reloads the data in the table view
+    3. Calls the endUpdates function
+    */
     func reloadTableViewCells() {
         self.tableView.beginUpdates()
         self.tableView.reloadData()
@@ -139,7 +148,7 @@ class AddRunTableViewController: UITableViewController {
             Database().saveRun(run)
             self.navigationController?.popViewControllerAnimated(true)
         } else {
-            let error = "At least 2 from distance, pace and duration must be input."
+            let error = "At least 2 from distance, pace and duration must have been input."
             let alert = UIAlertController(title: "Invalid Run", message: error, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
