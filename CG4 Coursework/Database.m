@@ -160,7 +160,7 @@ static Database *_database;
         
         if (sqlite3_step(statement) == SQLITE_DONE) { //e
             saveSuccessful = YES; //i
-            run.ID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
+//            run.ID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
             NSLog(@"Saving Succesful"); //iii
         } else { //f
             NSLog(@"Error Saving");
@@ -642,7 +642,7 @@ static Database *_database;
     const char *charDbPath = [_databasePath UTF8String];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imagePath];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imageName];
         const char *sqlChar = [sql UTF8String];
         sqlite3_stmt *statement;
         
@@ -683,11 +683,58 @@ static Database *_database;
 
 #pragma mark Shoe Loading
 
--(NSArray *)loadShoes {
+-(NSArray *)loadAllShoes {
     NSMutableArray *shoes = [[NSMutableArray alloc] init];
-
+    
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        const char *sqlChar = "SELECT * FROM tblShoes";
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                int shoeID = (int)sqlite3_column_int(statement, 0);
+                char *shoeName = (char *)sqlite3_column_text(statement, 1);
+                double currentDistance = (double)sqlite3_column_double(statement, 2);
+                char *shoeImagePath = (char *)sqlite3_column_text(statement, 3);
+                
+                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imagePath:[NSString stringWithUTF8String:shoeImagePath]];
+                
+                [shoes addObject:shoe];
+            }
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
+    }
     
     return shoes;
+}
+
+-(BOOL)shoeNameExists:(NSString *)shoeName {
+    BOOL shoeNameExists = false;
+    
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblShoes WHERE ShoeName = '%@'", shoeName];
+        const char *sqlChar = [sql UTF8String];
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            if (sqlite3_step(statement) == SQLITE_ROW) {
+                shoeNameExists = true;
+            }
+        } else {
+            NSLog(@"Error Checking If Shoe Exists");
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
+    }
+    
+    return shoeNameExists;
 }
 
 #pragma mark Shoe Deleting
@@ -703,9 +750,11 @@ static Database *_database;
         if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
             NSLog([NSString stringWithFormat:@"Error deleting shoe: %@", error]);
+            sqlite3_close(_database);
             return  NO;
         } else {
             NSLog(@"Shoe Deleted Successfully");
+            sqlite3_close(_database);
             return YES;
         }
     } else {

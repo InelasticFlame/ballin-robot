@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -1591,16 +1591,16 @@
                                                     <exclude reference="u2U-Am-9Fr"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="8rX-kg-snx"/>
-                                                    <exclude reference="ZRK-bm-WR3"/>
-                                                    <exclude reference="7ns-El-3r8"/>
-                                                    <exclude reference="SXj-MS-jUP"/>
                                                     <exclude reference="DXJ-Zw-cOv"/>
                                                     <exclude reference="PPc-Os-TeK"/>
+                                                    <exclude reference="8rX-kg-snx"/>
+                                                    <exclude reference="ZRK-bm-WR3"/>
                                                     <exclude reference="O4f-Ra-YvR"/>
                                                     <exclude reference="OiI-eH-jUV"/>
                                                     <exclude reference="SdZ-LH-Hie"/>
                                                     <exclude reference="ZZS-td-K2N"/>
+                                                    <exclude reference="7ns-El-3r8"/>
+                                                    <exclude reference="SXj-MS-jUP"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -1611,16 +1611,16 @@
                                                     <include reference="u2U-Am-9Fr"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="8rX-kg-snx"/>
-                                                    <include reference="ZRK-bm-WR3"/>
-                                                    <include reference="7ns-El-3r8"/>
-                                                    <include reference="SXj-MS-jUP"/>
                                                     <include reference="DXJ-Zw-cOv"/>
                                                     <include reference="PPc-Os-TeK"/>
+                                                    <include reference="8rX-kg-snx"/>
+                                                    <include reference="ZRK-bm-WR3"/>
                                                     <include reference="O4f-Ra-YvR"/>
                                                     <exclude reference="OiI-eH-jUV"/>
                                                     <include reference="SdZ-LH-Hie"/>
                                                     <include reference="ZZS-td-K2N"/>
+                                                    <include reference="7ns-El-3r8"/>
+                                                    <include reference="SXj-MS-jUP"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2029,7 +2029,7 @@
                         <viewControllerLayoutGuide type="bottom" id="yAp-bD-FOO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ma1-eF-rAt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gnE-st-LEx">
@@ -2210,7 +2210,7 @@
             <objects>
                 <tableViewController id="RKe-Pa-jiE" customClass="NewPlannedRunTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="6LF-W4-SkM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -2585,7 +2585,7 @@
             <objects>
                 <tableViewController id="XQj-gx-rtY" customClass="RepeatSettingsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IwB-VO-ckf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -2708,7 +2708,7 @@
             <objects>
                 <tableViewController id="Gsg-61-Pft" customClass="RepeatsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="AgN-lF-T6j">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -2901,7 +2901,7 @@
         <!--More-->
         <scene sceneID="Ovg-Uy-Jzd">
             <objects>
-                <tableViewController id="P7n-T0-uSa" sceneMemberID="viewController">
+                <tableViewController id="P7n-T0-uSa" customClass="MoreTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="R90-vD-CCj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3233,6 +3233,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="shoeDistancePicker" destination="pNM-Wf-FfV" id="dUh-TR-gqw"/>
+                        <outlet property="shoeNameTextField" destination="a43-3c-9gn" id="UrZ-kD-fl9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P46-Tr-0BY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4050,7 +4054,7 @@
         <!--Setup-->
         <scene sceneID="dw0-PC-HzZ">
             <objects>
-                <viewController id="QK3-Cd-usH" customClass="SetupViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setupViewController" id="QK3-Cd-usH" customClass="SetupViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4EJ-Jg-X6o"/>
                         <viewControllerLayoutGuide type="bottom" id="m1w-s0-JsB"/>
@@ -4425,6 +4429,9 @@
                                         <include reference="eXh-lF-I3I"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="stravaConnectButtonPressed:" destination="QK3-Cd-usH" eventType="touchUpInside" id="9WJ-hP-yI9"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Authorised" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUG-qg-4eD">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -4615,6 +4622,7 @@
                         <outlet property="goalDistanceStepper" destination="6lx-55-waB" id="HSa-lX-lhI"/>
                         <outlet property="goalDistanceStepperLabel" destination="qDU-6E-E9H" id="vtB-Zz-eqs"/>
                         <outlet property="paceSegment" destination="uYn-eQ-mSk" id="8FZ-18-Dhf"/>
+                        <outlet property="stravaAuthorisedLabel" destination="fUG-qg-4eD" id="GLH-SN-w2M"/>
                         <outlet property="weightSegment" destination="f7B-jg-41Q" id="3gp-86-H9Q"/>
                         <outlet property="weightStepper" destination="TnS-fO-DQl" id="mlv-0V-p9B"/>
                         <outlet property="weightStepperLabel" destination="fVP-41-Lkj" id="aDr-zW-AOL"/>
@@ -4635,7 +4643,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gOP-y7-gl8"/>
-        <segue reference="LFy-Gg-XZr"/>
+        <segue reference="HRD-wB-Kcv"/>
         <segue reference="fPA-0S-tcc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

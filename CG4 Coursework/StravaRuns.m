@@ -14,11 +14,29 @@
 
 #pragma GCC diagnostic ignored "-Wformat-security"
 
+@interface StravaRuns ()
+
+@property NSInteger runsLoaded;
+
+@end
+
 @implementation StravaRuns
 
 -(void)loadRunsFromStrava {
+    _runsLoaded = 0;
+    
     NSMutableArray *runs = [[NSMutableArray alloc] init];
-    [[FRDStravaClient sharedInstance] fetchActivitiesForCurrentAthleteWithPageSize:40 pageIndex:1 success:^(NSArray *activities) {
+    NSDate *lastLoadDate = [[NSDate alloc] initWithTimeIntervalSinceNow:-604800];
+    
+    NSString *lastLoad = [[NSUserDefaults standardUserDefaults] stringForKey:@"LAST_LOAD"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date].shortDateString forKey:@"LAST_LOAD"];
+    
+    if (lastLoad != nil) {
+        lastLoadDate = [[NSDate alloc] initWithTimeInterval:86400 sinceDate: [[NSDate alloc] initWithShortDateString:lastLoad]];
+    }
+    
+    
+    [[FRDStravaClient sharedInstance] fetchActivitiesForCurrentAthleteAfterDate:lastLoadDate success:^(NSArray *activities) {
         for (StravaActivity *activity in activities) {
             Conversions *converter = [[Conversions alloc] init];
             double distance = [converter metresToMiles:activity.distance];
@@ -48,14 +66,22 @@
                     [run addSplit:lapPace];
                 }
                 [[Database init] saveRun:run];
+                _runsLoaded ++;
+                
+                if (_runsLoaded == activities.count) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RunLoadComplete" object:nil];
+                }
             }failure:^(NSError *error){
                 NSLog([NSString stringWithFormat:@"%@", error.localizedDescription]);
             }];
         }
-        
+        if (activities.count == 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RunLoadComplete" object:nil];
+        }
         
     } failure:^(NSError *error) {
         NSLog([NSString stringWithFormat:@"%@", error.localizedDescription]);
     }];
 }
+
 @end

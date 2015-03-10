@@ -141,7 +141,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "createPress" { //1
-            if let plan = Database().createNewPlanWithName(planNameTextField.text, startDate: startDatePicker.date, andEndDate:endDatePicker.date) as? Plan { //a
+            if let plan = Database().createNewPlanWithName(planNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale()), startDate: startDatePicker.date, andEndDate:endDatePicker.date) as? Plan { //a
                 
                 if let destinationVC = segue.destinationViewController as? CreatePlanViewController { //i
                     destinationVC.plan = plan //ii

@@ -19,24 +19,73 @@ class SetupViewController: UIViewController {
     @IBOutlet weak var weightStepperLabel: UILabel!
     @IBOutlet weak var goalDistanceStepper: UIStepper!
     @IBOutlet weak var goalDistanceStepperLabel: UILabel!
+    @IBOutlet weak var stravaAuthorisedLabel: UILabel!
+    
+    
+    private var changesMade = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Load view with current settings
+        if NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            
+            if userDefaults.stringForKey("ACCESS_TOKEN")?.utf16Count > 0 {
+                updateStravaLabel()
+            }
+            
+            /* DISTANCE */
+            let distanceUnit = userDefaults.stringForKey(Constants.DefaultsKeys.Distance.UnitKey)
+            let distanceGoal = userDefaults.doubleForKey(Constants.DefaultsKeys.Distance.GoalKey)
+            if distanceUnit == "kilometres" {
+                distanceSegment.selectedSegmentIndex = 1
+                goalDistanceStepper.value = distanceGoal * Conversions().milesToKm
+            } else {
+                goalDistanceStepper.value = distanceGoal
+            }
+            updateGoalDistanceLabel()
+            
+            /* PACE */
+            let paceUnit = userDefaults.stringForKey(Constants.DefaultsKeys.Pace.UnitKey)
+            if paceUnit == "km/h" {
+                paceSegment.selectedSegmentIndex = 1
+            }
+            
+            /* WEIGHT */
+            let weightUnit = userDefaults.stringForKey(Constants.DefaultsKeys.Weight.UnitKey)
+            let weightGoal = userDefaults.doubleForKey(Constants.DefaultsKeys.Weight.GoalKey)
+            if weightUnit == "pounds" {
+                weightSegment.selectedSegmentIndex = 1
+                weightStepper.value = weightGoal * Conversions().kgToPounds
+            } else {
+                weightStepper.value = weightGoal
+            }
+            updateWeightGoalLabel()
+            
+            let calorieGoal = userDefaults.integerForKey(Constants.DefaultsKeys.Calories.GoalKey)
+            calorieStepper.value = Double(calorieGoal)
+            updateCalorieGoalLabel()
+            
+            changesMade = false
+        }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateStravaLabel", name: "AuthorisedSuccessfully", object: nil)
         calorieStepperLabel.text = "\(Int(calorieStepper.value))"
         weightStepperLabel.text = "\(Int(weightStepper.value)) kg"
     }
     
     @IBAction func donePressed(sender: AnyObject) {
-        let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
-            self.saveSettings()
+        if changesMade {
+            let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
+                self.saveSettings()
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
             self.dismissViewControllerAnimated(true, completion: nil)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func saveSettings() {
@@ -68,31 +117,46 @@ class SetupViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey)
 
     }
+    
+    //MARK: - Interface Actions
+    
+    @IBAction func stravaConnectButtonPressed(sender: AnyObject) {
+        StravaAuth().authoriseNewAccount()
+    }
 
     @IBAction func distanceSegmentValueChanged(sender: UISegmentedControl) {
-        if distanceSegment.selectedSegmentIndex == 0 {
-            goalDistanceStepperLabel.text = "\(Int(goalDistanceStepper.value)) mi"
-        } else {
-            goalDistanceStepperLabel.text = "\(Int(goalDistanceStepper.value)) km"
-        }
+        changesMade = true
+        updateGoalDistanceLabel()
     }
     
     @IBAction func weightSegmentValueChanged(sender: UISegmentedControl) {
-        if weightSegment.selectedSegmentIndex == 0 {
-            weightStepperLabel.text = "\(Int(weightStepper.value)) kg"
-        } else {
-            weightStepperLabel.text = "\(Int(weightStepper.value)) lb"
-        }
+        changesMade = true
+        updateWeightGoalLabel()
     }
     
     @IBAction func calorieStepperValueChanged(sender: UIStepper) {
-        calorieStepperLabel.text = "\(Int(calorieStepper.value))"
+        changesMade = true
+        updateCalorieGoalLabel()
     }
     
     /**
     This method changes the text of the weight goal label to the new value of the goal weight stepper, in either kilograms or pounds based on which setting is currently selected.
     */
     @IBAction func weightStepperValueChanged(sender: UIStepper) {
+        changesMade = true
+        updateWeightGoalLabel()
+    }
+    
+    /** 
+    This method changes the text of the goal distance label to the new value of the goal distance stepper, in either kilometres or miles based on which setting is currently selected.
+    */
+    @IBAction func goalDistanceStepperValueChanged(sender: UIStepper) {
+        changesMade = true
+        updateGoalDistanceLabel()
+    }
+    
+    
+    func updateWeightGoalLabel() {
         if weightSegment.selectedSegmentIndex == 0 {
             weightStepperLabel.text = "\(Int(weightStepper.value)) kg"
         } else {
@@ -100,10 +164,7 @@ class SetupViewController: UIViewController {
         }
     }
     
-    /** 
-    This method changes the text of the goal distance label to the new value of the goal distance stepper, in either kilometres or miles based on which setting is currently selected.
-    */
-    @IBAction func goalDistanceStepperValueChanged(sender: UIStepper) {
+    func updateGoalDistanceLabel() {
         if distanceSegment.selectedSegmentIndex == 0 {
             goalDistanceStepperLabel.text = "\(Int(goalDistanceStepper.value)) mi"
         } else {
@@ -111,20 +172,12 @@ class SetupViewController: UIViewController {
         }
     }
     
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateCalorieGoalLabel() {
+        calorieStepperLabel.text = "\(Int(calorieStepper.value)) kCal"
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func updateStravaLabel() {
+        stravaAuthorisedLabel.textColor = UIColor.greenColor()
+        stravaAuthorisedLabel.text = "Authorised"
     }
-    */
-
 }

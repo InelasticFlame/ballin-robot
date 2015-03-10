@@ -35,6 +35,10 @@
 -(BOOL)deletePlannedRun:(NSObject *)plannedRun;
 
 //Shoes
--(void)saveShoe;
+-(NSArray *)loadAllShoes;
+
+-(void)saveShoe:(NSObject *)shoe;
+
+-(BOOL)shoeNameExists:(NSString *)shoeName;
 
 @end

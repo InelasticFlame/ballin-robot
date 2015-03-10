@@ -15,6 +15,7 @@ class Conversions: NSObject {
     let kmToMiles = 0.621371192 //Constant double, used to convert kilometres into miles
     let milesToKm = 1.609344 //Constant double, used to convert miles into kilometres
     let poundsToKg = 0.453592 //Constant double, used to convert pounds into kilograms
+    let kgToPounds = 2.20462
     
     //MARK: - Conversion Methods
     

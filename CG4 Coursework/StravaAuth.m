@@ -25,11 +25,18 @@
     return self;
 }
 
+-(void)authoriseNewAccount {
+    NSString *url = @"CG4Coursework://authorization";
+    
+    [[FRDStravaClient sharedInstance] authorizeWithCallbackURL:[NSURL URLWithString:url] stateInfo:nil];
+}
+
 -(void)authorise {
     NSString *previousAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"ACCESS_TOKEN"];
     
     if ([previousAccessToken length] > 0) {
         [[FRDStravaClient sharedInstance] setAccessToken:previousAccessToken];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthorisedSuccessfully" object:nil];
         
     } else {
         NSString *url = @"CG4Coursework://authorization";
@@ -43,6 +50,7 @@
         
         [[FRDStravaClient sharedInstance] exchangeTokenForCode:code success:^(StravaAccessTokenResponse *response){
             [[NSUserDefaults standardUserDefaults] setObject:response.accessToken forKey:@"ACCESS_TOKEN"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthorisedSuccessfully" object:nil];
             
         }failure:^(NSError *error) {
             NSLog([NSString stringWithFormat:@"%@", error.localizedDescription]);

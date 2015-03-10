@@ -13,7 +13,7 @@ class Shoe: NSObject {
     private(set) var ID: Int
     var name: String
     var miles: Double
-    var imagePath: String
+    var imageName: String
     
     init(ID: Int, name: String, miles: Double, imagePath: String?) {
         self.ID = ID
@@ -21,13 +21,13 @@ class Shoe: NSObject {
         self.miles = miles
         
         if let _imagePath = imagePath {
-            self.imagePath = _imagePath
+            self.imageName = _imagePath
         } else {
-            self.imagePath = ""
+            self.imageName = ""
         }
     }
     
     func loadImage() -> UIImage? {
-        return UIImage(named: self.imagePath)
+        return UIImage(named: self.imageName)
     }
 }

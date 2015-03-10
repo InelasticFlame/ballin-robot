@@ -22,16 +22,15 @@ class MyShoesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool) {
+        shoes = Database().loadAllShoes() as [Shoe]
+        
+        tableView.reloadData()
     }
-
-    // MARK: - Table view data source
+    
+    // MARK: - Table View Data Source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
@@ -44,12 +43,24 @@ class MyShoesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if shoes.count == 0 || indexPath.row == shoes.count + 1 {
+        if shoes.count == 0 || indexPath.row == shoes.count {
             let cell = tableView.dequeueReusableCellWithIdentifier("addNewShoeCell", forIndexPath: indexPath) as UITableViewCell
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("shoeCell", forIndexPath: indexPath) as UITableViewCell
+            
+            cell.textLabel?.text = shoes[indexPath.row].name
+            cell.detailTextLabel?.text = Conversions().distanceForInterface(shoes[indexPath.row].miles)
+            
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let imagePath = paths.stringByAppendingPathComponent("\(shoes[indexPath.row].imageName).png")
+            
+            let shoeImage = UIImage(contentsOfFile: imagePath)
+            if shoeImage != nil {
+                println("Shoe has image")
+                cell.imageView?.image = shoeImage
+            }
             
             return cell
         }
@@ -59,44 +70,10 @@ class MyShoesTableViewController: UITableViewController {
         tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

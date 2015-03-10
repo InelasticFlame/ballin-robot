@@ -23,16 +23,53 @@ class RunsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem() //1
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishLoad", name: "RunLoadComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadRuns", name: "AuthorisedSuccessfully", object: nil)
+        
+        if NSUserDefaults.standardUserDefaults().stringForKey("ACCESS_TOKEN")?.utf16Count > 0 {
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl?.addTarget(self, action: "authorise", forControlEvents: .ValueChanged)
+        }
+    }
+    
+    func authorise() {
+        StravaAuth().authorise()
+    }
+    
+    func loadRuns() {
+        StravaRuns().loadRunsFromStrava()
+    }
+    
+    func finishLoad() {
+        self.runs = Database().loadRunsWithQuery("") as Array<Run>
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
     
     /**
     This method reloads the data in the table when the view is about to appear, this ensures that the table is always up to date after further navigation through the app (the view is not reloaded fully each time)
     1. Loads all the runs from the database, storing them in the global array of Run objects, runs
     2. Reloads the tableView
+    3. IF there are no runs
     */
     override func viewWillAppear(animated: Bool) {
         self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
         tableView.reloadData() //2
+        
+        if runs.count == 0 { //3
+            let noRunsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+            noRunsLabel.text = "No runs availible. Either add a run manually or pull down the table to refresh if a Strava Account is linked."
+            noRunsLabel.textColor = UIColor.darkGrayColor()
+            noRunsLabel.numberOfLines = 0
+            noRunsLabel.textAlignment = .Center
+            noRunsLabel.font = UIFont(name: "System", size: 16)
+            noRunsLabel.sizeToFit()
+            
+            self.tableView.backgroundView = noRunsLabel
+            self.tableView.separatorStyle = .None
+        }
     }
 
     // MARK: - Table View Data Source

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C9EF87FA95EE29E916D1818 /* libPods-CG4 Coursework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */; };
+		B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
 		B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
@@ -75,6 +76,7 @@
 		1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3584E6B474B032369155AAC1 /* Pods-CG4 Coursework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CG4 Coursework.release.xcconfig"; path = "Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework.release.xcconfig"; sourceTree = "<group>"; };
 		404B3079BACA5930E7B1519D /* Pods-CG4 Coursework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CG4 Coursework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework.debug.xcconfig"; sourceTree = "<group>"; };
+		B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		B609B82A1A49B47A006664D5 /* StravaAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAuth.h; sourceTree = "<group>"; };
 		B609B82B1A49B47A006664D5 /* StravaAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAuth.m; sourceTree = "<group>"; };
 		B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanRepetitionPicker.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		B621B7411A48C65100A4A49C /* CG4 Coursework */ = {
 			isa = PBXGroup;
 			children = (
+				B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
 				B636014F1A9A0ACA0020FB80 /* Extensions.swift */,
@@ -554,6 +557,7 @@
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
 				B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */,
 				B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */,
+				B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */,
 				B6DD2D1E1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,
 				B6DD2D171AA79E2D0081BAE7 /* WeightHistoryViewController.swift in Sources */,

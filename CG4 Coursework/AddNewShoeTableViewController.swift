@@ -10,6 +10,10 @@ import UIKit
 
 class AddNewShoeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    
+    @IBOutlet weak var shoeNameTextField: UITextField!
+    @IBOutlet weak var shoeDistancePicker: DistancePicker!
+    
     private var selectedImage: UIImage?
     
     override func viewDidLoad() {
@@ -47,6 +51,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         
         selectedImage = image
+        self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 0))?.imageView?.image = selectedImage
         
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -55,19 +60,38 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
         
-        /*
-        let imageData = UIImagePNGRepresentation(image)
-        let paths = NSSearchPathForDirectoriesInDomains(.PicturesDirectory, .UserDomainMask, true)[0] as String
-        let imagePath = paths.stringByAppendingPathComponent("shoeName")
-        
-        if !imageData.writeToFile(imagePath, atomically: false)
-        {
-            println("Image not saved.")
+        if Database().shoeNameExists(shoeNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale())) {
+            //"A Shoe Name Must Be Unique"
+        } else if selectedImage == nil {
+            //"No image has been selected. Are you sure you wish to continue?"
         } else {
-            println("Image saved successfully.")
+            saveShoe()
         }
-        */
+    }
+    
+    func saveShoe() {
+        var shoeNamePath = ""
         
+        /* Save Image */
+        if selectedImage != nil {
+            let imageData = UIImagePNGRepresentation(selectedImage)
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            shoeNamePath = shoeNameTextField.text.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil) + "\(arc4random() % 1000)"
+            let imagePath = paths.stringByAppendingPathComponent("\(shoeNamePath).png")
+            
+            if !imageData.writeToFile(imagePath, atomically: false) {
+                shoeNamePath = "NO_IMAGE"
+                println("Image not saved.")
+            } else {
+                println("Image saved successfully.")
+            }
+        } else {
+            shoeNamePath = "NO_IMAGE"
+        }
+        
+        let shoe = Shoe(ID: 0, name: shoeNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale()), miles: shoeDistancePicker.selectedDistance().distance, imagePath: shoeNamePath)
+        Database().saveShoe(shoe)
+        navigationController?.popViewControllerAnimated(true)
     }
     
 }

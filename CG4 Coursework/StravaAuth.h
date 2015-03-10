@@ -12,5 +12,6 @@
 
 -(void)checkReturnURL:(NSURL *)url;
 -(void)authorise;
+-(void)authoriseNewAccount;
 
 @end
