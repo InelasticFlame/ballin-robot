@@ -160,7 +160,7 @@ static Database *_database;
         
         if (sqlite3_step(statement) == SQLITE_DONE) { //e
             saveSuccessful = YES; //i
-//            run.ID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
+            run.ID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
             NSLog(@"Saving Succesful"); //iii
         } else { //f
             NSLog(@"Error Saving");

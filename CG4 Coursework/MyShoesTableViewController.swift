@@ -15,10 +15,6 @@ class MyShoesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
@@ -65,6 +61,15 @@ class MyShoesTableViewController: UITableViewController {
             return cell
         }
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if tableView.cellForRowAtIndexPath(indexPath)?.reuseIdentifier == "addNewShoeCell" {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)

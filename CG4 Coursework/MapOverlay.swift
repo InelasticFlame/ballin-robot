@@ -19,4 +19,9 @@ class MapOverlay: UIView {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    
+    @IBOutlet weak var averagePaceDurationView: UIView!
+    @IBOutlet weak var averagePaceLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    
 }

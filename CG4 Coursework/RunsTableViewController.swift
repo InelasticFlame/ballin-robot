@@ -55,6 +55,8 @@ class RunsTableViewController: UITableViewController {
     3. IF there are no runs
     */
     override func viewWillAppear(animated: Bool) {
+        self.tableView.backgroundView = nil
+        
         self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
         tableView.reloadData() //2
         
@@ -137,13 +139,13 @@ class RunsTableViewController: UITableViewController {
     /**
     This method prepares the new view.
     1. Find the indexPath of the selected cell
-    2. IF the destinationViewController is a RunDetailsViewController
+    2. IF the destinationViewController is a RunPageViewController
         a. Set the run of the selected view controller to the run for the selected cell
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "runDetails" {
             if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) {
-                if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
+                if let destinationVC = segue.destinationViewController as? RunPageViewController {
                     destinationVC.run = runs[selectedIndex.row]
                 }
             }

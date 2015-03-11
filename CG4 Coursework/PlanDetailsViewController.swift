@@ -129,7 +129,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-        if let destinationVC = segue.destinationViewController as? RunDetailsViewController {
+        if let destinationVC = segue.destinationViewController as? RunPageViewController {
             if let cell = sender as? PlanDetailsTableViewCell {
                 if let indexPath = planDetailsTableView.indexPathForCell(cell) {
                     if let plannedRun = plan?.plannedRuns[indexPath.row].matchingRun {

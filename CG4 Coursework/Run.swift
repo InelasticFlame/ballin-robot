@@ -13,7 +13,7 @@ class Run: NSObject {
     let consecutiveRunMultiplier = 0.1
     var numberOfConsecutiveRuns = 0.0
     
-    private(set) var ID: Int
+    var ID: Int
     var distance: Double
     var dateTime: NSDate
     var pace: Int

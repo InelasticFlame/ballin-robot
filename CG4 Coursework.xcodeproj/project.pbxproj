@@ -33,6 +33,7 @@
 		B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */; };
 		B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */; };
 		B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B649540D1AA3627800A00C1B /* HealthKit.framework */; };
+		B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */; };
 		B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */; };
 		B668DB051A4C782100DC7CE6 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */; };
 		B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */; };
@@ -56,6 +57,8 @@
 		B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */; };
 		B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7381A93D776009FE6C0 /* PacePicker.swift */; };
 		B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */; };
+		B6F664C31AB09F0C0079AA18 /* RunPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */; };
+		B6F664C71AB0A4060079AA18 /* RunShoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C61AB0A4060079AA18 /* RunShoesViewController.swift */; };
 		B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */; };
 		B6F9A0E11A9226AC00C5828F /* TrainingPlansTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0E01A9226AC00C5828F /* TrainingPlansTableViewController.swift */; };
 		B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */; };
@@ -109,6 +112,7 @@
 		B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesAndWeightViewController.swift; sourceTree = "<group>"; };
 		B649540D1AA3627800A00C1B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		B649540F1AA36D4A00A00C1B /* CG4 Coursework.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "CG4 Coursework.entitlements"; sourceTree = "<group>"; };
+		B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSplitsTableViewController.swift; sourceTree = "<group>"; };
 		B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanBackSegue.swift; sourceTree = "<group>"; };
 		B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 		B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		B6ECC7381A93D776009FE6C0 /* PacePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedRunTableViewController.swift; sourceTree = "<group>"; };
+		B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPageViewController.swift; sourceTree = "<group>"; };
+		B6F664C61AB0A4060079AA18 /* RunShoesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunShoesViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCreatePlanTableViewController.swift; sourceTree = "<group>"; };
 		B6F9A0E01A9226AC00C5828F /* TrainingPlansTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingPlansTableViewController.swift; sourceTree = "<group>"; };
 		B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailsViewController.swift; sourceTree = "<group>"; };
@@ -174,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */,
-				B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */,
+				B65387991AB0B3620022325C /* Page View */,
 				B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */,
 				B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */,
 				B6C9CC1E1A7F935200EE8B5E /* AddRunTableViewController.swift */,
@@ -321,6 +327,17 @@
 				B6DD2D161AA79E2D0081BAE7 /* WeightHistoryViewController.swift */,
 			);
 			name = "Calories and Weight";
+			sourceTree = "<group>";
+		};
+		B65387991AB0B3620022325C /* Page View */ = {
+			isa = PBXGroup;
+			children = (
+				B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */,
+				B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */,
+				B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */,
+				B6F664C61AB0A4060079AA18 /* RunShoesViewController.swift */,
+			);
+			name = "Page View";
 			sourceTree = "<group>";
 		};
 		B68962F61A939C8D00CCCFEA /* Plan Creation */ = {
@@ -528,7 +545,9 @@
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */,
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
+				B6F664C71AB0A4060079AA18 /* RunShoesViewController.swift in Sources */,
 				B6DD2D1A1AA8C7C10081BAE7 /* MyShoesTableViewController.swift in Sources */,
+				B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
 				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
@@ -557,6 +576,7 @@
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
 				B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */,
 				B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */,
+				B6F664C31AB09F0C0079AA18 /* RunPageViewController.swift in Sources */,
 				B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */,
 				B6DD2D1E1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,
