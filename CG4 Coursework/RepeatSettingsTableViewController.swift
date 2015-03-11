@@ -22,6 +22,8 @@ class RepeatSettingsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        //CLEAR ALL SELECTION
+        
         let sectionCount = tableView.numberOfSections()
         
         for var j = 0; j < sectionCount; j++ {

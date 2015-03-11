@@ -15,6 +15,8 @@ class RunSplitsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tableView.contentInset = UIEdgeInsetsMake(navigationController!.navigationBar.frame.size.height, 0,0,0);
+        
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 3
         pageControl.currentPage = 2

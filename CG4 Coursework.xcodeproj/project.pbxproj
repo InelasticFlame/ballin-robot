@@ -17,6 +17,7 @@
 		B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */; };
 		B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */; };
 		B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */; };
+		B620780F1AB0FFEF00817EAD /* RunShoeSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620780E1AB0FFEF00817EAD /* RunShoeSelectorTableViewController.swift */; };
 		B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7441A48C65100A4A49C /* AppDelegate.swift */; };
 		B621B74E1A48C65100A4A49C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B621B74D1A48C65100A4A49C /* Images.xcassets */; };
 		B621B7511A48C65100A4A49C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B621B74F1A48C65100A4A49C /* LaunchScreen.xib */; };
@@ -58,7 +59,7 @@
 		B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7381A93D776009FE6C0 /* PacePicker.swift */; };
 		B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */; };
 		B6F664C31AB09F0C0079AA18 /* RunPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */; };
-		B6F664C71AB0A4060079AA18 /* RunShoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C61AB0A4060079AA18 /* RunShoesViewController.swift */; };
+		B6F664C71AB0A4060079AA18 /* RunShoesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C61AB0A4060079AA18 /* RunShoesTableViewController.swift */; };
 		B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */; };
 		B6F9A0E11A9226AC00C5828F /* TrainingPlansTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0E01A9226AC00C5828F /* TrainingPlansTableViewController.swift */; };
 		B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */; };
@@ -89,6 +90,7 @@
 		B618ABF21A51F9BB0050EFF0 /* RunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTableViewCell.swift; sourceTree = "<group>"; };
 		B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunDetailsViewController.swift; sourceTree = "<group>"; };
 		B618ABF91A5336AD0050EFF0 /* MapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
+		B620780E1AB0FFEF00817EAD /* RunShoeSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunShoeSelectorTableViewController.swift; sourceTree = "<group>"; };
 		B621B73F1A48C65100A4A49C /* CG4 Coursework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CG4 Coursework.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B621B7431A48C65100A4A49C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B621B7441A48C65100A4A49C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 		B6ECC7381A93D776009FE6C0 /* PacePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedRunTableViewController.swift; sourceTree = "<group>"; };
 		B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPageViewController.swift; sourceTree = "<group>"; };
-		B6F664C61AB0A4060079AA18 /* RunShoesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunShoesViewController.swift; sourceTree = "<group>"; };
+		B6F664C61AB0A4060079AA18 /* RunShoesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunShoesTableViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCreatePlanTableViewController.swift; sourceTree = "<group>"; };
 		B6F9A0E01A9226AC00C5828F /* TrainingPlansTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingPlansTableViewController.swift; sourceTree = "<group>"; };
 		B6FB780E1A86A7C700667897 /* PlanDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailsViewController.swift; sourceTree = "<group>"; };
@@ -335,7 +337,8 @@
 				B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */,
 				B618ABF51A53255E0050EFF0 /* RunDetailsViewController.swift */,
 				B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */,
-				B6F664C61AB0A4060079AA18 /* RunShoesViewController.swift */,
+				B6F664C61AB0A4060079AA18 /* RunShoesTableViewController.swift */,
+				B620780E1AB0FFEF00817EAD /* RunShoeSelectorTableViewController.swift */,
 			);
 			name = "Page View";
 			sourceTree = "<group>";
@@ -544,8 +547,9 @@
 				B668DB091A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift in Sources */,
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */,
+				B620780F1AB0FFEF00817EAD /* RunShoeSelectorTableViewController.swift in Sources */,
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
-				B6F664C71AB0A4060079AA18 /* RunShoesViewController.swift in Sources */,
+				B6F664C71AB0A4060079AA18 /* RunShoesTableViewController.swift in Sources */,
 				B6DD2D1A1AA8C7C10081BAE7 /* MyShoesTableViewController.swift in Sources */,
 				B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,

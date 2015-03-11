@@ -10,7 +10,7 @@ import UIKit
 
 class RunPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    let pages = ["RunShoeViewController", "RunMapViewController", "RunSplitsTableViewController"]
+    let pages = ["RunShoeTableViewController", "RunMapViewController", "RunSplitsTableViewController"]
     var pagesViewControllers = [UIViewController]()
     var run: Run? //An optional variable to store a Run object
 
@@ -25,7 +25,9 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
         let detailsVC = storyboard.instantiateViewControllerWithIdentifier(pages[1]) as RunDetailsViewController
         detailsVC.run = self.run
         let splitsVC = storyboard.instantiateViewControllerWithIdentifier(pages[2]) as RunSplitsTableViewController
-        let shoesVC = storyboard.instantiateViewControllerWithIdentifier(pages[0]) as RunShoesViewController
+        splitsVC.run = self.run
+        let shoesVC = storyboard.instantiateViewControllerWithIdentifier(pages[0]) as RunShoesTableViewController
+        shoesVC.run = self.run
         pagesViewControllers = [shoesVC, detailsVC, splitsVC]
         
         self.setViewControllers([detailsVC], direction: .Forward, animated: false, completion: nil)
@@ -36,7 +38,7 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
         
         if let currentVC = viewController as? RunDetailsViewController {
             return pagesViewControllers[2]
-        } else if let currentVC = viewController as? RunSplitsTableViewController {
+        } else if let currentVC = viewController as? RunShoesTableViewController {
             return pagesViewControllers[1]
         } else {
             return nil
