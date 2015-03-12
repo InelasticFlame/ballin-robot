@@ -10,8 +10,7 @@ import UIKit
 
 class Run: NSObject {
     
-    let consecutiveRunMultiplier = 0.1
-    var numberOfConsecutiveRuns = 0.0
+    //MARK: - Properties
     
     var ID: Int
     var distance: Double
@@ -23,6 +22,8 @@ class Run: NSObject {
     var locations = Array<CLLocation>()
     var type: String
     var splits = Array<Int>()
+    
+    //MARK: - Initialisation
     
     override init() { //Creates a new run object with default values
         self.ID = 0
@@ -59,7 +60,6 @@ class Run: NSObject {
     4.
     */
     func calculateRunScore() {
-        //Check for consecutive runs
         
         let pointsFromPaceMultiplier = 1000.0/Float(self.pace)
         let pointsFromAveragePace = Double(pow(2.4, pointsFromPaceMultiplier) * 120)
@@ -67,8 +67,7 @@ class Run: NSObject {
         let pointsFromDistanceMultiplier = 1000.0/Float(self.distance)
         let pointsFromDistance = Double(pow(2.2, pointsFromPaceMultiplier)) * 75
         
-        let consecutiveDayMultiplier = (consecutiveRunMultiplier * numberOfConsecutiveRuns) + 1
-        let totalPoints = (pointsFromDistance + pointsFromAveragePace) * consecutiveDayMultiplier
+        let totalPoints = (pointsFromDistance + pointsFromAveragePace)
         
         self.score = totalPoints
     }

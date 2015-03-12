@@ -10,6 +10,9 @@ import UIKit
 
 class SetupViewController: UIViewController {
     
+    //MARK: - Storyboard Links
+    
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var distanceSegment: UISegmentedControl!
     @IBOutlet weak var paceSegment: UISegmentedControl!
     @IBOutlet weak var weightSegment: UISegmentedControl!
@@ -21,9 +24,12 @@ class SetupViewController: UIViewController {
     @IBOutlet weak var goalDistanceStepperLabel: UILabel!
     @IBOutlet weak var stravaAuthorisedLabel: UILabel!
     
+    //MARK: - Global Variables
     
-    private var changesMade = true
+    private var changesMade = true //A global boolean variable that tracks whether the user has made any changes to settings; used to know whether to prompt a save or not
 
+    //MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

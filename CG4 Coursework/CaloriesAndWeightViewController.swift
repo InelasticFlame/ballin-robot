@@ -11,7 +11,8 @@ import HealthKit
 
 class CaloriesAndWeightViewController: UIViewController {
 
-    /* Storyboard Links */
+    // MARK: - Storyboard Links
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var nextDayButton: UIBarButtonItem!
     @IBOutlet weak var previousDayButton: UIBarButtonItem!
     @IBOutlet weak var weightHistoryButton: UIButton!
@@ -22,6 +23,8 @@ class CaloriesAndWeightViewController: UIViewController {
     @IBOutlet weak var calorieSummaryLabel: UILabel!
     @IBOutlet weak var eatenCaloriesLabel: UILabel!
     @IBOutlet weak var burntCaloriesLabel: UILabel!
+    
+    //MARK: - Global Variables
     
     private var currentDate = NSDate()
     private let secondsInDay: Double = 86400

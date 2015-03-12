@@ -10,6 +10,8 @@
 
 @interface StravaAuth : NSObject
 
+/* Declare the public functions */
+
 -(void)checkReturnURL:(NSURL *)url;
 -(void)authorise;
 -(void)authoriseNewAccount;

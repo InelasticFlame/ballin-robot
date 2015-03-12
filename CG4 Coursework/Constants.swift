@@ -19,10 +19,14 @@ struct Constants {
         struct Distance {
             static let UnitKey = "DISTANCE_UNIT"
             static let GoalKey = "GOAL_DISTANCE"
+            static let MilesUnit = "MILES"
+            static let KmUnit = "KILOMETRES"
         }
         
         struct Pace {
             static let UnitKey = "PACE_UNIT"
+            static let MinMileUnit = "MIN/MILE"
+            static let KMPerH = "KM/H"
         }
         
         struct Weight {
@@ -40,5 +44,26 @@ struct Constants {
             static let Satellite = "SATELLITE"
             static let Standard = "STANDARD"
         }
+        
+        struct PersonalBests {
+            static let LongestDistanceKey = "LONGEST_DISTANCE"
+            static let LongestDurationKey = "LONGEST_DURATION"
+            static let FastestAvgPaceKey = "FASTEST_AVERAGE_PACE"
+            static let FastestMileKey = "FASTEST_MILE"
+        }
+        
+        struct Strava {
+            static let AccessTokenKey = "ACCESS_TOKEN"
+        }
     }
+}
+
+/* Expose Personal Best Keys to Obj-C */
+@objc class ObjConstants {
+    private init() {}
+    
+    class func longestDistanceKey() -> String { return Constants.DefaultsKeys.PersonalBests.LongestDistanceKey }
+    class func longestDurationKey() -> String { return Constants.DefaultsKeys.PersonalBests.LongestDurationKey }
+    class func fastestMileKey() -> String { return Constants.DefaultsKeys.PersonalBests.FastestMileKey }
+    class func fastestAvgPaceKey() -> String { return Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey }
 }

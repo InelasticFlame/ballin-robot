@@ -10,7 +10,6 @@
 		4C9EF87FA95EE29E916D1818 /* libPods-CG4 Coursework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */; };
 		B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
-		B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
 		B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */; };
 		B60B10CE1A96306D003B30C9 /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CD1A96306D003B30C9 /* CreatePlanViewController.swift */; };
@@ -32,6 +31,7 @@
 		B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B636014F1A9A0ACA0020FB80 /* Extensions.swift */; };
 		B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */; };
 		B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */; };
+		B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */; };
 		B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */; };
 		B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B649540D1AA3627800A00C1B /* HealthKit.framework */; };
 		B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */; };
@@ -83,7 +83,6 @@
 		B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		B609B82A1A49B47A006664D5 /* StravaAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAuth.h; sourceTree = "<group>"; };
 		B609B82B1A49B47A006664D5 /* StravaAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAuth.m; sourceTree = "<group>"; };
-		B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanRepetitionPicker.swift; sourceTree = "<group>"; };
 		B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatsTableViewController.swift; sourceTree = "<group>"; };
 		B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatSettingsTableViewController.swift; sourceTree = "<group>"; };
 		B60B10CD1A96306D003B30C9 /* CreatePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +110,7 @@
 		B636014F1A9A0ACA0020FB80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRunTableViewCell.swift; sourceTree = "<group>"; };
 		B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTextTableViewCell.swift; sourceTree = "<group>"; };
+		B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalBestsTableViewController.swift; sourceTree = "<group>"; };
 		B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesAndWeightViewController.swift; sourceTree = "<group>"; };
 		B649540D1AA3627800A00C1B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		B649540F1AA36D4A00A00C1B /* CG4 Coursework.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "CG4 Coursework.entitlements"; sourceTree = "<group>"; };
@@ -213,7 +213,6 @@
 		B621B7411A48C65100A4A49C /* CG4 Coursework */ = {
 			isa = PBXGroup;
 			children = (
-				B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
 				B636014F1A9A0ACA0020FB80 /* Extensions.swift */,
@@ -221,6 +220,8 @@
 				B668DB0E1A4DE8F800DC7CE6 /* ProgressBar.swift */,
 				B69E48021AA614DB00129A08 /* WeightProgressBar.swift */,
 				B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */,
+				B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */,
+				B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */,
 				B68962F71A93D05800CCCFEA /* Picker Views */,
 				B6E0B66C1A4B1BF100D1CEC4 /* Home View */,
 				B618ABF41A51FC4D0050EFF0 /* Runs View */,
@@ -360,7 +361,6 @@
 				B6ECC7381A93D776009FE6C0 /* PacePicker.swift */,
 				B68962F81A93D07600CCCFEA /* DistancePicker.swift */,
 				B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */,
-				B60B10C71A94B092003B30C9 /* PlanRepetitionPicker.swift */,
 			);
 			name = "Picker Views";
 			sourceTree = "<group>";
@@ -567,10 +567,10 @@
 				B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */,
 				B618ABF31A51F9BB0050EFF0 /* RunTableViewCell.swift in Sources */,
 				B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */,
+				B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */,
 				B67609381A49BB76005270ED /* StravaRuns.m in Sources */,
 				B69E48031AA614DB00129A08 /* WeightProgressBar.swift in Sources */,
 				B6CFA95C1A9F6067000EDB00 /* Graph.swift in Sources */,
-				B60B10C81A94B092003B30C9 /* PlanRepetitionPicker.swift in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
 				B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */,

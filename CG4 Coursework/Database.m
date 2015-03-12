@@ -139,6 +139,8 @@ static Database *_database;
     e. IF the statement executes succesfully
         i. Sets saveSuccessful to YES
        ii. Sets the run.ID to the last inserts row ID (this is the run's primary key)
+      iii. Calls the function checkRunForNewPersonalBest passing the run
+       iv. Logs "Saving Successful"
     f. ELSE logs "Error Saving"
     g. Releases the statement
     h. Closes the database
@@ -160,8 +162,9 @@ static Database *_database;
         
         if (sqlite3_step(statement) == SQLITE_DONE) { //e
             saveSuccessful = YES; //i
-            run.ID = (NSInteger)sqlite3_last_insert_rowid(_database); //i
-            NSLog(@"Saving Succesful"); //iii
+            run.ID = (NSInteger)sqlite3_last_insert_rowid(_database); //ii
+            [self checkRunForNewPersonalBest:run]; //iii
+            NSLog(@"Saving Succesful"); //iv
         } else { //f
             NSLog(@"Error Saving");
         }
@@ -260,6 +263,61 @@ static Database *_database;
     }
 }
 
+-(BOOL)saveShoe:(Shoe*)shoe ToRun:(Run *)run {
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql;
+        
+        if (shoe != nil) {
+            sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '%li' WHERE RunID = '%li'", (long)shoe.ID, (long)run.ID];
+        } else {
+            sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", (long)run.ID];
+        }
+        
+        const char *sqlChar = [sql UTF8String];
+        char *errorMessage;
+        
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) == SQLITE_OK) {
+            NSLog(@"Shoe saved to run successfully");
+            sqlite3_close(_database);
+            return YES;
+        } else {
+            NSLog(@"Error saving shoe to run");
+            sqlite3_close(_database);
+            return NO;
+        }
+    }
+    
+    NSLog(@"Error opening database");
+    return NO;
+}
+
+-(void)checkRunForNewPersonalBest:(Run *)run {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double longestDistance = [userDefaults doubleForKey: [ObjConstants longestDistanceKey]];
+    NSInteger longestDuration = [userDefaults integerForKey:[ObjConstants longestDurationKey]];
+    NSInteger fastestMile = [userDefaults integerForKey:[ObjConstants fastestMileKey]];
+    NSInteger fastestAvgPace = [userDefaults integerForKey:[ObjConstants fastestAvgPaceKey]];
+ 
+    if (run.distance > longestDistance) {
+        [userDefaults setDouble:run.distance forKey:[ObjConstants longestDistanceKey]];
+    }
+    if (run.duration > longestDuration) {
+        [userDefaults setInteger:run.duration forKey:[ObjConstants longestDurationKey]];
+    }
+    if (run.pace < fastestAvgPace) {
+        [userDefaults setInteger:run.pace forKey:[ObjConstants fastestAvgPaceKey]];
+    }
+    
+    for (int i = 0; i < run.splits.count; i++) {
+        if ((NSInteger)run.splits[i] < fastestMile) {
+            [userDefaults setInteger:(NSInteger)run.splits[i] forKey:[ObjConstants fastestMileKey]];
+        }
+    }
+    
+}
+
 -(BOOL)removeShoeFromRuns:(Shoe *)shoe {
     const char *charDbPath = [_databasePath UTF8String];
     
@@ -303,15 +361,13 @@ static Database *_database;
                 int pace = (int)sqlite3_column_int(statement, 3);
                 int duration = (int)sqlite3_column_int(statement, 4);
                 double score = (double)sqlite3_column_double(statement, 5);
-                
                 int shoeID = (int)sqlite3_column_int(statement, 6);
                 
-                
-                //Handle shoes
+                Shoe *runShoe = [self loadShoeWithID:shoeID];
                 NSDate *date = [[NSDate alloc] initWithDatabaseString:[NSString stringWithUTF8String:dateTimeStr]];
                 
                 
-                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:nil runScore:score runLocations:nil runType:@"" splits:nil];
+                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil runType:@"" splits:nil];
                 run.locations = [self loadRunLocationsForRun:run];
                 run.splits = [self loadRunSplitsForRun:run];
                 [runs addObject:run];
@@ -659,19 +715,40 @@ static Database *_database;
     }
 }
 
--(void)updateShoeMiles:(Shoe *)shoe {
+-(void)increaseShoeMiles:(Shoe *)shoe byAmount:(double)amount {
     const char *charDbPath = [_databasePath UTF8String];
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles, (long)shoe.ID];
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles + amount, (long)shoe.ID];
         const char *sqlChar = [sql UTF8String];
         sqlite3_stmt *statement;
         
         if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
             if (sqlite3_step(statement) == SQLITE_DONE) {
-                NSLog(@"Saving Successful");
+                NSLog(@"Shoe miles increased successfully");
             } else {
-                NSLog(@"Error Saving");
+                NSLog(@"Error increasing shoe miles");
+            }
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
+    }
+}
+
+-(void)decreaseShoeMiles:(Shoe *)shoe byAmount:(double)amount {
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles - amount, (long)shoe.ID];
+        const char *sqlChar = [sql UTF8String];
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            if (sqlite3_step(statement) == SQLITE_DONE) {
+                NSLog(@"Shoe miles decreased successfully");
+            } else {
+                NSLog(@"Error decreasing shoe miles");
             }
         }
         
@@ -699,7 +776,7 @@ static Database *_database;
                 double currentDistance = (double)sqlite3_column_double(statement, 2);
                 char *shoeImagePath = (char *)sqlite3_column_text(statement, 3);
                 
-                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imagePath:[NSString stringWithUTF8String:shoeImagePath]];
+                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImagePath]];
                 
                 [shoes addObject:shoe];
             }
@@ -710,6 +787,35 @@ static Database *_database;
     }
     
     return shoes;
+}
+
+-(Shoe *)loadShoeWithID:(int)ID {
+    Shoe *shoe;
+    
+    const char *charDbPath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblShoes WHERE ShoeID = '%i'", ID];
+        const char *sqlChar = [sql UTF8String];
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                int shoeID = (int)sqlite3_column_int(statement, 0);
+                char *shoeName = (char *)sqlite3_column_text(statement, 1);
+                double currentDistance = (double)sqlite3_column_double(statement, 2);
+                char *shoeImagePath = (char *)sqlite3_column_text(statement, 3);
+                
+                shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImagePath]];
+            }
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_database);
+    }
+    
+    return shoe;
+    
 }
 
 -(BOOL)shoeNameExists:(NSString *)shoeName {

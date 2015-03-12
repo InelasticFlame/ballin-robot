@@ -10,7 +10,11 @@ import UIKit
 
 class MyShoesTableViewController: UITableViewController {
 
+    //MARK: - Global Variables
+    
     private var shoes = [Shoe]()
+    
+    //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,10 +53,8 @@ class MyShoesTableViewController: UITableViewController {
             cell.textLabel?.text = shoes[indexPath.row].name
             cell.detailTextLabel?.text = Conversions().distanceForInterface(shoes[indexPath.row].miles)
             
-            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            let imagePath = paths.stringByAppendingPathComponent("\(shoes[indexPath.row].imageName).png")
+            let shoeImage = shoes[indexPath.row].loadImage()
             
-            let shoeImage = UIImage(contentsOfFile: imagePath)
             if shoeImage != nil {
                 println("Shoe has image")
                 cell.imageView?.image = shoeImage

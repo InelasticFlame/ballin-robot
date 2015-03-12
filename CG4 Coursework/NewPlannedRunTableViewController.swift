@@ -11,6 +11,7 @@ import UIKit
 class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Storyboard Links
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var distanceDurationSegement: UISegmentedControl!
     @IBOutlet weak var plannedRunDate: UIDatePicker!
     @IBOutlet weak var plannedDistancePicker: DistancePicker!
@@ -128,7 +129,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             }
         } else if segue.identifier == "repeatEndDatePress" {
             if let destinationVC = segue.destinationViewController as? RepeatSettingsTableViewController {
-                destinationVC.setSelectedOption(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text?)
+                destinationVC.repeatEnd = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text?
             }
         }
         

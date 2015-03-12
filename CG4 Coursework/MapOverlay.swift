@@ -14,14 +14,14 @@ class MapOverlay: UIView {
     //MARK: - Storyboard Links
     
     /* These variables store links to controls on the interface, connected via the Storyboard. */
-    @IBOutlet weak var headerOverlay: UIView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var headerOverlay: UIView! //Top bar
+    @IBOutlet weak var dateLabel: UILabel! //Top right label
+    @IBOutlet weak var timeLabel: UILabel! //Top left label
+    @IBOutlet weak var scoreLabel: UILabel! //Bottom left red label (on the map)
+    @IBOutlet weak var distanceLabel: UILabel! //Bottom right red label (on the map)
     
-    @IBOutlet weak var averagePaceDurationView: UIView!
-    @IBOutlet weak var averagePaceLabel: UILabel!
-    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var averagePaceDurationView: UIView! //Bottom bar
+    @IBOutlet weak var averagePaceLabel: UILabel! //Bottom left label
+    @IBOutlet weak var durationLabel: UILabel! //Bottom right label
     
 }

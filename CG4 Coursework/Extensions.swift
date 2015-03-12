@@ -219,48 +219,74 @@ extension String {
 
 extension HKHealthStore {
     
-    //By retrieving the most recent sample, if there have been multiple weight updates in one day (e.g. 10am; 72.3 kg and then 5pm; 72.2 kg) the final update for the day will be returned (72.2 kg) ensure that the data is as up to date as it can be for that day
+    /**
+    This extension retrieves the most recent sample of a given type. By retrieving the most recent sample, if there have been multiple weight updates in one day (e.g. 10am; 72.3 kg and then 5pm; 72.2 kg) the final update for the day will be returned (72.2 kg) ensure that the data is as up to date as it can be for that day
+    1. Declares the local constant sortDescriptor as a NSSortDescripter by the sample end date descending
+    2. Decalres the constant HKSampleQuery, query with the following settings
+        * The passed sample type, the passed predicate, a limit of 1 result and the sortDescriptor *
+    3. On completion performs the block
+        B1. IF there is an error
+            Ba. Perform the passed completion block passing nil for the result and the error
+        B2. IF there is a result
+            Bb. Perform the passed completion block passing the first result as a HKSample, and nil for the error
+        B3. ELSE
+            Bc. Perform the completion block with a nil sample and nil error
+    4. Execute the query
+    */
     func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: ((HKSample!, NSError!) -> Void)!) {
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false) //1
 
-        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
+        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in //2, 3
+            /* BLOCK START */
             
-            if let error = error {
-                completion(nil, error)
+            if let error = error { //B1
+                completion(nil, error) //Ba
                 return
             }
             
-            if completion != nil {
-                if results.first != nil {
-                    completion(results.first as HKSample, nil)
-                } else {
-                    completion(nil, nil)
-                }
+            if results.first != nil { //B2
+                completion(results.first as HKSample, nil) //Bb
+            } else { //B3
+                completion(nil, nil) //Bc
             }
+            /* BLOCK END */
         }
         
-        self.executeQuery(query)
+        self.executeQuery(query) //4
     }
     
-    
-    func retrieveSumOfSample(sampleType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: ((Double!, NSError!) -> Void)!) {
+    /**
+    This extension retrieves the sum of a group of samples (i.e. all the individual calorie inputs for a particular day)
+    1. Declares constant HKSampleQuery, query, with the following settings
+        * The passed quantityType, the passed predicate and the option of a cumulative sum *
+    2. On completion of the query, performs the block
+        B1. Decalres the local constant HKQuantity, sum, which is the total of the results
+        B2. IF there is an error
+            Ba. Perform the passed completion block passing nil for the result and the error
+        B3. IF there is a sum
+            Bb. Perform the passed completion block passing the doubleValue of the sum for the given unit for the result and nil for the error
+        B4. ELSE
+            Bc. Perform the passed completion block passing 0 for the sum and nil for the error
+    3. Execture the query
+    */
+    func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: ((Double!, NSError!) -> Void)!) {
         
-        let query: HKStatisticsQuery = HKStatisticsQuery(quantityType: sampleType, quantitySamplePredicate: predicate, options: HKStatisticsOptions.CumulativeSum) { (query, result, error) in
+        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: predicate, options: .CumulativeSum) { (query, result, error) in //1, 2
             
-            let sum = result.sumQuantity()
+            let sum = result.sumQuantity() //B1
             
-            if (completion != nil) {
-                if let sum = sum {
-                    completion(sum.doubleValueForUnit(unit), nil)
-                } else {
-                    completion(0, nil)
-                }
-            } else if (error != nil) {
-                completion(nil, error)
+            if error != nil { //B2
+                completion(nil, error) //Ba
+                return
             }
             
+            if let sum = sum { //B3
+                completion(sum.doubleValueForUnit(unit), nil) //Bb
+            } else { //B4
+                completion(0, nil)
+            }
         }
         
-        self.executeQuery(query)
+        self.executeQuery(query) //3
     }
 }

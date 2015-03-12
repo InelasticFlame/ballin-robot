@@ -10,56 +10,98 @@ import UIKit
 
 class PlannedRun: NSObject {
     
-    private(set) var ID: Int
-    var date: NSDate
-    var distance: Double
-    var duration: Int
-    var details: String?
+    //MARK: - Properties
     
-    var matchingRun: Run?
-    var matchRank: Int?
+    private(set) var ID: Int //A property that stores the ID of the Plan; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
+    var date: NSDate //An NSDate property that stores the date of the planned run
+    var distance: Double //A double property that stores the distance of the planned run (if 0 => planned run is for a duration instead)
+    var duration: Int //An integer property that stores the duration of the planned run (if 0 => planned run is for a distance instead)
+    var details: String? //A string property that store any details of the planned run
     
+    var matchingRun: Run? //An optional Run property that stores the matching run (if there is one)
+    var matchRank: Int? //An option Integer property that stores the rank of the match
+    //0 = failed
+    //1 = kind of
+    //2 = success
+    //-1 = not happened yet
+    
+
+    //MARK: - Initialisation
+    
+    /**
+    Called to initialise the class, sets the properties of the Shoe to the passed values.
+    1. Calls the local function checkForCompletedRun to see if the plannedRun has a matching actual run
+    */
     init(ID: Int, date: NSDate, distance: Double, duration: Int, details: String?) {
         self.ID = ID
         self.date = date
         self.distance = distance
         self.duration = duration
         self.details = details
+        
         super.init()
-        self.checkForCompletedRun()
+        self.checkForCompletedRun() //1
     }
     
+    /**
+    This method is called to determine if there is a matching actual run to the planned run, and whether the planned criteria were met.
+    1. Loads the matchingRuns as an array of Run objects using the loadRunsWithQuery method form the database class; passing the query "WHERE RunDateTime LIKE 'the planned run date'"
+    2. Declares the local integer variable rank
+    3. Declares the local optional Run variable matchingRun
+    4. FOR each Run object in the array of matchingRuns
+        a. IF the current rank is less than 2, there might still be a better matching run
+            i. IF the runDistance is greater than or equal to the planned distance
+                Y. Set the rank equal to 2
+                Z. Set the matchingRun to be the current run
+           ii. ELSE IF the runDuration is greater than or equal to the planned duration
+                Y. Set the rank equal to 2
+                Z. Set the matchingRun to be the current run
+        b. IF the current rank is less than 1, there might still be a better matching run
+            i. IF the runDistance is greater than or equal to half the planned distance
+                Y. Set the rank equal to 1
+                Z. Set the matchingRun to be the current run
+           ii. ELSE IF the runDuration is greater than or equal to half the planned duration
+                Y. Set the rank equal to 1
+                Z. Set the matchingRun to be the current run
+    5. Declare the local constant now which is the current date
+    6. IF the rank is currently 0 and the the planned date is after now
+        a. Set the rank to -1
+    7. Set the matchingRank property to the rank
+    8. Set the matchingRun property to the matchingRun
+    */
     func checkForCompletedRun(){
-        let matchingRuns = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as Array<Run>
-        var rank = 0
-        var matchingRun: Run?
+        let matchingRuns = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as [Run] //1
+        var rank = 0 //2
+        var matchingRun: Run? //3
         
-        for run: Run in matchingRuns {
-            if rank < 2 {
-                if run.distance >= self.distance {
-                    rank = 2
-                    matchingRun = run
-                } else if run.duration >= self.duration {
-                    rank = 2
-                    matchingRun = run
+        for run: Run in matchingRuns { //4
+            if rank < 2 { //a
+                if run.distance >= self.distance { //i
+                    rank = 2 //Y
+                    matchingRun = run //Z
+                } else if run.duration >= self.duration { //ii
+                    rank = 2 //Y
+                    matchingRun = run //Z
                 }
-            } else if rank < 1 {
-                if run.distance >= self.distance {
-                    rank = 1
-                    matchingRun = run
-                } else if run.duration >= self.duration {
-                    rank = 1
-                    matchingRun = run
+            }
+            if rank < 1 { //b
+                if run.distance >= (self.distance * 0.5) { //i
+                    rank = 1 //Y
+                    matchingRun = run //Z
+                } else if run.duration >= Int(Double(self.duration) * 0.5) { //ii
+                    rank = 1 //Y
+                    matchingRun = run //Z
                 }
             }
         }
-        let now = NSDate()
         
-        if rank == 0 && now.compare(self.date) == .OrderedAscending {
-            rank = 3
+        let now = NSDate() //5
+        
+        if rank == 0 && now.compare(self.date) == .OrderedAscending { //6
+            rank = -1 //a
         }
         
-        self.matchRank = rank
-        self.matchingRun = matchingRun
+        self.matchRank = rank //7
+        self.matchingRun = matchingRun //8
     }
 }

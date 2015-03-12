@@ -22,6 +22,9 @@
 //Runs
 -(void)saveRun:(NSObject *)Run;
 -(NSArray *)loadRunsWithQuery:(NSString *)query;
+
+-(BOOL)saveShoe:(NSObject *)shoe ToRun:(NSObject *)run;
+
 -(BOOL)deleteRunWithID:(NSObject *)run;
 
 //Plans
@@ -38,6 +41,8 @@
 -(NSArray *)loadAllShoes;
 
 -(void)saveShoe:(NSObject *)shoe;
+-(void)increaseShoeMiles:(NSObject *)shoe byAmount:(double)amount;
+-(void)decreaseShoeMiles:(NSObject *)shoe byAmount:(double)amount;
 
 -(BOOL)shoeNameExists:(NSString *)shoeName;
 

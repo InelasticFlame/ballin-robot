@@ -14,8 +14,8 @@ class PlanDetailsTableViewCell: UITableViewCell {
     //MARK: - Storyboard Links
     
     /* Links to user interface controls */
-    @IBOutlet weak var distanceDurationLabel: UILabel!
-    @IBOutlet weak var progressImage: UIImageView!
-    @IBOutlet weak var detailLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var distanceDurationLabel: UILabel! // Middle top label
+    @IBOutlet weak var progressImage: UIImageView! //Left image
+    @IBOutlet weak var detailLabel: UILabel! //Middle bottom label
+    @IBOutlet weak var dateLabel: UILabel! //Left most label
 }

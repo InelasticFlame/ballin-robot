@@ -10,8 +10,13 @@ import UIKit
 
 class PlannedRunTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var distanceDurationLabel: UILabel!
-    @IBOutlet weak var detailsLabel: UILabel!
+    /* This class stores the links to the controls for a PlanDetailsTableViewCell */
+    
+    //MARK: - Storyboard Links
+    
+    /* Links to user interface controls */
+    @IBOutlet weak var dateLabel: UILabel! //Left most label
+    @IBOutlet weak var distanceDurationLabel: UILabel! //Middle top label
+    @IBOutlet weak var detailsLabel: UILabel! //Middle bottom label
     
 }

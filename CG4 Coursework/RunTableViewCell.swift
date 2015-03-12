@@ -14,9 +14,9 @@ class RunTableViewCell: UITableViewCell {
     //MARK: - Storyboard Links
     
     /* These variables store links to controls on the interface, connected via the Storyboard. */
-    @IBOutlet weak var paceLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var paceLabel: UILabel! //Bottom left label
+    @IBOutlet weak var distanceLabel: UILabel! //Top right label
+    @IBOutlet weak var durationLabel: UILabel! //Bottom right label
+    @IBOutlet weak var dateLabel: UILabel! //Top left label
+    @IBOutlet weak var progressView: UIView! //Background view
 }

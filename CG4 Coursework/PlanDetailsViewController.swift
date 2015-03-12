@@ -97,7 +97,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.progressImage.image = UIImage(named: "Almost37px")
             } else if plannedRun.matchRank == 2 {
                 cell.progressImage.image = UIImage(named: "Tick37px")
-            } else if plannedRun.matchRank == 3 {
+            } else if plannedRun.matchRank == -1 {
                 cell.accessoryType = .None
                 cell.selectionStyle = .None
                 cell.progressImage.image = nil

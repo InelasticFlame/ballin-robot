@@ -18,6 +18,11 @@ class RunsTableViewController: UITableViewController {
     /**
     This method is called by the system when the view is first loaded
     1. Sets the right button on the navigation bar as an Edit button
+    2. Tells the view controller to listen for a notification called "RunLoadComplete", and if it recieves the notification to call the function finishLoad
+    3. Tells the view controller to listen for a notification called "AuthorisedSuccessfully", and if it recieves the notification to call the function loadRuns
+    4. Retrieves the string from the user defaults with the access token key, IF it's character count is greater than 0
+        a. Creates and sets the refresh control for the table
+        b. Tells the refresh control to call the function authorise when it is used
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,27 +30,13 @@ class RunsTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem() //1
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishLoad", name: "RunLoadComplete", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadRuns", name: "AuthorisedSuccessfully", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishLoad", name: "RunLoadComplete", object: nil) //2
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadRuns", name: "AuthorisedSuccessfully", object: nil) //3
         
-        if NSUserDefaults.standardUserDefaults().stringForKey("ACCESS_TOKEN")?.utf16Count > 0 {
-            self.refreshControl = UIRefreshControl()
-            self.refreshControl?.addTarget(self, action: "authorise", forControlEvents: .ValueChanged)
+        if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Strava.AccessTokenKey)?.utf16Count > 0 { //4
+            self.refreshControl = UIRefreshControl() //a
+            self.refreshControl?.addTarget(self, action: "authorise", forControlEvents: .ValueChanged) //b
         }
-    }
-    
-    func authorise() {
-        StravaAuth().authorise()
-    }
-    
-    func loadRuns() {
-        StravaRuns().loadRunsFromStrava()
-    }
-    
-    func finishLoad() {
-        self.runs = Database().loadRunsWithQuery("") as Array<Run>
-        self.tableView.reloadData()
-        self.refreshControl?.endRefreshing()
     }
     
     /**
@@ -53,6 +44,14 @@ class RunsTableViewController: UITableViewController {
     1. Loads all the runs from the database, storing them in the global array of Run objects, runs
     2. Reloads the tableView
     3. IF there are no runs
+        a. Creates a new label that is the size of the screen
+        b. Sets the text of the label
+        c. Sets the text colour to dark gray
+        d. Sets the number of lines to 0; this tells the label to use as many lines as needed to fit all the text on
+        e. Sets the text to align center
+        f. Sets the font to the system font of size 16
+        g. Sizes the label to fix the view
+        h. Sets the background of the table view to the created label
     */
     override func viewWillAppear(animated: Bool) {
         self.tableView.backgroundView = nil
@@ -61,17 +60,45 @@ class RunsTableViewController: UITableViewController {
         tableView.reloadData() //2
         
         if runs.count == 0 { //3
-            let noRunsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-            noRunsLabel.text = "No runs availible. Either add a run manually or pull down the table to refresh if a Strava Account is linked."
-            noRunsLabel.textColor = UIColor.darkGrayColor()
-            noRunsLabel.numberOfLines = 0
-            noRunsLabel.textAlignment = .Center
-            noRunsLabel.font = UIFont(name: "System", size: 16)
-            noRunsLabel.sizeToFit()
+            let noRunsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)) //a
+            noRunsLabel.text = "No runs availible. Either add a run manually or pull down the table to refresh if a Strava Account is linked." //b
+            noRunsLabel.textColor = UIColor.darkGrayColor() //c
+            noRunsLabel.numberOfLines = 0 //d
+            noRunsLabel.textAlignment = .Center //e
+            noRunsLabel.font = UIFont(name: "System", size: 16) //f
+            noRunsLabel.sizeToFit() //g
             
-            self.tableView.backgroundView = noRunsLabel
-            self.tableView.separatorStyle = .None
+            self.tableView.backgroundView = noRunsLabel //h
         }
+    }
+    
+    
+    //MARK: - Run Loading
+    
+    /**
+    This method calls the function authorise from the StravaAuth class. It is called by the refresh control when a user pulls the table down before the runs are loaded from Strava.
+    */
+    func authorise() {
+        StravaAuth().authorise()
+    }
+    
+    /**
+    This method calls the function loadRunsFromStrava from the StravaRuns classs. It is called after the authorise function has finished (runs cannot be pulled from the Strava server unless the user is authorised first).
+    */
+    func loadRuns() {
+        StravaRuns().loadRunsFromStrava()
+    }
+    
+    /**
+    This method is called once the runs have been loaded from Strava and stored in the database.
+    1. Loads all the runs from the database and stores them in the global array 'runs'
+    2. Reloeads the data in the table view
+    3. Tells the refresh control to end refreshing
+    */
+    func finishLoad() {
+        self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
+        self.tableView.reloadData() //2
+        self.refreshControl?.endRefreshing() //3
     }
 
     // MARK: - Table View Data Source

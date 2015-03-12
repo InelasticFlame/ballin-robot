@@ -8,13 +8,18 @@
 
 import UIKit
 
-class AddNewShoeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddNewShoeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-    
+    // MARK: - Storyboard Links
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var shoeNameTextField: UITextField!
     @IBOutlet weak var shoeDistancePicker: DistancePicker!
     
+    //MARK: - Global Variables
+    
     private var selectedImage: UIImage?
+    
+    //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +27,19 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
+    //MARK: - Text Field
+    
+    /**
+    This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
+    2. Returns false
+    */
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder() //1
+        
+        return false //2
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -89,7 +107,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
             shoeNamePath = "NO_IMAGE"
         }
         
-        let shoe = Shoe(ID: 0, name: shoeNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale()), miles: shoeDistancePicker.selectedDistance().distance, imagePath: shoeNamePath)
+        let shoe = Shoe(ID: 0, name: shoeNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale()), miles: shoeDistancePicker.selectedDistance().distance, imageName: shoeNamePath)
         Database().saveShoe(shoe)
         navigationController?.popViewControllerAnimated(true)
     }

@@ -29,7 +29,7 @@ class Graph: UIView {
     private var graphStyle: GraphStyle
     private var graphType: GraphType
     
-    var values = [GraphCoordinate]()
+    private var values = [GraphCoordinate]()
     
     enum GraphStyle {
         case Line

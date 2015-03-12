@@ -13,6 +13,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     @IBOutlet weak var repeatEndDatePicker: UIDatePicker!
     @IBOutlet weak var dateDetailLabel: UILabel!
     
+    var repeatEnd: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,21 +21,21 @@ class RepeatSettingsTableViewController: UITableViewController {
         dateDetailLabel.text = repeatEndDatePicker.date.shortDateString()
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        //CLEAR ALL SELECTION
-        
-        let sectionCount = tableView.numberOfSections()
-        
-        for var j = 0; j < sectionCount; j++ {
-            
-            let rowCount = tableView.numberOfRowsInSection(j)
-            
-            for var i = 0; i < rowCount; i++ {
-                let rowCount = tableView.numberOfRowsInSection(0)
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: j))?.accessoryType = .None
+    override func viewWillAppear(animated: Bool) {
+        if repeatEnd == "Until Plan End" {
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
+                cell.accessoryType = .Checkmark
             }
+        } else if let repeatEnd = repeatEnd {
+            let repeatEndDate = NSDate(shortDateString: repeatEnd)
+            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark
+            repeatEndDatePicker.date = repeatEndDate
+            dateDetailLabel.text = repeatEnd
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        clearCheckmarks()
         
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -57,25 +58,28 @@ class RepeatSettingsTableViewController: UITableViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
-    // MARK: - Navigation
-    
-    func setSelectedOption(repeatEnd: String?) {
-
-        //Fix this: - Check that table view is loaded before running this method
+    /**
+    This method is used to remove the accessory from all cells. This is so that if a new shoe is selected two checkmarks are not shown on the interface (such that it appears as if 2 rows have been selected)
+    1. Declares the local constant sectionCount and sets its value to the number of sections in the table view
+    2. FOR each section
+    a. Declares the local constant rowCount and sets its value to the number of rows in the current section
+    b. FOR each row
+    i. Sets the accessory of the cell in the current section for the current row to None
+    */
+    func clearCheckmarks() {
+        let sectionCount = tableView.numberOfSections()
         
-        println("Number of Sections: \(tableView.numberOfSections())") //DON'T GET RID OF THIS CAUSE SHIT WON'T WORK OTHERWISE; WE NEED THOSE EXTRA 0.023 SECONDS! Fuck you Jake.
-        
-        if repeatEnd == "Until Plan End" {
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
-                cell.accessoryType = .Checkmark
+        for var sectionNo = 0; sectionNo < sectionCount; sectionNo++ {
+            
+            let rowCount = tableView.numberOfRowsInSection(sectionNo)
+            
+            for var rowNo = 0; rowNo < rowCount; rowNo++ {
+                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNo, inSection: sectionNo))?.accessoryType = .None
             }
-        } else if let repeatEnd = repeatEnd {
-            let repeatEndDate = NSDate(shortDateString: repeatEnd)
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark
-            repeatEndDatePicker.date = repeatEndDate
-            dateDetailLabel.text = repeatEnd
         }
     }
+    
+    // MARK: - Navigation
 
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
         dateDetailLabel.text = repeatEndDatePicker.date.shortDateString()

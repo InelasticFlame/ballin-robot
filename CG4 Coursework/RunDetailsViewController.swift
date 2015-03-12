@@ -16,13 +16,10 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var overlayView: MapOverlay!
-    @IBOutlet weak var finishTimesLabel: UILabel!
     
     //MARK: - Global Variables
     
-    var run: Run? //An optional variable to store a Run object
-    var finishTimes: (String, String, String, String)? //An option tuple storing 4 strings for each finish time (5k, 10k, half, full)
-    var currentFinishTime = "5k" //A string variable used to track which finish time is currently being displayed
+    var run: Run? //A global optional variable to store the run being displayed as a Run object
     
     //MARK: - View Life Cycle
     
@@ -37,9 +34,17 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         d. Convert the run score to a string and set the scoreLabel text as the string
         e. Convert the run time to a string and set the timeLabel text as the string
         f. Gets the run date's short date string and set it as the dateLabel text
-    
-        g. Retrieves the finish times for other distances
-        h. Calls the function updateFinishTimesLabel
+        g. Create a UIView that is the same size as the headerOverlay from the overlayView (that is the width the the entire view and a fixed height of 35)
+        h. Retrieve the correct colour for the run score at set that as the background of the view
+        i. Make the background slightly transparent
+        j. Add the view as a subview of the headerOverlay
+       kl. Re-order the views so the date and time labels are at the front of the background
+        m. Sets the text of the averagePaceLabel to the run pace by converting it to string using the Conversions class
+        n. Sets the text of the durationLabel to the run duration by converting it to string using the Conversions class
+        o. Add a border to the averagePaceDurationView
+        p. Add a border to the mapKitView
+        q. Add a border to the headerOverlay
+        r. Add a border to the overlayView
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,76 +61,22 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) //d
             overlayView.timeLabel.text = run.dateTime.timeString12Hour() //e
             overlayView.dateLabel.text = run.dateTime.shortDateString() //f
-            
-            finishTimes = run.calculateRunFinishTimes() //g
-            updateFinishTimesLabel() //h
-            
-            
-            /**
-            1. IF there is a run
-            a. Create a UIView that is the same size as the headerOverlay from the overlayView
-            b. Retrieve the correct colour for the run score at set that as the background of the view
-            c. Make the background slightly transparent
-            d. Set the width of the view to it's current width times the decimal of the run score
-            e. Add the view as a subview of the headerOverlay
-            fg. Re-order the views so the date and time labels are at the front of the background
-            2. Add a border to the mapKitView
-            3. Add a border to the headerOverlay
-            */
-            let progressBackground = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width * CGFloat(run.score / 1000), height: 35))
-            progressBackground.backgroundColor = run.scoreColour()
-            progressBackground.alpha = 0.4
-            overlayView.headerOverlay.addSubview(progressBackground)
-            overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel)
-            overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel)
-            
-            overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(run.pace)
-            overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(run.duration)
-            overlayView.averagePaceDurationView.addBorder(2)
-            
-            mapKitView.addBorder(2)
-            overlayView.headerOverlay.addBorder(2)
-            overlayView.addBorder(2)
-        }
-    }
-    
 
-    
-    /**
-    1. Creates and starts a timer that calls the function 'updateFinishTimesLabel' after 4 seconds
-    2. IF there are finishTimes
-        a. IF the currentFinishTime is 5k
-            i. Set the text of finishTimesLabel to the first stored finishTime
-           ii. Change the currentFinishTime to '10k'
-        b. ELSE IF the currentFinishTime is 10k
-            i. Set the text of finishTimesLabel to the second stored finishTime
-           ii. Change the currentFinishTime to 'Half'
-        c. ELSE IF the currentFinishTime is Half
-            i. Set the text of finishTimesLabel to the third stored finishTime
-           ii. Change the currentFinishTime to 'Full'
-        d. ELSE IF the currentFinishTime is Full
-            i. Set the text of finishTimesLabel to the fourth stored finishTime
-           ii. Change the currentFinishTime to '5k'
-    */
-    func updateFinishTimesLabel() {
-        NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "updateFinishTimesLabel", userInfo: nil, repeats: false) //1
-        
-        if let finishTimes = finishTimes { //2
-            if currentFinishTime == "5k" { //a
-//                finishTimesLabel.text = finishTimes.0 //i
-//                currentFinishTime = "10k" //ii
-            } else if currentFinishTime == "10k" { //b
-//                finishTimesLabel.text = finishTimes.1 //i
-//                currentFinishTime = "Half" //ii
-            } else if currentFinishTime == "Half" { //c
-//                finishTimesLabel.text = finishTimes.2 //i
-//                currentFinishTime = "Full" //ii
-            } else if currentFinishTime == "Full" { //d
-//                finishTimesLabel.text = finishTimes.3 //i
-//                currentFinishTime = "5k" //ii
-            }
+            let progressBackground = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width * CGFloat(run.score / 1000), height: 35)) //g
+            progressBackground.backgroundColor = run.scoreColour() //h
+            progressBackground.alpha = 0.4 //i
+            overlayView.headerOverlay.addSubview(progressBackground) //j
+            overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //k
+            overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //l
+            
+            overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(run.pace) //m
+            overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(run.duration) //n
+            
+            overlayView.averagePaceDurationView.addBorder(2) //o
+            mapKitView.addBorder(2) //p
+            overlayView.headerOverlay.addBorder(2) //q
+            overlayView.addBorder(2) //r
         }
-        
     }
     
     //MARK: - Map Drawing Methods

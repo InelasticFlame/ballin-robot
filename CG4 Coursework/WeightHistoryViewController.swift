@@ -11,18 +11,24 @@ import HealthKit
 
 class WeightHistoryViewController: UIViewController {
 
+    // MARK: - Storyboard Links
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var graphView: UIView!    
     @IBOutlet weak var greatestWeightLabel: UILabel!
     @IBOutlet weak var lowestWeightLabel: UILabel!
     @IBOutlet weak var weightVariationLabel: UILabel!
     
+    //MARK: - Global Variables
+    
     private let secondsInDay: Double = 86400
     private var graphCoords = [GraphCoordinate]()
     var healthStore = HKHealthStore()
     
+    //MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         var startDate = NSDate(shortDateString: NSDate().shortDateString()) //The date to retrieve from
         var endDate = NSDate(timeInterval: secondsInDay, sinceDate: startDate)
         loadWeightForLast7Days(startDate, endDate: endDate)

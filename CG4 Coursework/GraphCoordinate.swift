@@ -9,10 +9,18 @@
 import UIKit
 
 class GraphCoordinate: NSObject {
-    var x: AnyObject
-    var y: CGFloat
     
-    init(x: AnyObject, y: CGFloat) {
+    //MARK: - Properties
+    
+    var x: String //The string to write on the x-axis
+    var y: CGFloat //The y value
+    
+    //MARK: - Initialisation
+    
+    /**
+    Called to initialise a GraphCoordinate object, sets the properties to the passed values.
+    */
+    init(x: String, y: CGFloat) {
         self.x = x
         self.y = y
     }

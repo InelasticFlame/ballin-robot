@@ -10,24 +10,44 @@ import UIKit
 
 class Shoe: NSObject {
     
-    private(set) var ID: Int
-    var name: String
-    var miles: Double
-    var imageName: String
+    //MARK: - Properties
     
-    init(ID: Int, name: String, miles: Double, imagePath: String?) {
+    private(set) var ID: Int //A property that stores the ID of the Shoe; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
+    var name: String //A string property that stores the name of the shoe
+    var miles: Double //A double property that stores the current miles of the shoe
+    var imageName: String? //A string property that stores the imageName (this is used to construct the imagePath)
+    
+    //MARK: - Initialisation
+    
+    /**
+    Called to initialise the class, sets the properties of the Shoe to the passed values.
+    */
+    init(ID: Int, name: String, miles: Double, imageName: String?) {
         self.ID = ID
         self.name = name
         self.miles = miles
-        
-        if let _imagePath = imagePath {
-            self.imageName = _imagePath
-        } else {
-            self.imageName = ""
-        }
+        self.imageName = imageName
     }
     
+    /**
+    This method is called it load the image for the shoe; return a UIImage
+    1. IF there is an imageName
+        a. Loads the path of the documents directory
+        b. Creates the imagePath by appending the imageName and .png to the end of the path
+        c. Loads the image from the file at the imagePath
+        d. Returns the shoeImage
+    2. In the default case returns nil
+    */
     func loadImage() -> UIImage? {
-        return UIImage(named: self.imageName)
+        if let imageName = self.imageName { //1
+            let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String //a
+            let imagePath = path.stringByAppendingPathComponent("\(self.imageName).png") //b
+            
+            let shoeImage = UIImage(contentsOfFile: imagePath) //c
+            
+            return shoeImage //d
+        }
+        
+        return nil //2
     }
 }

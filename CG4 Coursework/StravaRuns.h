@@ -10,6 +10,8 @@
 
 @interface StravaRuns : NSObject
 
+/* Declare the public functions */
+
 -(void)loadRunsFromStrava;
 
 @end
