@@ -34,8 +34,6 @@ class WeightHistoryViewController: UIViewController {
         loadWeightForLast7Days(startDate, endDate: endDate)
     }
 
-    
-    //Loads in random order.
     func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
         var weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram)
         

@@ -29,8 +29,8 @@ class Conversions: NSObject {
     */
     func metresPerSecondToSecondsPerMile(metresPerSec: Double) -> Double {
         let metresPerHour = metresPerSec * 3600 //1
-        let kmPerHour = metresPerHour/1000 //2
-        let milesPerHour = kmPerHour * kmToMiles //3
+        let kmPerHour: Double = metresPerHour/1000 //2
+        let milesPerHour: Double = kmPerHour * kmToMiles //3
         let secPerMile = 3600/milesPerHour //4
         
         return secPerMile //5
@@ -43,7 +43,7 @@ class Conversions: NSObject {
     */
     func metresToMiles(meters: Double) -> (Double) {
         let miles = (meters/1000)*kmToMiles
-        
+    
         return miles
     }
     

@@ -21,7 +21,7 @@
     Run Duration: Seconds
 */
 
-static Database *_database;
+static Database *_database; //A global variable that stores the current instance of the Database class
 
 /**
  Ensures a single instance of the class is used throughout the program. If the database already exists it does nothing, otherwise it initialises the class.
@@ -53,6 +53,7 @@ static Database *_database;
             [self createDatabaseTables];
         }
         
+        #warning Testing Only
         [self createDatabaseTables];
     }
     
@@ -66,7 +67,8 @@ static Database *_database;
     a. Create the SQL
     b. Execute the SQL, storing any errors in errorMessage. IF the SQL does not execute correctly
         i. Log the error message
-    c. Closes the database
+    c. Repeats this process for the other tables
+    d. Closes the database
  4. Else log "Failed to Open Database"
  */
 -(void)createDatabaseTables {
@@ -81,14 +83,13 @@ static Database *_database;
             NSLog([NSString stringWithFormat:@"Error creating tblRuns; %@", error]); //i
         }
         
-        
+        //c
         const char *sqlSplits = "CREATE TABLE IF NOT EXISTS tblSplits(RunID INTEGER NOT NULL, MileNumber INTEGER NOT NULL, MilePace INTEGER NOT NULL, PRIMARY KEY(RunID, MileNumber))";
         
         if (sqlite3_exec(_database, sqlSplits, NULL, NULL, &errorMessage) != SQLITE_OK) {
             NSString *error = [NSString stringWithUTF8String:errorMessage];
             NSLog([NSString stringWithFormat:@"Error creating tblSplits; %@", error]);
         }
-        
         
         const char *sqlLocations = "CREATE TABLE IF NOT EXISTS tblLocations(LocationID INTEGER PRIMARY KEY AUTOINCREMENT, RunID INTEGER, Location TEXT)";
         
@@ -118,7 +119,7 @@ static Database *_database;
             NSLog([NSString stringWithFormat:@"Error creating tblPlannedRuns; %@", error]);
         }
         
-        sqlite3_close(_database); //c
+        sqlite3_close(_database); //d
         
     } else { //4
         NSLog(@"Failed to open database");
@@ -225,12 +226,12 @@ static Database *_database;
     }
 }
 
-/**
+ /**
  1. Converts the databasePath from an NSString into a pure string for use with the database
  2. IF opening the database is successful
     a. FOR each split in the run.splits array
         i. Creates the SQL
-       ii. Converts the SQL to an array of characters for use with the database
+       ii. Converts the SQL to characters for use with the database
       iii. Declares an sqlite3 statement
        iv. Executes the SQL
         v. IF the statement executes succesfully, log "Saving Successful"
@@ -263,127 +264,230 @@ static Database *_database;
     }
 }
 
--(BOOL)saveShoe:(Shoe*)shoe ToRun:(Run *)run {
-    const char *charDbPath = [_databasePath UTF8String];
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Declares the local NSString variable sql
+    b. IF there is a shoe; sets the SQL to UPDATE tblRuns SET ShoeID = 'shoeID' WHERE RunID = 'runID'
+    c. ELSE sets the SQL to UPDATE tblRuns SET ShoeID = '0' WHERE RunID = 'runID' (0 indicates no shoe)
+    d. Converts the SQL to characters for use with the database
+    e. Declares the local char variable errorMessage
+    f. IF the SQL does not execute successfully
+        i. Logs "Shoe saved to run successfully"
+       ii. Closes the database
+      iii. Returns YES (true)
+    g. ELSE
+        i. Logs "Error saving shoe to run" 
+       ii. Closes the database
+      iii. Returns NO (false)
+  3. Logs "Error opening database"
+  4. Returns NO (false)
+ */
+-(BOOL)saveShoe:(Shoe *)shoe ToRun:(Run *)run {
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql; //a
         
-        if (shoe != nil) {
+        if (shoe != nil) { //b
             sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '%li' WHERE RunID = '%li'", (long)shoe.ID, (long)run.ID];
-        } else {
+        } else { //c
             sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", (long)run.ID];
         }
         
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+        const char *sqlChar = [sql UTF8String]; //d
+        char *errorMessage; //e
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) == SQLITE_OK) {
-            NSLog(@"Shoe saved to run successfully");
-            sqlite3_close(_database);
-            return YES;
-        } else {
-            NSLog(@"Error saving shoe to run");
-            sqlite3_close(_database);
-            return NO;
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) == SQLITE_OK) { //f
+            NSLog(@"Shoe saved to run successfully"); //i
+            sqlite3_close(_database); //ii
+            return YES; //iii
+        } else { //g
+            NSLog(@"Error saving shoe to run"); //i
+            sqlite3_close(_database); //ii
+            return NO; //iii
         }
     }
     
-    NSLog(@"Error opening database");
-    return NO;
+    NSLog(@"Error opening database"); //3
+    return NO; //4
 }
 
+ /**
+  1. Initialises the local user defautls and stores it in the local variable userDefaults
+  2. Retrieves the longest distance personal best
+  3. Retrieves the longest duration personal best
+  4. Retrieves the fastest mile personal best
+  5. Retrieves the fastest average pace personal best
+  6. IF the run distance is greater than the longest distance
+    a. Update the longest distance personal best to the run distance
+  7. IF the run duration is longer than the longest duration
+    a. Update the longest duration personal best to the run duration
+  8. IF the run pace is faster (less than) the fastest average pace
+    a. Update the fastest average pace personal best to the run pace
+  9. FOR each run in the array of run splits
+    a. IF the run split has a pace faster (less than) the fastest mile
+        i. Set the fastest mile to the run split pace
+       ii. Update the fastest mile personal best to the run split pace
+ */
 -(void)checkRunForNewPersonalBest:(Run *)run {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    double longestDistance = [userDefaults doubleForKey: [ObjConstants longestDistanceKey]];
-    NSInteger longestDuration = [userDefaults integerForKey:[ObjConstants longestDurationKey]];
-    NSInteger fastestMile = [userDefaults integerForKey:[ObjConstants fastestMileKey]];
-    NSInteger fastestAvgPace = [userDefaults integerForKey:[ObjConstants fastestAvgPaceKey]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults]; //1
+    double longestDistance = [userDefaults doubleForKey: [ObjConstants longestDistanceKey]]; //2
+    NSInteger longestDuration = [userDefaults integerForKey:[ObjConstants longestDurationKey]]; //3
+    NSInteger fastestMile = [userDefaults integerForKey:[ObjConstants fastestMileKey]]; //4
+    NSInteger fastestAvgPace = [userDefaults integerForKey:[ObjConstants fastestAvgPaceKey]]; //5
  
-    if (run.distance > longestDistance) {
-        [userDefaults setDouble:run.distance forKey:[ObjConstants longestDistanceKey]];
+    if (run.distance > longestDistance) { //6
+        [userDefaults setDouble:run.distance forKey:[ObjConstants longestDistanceKey]]; //a
     }
-    if (run.duration > longestDuration) {
-        [userDefaults setInteger:run.duration forKey:[ObjConstants longestDurationKey]];
+    if (run.duration > longestDuration) { //7
+        [userDefaults setInteger:run.duration forKey:[ObjConstants longestDurationKey]]; //a
     }
-    if (run.pace < fastestAvgPace) {
-        [userDefaults setInteger:run.pace forKey:[ObjConstants fastestAvgPaceKey]];
+    if ((run.pace < fastestAvgPace) || (fastestAvgPace == 0)) { //8
+        [userDefaults setInteger:run.pace forKey:[ObjConstants fastestAvgPaceKey]]; //a
     }
     
-    for (int i = 0; i < run.splits.count; i++) {
-        if ((NSInteger)run.splits[i] < fastestMile) {
-            [userDefaults setInteger:(NSInteger)run.splits[i] forKey:[ObjConstants fastestMileKey]];
+    for (int i = 0; i < run.splits.count; i++) { //9
+        if (((long)[run.splits[i] integerValue] < fastestMile) || (fastestMile == 0)) { //a
+            fastestMile = (long)[run.splits[i] integerValue]; //i
+            [userDefaults setInteger:fastestMile forKey:[ObjConstants fastestMileKey]]; //ii
         }
     }
     
 }
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. Calls the function loadRunsWithQuery and loading all runs where the ShoeID is the shoe to be removed, storing the returned runs in the constant array runsWithShoe
+  3. IF the database opens successfuly
+    a. IF there are any runs stored with this shoe
+        i. Retrieves the first run from the array storing it as firstRun to build the first part of the SQL
+       ii. Creates the first part of the SQL
+      iii. FOR each other shoe in the array runsWithShoe
+            iv. Appends " OR RunID = 'run ID'" to the SQL
+        v. Converts the SQL into a pure string for use with the database
+       vi. Declares the local char variable errorMessage
+      vii. IF the SQL does not execute successfully
+            A. Converts the error message to an NSString
+            B. Logs "Error removing shoe from runs: " and the error message
+            C. Closes the database
+            D. Returns NO (false)
+     viii. ELSE
+            A. Logs "Shoe successfully removed from runs"
+            B. Closes the database
+            C. Returns YES (true)
+    b. ELSE returns YES (true)
+  4. ELSE returns NO (false)
+ */
 -(BOOL)removeShoeFromRuns:(Shoe *)shoe {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    NSArray *runsWithShoe = [self loadRunsWithQuery:[NSString stringWithFormat:@"WHERE ShoeID = '%li'", (long)shoe.ID]];
+    NSArray *runsWithShoe = [self loadRunsWithQuery:[NSString stringWithFormat:@"WHERE ShoeID = '%li'", (long)shoe.ID]]; //2
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        Run *firstRun = (Run *)runsWithShoe[0];
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", (long)firstRun.ID];
-        
-        for (int i = 1; i < runsWithShoe.count; i++) {
-            Run *run = (Run *)runsWithShoe[i];
-            [sql stringByAppendingString:[NSString stringWithFormat:@" OR RunID = '%li'", (long)run.ID]];
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        if (runsWithShoe.count > 0) { //a
+            Run *firstRun = (Run *)runsWithShoe.firstObject; //i
+            NSString *sql = [NSString stringWithFormat:@"UPDATE tblRuns SET ShoeID = '0' WHERE RunID = '%li'", (long)firstRun.ID]; //ii
+            
+            for (int runShoeNo = 1; runShoeNo < runsWithShoe.count; runShoeNo++) { //iii
+                Run *run = (Run *)runsWithShoe[runShoeNo];
+                [sql stringByAppendingString:[NSString stringWithFormat:@" OR RunID = '%li'", (long)run.ID]]; //iv
+            }
+            
+            const char *sqlChar = [sql UTF8String]; //v
+            char *errorMessage; //vi
+            
+            if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //vii
+                NSString *error = [NSString stringWithUTF8String:errorMessage]; //A
+                NSLog([NSString stringWithFormat:@"Error removing shoe from runs: %@", error]); //B
+                sqlite3_close(_database); //C
+                return NO; //D
+            } else { //viii
+                NSLog(@"Shoe successfully removed from runs"); //A
+                sqlite3_close(_database); //B
+                return YES; //C
+            }
+        } else { //b
+            return YES;
         }
-        
-        const char *sqlChar = [sql UTF8String];
-        
-        return YES;
-    } else {
+    } else { //4
         return NO;
     }
 }
 
 #pragma mark Run Loading
 
-/**
+ /**
+  1. Creates and initialises the local mutable array, runs
+  2. Converts the databasePath from an NSString into a pure string for use with the database
+  3. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares an SQLite3 statement
+    d. Executes the statement, IF it executes successfully
+        i. While there are rows to read
+       ii. Retrieves the runID as an integer from the first column in the database
+      iii. Retrieves the run date/time as a char from the second column in the database
+       iv. Retrieves the distance as a double from the third column in the database
+        v. Retrieves the pace as an integer from the fourth column in the database
+       vi. Retrieves the duration as an integer from the fifth column in the database
+      vii. Retrieves the run score as a double from the sixth column in the database
+     viii. Retrieves the shoeID as an integer from the seventh column in the database
+       ix. Creates the local variable runShoe by calling the function loadShoeWithID by passing the shoeID retrieved from the database
+        x. Creates the run date using the initWithDatabaseString method
+       xi. Creates and initialises the run object
+      xii. Loads the locations for the run by calling the function loadRunLocationsForRun
+     xiii. Loads the splits for the run by calling the function loadSplitsForRun
+      xiv. Adds the new run to the runs array
+    e. Releases the statement
+    f. Closes the database
+  4. ELSE logs "Error Opening Database"
+  5. Sorts the runs into date order
+  6. Returns the array of runs
  */
 -(NSArray *)loadRunsWithQuery:(NSString *)query {
-    NSMutableArray *runs = [[NSMutableArray alloc] init];
-    const char *charDbPath = [_databasePath UTF8String];
+    NSMutableArray *runs = [[NSMutableArray alloc] init]; //1
+    const char *charDbPath = [_databasePath UTF8String]; //2
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblRuns %@", query];
-        const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblRuns %@", query]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        sqlite3_stmt *statement; //c
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                int ID = (int)sqlite3_column_int(statement, 0);
-                char *dateTimeStr = (char *)sqlite3_column_text(statement, 1);
-                double distance = (double)sqlite3_column_double(statement, 2);
-                int pace = (int)sqlite3_column_int(statement, 3);
-                int duration = (int)sqlite3_column_int(statement, 4);
-                double score = (double)sqlite3_column_double(statement, 5);
-                int shoeID = (int)sqlite3_column_int(statement, 6);
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //d
+            while (sqlite3_step(statement) == SQLITE_ROW) { //i
+                int ID = (int)sqlite3_column_int(statement, 0); //ii
+                char *dateTimeStr = (char *)sqlite3_column_text(statement, 1); //iii
+                double distance = (double)sqlite3_column_double(statement, 2); //iv
+                int pace = (int)sqlite3_column_int(statement, 3); //v
+                int duration = (int)sqlite3_column_int(statement, 4); //vi
+                double score = (double)sqlite3_column_double(statement, 5); //vii
+                int shoeID = (int)sqlite3_column_int(statement, 6); //viii
                 
-                Shoe *runShoe = [self loadShoeWithID:shoeID];
-                NSDate *date = [[NSDate alloc] initWithDatabaseString:[NSString stringWithUTF8String:dateTimeStr]];
+                Shoe *runShoe = [self loadShoeWithID:shoeID]; //ix
+                NSDate *date = [[NSDate alloc] initWithDatabaseString:[NSString stringWithUTF8String:dateTimeStr]]; //x
                 
                 
-                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil runType:@"" splits:nil];
-                run.locations = [self loadRunLocationsForRun:run];
-                run.splits = [self loadRunSplitsForRun:run];
-                [runs addObject:run];
+                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil runType:@"" splits:nil]; //xi
+                run.locations = [self loadRunLocationsForRun:run]; //xii
+                run.splits = [self loadRunSplitsForRun:run]; //xiii
+                
+                [runs addObject:run]; //xiv
             }
             
-            sqlite3_finalize(statement);
-            sqlite3_close(_database);
+            sqlite3_finalize(statement); //e
+            sqlite3_close(_database); //f
         }
+    } else { //4
+        NSLog(@"Error Opening Database");
     }
     
-    runs = [[NSMutableArray alloc] initWithArray: [[[Conversions alloc] init] sortRunsIntoDateOrderWithRuns:runs]];
+    runs = [[NSMutableArray alloc] initWithArray: [[[Conversions alloc] init] sortRunsIntoDateOrderWithRuns:runs]]; //5
     
-    return runs;
+    return runs; //6
 }
 
-/**
+ /**
  1. Creates and initialises the local mutable array, locations
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF opening the database is successful
@@ -437,7 +541,9 @@ static Database *_database;
        ii. Retrieves the mile number
       iii. Retrieves the mile pace
        iv. Adds the milePace to the splits array at the index 1 less than the mile number
-    e. Else logs "Error Loading Locations"
+    e. Releases the statement
+    f. Closes the database
+    g. Else logs "Error Loading Locations"
  4. Returns the splits array
  */
 -(NSArray *)loadRunSplitsForRun:(Run *)run {
@@ -456,9 +562,9 @@ static Database *_database;
                 [splits insertObject:[NSNumber numberWithInt:milePace] atIndex:(mileNumber-1)]; //iv
             }
         }
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
-    } else { //e
+        sqlite3_finalize(statement); //e
+        sqlite3_close(_database); //f
+    } else { //g
         NSLog(@"Error Loading Splits");
     }
     
@@ -467,25 +573,43 @@ static Database *_database;
 
 #pragma mark Run Deleting
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL to an array of characters for use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the sql doesn't execute successfully
+        i. Retrieves the error message as an NSString
+       ii. Logs "Error deleting run: " and the error message
+      iii. Closes the database
+       iv. Returns NO (false)
+    e. ELSE
+        i. Logs "Run Deleted Successfully"
+       ii. Closes the database
+      iii. Retruns YES (true)
+  3. ELSE logs "Error Opening Database" and returns NO (false)
+  */
 -(BOOL)deleteRunWithID:(Run *)run {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblRuns WHERE RunID = '%li'", (long)run.ID];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblRuns WHERE RunID = '%li'; DELETE FROM tblLocations WHERE RunID = '%li'; DELETE FROM tblSplits WHERE RunID = '%li'", (long)run.ID, (long)run.ID, (long)run.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-            NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error deleting run: %@", error]);
-            sqlite3_close(_database);
-            return  NO;
-        } else {
-            NSLog(@"Run Deleted Successfully");
-            sqlite3_close(_database);
-            return YES;
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error deleting run: %@", error]); //ii
+            sqlite3_close(_database); //iii
+            return  NO; //iv
+        } else { //e
+            NSLog(@"Run Deleted Successfully"); //i
+            sqlite3_close(_database); //ii
+            return YES; //iii
         }
-    } else {
+    } else { //3
+        NSLog(@"Error Opening Database");
         return NO;
     }
 }
@@ -508,7 +632,8 @@ static Database *_database;
       iii. Logs "Plan Saving Successful"
        iv. Returns the plan
     f. Closes the database
- 4. Returns nil as the default case
+ 4. ELSE Logs "Error Opening Database"
+ 5. Returns nil as the default case
  */
 -(Plan *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
     NSInteger planID; //1
@@ -531,31 +656,47 @@ static Database *_database;
         }
         
         sqlite3_close(_database); //f
-    } else {
+    } else { //4
         NSLog(@"Error Opening Database");
     }
     
-    return nil; //4
+    return nil; //5
 }
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF the database opens successfully
+    a. Creates the SQL
+    b. Converts the SQL to an array of characters for use with the database
+    c. Declares the local variable errorMessage to store any errors from the database
+    d. IF the SQL does not execute successfully
+        i. Logs "Error saving planned run: " and the error message
+       ii. Closes the database
+      iii. Returns NO (false)
+    e. ELSE
+        i. Logs "Planned Run Successfully Saved."
+       ii. Closes the database
+      iii. Returns YES (true)
+  3. ELSE logs "Error opening database" and Retruns NO (false)
+ */
 -(BOOL)savePlannedRun:(PlannedRun *)plannedRun ForPlan:(Plan *)plan {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.distance, (long)plannedRun.duration, plannedRun.details, (long)plan.ID];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.distance, (long)plannedRun.duration, plannedRun.details, (long)plan.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-            NSLog(@"Error Saving Planned Run: %@", [NSString stringWithUTF8String:errorMessage]);
-            sqlite3_close(_database);
-            return NO;
-        } else {
-            NSLog(@"Planned Run Successfully Saved.");
-            sqlite3_close(_database);
-            return YES;
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSLog(@"Error Saving Planned Run: %@", [NSString stringWithUTF8String:errorMessage]); //i
+            sqlite3_close(_database); //ii
+            return NO; //iii
+        } else { //e
+            NSLog(@"Planned Run Successfully Saved."); //i
+            sqlite3_close(_database); //ii
+            return YES; //iii
         }
-    } else {
+    } else { //3
         NSLog(@"Error Opening Database");
         return NO;
     }
@@ -563,263 +704,471 @@ static Database *_database;
 
 #pragma mark Plan Loading
 
+ /**
+  1. Creates and initialises the local mutable array, trainingPlans
+  2. Converts the databasePath from an NSString into a pure string for use with the database
+  3. IF opening the database is successful
+    a. Creates the SQL as a constant char
+    b. Declares an SQLite3 statement
+    c. Executes the statement, IF it executes successfully
+        i. While there are rows to read
+           ii. Retrieves the planID as an integer from the first column in the database
+          iii. Retrieves the plan name as a char from the second column in the database
+           iv. Retrieves the start date as a char from the third column in the database
+            v. Retrieves the end date as a char from the fourth column in the database
+           vi. Converts the start date into an NSDate using the initWithShortDate initialiser
+          vii. Converts the end date into an NSDate using the initWithShortDate initialiser
+         viii. Creates and initialises the plan object
+           ix. Adds the new plan to the array trainingPlans
+    d. Releases the statement
+    e. Closes the database
+  4. ELSE logs "Error Opening Database"
+  5. Returns the trainingPlans array
+ */
 -(NSArray *)loadAllTrainingPlans {
-    NSMutableArray *trainingPlans = [[NSMutableArray alloc] init];
-    const char *charDbPath = [_databasePath UTF8String];
+    NSMutableArray *trainingPlans = [[NSMutableArray alloc] init]; //1
+    const char *charDbPath = [_databasePath UTF8String]; //2
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        const char *sqlChar = "SELECT * FROM tblTrainingPlans";
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        const char *sqlChar = "SELECT * FROM tblTrainingPlans"; //a
+        sqlite3_stmt *statement; //b
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                int planID = (int)sqlite3_column_int(statement, 0);
-                char *name = (char *)sqlite3_column_text(statement, 1);
-                char *startDateStr = (char *)sqlite3_column_text(statement, 2);
-                char *endDateStr = (char *)sqlite3_column_text(statement, 3);
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //c
+            while (sqlite3_step(statement) == SQLITE_ROW) { //i
+                int planID = (int)sqlite3_column_int(statement, 0); //ii
+                char *name = (char *)sqlite3_column_text(statement, 1); //iii
+                char *startDateStr = (char *)sqlite3_column_text(statement, 2); //iv
+                char *endDateStr = (char *)sqlite3_column_text(statement, 3); //v
                 
-                NSDate *startDate = [[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:startDateStr]];
-                NSDate *endDate = [[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:endDateStr]];
+                NSDate *startDate = [[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:startDateStr]]; //vi
+                NSDate *endDate = [[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:endDateStr]]; //vii
                 
-                Plan *plan = [[Plan alloc] initWithID:planID name:[NSString stringWithUTF8String:name] startDate:startDate endDate:endDate];
-                [trainingPlans addObject:plan];
+                Plan *plan = [[Plan alloc] initWithID:planID name:[NSString stringWithUTF8String:name] startDate:startDate endDate:endDate]; //viii
+                [trainingPlans addObject:plan]; //ix
             }
         }
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
+        sqlite3_finalize(statement); //d
+        sqlite3_close(_database); //e
 
-        
-    } else {
+    } else { //4
         NSLog(@"Error Opening Database");
     }
     
-    return trainingPlans;
+    return trainingPlans; //5
 }
 
+ /**
+  1. Creates and initialises the local mutable array, plannedRuns
+  2. Converts the databasePath from an NSString into a pure string for use with the database
+  3. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares an SQLite3 statement
+    d. Executes the statement, IF it executes successfully
+        i. While there are rows to read
+       ii. Retrieves the plannedRunID as an integer from the first column in the database
+      iii. Retrieves the planned date as a char from the second column in the database
+       iv. Retrieves the distance as a double from the third column in the database
+        v. Retrieves the duration as an integer from the fourth column in the database
+       vi. Retrieves the planned details as a char from the fifth column in the database
+      vii. Creates and initialises the planned run object
+     viii. Adds the new planned run to the array plannedRuns
+  e. Releases the statement
+  f. Closes the database
+ 4. ELSE logs "Error Opening Database"
+ 5. Returns the plannedRuns array
+ */
 -(NSArray *)loadPlannedRunsForPlan:(Plan *)plan {
-    NSMutableArray *plannedRuns = [[NSMutableArray alloc] init];
-    const char *charDbPath = [_databasePath UTF8String];
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblPlannedRuns WHERE PlanID = '%li'", (long)plan.ID];
-        const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement;
+    NSMutableArray *plannedRuns = [[NSMutableArray alloc] init]; //1
+    const char *charDbPath = [_databasePath UTF8String]; //2
+    
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblPlannedRuns WHERE PlanID = '%li'", (long)plan.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        sqlite3_stmt *statement; //c
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                int plannedRunID = (int)sqlite3_column_int(statement, 0);
-                char *plannedDateStr = (char *)sqlite3_column_text(statement, 1);
-                double distance = (double)sqlite3_column_double(statement, 2);
-                int duration = (int)sqlite3_column_int(statement, 3);
-                char *details = (char *)sqlite3_column_text(statement, 4);
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //d
+            while (sqlite3_step(statement) == SQLITE_ROW) { //i
+                int plannedRunID = (int)sqlite3_column_int(statement, 0); //ii
+                char *plannedDateStr = (char *)sqlite3_column_text(statement, 1); //iii
+                double distance = (double)sqlite3_column_double(statement, 2); //iv
+                int duration = (int)sqlite3_column_int(statement, 3); //v
+                char *details = (char *)sqlite3_column_text(statement, 4); //vi
                 
-                PlannedRun *plannedRun = [[PlannedRun alloc] initWithID:plannedRunID date:[[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:plannedDateStr]] distance: distance duration:duration details:[NSString stringWithUTF8String:details]];
-                [plannedRuns addObject:plannedRun];
+                PlannedRun *plannedRun = [[PlannedRun alloc] initWithID:plannedRunID date:[[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:plannedDateStr]] distance: distance duration:duration details:[NSString stringWithUTF8String:details]]; //vii
+                [plannedRuns addObject:plannedRun]; //viii
             }
-            
-            sqlite3_close(_database);
         }
+        sqlite3_finalize(statement); //e
+        sqlite3_close(_database); //f
+        
+    } else { //4
+        NSLog(@"Error Opening Database");
     }
     
-    return plannedRuns;
+    return plannedRuns; //5
 }
 
-#pragma mark - Plan Deleting
+#pragma mark Plan Deleting
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the SQL does not execute successfully
+        i. Convert the error message into an NSString
+       ii. Log "Error deleting plan: " and the error message
+      iii. Closes the database
+       iv. Returns NO (false)
+    e. ELSE
+        i. Logs "Plan Deleted Successfully"
+       ii. Closes the database
+      iii. Calls the function deletePlannedRunsForPlan return the boolean returned by that function
+  3. ELSE logs "Error Opening Database"
+  4. Returns NO (false)
+ */
 -(BOOL)deletePlan:(Plan *)plan {
-    const char *charDbPath = [_databasePath UTF8String];
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblTrainingPlans WHERE PlanID = '%li'", (long)plan.ID];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+    const char *charDbPath = [_databasePath UTF8String]; //1
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblTrainingPlans WHERE PlanID = '%li'", (long)plan.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-            NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error deleting plan: %@", error]);
-            sqlite3_close(_database);
-            return  NO;
-        } else {
-            NSLog(@"Plan Deleted Successfully");
-            sqlite3_close(_database);
-            return [self deletePlannedRunsForPlan:plan];
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error deleting plan: %@", error]); //ii
+            sqlite3_close(_database); //iii
+            return  NO; //iv
+        } else { //e
+            NSLog(@"Plan Deleted Successfully"); //i
+            sqlite3_close(_database); //ii
+            return [self deletePlannedRunsForPlan:plan]; //iii
         }
+    } else { //3
+        NSLog(@"Error Opening Database");
     }
     
-    return NO;
+    return NO; //4
 }
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the SQL does not execute successfully
+        i. Convert the error message into an NSString
+       ii. Log "Error deleting planned runs: " and the error message
+      iii. Closes the database
+       iv. Returns NO (false)
+    e. ELSE
+        i. Logs "Planned Runs Deleted Successfully"
+       ii. Closes the database
+      iii. Returns YES (true)
+ 3. ELSE logs "Error Opening Database"
+ 4. Returns NO (false)
+ */
 -(BOOL)deletePlannedRunsForPlan:(Plan *)plan {
-    const char *charDbPath = [_databasePath UTF8String];
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblPlannedRuns WHERE PlanID = '%li'", (long)plan.ID];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+    const char *charDbPath = [_databasePath UTF8String]; //1
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblPlannedRuns WHERE PlanID = '%li'", (long)plan.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-            NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error deleting planned runs: %@", error]);
-            sqlite3_close(_database);
-            return  NO;
-        } else {
-            NSLog(@"Planned Runs Deleted Successfully");
-            sqlite3_close(_database);
-            return YES;
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error deleting planned runs: %@", error]); //ii
+            sqlite3_close(_database); //iii
+            return  NO; //iv
+        } else { //e
+            NSLog(@"Planned Runs Deleted Successfully"); //i
+            sqlite3_close(_database); //ii
+            return YES; //iii
         }
+    } else { //3
+        NSLog(@"Error Opening Database");
     }
     
-    return NO;
+    return NO; //4
 }
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the SQL does not execute successfully
+        i. Convert the error message into an NSString
+       ii. Log "Error deleting planned run: " and the error message
+      iii. Closes the database
+       iv. Returns NO (false)
+    e. ELSE
+        i. Logs "Planned Run Deleted Successfully"
+       ii. Closes the database
+      iii. Returns YES (true)
+ 3. ELSE logs "Error Opening Database"
+ 4. Returns NO (false)
+ */
 -(BOOL)deletePlannedRun:(PlannedRun *)plannedRun {
-    const char *charDbPath = [_databasePath UTF8String];
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblPlannedRuns WHERE PlannedRunID = '%li'", (long)plannedRun.ID];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+    const char *charDbPath = [_databasePath UTF8String]; //1
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblPlannedRuns WHERE PlannedRunID = '%li'", (long)plannedRun.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-            NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error deleting planned run: %@", error]);
-            sqlite3_close(_database);
-            return  NO;
-        } else {
-            NSLog(@"Planned Run Deleted Successfully");
-            sqlite3_close(_database);
-            return YES;
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error deleting planned run: %@", error]); //ii
+            sqlite3_close(_database); //iii
+            return  NO; //iv
+        } else { //e
+            NSLog(@"Planned Run Deleted Successfully"); //i
+            sqlite3_close(_database); //ii
+            return YES; //iii
         }
+    } else { //3
+        NSLog(@"Error Opening Database");
     }
     
-    return NO;
+    return NO; //4
 }
 
 #pragma mark - Shoe Methods
 #pragma mark Shoe Saving
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL as an NSString
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares an SQLite3 statement
+    d. Executes the statement
+    e. IF the statement executes succesfully
+        i. Logs "Shoe Saved Successfully"
+    f. ELSE
+        i. Logs "Error Saving Shoe"
+    g. Releases the statement
+    h. Closes the database
+  3. ELSE logs "Error Opening Database"
+ */
 -(void)saveShoe:(Shoe *)shoe {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imageName];
-        const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imageName]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        sqlite3_stmt *statement; //c
         
-        sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil);
+        sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil); //d
         
-        if (sqlite3_step(statement) == SQLITE_DONE) {
-            NSLog(@"Saving Successful");
-        } else {
-            NSLog(@"Error Saving");
+        if (sqlite3_step(statement) == SQLITE_DONE) { //e
+            NSLog(@"Shoe Saved Successfully"); //i
+        } else { //f
+            NSLog(@"Error Saving Shoe"); //i
         }
         
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
+        sqlite3_finalize(statement); //g
+        sqlite3_close(_database); //h
+    } else { //3
+        NSLog(@"Error Opening Database");
     }
 }
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL as an NSString
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the statement does not execute succesfully
+        i. Converts the errorMessage to an NSString
+       ii. Logs "Error increasing shoe miles: " and the error message
+    e. ELSE
+        i. Logs "Shoe miles increased successfully"
+    f. Closes the database
+  3. ELSE logs "Error Opening Database"
+ */
 -(void)increaseShoeMiles:(Shoe *)shoe byAmount:(double)amount {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles + amount, (long)shoe.ID];
-        const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles + amount, (long)shoe.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            if (sqlite3_step(statement) == SQLITE_DONE) {
-                NSLog(@"Shoe miles increased successfully");
-            } else {
-                NSLog(@"Error increasing shoe miles");
-            }
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error increasing shoe miles: %@", error]); //ii
+        } else { //e
+            NSLog(@"Shoe miles increased successfully"); //i
         }
-        
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
+
+        sqlite3_close(_database); //f
+    } else { //3
+        NSLog(@"Error Opening Database");
     }
 }
 
+/**
+ 1. Converts the databasePath from an NSString into a pure string for use with the database
+ 2. IF opening the database is successful
+    a. Creates the SQL as an NSString
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the statement does not execute succesfully
+        i. Converts the errorMessage to an NSString
+       ii. Logs "Error decreasing shoe miles: " and the error message
+    e. ELSE
+        i. Logs "Shoe miles decreased successfully"
+    f. Closes the database
+ 3. ELSE logs "Error Opening Database"
+ */
 -(void)decreaseShoeMiles:(Shoe *)shoe byAmount:(double)amount {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles - amount, (long)shoe.ID];
-        const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles - amount, (long)shoe.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            if (sqlite3_step(statement) == SQLITE_DONE) {
-                NSLog(@"Shoe miles decreased successfully");
-            } else {
-                NSLog(@"Error decreasing shoe miles");
-            }
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error decreasing shoe miles: %@", error]); //ii
+        } else { //e
+            NSLog(@"Shoe miles decreased successfully"); //i
         }
         
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
+        sqlite3_close(_database); //f
+    } else {
+        NSLog(@"Error Opening Database"); //3
     }
 }
 
 
 #pragma mark Shoe Loading
 
+ /**
+  1. Creates and initialises the local mutable array, shoes
+  2. Converts the databasePath from an NSString into a pure string for use with the database
+  3. IF opening the database is successful
+    a. Creates the SQL as a constant char
+    b. Declares an SQLite3 statement
+    c. Executes the statement, IF it executes successfully
+        i. While there are rows to read
+           ii. Retrieves the shoeID as an integer from the first column in the database
+          iii. Retrieves the shoe name as a char from the second column in the database
+           iv. Retrieves the shoe distance as a double from the third column in the database
+            v. Retrieves the shoe image name as a char from the fourth column in the database
+           vi. Creates and initialises the shoe object
+          vii. Adds the new shoe to the array shoes
+    d. Releases the statement
+    e. Closes the database
+ 4. ELSE logs "Error Opening Database"
+ 5. Returns the shoes array
+ */
 -(NSArray *)loadAllShoes {
-    NSMutableArray *shoes = [[NSMutableArray alloc] init];
+    NSMutableArray *shoes = [[NSMutableArray alloc] init]; //1
     
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //2
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        const char *sqlChar = "SELECT * FROM tblShoes";
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        const char *sqlChar = "SELECT * FROM tblShoes"; //a
+        sqlite3_stmt *statement; //b
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                int shoeID = (int)sqlite3_column_int(statement, 0);
-                char *shoeName = (char *)sqlite3_column_text(statement, 1);
-                double currentDistance = (double)sqlite3_column_double(statement, 2);
-                char *shoeImagePath = (char *)sqlite3_column_text(statement, 3);
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //c
+            while (sqlite3_step(statement) == SQLITE_ROW) { //i
+                int shoeID = (int)sqlite3_column_int(statement, 0); //ii
+                char *shoeName = (char *)sqlite3_column_text(statement, 1); //iii
+                double currentDistance = (double)sqlite3_column_double(statement, 2); //iv
+                char *shoeImageName = (char *)sqlite3_column_text(statement, 3); //v
                 
-                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImagePath]];
+                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImageName]]; //vi
                 
-                [shoes addObject:shoe];
+                [shoes addObject:shoe]; //vii
             }
         }
         
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
+        sqlite3_finalize(statement); //d
+        sqlite3_close(_database); //e
+    } else { //4
+        NSLog(@"Error Opening Database");
     }
     
-    return shoes;
+    return shoes; //5
 }
 
+/**
+ 1. Creates and initialises the local Shoe object variable, shoe
+ 2. Converts the databasePath from an NSString into a pure string for use with the database
+ 3. IF opening the database is successful
+    a. Creates the SQL as an NSString
+    b. Converts the SQL to a constant char
+    c. Declares an SQLite3 statement
+    d. Executes the statement, IF it executes successfully
+        i. While there are rows to read
+           ii. Retrieves the shoeID as an integer from the first column in the database
+          iii. Retrieves the shoe name as a char from the second column in the database
+           iv. Retrieves the shoe distance as a double from the third column in the database
+            v. Retrieves the shoe image name as a char from the fourth column in the database
+           vi. Creates and initialises the shoe object
+    e. Releases the statement
+    f. Closes the database
+ 4. ELSE logs "Error Opening Database"
+ 5. Returns the shoes array
+ */
 -(Shoe *)loadShoeWithID:(int)ID {
-    Shoe *shoe;
+    Shoe *shoe; //1
     
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //2
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblShoes WHERE ShoeID = '%i'", ID];
-        const char *sqlChar = [sql UTF8String];
-        sqlite3_stmt *statement;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM tblShoes WHERE ShoeID = '%i'", ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        sqlite3_stmt *statement; //c
         
-        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                int shoeID = (int)sqlite3_column_int(statement, 0);
-                char *shoeName = (char *)sqlite3_column_text(statement, 1);
-                double currentDistance = (double)sqlite3_column_double(statement, 2);
-                char *shoeImagePath = (char *)sqlite3_column_text(statement, 3);
+        if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) { //d
+            while (sqlite3_step(statement) == SQLITE_ROW) { //i
+                int shoeID = (int)sqlite3_column_int(statement, 0); //ii
+                char *shoeName = (char *)sqlite3_column_text(statement, 1); //iii
+                double currentDistance = (double)sqlite3_column_double(statement, 2); //iv
+                char *shoeImageName = (char *)sqlite3_column_text(statement, 3); //v
                 
-                shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImagePath]];
+                shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImageName]]; //vi
             }
         }
         
-        sqlite3_finalize(statement);
-        sqlite3_close(_database);
+        sqlite3_finalize(statement); //e
+        sqlite3_close(_database); //f
+    } else { //4
+        NSLog(@"Error Opening Database");
     }
     
-    return shoe;
+    return shoe; //5
     
 }
 
+ /**
+  1. Declares the local boolean variable shoeNameExists and sets it to NO (false)
+  2. Converts the databasePath from an NSString into a pure string for use with the database
+  3. IF opening the database is successful
+    a. Creates the SQL as an NSString
+    b. Converts the SQL to a constant char
+    c. Declares an SQLite3 statement
+    d. IF the SQL executes successfully
+        i. IF there is a row returned
+            ii. Sets shoeNameExists to YES (true)
+    e. ELSE logs "Error checking if shoe exists"
+    f. Releases the statement
+    g. Closes the database
+  4. Else logs "Error Opening Database"
+  5. Returns shoeNameExists
+ */
 -(BOOL)shoeNameExists:(NSString *)shoeName {
-    BOOL shoeNameExists = false;
+    BOOL shoeNameExists = NO;
     
     const char *charDbPath = [_databasePath UTF8String];
     
@@ -830,7 +1179,7 @@ static Database *_database;
         
         if (sqlite3_prepare_v2(_database, sqlChar, -1, &statement, nil) == SQLITE_OK) {
             if (sqlite3_step(statement) == SQLITE_ROW) {
-                shoeNameExists = true;
+                shoeNameExists = YES;
             }
         } else {
             NSLog(@"Error Checking If Shoe Exists");
@@ -838,6 +1187,8 @@ static Database *_database;
         
         sqlite3_finalize(statement);
         sqlite3_close(_database);
+    } else {
+        NSLog(@"Error Opening Database");
     }
     
     return shoeNameExists;
@@ -845,27 +1196,47 @@ static Database *_database;
 
 #pragma mark Shoe Deleting
 
+ /**
+  1. Converts the databasePath from an NSString into a pure string for use with the database
+  2. IF opening the database is successful
+    a. Creates the SQL
+    b. Converts the SQL into a pure string to use with the database
+    c. Declares the local char variable errorMessage
+    d. IF the SQL does not execute successfully
+        i. Convert the error message into an NSString
+       ii. Log "Error deleting shoe: " and the error message
+      iii. Closes the database
+       iv. Returns NO (false)
+    e. ELSE
+        i. Logs "Shoe Deleted Successfully"
+       ii. Closes the database
+      iii. Returns YES (true)
+ 3. ELSE logs "Error Opening Database"
+ 4. Returns NO (false)
+ */
 -(BOOL)deleteShoeWithID:(Shoe *)shoe {
-    const char *charDbPath = [_databasePath UTF8String];
+    const char *charDbPath = [_databasePath UTF8String]; //1
     
-    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) {
-        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblShoes WHERE ShoeID = '%li'", (long)shoe.ID];
-        const char *sqlChar = [sql UTF8String];
-        char *errorMessage;
+    if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM tblShoes WHERE ShoeID = '%li'", (long)shoe.ID]; //a
+        const char *sqlChar = [sql UTF8String]; //b
+        char *errorMessage; //c
         
-        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) {
-            NSString *error = [NSString stringWithUTF8String:errorMessage];
-            NSLog([NSString stringWithFormat:@"Error deleting shoe: %@", error]);
-            sqlite3_close(_database);
-            return  NO;
-        } else {
-            NSLog(@"Shoe Deleted Successfully");
-            sqlite3_close(_database);
-            return YES;
+        if (sqlite3_exec(_database, sqlChar, nil, nil, &errorMessage) != SQLITE_OK) { //d
+            NSString *error = [NSString stringWithUTF8String:errorMessage]; //i
+            NSLog([NSString stringWithFormat:@"Error deleting shoe: %@", error]); //ii
+            sqlite3_close(_database); //iii
+            return  NO; //iv
+        } else { //e
+            NSLog(@"Shoe Deleted Successfully"); //i
+            sqlite3_close(_database); //ii
+            return [self removeShoeFromRuns:shoe]; //iii
         }
-    } else {
-        return NO;
+    } else { //3
+        NSLog(@"Error Opening Database");
     }
+    
+    return NO; //4
 }
 
 

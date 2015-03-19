@@ -11,7 +11,9 @@ import UIKit
     
 class Graph: UIView {
     
-    private let indent: CGFloat = 10
+    //MARK: - Global Variables
+    
+    private let indent: CGFloat = 10 //A global constant CGFloat that stores the indent (the gap between the edge of the view and the axes)
     private let axesIndent: CGFloat = 30
     private let markerHeight: CGFloat = 5
     

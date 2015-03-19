@@ -9,8 +9,9 @@
 import UIKit
 
 struct Constants {
+    /* This class stores constants that should be accessible to all classes within the app. */
     
-    struct DefaultsKeys {
+    struct DefaultsKeys { //User Defaults Keys and return values
         
         struct InitialSetup {
             static let SetupKey = "INITIAL_SETUP"
@@ -32,6 +33,8 @@ struct Constants {
         struct Weight {
             static let UnitKey = "WEIGHT_UNIT"
             static let GoalKey = "WEIGHT_GOAL"
+            static let KgUnit = "KG"
+            static let PoundUnit = "POUNDS"
         }
         
         struct Calories {
@@ -55,6 +58,12 @@ struct Constants {
         struct Strava {
             static let AccessTokenKey = "ACCESS_TOKEN"
         }
+    }
+    
+    struct TableView {
+        static let PickerRowHeight: CGFloat = 162 //A global constant GCFloat that stores the height of a cell that contains a picker view
+        static let DefaultRowHeight: CGFloat = 44 //A global constant CGFloat that stores the default height for a cell
+        static let ImageRowHeight: CGFloat = 250 //A global constant CGFloat that stores the height for the image cell
     }
 }
 

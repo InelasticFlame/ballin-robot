@@ -201,17 +201,53 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPc-Xs-xmV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Weight Data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRc-rq-JtQ">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="Z94-zH-xgr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Z94-zH-xgr"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="Z94-zH-xgr"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="lRc-rq-JtQ" secondAttribute="centerY" id="8wq-BN-lhw"/>
+                                    <constraint firstAttribute="trailing" secondItem="lRc-rq-JtQ" secondAttribute="trailing" constant="8" id="Vt1-qA-xeF"/>
+                                    <constraint firstItem="lRc-rq-JtQ" firstAttribute="leading" secondItem="FPc-Xs-xmV" secondAttribute="leading" constant="8" id="WJ9-Gm-Fqd"/>
                                     <constraint firstAttribute="width" secondItem="FPc-Xs-xmV" secondAttribute="height" multiplier="40:7" id="vxe-HL-tVq"/>
                                 </constraints>
                                 <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="lRc-rq-JtQ"/>
+                                    </mask>
                                     <mask key="constraints">
                                         <exclude reference="vxe-HL-tVq"/>
+                                        <exclude reference="8wq-BN-lhw"/>
+                                        <exclude reference="Vt1-qA-xeF"/>
+                                        <exclude reference="WJ9-Gm-Fqd"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="lRc-rq-JtQ"/>
+                                    </mask>
                                     <mask key="constraints">
                                         <include reference="vxe-HL-tVq"/>
+                                        <include reference="8wq-BN-lhw"/>
+                                        <include reference="Vt1-qA-xeF"/>
+                                        <include reference="WJ9-Gm-Fqd"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -327,6 +363,7 @@
                         <outlet property="eatenCaloriesLabel" destination="HYO-Q8-XIR" id="eb2-xc-bzW"/>
                         <outlet property="nextDayButton" destination="7Jl-b4-aoh" id="Y4J-w8-yeb"/>
                         <outlet property="previousDayButton" destination="xe9-ed-dh2" id="uvP-lr-k3h"/>
+                        <outlet property="weightErrorLabel" destination="lRc-rq-JtQ" id="5kc-wS-hRm"/>
                         <outlet property="weightHistoryButton" destination="dkJ-H9-fWZ" id="h86-eY-qia"/>
                         <outlet property="weightProgressBarView" destination="FPc-Xs-xmV" id="K6q-oT-wdI"/>
                     </connections>
@@ -360,7 +397,7 @@
         <scene sceneID="gbb-Nw-1av">
             <objects>
                 <tableViewController id="Ps4-eg-EVW" customClass="RunsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="RLs-2w-BTM">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="RLs-2w-BTM">
                         <rect key="frame" x="2" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -782,6 +819,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No map route for this run." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mw-1s-9Ei">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="198" id="9fY-FY-DZ1"/>
+                                    <constraint firstAttribute="height" constant="21" id="fdW-zm-7Il"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9fY-FY-DZ1"/>
+                                        <exclude reference="fdW-zm-7Il"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="9fY-FY-DZ1"/>
+                                        <include reference="fdW-zm-7Il"/>
+                                    </mask>
+                                </variation>
+                            </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qbs-GH-JOO">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
@@ -1065,6 +1124,8 @@
                             <constraint firstItem="lTE-dw-j95" firstAttribute="leading" secondItem="8n4-f5-hzT" secondAttribute="leadingMargin" constant="-16" id="8Qy-Gb-if0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qbs-GH-JOO" secondAttribute="trailing" constant="-16" id="AuU-tb-qgd"/>
                             <constraint firstItem="kwJ-0z-wq3" firstAttribute="leading" secondItem="8n4-f5-hzT" secondAttribute="leadingMargin" constant="-16" id="DC4-Np-EUw"/>
+                            <constraint firstAttribute="centerY" secondItem="4mw-1s-9Ei" secondAttribute="centerY" id="Ezw-2Z-99N"/>
+                            <constraint firstAttribute="centerX" secondItem="4mw-1s-9Ei" secondAttribute="centerX" id="Gwg-ZJ-qbE"/>
                             <constraint firstItem="tgv-zU-1BD" firstAttribute="leading" secondItem="8n4-f5-hzT" secondAttribute="leadingMargin" constant="-16" id="PUl-Cw-FRx"/>
                             <constraint firstItem="ThO-07-vq6" firstAttribute="top" secondItem="lTE-dw-j95" secondAttribute="bottom" id="Yrq-Ln-Cq1"/>
                             <constraint firstItem="kwJ-0z-wq3" firstAttribute="top" secondItem="yPf-px-Bie" secondAttribute="bottom" id="bYE-ci-9cg"/>
@@ -1077,12 +1138,15 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="4mw-1s-9Ei"/>
                                 <exclude reference="Qbs-GH-JOO"/>
                                 <exclude reference="tgv-zU-1BD"/>
                                 <exclude reference="lTE-dw-j95"/>
                                 <exclude reference="kwJ-0z-wq3"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Ezw-2Z-99N"/>
+                                <exclude reference="Gwg-ZJ-qbE"/>
                                 <exclude reference="0vo-uV-ZPG"/>
                                 <exclude reference="Yrq-Ln-Cq1"/>
                                 <exclude reference="mZ2-me-GlB"/>
@@ -1101,12 +1165,15 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
+                                <include reference="4mw-1s-9Ei"/>
                                 <include reference="Qbs-GH-JOO"/>
                                 <include reference="tgv-zU-1BD"/>
                                 <include reference="lTE-dw-j95"/>
                                 <include reference="kwJ-0z-wq3"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Ezw-2Z-99N"/>
+                                <include reference="Gwg-ZJ-qbE"/>
                                 <include reference="0vo-uV-ZPG"/>
                                 <include reference="Yrq-Ln-Cq1"/>
                                 <include reference="mZ2-me-GlB"/>
@@ -2025,7 +2092,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pot-PJ-4Yh">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Error" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pot-PJ-4Yh">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2076,15 +2143,29 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="y9E-7L-1gb">
                                                     <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="dXF-Q0-BS6"/>
+                                                    </constraints>
                                                     <date key="date" timeIntervalSinceReferenceDate="445270977.42202699">
                                                         <!--2015-02-10 14:22:57 +0000-->
                                                     </date>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="dXF-Q0-BS6"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="dXF-Q0-BS6"/>
+                                                        </mask>
+                                                    </variation>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="y9E-7L-1gb" secondAttribute="bottom" constant="0.5" id="QGw-ry-n47"/>
                                                 <constraint firstItem="y9E-7L-1gb" firstAttribute="leading" secondItem="v9t-rW-hQc" secondAttribute="leadingMargin" constant="-8" id="RkP-ot-NJr"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="y9E-7L-1gb" secondAttribute="trailing" constant="-8" id="XPq-1o-5W8"/>
+                                                <constraint firstAttribute="centerY" secondItem="y9E-7L-1gb" secondAttribute="centerY" id="Z0D-CL-VwM"/>
                                                 <constraint firstItem="y9E-7L-1gb" firstAttribute="top" secondItem="v9t-rW-hQc" secondAttribute="topMargin" id="ljX-2O-TYg"/>
                                             </constraints>
                                             <variation key="default">
@@ -2095,6 +2176,7 @@
                                                     <exclude reference="QGw-ry-n47"/>
                                                     <exclude reference="RkP-ot-NJr"/>
                                                     <exclude reference="XPq-1o-5W8"/>
+                                                    <exclude reference="Z0D-CL-VwM"/>
                                                     <exclude reference="ljX-2O-TYg"/>
                                                 </mask>
                                             </variation>
@@ -2103,10 +2185,11 @@
                                                     <include reference="y9E-7L-1gb"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="QGw-ry-n47"/>
+                                                    <exclude reference="QGw-ry-n47"/>
                                                     <include reference="RkP-ot-NJr"/>
                                                     <include reference="XPq-1o-5W8"/>
-                                                    <include reference="ljX-2O-TYg"/>
+                                                    <include reference="Z0D-CL-VwM"/>
+                                                    <exclude reference="ljX-2O-TYg"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2146,9 +2229,22 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="r8r-QX-Za8">
                                                     <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="bdY-Cd-ew2"/>
+                                                    </constraints>
                                                     <date key="date" timeIntervalSinceReferenceDate="445271819.61197501">
                                                         <!--2015-02-10 14:36:59 +0000-->
                                                     </date>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="bdY-Cd-ew2"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="bdY-Cd-ew2"/>
+                                                        </mask>
+                                                    </variation>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -2156,6 +2252,7 @@
                                                 <constraint firstItem="r8r-QX-Za8" firstAttribute="leading" secondItem="CY2-T9-bKd" secondAttribute="leadingMargin" constant="-8" id="SVW-S7-r7Z"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="r8r-QX-Za8" secondAttribute="bottom" constant="-0.5" id="bd3-Qm-FdX"/>
                                                 <constraint firstItem="r8r-QX-Za8" firstAttribute="top" secondItem="CY2-T9-bKd" secondAttribute="topMargin" id="pfe-qc-BIa"/>
+                                                <constraint firstAttribute="centerY" secondItem="r8r-QX-Za8" secondAttribute="centerY" id="tBk-kF-PZF"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -2166,6 +2263,7 @@
                                                     <exclude reference="SVW-S7-r7Z"/>
                                                     <exclude reference="bd3-Qm-FdX"/>
                                                     <exclude reference="pfe-qc-BIa"/>
+                                                    <exclude reference="tBk-kF-PZF"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -2175,8 +2273,9 @@
                                                 <mask key="constraints">
                                                     <include reference="Ght-mI-hSK"/>
                                                     <include reference="SVW-S7-r7Z"/>
-                                                    <include reference="bd3-Qm-FdX"/>
-                                                    <include reference="pfe-qc-BIa"/>
+                                                    <exclude reference="bd3-Qm-FdX"/>
+                                                    <exclude reference="pfe-qc-BIa"/>
+                                                    <include reference="tBk-kF-PZF"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2438,13 +2537,27 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="77c-GT-pDD">
                                                     <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="TTt-zo-40l"/>
+                                                    </constraints>
                                                     <date key="date" timeIntervalSinceReferenceDate="445894547.79543197">
                                                         <!--2015-02-17 19:35:47 +0000-->
                                                     </date>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="TTt-zo-40l"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="TTt-zo-40l"/>
+                                                        </mask>
+                                                    </variation>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="77c-GT-pDD" firstAttribute="top" secondItem="XLD-kL-H6j" secondAttribute="topMargin" id="7aJ-hb-FDk"/>
+                                                <constraint firstAttribute="centerY" secondItem="77c-GT-pDD" secondAttribute="centerY" id="gqN-ZM-bU9"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="77c-GT-pDD" secondAttribute="bottom" constant="0.5" id="kcS-Br-F11"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="77c-GT-pDD" secondAttribute="trailing" constant="-8" id="lfx-nP-GQd"/>
                                                 <constraint firstItem="77c-GT-pDD" firstAttribute="leading" secondItem="XLD-kL-H6j" secondAttribute="leadingMargin" constant="-8" id="r9l-yD-VqG"/>
@@ -2455,6 +2568,7 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="7aJ-hb-FDk"/>
+                                                    <exclude reference="gqN-ZM-bU9"/>
                                                     <exclude reference="kcS-Br-F11"/>
                                                     <exclude reference="lfx-nP-GQd"/>
                                                     <exclude reference="r9l-yD-VqG"/>
@@ -2465,8 +2579,9 @@
                                                     <include reference="77c-GT-pDD"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="7aJ-hb-FDk"/>
-                                                    <include reference="kcS-Br-F11"/>
+                                                    <exclude reference="7aJ-hb-FDk"/>
+                                                    <include reference="gqN-ZM-bU9"/>
+                                                    <exclude reference="kcS-Br-F11"/>
                                                     <include reference="lfx-nP-GQd"/>
                                                     <include reference="r9l-yD-VqG"/>
                                                 </mask>
@@ -2570,6 +2685,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="qXJ-CL-63m" secondAttribute="centerY" constant="0.25" id="2oO-d7-7HQ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="qXJ-CL-63m" secondAttribute="trailing" constant="-8" id="968-Ng-RFc"/>
                                                 <constraint firstItem="qXJ-CL-63m" firstAttribute="leading" secondItem="wU3-uy-aH7" secondAttribute="leadingMargin" constant="-8" id="cFE-3S-zcE"/>
+                                                <constraint firstAttribute="centerY" secondItem="qXJ-CL-63m" secondAttribute="centerY" id="fDS-Cd-TbA"/>
                                                 <constraint firstItem="qXJ-CL-63m" firstAttribute="top" secondItem="wU3-uy-aH7" secondAttribute="topMargin" id="hCj-NS-yZy"/>
                                             </constraints>
                                             <variation key="default">
@@ -2580,6 +2696,7 @@
                                                     <exclude reference="2oO-d7-7HQ"/>
                                                     <exclude reference="968-Ng-RFc"/>
                                                     <exclude reference="cFE-3S-zcE"/>
+                                                    <exclude reference="fDS-Cd-TbA"/>
                                                     <exclude reference="hCj-NS-yZy"/>
                                                 </mask>
                                             </variation>
@@ -2588,9 +2705,10 @@
                                                     <include reference="qXJ-CL-63m"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="2oO-d7-7HQ"/>
+                                                    <exclude reference="2oO-d7-7HQ"/>
                                                     <include reference="968-Ng-RFc"/>
                                                     <include reference="cFE-3S-zcE"/>
+                                                    <include reference="fDS-Cd-TbA"/>
                                                     <exclude reference="hCj-NS-yZy"/>
                                                 </mask>
                                             </variation>
@@ -2603,10 +2721,24 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4GM-OE-oUX" customClass="DurationPicker" customModule="CG4_Coursework" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="3RI-zE-r54"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="3RI-zE-r54"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="3RI-zE-r54"/>
+                                                        </mask>
+                                                    </variation>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="4GM-OE-oUX" secondAttribute="trailing" constant="-8" id="04m-aH-vKb"/>
+                                                <constraint firstAttribute="centerY" secondItem="4GM-OE-oUX" secondAttribute="centerY" id="ATv-Q5-ipA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="4GM-OE-oUX" secondAttribute="bottom" constant="-0.5" id="iTO-Fh-hS9"/>
                                                 <constraint firstItem="4GM-OE-oUX" firstAttribute="leading" secondItem="olb-fJ-CHh" secondAttribute="leadingMargin" constant="-8" id="k0S-JS-6vi"/>
                                                 <constraint firstItem="4GM-OE-oUX" firstAttribute="top" secondItem="olb-fJ-CHh" secondAttribute="topMargin" constant="1" id="yqA-So-ay1"/>
@@ -2617,6 +2749,7 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="04m-aH-vKb"/>
+                                                    <exclude reference="ATv-Q5-ipA"/>
                                                     <exclude reference="iTO-Fh-hS9"/>
                                                     <exclude reference="k0S-JS-6vi"/>
                                                     <exclude reference="yqA-So-ay1"/>
@@ -2628,9 +2761,10 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="04m-aH-vKb"/>
-                                                    <include reference="iTO-Fh-hS9"/>
+                                                    <include reference="ATv-Q5-ipA"/>
+                                                    <exclude reference="iTO-Fh-hS9"/>
                                                     <include reference="k0S-JS-6vi"/>
-                                                    <include reference="yqA-So-ay1"/>
+                                                    <exclude reference="yqA-So-ay1"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2836,9 +2970,22 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="BBW-DR-U1y">
                                                     <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="Lb0-3Q-drR"/>
+                                                    </constraints>
                                                     <date key="date" timeIntervalSinceReferenceDate="445978159.846766">
                                                         <!--2015-02-18 18:49:19 +0000-->
                                                     </date>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Lb0-3Q-drR"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="Lb0-3Q-drR"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="endDatePickerValueChanged:" destination="XQj-gx-rtY" eventType="valueChanged" id="FlO-SX-jOQ"/>
                                                     </connections>
@@ -2846,6 +2993,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="BBW-DR-U1y" secondAttribute="trailing" constant="-8" id="7wH-wZ-iBb"/>
+                                                <constraint firstAttribute="centerY" secondItem="BBW-DR-U1y" secondAttribute="centerY" id="8fR-4f-YHw"/>
                                                 <constraint firstItem="BBW-DR-U1y" firstAttribute="leading" secondItem="EXM-X8-cxJ" secondAttribute="leadingMargin" constant="-8" id="EdS-R7-8N8"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="BBW-DR-U1y" secondAttribute="bottom" constant="0.5" id="HKY-fh-r9T"/>
                                                 <constraint firstItem="BBW-DR-U1y" firstAttribute="top" secondItem="EXM-X8-cxJ" secondAttribute="topMargin" id="vzB-Uv-AOa"/>
@@ -2856,6 +3004,7 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="7wH-wZ-iBb"/>
+                                                    <exclude reference="8fR-4f-YHw"/>
                                                     <exclude reference="EdS-R7-8N8"/>
                                                     <exclude reference="HKY-fh-r9T"/>
                                                     <exclude reference="vzB-Uv-AOa"/>
@@ -2867,9 +3016,10 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="7wH-wZ-iBb"/>
+                                                    <include reference="8fR-4f-YHw"/>
                                                     <include reference="EdS-R7-8N8"/>
-                                                    <include reference="HKY-fh-r9T"/>
-                                                    <include reference="vzB-Uv-AOa"/>
+                                                    <exclude reference="HKY-fh-r9T"/>
+                                                    <exclude reference="vzB-Uv-AOa"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -3034,6 +3184,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.40000000000000002" green="0.70196078429999997" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="rfd-JD-347" kind="relationship" relationship="rootViewController" id="HZa-Jx-w6p"/>
@@ -3569,36 +3723,98 @@
         <scene sceneID="2CK-Fc-6DV">
             <objects>
                 <tableViewController id="Ydv-jK-efp" customClass="MyShoesTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="yxY-SL-Oez">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yxY-SL-Oez">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="shoeCell" textLabel="SvT-hx-AE1" detailTextLabel="ClZ-Ec-ayv" rowHeight="90" style="IBUITableViewCellStyleSubtitle" id="adc-2v-vnm">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="shoeCell" rowHeight="90" id="adc-2v-vnm" customClass="ShoeTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="adc-2v-vnm" id="PQX-Gz-ic8">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Shoe Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SvT-hx-AE1">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DaN-w7-ApM">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="75" id="YBv-eZ-Bk1"/>
+                                                <constraint firstAttribute="width" constant="75" id="l5X-q3-MfZ"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="YBv-eZ-Bk1"/>
+                                                    <exclude reference="l5X-q3-MfZ"/>
+                                                </mask>
                                             </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="YBv-eZ-Bk1"/>
+                                                    <include reference="l5X-q3-MfZ"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shoe Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uv-p9-kgJ">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Miles: 0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ClZ-Ec-ayv">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlT-HM-iBd">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            </variation>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="0uv-p9-kgJ" firstAttribute="top" secondItem="PQX-Gz-ic8" secondAttribute="topMargin" constant="10" id="4QC-TT-icq"/>
+                                        <constraint firstItem="0uv-p9-kgJ" firstAttribute="leading" secondItem="PQX-Gz-ic8" secondAttribute="leadingMargin" constant="11" id="4bg-0Y-bLS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="DaN-w7-ApM" secondAttribute="trailing" constant="9" id="YdH-HE-Tr7"/>
+                                        <constraint firstItem="DaN-w7-ApM" firstAttribute="leading" secondItem="0uv-p9-kgJ" secondAttribute="trailing" constant="17" id="bTq-bG-NeB"/>
+                                        <constraint firstItem="NlT-HM-iBd" firstAttribute="leading" secondItem="PQX-Gz-ic8" secondAttribute="leadingMargin" constant="11" id="dQF-Io-EBY"/>
+                                        <constraint firstAttribute="centerY" secondItem="DaN-w7-ApM" secondAttribute="centerY" id="huH-tK-bVe"/>
+                                        <constraint firstItem="NlT-HM-iBd" firstAttribute="top" secondItem="0uv-p9-kgJ" secondAttribute="bottom" constant="8" id="j52-wb-NFI"/>
+                                        <constraint firstItem="DaN-w7-ApM" firstAttribute="leading" secondItem="NlT-HM-iBd" secondAttribute="trailing" constant="17" id="jMq-rs-IEh"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="DaN-w7-ApM"/>
+                                            <exclude reference="0uv-p9-kgJ"/>
+                                            <exclude reference="NlT-HM-iBd"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <exclude reference="4QC-TT-icq"/>
+                                            <exclude reference="4bg-0Y-bLS"/>
+                                            <exclude reference="dQF-Io-EBY"/>
+                                            <exclude reference="j52-wb-NFI"/>
+                                            <exclude reference="YdH-HE-Tr7"/>
+                                            <exclude reference="bTq-bG-NeB"/>
+                                            <exclude reference="huH-tK-bVe"/>
+                                            <exclude reference="jMq-rs-IEh"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="DaN-w7-ApM"/>
+                                            <include reference="0uv-p9-kgJ"/>
+                                            <include reference="NlT-HM-iBd"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="4QC-TT-icq"/>
+                                            <include reference="4bg-0Y-bLS"/>
+                                            <include reference="dQF-Io-EBY"/>
+                                            <include reference="j52-wb-NFI"/>
+                                            <include reference="YdH-HE-Tr7"/>
+                                            <include reference="bTq-bG-NeB"/>
+                                            <include reference="huH-tK-bVe"/>
+                                            <include reference="jMq-rs-IEh"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="shoeImageView" destination="DaN-w7-ApM" id="NJ1-aB-209"/>
+                                    <outlet property="shoeMilesLabel" destination="NlT-HM-iBd" id="UbM-S6-Xi1"/>
+                                    <outlet property="shoeNameLabel" destination="0uv-p9-kgJ" id="7Jo-uS-wtv"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addNewShoeCell" rowHeight="90" id="S6V-lN-4zg">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -3672,7 +3888,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Shoe Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a43-3c-9gn">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -3707,6 +3923,23 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="6ZY-bp-ZyC" style="IBUITableViewCellStyleDefault" id="9Ll-xd-yga">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Ll-xd-yga" id="S8P-K4-HLm">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Error" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6ZY-bp-ZyC">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="B1m-Io-eki" detailTextLabel="cIp-Lo-6N1" style="IBUITableViewCellStyleValue1" id="7wj-VQ-GBj">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7wj-VQ-GBj" id="9lm-UK-zgO">
@@ -3733,30 +3966,43 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="172" id="8PF-i1-dJc">
+                                    <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="172" id="8PF-i1-dJc">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8PF-i1-dJc" id="1vD-YY-GoJ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNM-Wf-FfV" customClass="DistancePicker" customModule="CG4_Coursework" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="rFN-G1-sJh"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="rFN-G1-sJh"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="rFN-G1-sJh"/>
+                                                        </mask>
+                                                    </variation>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="pNM-Wf-FfV" firstAttribute="top" secondItem="1vD-YY-GoJ" secondAttribute="topMargin" constant="-3" id="Bzp-8F-COM"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="pNM-Wf-FfV" secondAttribute="trailing" constant="-8" id="MuI-rc-6es"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="pNM-Wf-FfV" secondAttribute="bottom" constant="-3.5" id="eeh-nO-Vh8"/>
-                                                <constraint firstItem="pNM-Wf-FfV" firstAttribute="leading" secondItem="1vD-YY-GoJ" secondAttribute="leadingMargin" constant="-8" id="gut-aT-3K0"/>
+                                                <constraint firstItem="pNM-Wf-FfV" firstAttribute="leading" secondItem="1vD-YY-GoJ" secondAttribute="leadingMargin" constant="-8" id="1ou-h0-lWc"/>
+                                                <constraint firstAttribute="centerY" secondItem="pNM-Wf-FfV" secondAttribute="centerY" id="7NG-SY-wwG"/>
+                                                <constraint firstAttribute="centerX" secondItem="pNM-Wf-FfV" secondAttribute="centerX" id="9YN-w9-XOl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="pNM-Wf-FfV" secondAttribute="trailing" constant="-8" id="MQn-5V-tjg"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
                                                     <exclude reference="pNM-Wf-FfV"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="Bzp-8F-COM"/>
-                                                    <exclude reference="MuI-rc-6es"/>
-                                                    <exclude reference="eeh-nO-Vh8"/>
-                                                    <exclude reference="gut-aT-3K0"/>
+                                                    <exclude reference="1ou-h0-lWc"/>
+                                                    <exclude reference="7NG-SY-wwG"/>
+                                                    <exclude reference="9YN-w9-XOl"/>
+                                                    <exclude reference="MQn-5V-tjg"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -3764,29 +4010,78 @@
                                                     <include reference="pNM-Wf-FfV"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="Bzp-8F-COM"/>
-                                                    <include reference="MuI-rc-6es"/>
-                                                    <include reference="eeh-nO-Vh8"/>
-                                                    <include reference="gut-aT-3K0"/>
+                                                    <include reference="1ou-h0-lWc"/>
+                                                    <include reference="7NG-SY-wwG"/>
+                                                    <include reference="9YN-w9-XOl"/>
+                                                    <include reference="MQn-5V-tjg"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="BXx-1D-ROo" style="IBUITableViewCellStyleDefault" id="G78-I5-5eS">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ggH-RT-isi" style="IBUITableViewCellStyleDefault" id="G78-I5-5eS">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G78-I5-5eS" id="NI1-yu-sEV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Shoe Image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BXx-1D-ROo">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Shoe Image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ggH-RT-isi">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     </variation>
                                                 </label>
                                             </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="250" id="eMR-Za-fmD">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eMR-Za-fmD" id="4aa-tg-hws">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZQA-v0-iaf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="249.5" id="EAf-54-Zzn"/>
+                                                        <constraint firstAttribute="width" constant="250" id="gjz-Sr-uBk"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="EAf-54-Zzn"/>
+                                                            <exclude reference="gjz-Sr-uBk"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="EAf-54-Zzn"/>
+                                                            <include reference="gjz-Sr-uBk"/>
+                                                        </mask>
+                                                    </variation>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="ZQA-v0-iaf" secondAttribute="centerY" id="21e-Ru-u1Q"/>
+                                                <constraint firstAttribute="centerX" secondItem="ZQA-v0-iaf" secondAttribute="centerX" id="mXh-jZ-J0X"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="ZQA-v0-iaf"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="21e-Ru-u1Q"/>
+                                                    <exclude reference="mXh-jZ-J0X"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="ZQA-v0-iaf"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="21e-Ru-u1Q"/>
+                                                    <include reference="mXh-jZ-J0X"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -3806,6 +4101,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="shoeDistancePicker" destination="pNM-Wf-FfV" id="dUh-TR-gqw"/>
+                        <outlet property="shoeImageView" destination="ZQA-v0-iaf" id="3f1-Pf-ChB"/>
                         <outlet property="shoeNameTextField" destination="a43-3c-9gn" id="UrZ-kD-fl9"/>
                     </connections>
                 </tableViewController>
@@ -3824,6 +4120,7 @@
                         <color key="barTintColor" red="0.40000000000000002" green="0.70196078429999997" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -3838,387 +4135,690 @@
         <scene sceneID="xVl-EJ-aXL">
             <objects>
                 <tableViewController id="KFg-AP-o0e" customClass="HomeTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="400" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bc9-Y3-lDY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="400" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bc9-Y3-lDY">
                         <rect key="frame" x="0.0" y="-2" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgressCard" rowHeight="400" id="ao9-bg-UKM" customClass="HomeProgressTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ao9-bg-UKM" id="9KO-LO-aSf">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tq1-ZF-8bD">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <sections>
+                            <tableViewSection id="UP0-GT-YI3">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgressCard" rowHeight="400" id="ao9-bg-UKM" customClass="HomeProgressTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ao9-bg-UKM" id="9KO-LO-aSf">
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Enf-o1-GLo">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="sHw-kS-VmS"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="sHw-kS-VmS"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <include reference="sHw-kS-VmS"/>
-                                                        </mask>
-                                                    </variation>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xq-Kx-HUj">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tq1-ZF-8bD">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="awc-EJ-aop">
-                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Enf-o1-GLo">
+                                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="3BP-MZ-FBZ"/>
-                                                                <constraint firstAttribute="height" constant="30" id="7OS-YC-nlQ"/>
+                                                                <constraint firstAttribute="height" constant="21" id="evC-e8-sEc"/>
                                                             </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
                                                             <variation key="default">
                                                                 <mask key="constraints">
-                                                                    <exclude reference="3BP-MZ-FBZ"/>
-                                                                    <exclude reference="7OS-YC-nlQ"/>
+                                                                    <exclude reference="evC-e8-sEc"/>
                                                                 </mask>
                                                             </variation>
                                                             <variation key="heightClass=regular-widthClass=compact">
                                                                 <mask key="constraints">
-                                                                    <include reference="3BP-MZ-FBZ"/>
-                                                                    <include reference="7OS-YC-nlQ"/>
+                                                                    <include reference="evC-e8-sEc"/>
                                                                 </mask>
                                                             </variation>
-                                                        </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmL-GP-otj">
-                                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xq-Kx-HUj">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="awc-EJ-aop">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="3BP-MZ-FBZ"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="7OS-YC-nlQ"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="3BP-MZ-FBZ"/>
+                                                                            <exclude reference="7OS-YC-nlQ"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                                        <mask key="constraints">
+                                                                            <include reference="3BP-MZ-FBZ"/>
+                                                                            <include reference="7OS-YC-nlQ"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance Ran This Month" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmL-GP-otj">
+                                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="VmL-GP-otj" secondAttribute="bottom" constant="10" id="CMl-3p-AJ2"/>
+                                                                <constraint firstAttribute="height" constant="40" id="N5G-vv-pSo"/>
+                                                                <constraint firstItem="awc-EJ-aop" firstAttribute="centerY" secondItem="5xq-Kx-HUj" secondAttribute="centerY" id="Svf-HF-bcW"/>
+                                                                <constraint firstItem="VmL-GP-otj" firstAttribute="top" secondItem="5xq-Kx-HUj" secondAttribute="top" constant="9" id="VQj-BU-gi3"/>
+                                                                <constraint firstItem="VmL-GP-otj" firstAttribute="leading" secondItem="awc-EJ-aop" secondAttribute="trailing" constant="8" symbolic="YES" id="i1D-jM-kim"/>
+                                                                <constraint firstItem="VmL-GP-otj" firstAttribute="leading" secondItem="5xq-Kx-HUj" secondAttribute="leadingMargin" id="sKM-2A-d4d">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="38"/>
+                                                                </constraint>
+                                                                <constraint firstItem="VmL-GP-otj" firstAttribute="trailing" secondItem="5xq-Kx-HUj" secondAttribute="trailingMargin" id="uPT-Z8-RVp"/>
+                                                            </constraints>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="awc-EJ-aop"/>
+                                                                    <exclude reference="VmL-GP-otj"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <exclude reference="N5G-vv-pSo"/>
+                                                                    <exclude reference="CMl-3p-AJ2"/>
+                                                                    <exclude reference="VQj-BU-gi3"/>
+                                                                    <exclude reference="i1D-jM-kim"/>
+                                                                    <exclude reference="sKM-2A-d4d"/>
+                                                                    <exclude reference="uPT-Z8-RVp"/>
+                                                                    <exclude reference="Svf-HF-bcW"/>
+                                                                </mask>
+                                                            </variation>
+                                                            <variation key="heightClass=regular-widthClass=compact">
+                                                                <mask key="subviews">
+                                                                    <include reference="awc-EJ-aop"/>
+                                                                    <include reference="VmL-GP-otj"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <include reference="N5G-vv-pSo"/>
+                                                                    <include reference="CMl-3p-AJ2"/>
+                                                                    <include reference="VQj-BU-gi3"/>
+                                                                    <include reference="i1D-jM-kim"/>
+                                                                    <include reference="sKM-2A-d4d"/>
+                                                                    <include reference="uPT-Z8-RVp"/>
+                                                                    <include reference="Svf-HF-bcW"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1x-6l-vnJ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                        </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="VmL-GP-otj" secondAttribute="bottom" constant="10" id="CMl-3p-AJ2"/>
-                                                        <constraint firstAttribute="height" constant="40" id="N5G-vv-pSo"/>
-                                                        <constraint firstItem="awc-EJ-aop" firstAttribute="centerY" secondItem="5xq-Kx-HUj" secondAttribute="centerY" id="Svf-HF-bcW"/>
-                                                        <constraint firstItem="VmL-GP-otj" firstAttribute="top" secondItem="5xq-Kx-HUj" secondAttribute="top" constant="9" id="VQj-BU-gi3"/>
-                                                        <constraint firstItem="VmL-GP-otj" firstAttribute="leading" secondItem="awc-EJ-aop" secondAttribute="trailing" constant="8" symbolic="YES" id="i1D-jM-kim"/>
-                                                        <constraint firstItem="VmL-GP-otj" firstAttribute="leading" secondItem="5xq-Kx-HUj" secondAttribute="leadingMargin" id="sKM-2A-d4d">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="38"/>
-                                                        </constraint>
-                                                        <constraint firstItem="VmL-GP-otj" firstAttribute="trailing" secondItem="5xq-Kx-HUj" secondAttribute="trailingMargin" id="uPT-Z8-RVp"/>
+                                                        <constraint firstItem="5xq-Kx-HUj" firstAttribute="leading" secondItem="tq1-ZF-8bD" secondAttribute="leading" id="0l3-ie-O0m"/>
+                                                        <constraint firstItem="5xq-Kx-HUj" firstAttribute="top" secondItem="tq1-ZF-8bD" secondAttribute="top" id="3JJ-oA-5Rq"/>
+                                                        <constraint firstItem="i1x-6l-vnJ" firstAttribute="bottom" secondItem="tq1-ZF-8bD" secondAttribute="bottomMargin" id="NCJ-HD-2MR"/>
+                                                        <constraint firstItem="Enf-o1-GLo" firstAttribute="leading" secondItem="tq1-ZF-8bD" secondAttribute="leading" constant="16" id="WjX-sU-hO2"/>
+                                                        <constraint firstItem="i1x-6l-vnJ" firstAttribute="leading" secondItem="tq1-ZF-8bD" secondAttribute="leadingMargin" id="XSg-QE-PIe"/>
+                                                        <constraint firstItem="i1x-6l-vnJ" firstAttribute="top" secondItem="5xq-Kx-HUj" secondAttribute="bottom" constant="8" symbolic="YES" id="gl2-Ly-1Ka"/>
+                                                        <constraint firstItem="Enf-o1-GLo" firstAttribute="centerX" secondItem="i1x-6l-vnJ" secondAttribute="centerX" id="ilW-oc-n6k"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Enf-o1-GLo" secondAttribute="bottom" constant="92" id="knm-KF-BxH"/>
+                                                        <constraint firstItem="Enf-o1-GLo" firstAttribute="centerX" secondItem="5xq-Kx-HUj" secondAttribute="centerX" id="nmq-nu-pAw"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5xq-Kx-HUj" secondAttribute="trailing" id="zCK-JC-j8U"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="subviews">
-                                                            <exclude reference="awc-EJ-aop"/>
-                                                            <exclude reference="VmL-GP-otj"/>
+                                                            <exclude reference="Enf-o1-GLo"/>
+                                                            <exclude reference="5xq-Kx-HUj"/>
+                                                            <exclude reference="i1x-6l-vnJ"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <exclude reference="N5G-vv-pSo"/>
-                                                            <exclude reference="CMl-3p-AJ2"/>
-                                                            <exclude reference="VQj-BU-gi3"/>
-                                                            <exclude reference="i1D-jM-kim"/>
-                                                            <exclude reference="sKM-2A-d4d"/>
-                                                            <exclude reference="uPT-Z8-RVp"/>
-                                                            <exclude reference="Svf-HF-bcW"/>
+                                                            <exclude reference="WjX-sU-hO2"/>
+                                                            <exclude reference="ilW-oc-n6k"/>
+                                                            <exclude reference="knm-KF-BxH"/>
+                                                            <exclude reference="nmq-nu-pAw"/>
+                                                            <exclude reference="0l3-ie-O0m"/>
+                                                            <exclude reference="3JJ-oA-5Rq"/>
+                                                            <exclude reference="zCK-JC-j8U"/>
+                                                            <exclude reference="NCJ-HD-2MR"/>
+                                                            <exclude reference="XSg-QE-PIe"/>
+                                                            <exclude reference="gl2-Ly-1Ka"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="subviews">
-                                                            <include reference="awc-EJ-aop"/>
-                                                            <include reference="VmL-GP-otj"/>
+                                                            <include reference="Enf-o1-GLo"/>
+                                                            <include reference="5xq-Kx-HUj"/>
+                                                            <include reference="i1x-6l-vnJ"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <include reference="N5G-vv-pSo"/>
-                                                            <include reference="CMl-3p-AJ2"/>
-                                                            <include reference="VQj-BU-gi3"/>
-                                                            <include reference="i1D-jM-kim"/>
-                                                            <include reference="sKM-2A-d4d"/>
-                                                            <include reference="uPT-Z8-RVp"/>
-                                                            <include reference="Svf-HF-bcW"/>
+                                                            <include reference="WjX-sU-hO2"/>
+                                                            <include reference="ilW-oc-n6k"/>
+                                                            <include reference="knm-KF-BxH"/>
+                                                            <include reference="nmq-nu-pAw"/>
+                                                            <include reference="0l3-ie-O0m"/>
+                                                            <include reference="3JJ-oA-5Rq"/>
+                                                            <include reference="zCK-JC-j8U"/>
+                                                            <include reference="NCJ-HD-2MR"/>
+                                                            <include reference="XSg-QE-PIe"/>
+                                                            <include reference="gl2-Ly-1Ka"/>
                                                         </mask>
                                                     </variation>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf9-wp-CC8">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="37" id="Xm7-9d-QUt"/>
-                                                        <constraint firstAttribute="width" constant="82" id="jll-cP-yQj"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="Xm7-9d-QUt"/>
-                                                            <exclude reference="jll-cP-yQj"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <include reference="Xm7-9d-QUt"/>
-                                                            <include reference="jll-cP-yQj"/>
-                                                        </mask>
-                                                    </variation>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1x-6l-vnJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="5xq-Kx-HUj" firstAttribute="leading" secondItem="tq1-ZF-8bD" secondAttribute="leading" id="0l3-ie-O0m"/>
-                                                <constraint firstAttribute="centerY" secondItem="Zf9-wp-CC8" secondAttribute="centerY" constant="-30" id="3D6-cZ-482"/>
-                                                <constraint firstItem="5xq-Kx-HUj" firstAttribute="top" secondItem="tq1-ZF-8bD" secondAttribute="top" id="3JJ-oA-5Rq"/>
-                                                <constraint firstItem="Enf-o1-GLo" firstAttribute="top" secondItem="Zf9-wp-CC8" secondAttribute="bottom" constant="70" id="65Y-on-Y86">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="30"/>
-                                                </constraint>
-                                                <constraint firstAttribute="centerX" secondItem="Zf9-wp-CC8" secondAttribute="centerX" id="F4W-AK-LLY"/>
-                                                <constraint firstItem="i1x-6l-vnJ" firstAttribute="bottom" secondItem="tq1-ZF-8bD" secondAttribute="bottomMargin" id="NCJ-HD-2MR"/>
-                                                <constraint firstItem="Enf-o1-GLo" firstAttribute="leading" secondItem="tq1-ZF-8bD" secondAttribute="leading" constant="16" id="NPk-RI-sMn"/>
-                                                <constraint firstItem="i1x-6l-vnJ" firstAttribute="centerX" secondItem="Zf9-wp-CC8" secondAttribute="centerX" id="Qxb-3F-BDy"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Enf-o1-GLo" secondAttribute="bottom" constant="53" id="UEl-fq-qO5">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="40"/>
-                                                </constraint>
-                                                <constraint firstItem="i1x-6l-vnJ" firstAttribute="leading" secondItem="tq1-ZF-8bD" secondAttribute="leadingMargin" id="XSg-QE-PIe"/>
-                                                <constraint firstItem="i1x-6l-vnJ" firstAttribute="top" secondItem="5xq-Kx-HUj" secondAttribute="bottom" constant="8" symbolic="YES" id="gl2-Ly-1Ka"/>
-                                                <constraint firstAttribute="centerX" secondItem="Enf-o1-GLo" secondAttribute="centerX" id="gp7-A5-lz5"/>
-                                                <constraint firstAttribute="trailing" secondItem="5xq-Kx-HUj" secondAttribute="trailing" id="zCK-JC-j8U"/>
+                                                <constraint firstItem="tq1-ZF-8bD" firstAttribute="leading" secondItem="9KO-LO-aSf" secondAttribute="leadingMargin" id="7tX-Kb-wna"/>
+                                                <constraint firstItem="tq1-ZF-8bD" firstAttribute="bottom" secondItem="9KO-LO-aSf" secondAttribute="bottomMargin" id="Ick-5E-nJp"/>
+                                                <constraint firstItem="tq1-ZF-8bD" firstAttribute="trailing" secondItem="9KO-LO-aSf" secondAttribute="trailingMargin" id="LKY-A1-MQ7"/>
+                                                <constraint firstItem="tq1-ZF-8bD" firstAttribute="top" secondItem="9KO-LO-aSf" secondAttribute="topMargin" id="plN-ZA-JbI"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
-                                                    <exclude reference="Enf-o1-GLo"/>
-                                                    <exclude reference="5xq-Kx-HUj"/>
-                                                    <exclude reference="Zf9-wp-CC8"/>
-                                                    <exclude reference="i1x-6l-vnJ"/>
+                                                    <exclude reference="tq1-ZF-8bD"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="65Y-on-Y86"/>
-                                                    <exclude reference="NPk-RI-sMn"/>
-                                                    <exclude reference="UEl-fq-qO5"/>
-                                                    <exclude reference="gp7-A5-lz5"/>
-                                                    <exclude reference="3D6-cZ-482"/>
-                                                    <exclude reference="F4W-AK-LLY"/>
-                                                    <exclude reference="0l3-ie-O0m"/>
-                                                    <exclude reference="3JJ-oA-5Rq"/>
-                                                    <exclude reference="zCK-JC-j8U"/>
-                                                    <exclude reference="NCJ-HD-2MR"/>
-                                                    <exclude reference="Qxb-3F-BDy"/>
-                                                    <exclude reference="XSg-QE-PIe"/>
-                                                    <exclude reference="gl2-Ly-1Ka"/>
+                                                    <exclude reference="7tX-Kb-wna"/>
+                                                    <exclude reference="Ick-5E-nJp"/>
+                                                    <exclude reference="LKY-A1-MQ7"/>
+                                                    <exclude reference="plN-ZA-JbI"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
-                                                    <include reference="Enf-o1-GLo"/>
-                                                    <include reference="5xq-Kx-HUj"/>
-                                                    <include reference="Zf9-wp-CC8"/>
-                                                    <include reference="i1x-6l-vnJ"/>
+                                                    <include reference="tq1-ZF-8bD"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="65Y-on-Y86"/>
-                                                    <include reference="NPk-RI-sMn"/>
-                                                    <include reference="UEl-fq-qO5"/>
-                                                    <include reference="gp7-A5-lz5"/>
-                                                    <include reference="3D6-cZ-482"/>
-                                                    <include reference="F4W-AK-LLY"/>
-                                                    <include reference="0l3-ie-O0m"/>
-                                                    <include reference="3JJ-oA-5Rq"/>
-                                                    <include reference="zCK-JC-j8U"/>
-                                                    <include reference="NCJ-HD-2MR"/>
-                                                    <include reference="Qxb-3F-BDy"/>
-                                                    <include reference="XSg-QE-PIe"/>
-                                                    <include reference="gl2-Ly-1Ka"/>
+                                                    <include reference="7tX-Kb-wna"/>
+                                                    <include reference="Ick-5E-nJp"/>
+                                                    <include reference="LKY-A1-MQ7"/>
+                                                    <include reference="plN-ZA-JbI"/>
                                                 </mask>
                                             </variation>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="tq1-ZF-8bD" firstAttribute="leading" secondItem="9KO-LO-aSf" secondAttribute="leadingMargin" id="7tX-Kb-wna"/>
-                                        <constraint firstItem="tq1-ZF-8bD" firstAttribute="bottom" secondItem="9KO-LO-aSf" secondAttribute="bottomMargin" id="Ick-5E-nJp"/>
-                                        <constraint firstItem="tq1-ZF-8bD" firstAttribute="trailing" secondItem="9KO-LO-aSf" secondAttribute="trailingMargin" id="LKY-A1-MQ7"/>
-                                        <constraint firstItem="tq1-ZF-8bD" firstAttribute="top" secondItem="9KO-LO-aSf" secondAttribute="topMargin" id="plN-ZA-JbI"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="subviews">
-                                            <exclude reference="tq1-ZF-8bD"/>
-                                        </mask>
-                                        <mask key="constraints">
-                                            <exclude reference="7tX-Kb-wna"/>
-                                            <exclude reference="Ick-5E-nJp"/>
-                                            <exclude reference="LKY-A1-MQ7"/>
-                                            <exclude reference="plN-ZA-JbI"/>
-                                        </mask>
-                                    </variation>
-                                    <variation key="heightClass=regular-widthClass=compact">
-                                        <mask key="subviews">
-                                            <include reference="tq1-ZF-8bD"/>
-                                        </mask>
-                                        <mask key="constraints">
-                                            <include reference="7tX-Kb-wna"/>
-                                            <include reference="Ick-5E-nJp"/>
-                                            <include reference="LKY-A1-MQ7"/>
-                                            <include reference="plN-ZA-JbI"/>
-                                        </mask>
-                                    </variation>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="headerImageView" destination="awc-EJ-aop" id="svs-6W-Yvd"/>
-                                    <outlet property="headerLabel" destination="VmL-GP-otj" id="WwU-NM-Hea"/>
-                                    <outlet property="headerView" destination="5xq-Kx-HUj" id="Nh7-Ye-EgX"/>
-                                    <outlet property="mainView" destination="tq1-ZF-8bD" id="QUN-yJ-W0b"/>
-                                    <outlet property="progressDetailLabel" destination="Enf-o1-GLo" id="B9i-S1-brE"/>
-                                    <outlet property="progressLabel" destination="Zf9-wp-CC8" id="kjJ-eP-U6X"/>
-                                    <outlet property="progressView" destination="i1x-6l-vnJ" id="Vmh-6b-Pfr"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCard" rowHeight="400" id="QbX-pB-xXn" customClass="HomeTextTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QbX-pB-xXn" id="pqY-Pt-r61">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NH2-c1-M9t">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="headerImageView" destination="awc-EJ-aop" id="svs-6W-Yvd"/>
+                                            <outlet property="headerLabel" destination="VmL-GP-otj" id="WwU-NM-Hea"/>
+                                            <outlet property="headerView" destination="5xq-Kx-HUj" id="Nh7-Ye-EgX"/>
+                                            <outlet property="mainView" destination="tq1-ZF-8bD" id="QUN-yJ-W0b"/>
+                                            <outlet property="progressDetailLabel" destination="Enf-o1-GLo" id="B9i-S1-brE"/>
+                                            <outlet property="progressView" destination="i1x-6l-vnJ" id="Vmh-6b-Pfr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgressCard" rowHeight="400" id="FBt-o9-6w8" customClass="HomeProgressTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FBt-o9-6w8" id="dAU-dq-RGV">
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Sb-pG-Jd6">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLv-mR-OTJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jhH-2a-Qkk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flJ-WL-7Wy">
+                                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="gkz-gv-c2p"/>
-                                                                <constraint firstAttribute="height" constant="30" id="ygG-43-pdA"/>
+                                                                <constraint firstAttribute="height" constant="21" id="h5o-o9-8JM"/>
                                                             </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
                                                             <variation key="default">
                                                                 <mask key="constraints">
-                                                                    <exclude reference="gkz-gv-c2p"/>
-                                                                    <exclude reference="ygG-43-pdA"/>
+                                                                    <exclude reference="h5o-o9-8JM"/>
                                                                 </mask>
                                                             </variation>
                                                             <variation key="heightClass=regular-widthClass=compact">
                                                                 <mask key="constraints">
-                                                                    <include reference="gkz-gv-c2p"/>
-                                                                    <include reference="ygG-43-pdA"/>
+                                                                    <include reference="h5o-o9-8JM"/>
                                                                 </mask>
                                                             </variation>
-                                                        </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEB-9T-9Hb">
-                                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apb-o2-jE1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LQM-r4-FOE">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="5PD-I4-nVM"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="tlG-bh-Vqd"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="5PD-I4-nVM"/>
+                                                                            <exclude reference="tlG-bh-Vqd"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                                        <mask key="constraints">
+                                                                            <include reference="5PD-I4-nVM"/>
+                                                                            <include reference="tlG-bh-Vqd"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILk-cu-SVn">
+                                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="ILk-cu-SVn" firstAttribute="leading" secondItem="LQM-r4-FOE" secondAttribute="trailing" constant="8" symbolic="YES" id="CoN-S5-v9x"/>
+                                                                <constraint firstItem="ILk-cu-SVn" firstAttribute="trailing" secondItem="apb-o2-jE1" secondAttribute="trailingMargin" id="Emc-Sl-WEb"/>
+                                                                <constraint firstItem="ILk-cu-SVn" firstAttribute="top" secondItem="apb-o2-jE1" secondAttribute="top" constant="9" id="IGx-ba-bVj"/>
+                                                                <constraint firstItem="ILk-cu-SVn" firstAttribute="leading" secondItem="apb-o2-jE1" secondAttribute="leadingMargin" id="Z8y-92-Fax">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="38"/>
+                                                                </constraint>
+                                                                <constraint firstItem="LQM-r4-FOE" firstAttribute="centerY" secondItem="apb-o2-jE1" secondAttribute="centerY" id="eZv-bB-2fk"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ILk-cu-SVn" secondAttribute="bottom" constant="10" id="jxl-8g-cDJ"/>
+                                                                <constraint firstAttribute="height" constant="40" id="znF-8a-lDm"/>
+                                                            </constraints>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="LQM-r4-FOE"/>
+                                                                    <exclude reference="ILk-cu-SVn"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <exclude reference="znF-8a-lDm"/>
+                                                                    <exclude reference="CoN-S5-v9x"/>
+                                                                    <exclude reference="Emc-Sl-WEb"/>
+                                                                    <exclude reference="IGx-ba-bVj"/>
+                                                                    <exclude reference="Z8y-92-Fax"/>
+                                                                    <exclude reference="jxl-8g-cDJ"/>
+                                                                    <exclude reference="eZv-bB-2fk"/>
+                                                                </mask>
+                                                            </variation>
+                                                            <variation key="heightClass=regular-widthClass=compact">
+                                                                <mask key="subviews">
+                                                                    <include reference="LQM-r4-FOE"/>
+                                                                    <include reference="ILk-cu-SVn"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <include reference="znF-8a-lDm"/>
+                                                                    <include reference="CoN-S5-v9x"/>
+                                                                    <include reference="Emc-Sl-WEb"/>
+                                                                    <include reference="IGx-ba-bVj"/>
+                                                                    <include reference="Z8y-92-Fax"/>
+                                                                    <include reference="jxl-8g-cDJ"/>
+                                                                    <include reference="eZv-bB-2fk"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EwO-Vf-sdO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                        </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="oEB-9T-9Hb" firstAttribute="trailing" secondItem="7Sb-pG-Jd6" secondAttribute="trailingMargin" id="93l-s9-yrL"/>
-                                                        <constraint firstAttribute="bottom" secondItem="oEB-9T-9Hb" secondAttribute="bottom" constant="10" id="K8S-ar-xf0"/>
-                                                        <constraint firstItem="jhH-2a-Qkk" firstAttribute="centerY" secondItem="7Sb-pG-Jd6" secondAttribute="centerY" id="RLC-fn-id5"/>
-                                                        <constraint firstItem="oEB-9T-9Hb" firstAttribute="top" secondItem="7Sb-pG-Jd6" secondAttribute="top" constant="9" id="XMN-c3-UeP"/>
-                                                        <constraint firstItem="oEB-9T-9Hb" firstAttribute="leading" secondItem="7Sb-pG-Jd6" secondAttribute="leadingMargin" id="XpK-Nr-aVl">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="38"/>
-                                                        </constraint>
-                                                        <constraint firstAttribute="height" constant="40" id="ekg-DZ-ATc"/>
-                                                        <constraint firstItem="oEB-9T-9Hb" firstAttribute="leading" secondItem="jhH-2a-Qkk" secondAttribute="trailing" constant="8" symbolic="YES" id="fY7-rb-N2h"/>
+                                                        <constraint firstItem="flJ-WL-7Wy" firstAttribute="leading" secondItem="lLv-mR-OTJ" secondAttribute="leading" constant="16" id="2Er-dv-Svk"/>
+                                                        <constraint firstItem="apb-o2-jE1" firstAttribute="top" secondItem="lLv-mR-OTJ" secondAttribute="top" id="8uK-sc-9lY"/>
+                                                        <constraint firstItem="EwO-Vf-sdO" firstAttribute="top" secondItem="apb-o2-jE1" secondAttribute="bottom" constant="8" symbolic="YES" id="Bir-g6-ry1"/>
+                                                        <constraint firstAttribute="trailing" secondItem="apb-o2-jE1" secondAttribute="trailing" id="G9K-Bo-Jma"/>
+                                                        <constraint firstItem="apb-o2-jE1" firstAttribute="leading" secondItem="lLv-mR-OTJ" secondAttribute="leading" id="GxM-pY-GCP"/>
+                                                        <constraint firstAttribute="bottom" secondItem="flJ-WL-7Wy" secondAttribute="bottom" constant="92" id="Jwh-ZJ-cne"/>
+                                                        <constraint firstItem="flJ-WL-7Wy" firstAttribute="centerX" secondItem="EwO-Vf-sdO" secondAttribute="centerX" id="QHB-gI-1PC"/>
+                                                        <constraint firstItem="EwO-Vf-sdO" firstAttribute="leading" secondItem="lLv-mR-OTJ" secondAttribute="leadingMargin" id="bm3-dw-0xd"/>
+                                                        <constraint firstItem="EwO-Vf-sdO" firstAttribute="bottom" secondItem="lLv-mR-OTJ" secondAttribute="bottomMargin" id="j32-mD-yEH"/>
+                                                        <constraint firstItem="flJ-WL-7Wy" firstAttribute="centerX" secondItem="apb-o2-jE1" secondAttribute="centerX" id="tuu-Lj-YmJ"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="subviews">
-                                                            <exclude reference="jhH-2a-Qkk"/>
-                                                            <exclude reference="oEB-9T-9Hb"/>
+                                                            <exclude reference="flJ-WL-7Wy"/>
+                                                            <exclude reference="apb-o2-jE1"/>
+                                                            <exclude reference="EwO-Vf-sdO"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <exclude reference="ekg-DZ-ATc"/>
-                                                            <exclude reference="93l-s9-yrL"/>
-                                                            <exclude reference="K8S-ar-xf0"/>
-                                                            <exclude reference="XMN-c3-UeP"/>
-                                                            <exclude reference="XpK-Nr-aVl"/>
-                                                            <exclude reference="fY7-rb-N2h"/>
-                                                            <exclude reference="RLC-fn-id5"/>
+                                                            <exclude reference="2Er-dv-Svk"/>
+                                                            <exclude reference="Jwh-ZJ-cne"/>
+                                                            <exclude reference="QHB-gI-1PC"/>
+                                                            <exclude reference="tuu-Lj-YmJ"/>
+                                                            <exclude reference="Bir-g6-ry1"/>
+                                                            <exclude reference="bm3-dw-0xd"/>
+                                                            <exclude reference="j32-mD-yEH"/>
+                                                            <exclude reference="8uK-sc-9lY"/>
+                                                            <exclude reference="G9K-Bo-Jma"/>
+                                                            <exclude reference="GxM-pY-GCP"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="subviews">
-                                                            <include reference="jhH-2a-Qkk"/>
-                                                            <include reference="oEB-9T-9Hb"/>
+                                                            <include reference="flJ-WL-7Wy"/>
+                                                            <include reference="apb-o2-jE1"/>
+                                                            <include reference="EwO-Vf-sdO"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <include reference="ekg-DZ-ATc"/>
-                                                            <include reference="93l-s9-yrL"/>
-                                                            <include reference="K8S-ar-xf0"/>
-                                                            <include reference="XMN-c3-UeP"/>
-                                                            <include reference="XpK-Nr-aVl"/>
-                                                            <include reference="fY7-rb-N2h"/>
-                                                            <include reference="RLC-fn-id5"/>
+                                                            <include reference="2Er-dv-Svk"/>
+                                                            <include reference="Jwh-ZJ-cne"/>
+                                                            <include reference="QHB-gI-1PC"/>
+                                                            <include reference="tuu-Lj-YmJ"/>
+                                                            <include reference="Bir-g6-ry1"/>
+                                                            <include reference="bm3-dw-0xd"/>
+                                                            <include reference="j32-mD-yEH"/>
+                                                            <include reference="8uK-sc-9lY"/>
+                                                            <include reference="G9K-Bo-Jma"/>
+                                                            <include reference="GxM-pY-GCP"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="7Sb-pG-Jd6" firstAttribute="top" secondItem="NH2-c1-M9t" secondAttribute="top" id="DLw-ON-iRP"/>
-                                                <constraint firstAttribute="trailing" secondItem="7Sb-pG-Jd6" secondAttribute="trailing" id="i2V-6J-fhN"/>
-                                                <constraint firstItem="7Sb-pG-Jd6" firstAttribute="leading" secondItem="NH2-c1-M9t" secondAttribute="leading" id="q1z-2T-6ig"/>
+                                                <constraint firstItem="lLv-mR-OTJ" firstAttribute="bottom" secondItem="dAU-dq-RGV" secondAttribute="bottomMargin" id="NA5-7z-NGR"/>
+                                                <constraint firstItem="lLv-mR-OTJ" firstAttribute="top" secondItem="dAU-dq-RGV" secondAttribute="topMargin" id="Qd7-W5-ldD"/>
+                                                <constraint firstItem="lLv-mR-OTJ" firstAttribute="leading" secondItem="dAU-dq-RGV" secondAttribute="leadingMargin" id="mlH-Qg-Vn2"/>
+                                                <constraint firstItem="lLv-mR-OTJ" firstAttribute="trailing" secondItem="dAU-dq-RGV" secondAttribute="trailingMargin" id="pEa-2r-ITC"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
-                                                    <exclude reference="7Sb-pG-Jd6"/>
+                                                    <exclude reference="lLv-mR-OTJ"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="DLw-ON-iRP"/>
-                                                    <exclude reference="i2V-6J-fhN"/>
-                                                    <exclude reference="q1z-2T-6ig"/>
+                                                    <exclude reference="NA5-7z-NGR"/>
+                                                    <exclude reference="Qd7-W5-ldD"/>
+                                                    <exclude reference="mlH-Qg-Vn2"/>
+                                                    <exclude reference="pEa-2r-ITC"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
-                                                    <include reference="7Sb-pG-Jd6"/>
+                                                    <include reference="lLv-mR-OTJ"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="DLw-ON-iRP"/>
-                                                    <include reference="i2V-6J-fhN"/>
-                                                    <include reference="q1z-2T-6ig"/>
+                                                    <include reference="NA5-7z-NGR"/>
+                                                    <include reference="Qd7-W5-ldD"/>
+                                                    <include reference="mlH-Qg-Vn2"/>
+                                                    <include reference="pEa-2r-ITC"/>
                                                 </mask>
                                             </variation>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="NH2-c1-M9t" firstAttribute="top" secondItem="pqY-Pt-r61" secondAttribute="topMargin" id="A45-S7-GXd"/>
-                                        <constraint firstItem="NH2-c1-M9t" firstAttribute="leading" secondItem="pqY-Pt-r61" secondAttribute="leadingMargin" id="BZ7-fA-P8Q"/>
-                                        <constraint firstItem="NH2-c1-M9t" firstAttribute="trailing" secondItem="pqY-Pt-r61" secondAttribute="trailingMargin" id="G84-VZ-OOP"/>
-                                        <constraint firstItem="NH2-c1-M9t" firstAttribute="bottom" secondItem="pqY-Pt-r61" secondAttribute="bottomMargin" id="SGZ-zb-UYv"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="subviews">
-                                            <exclude reference="NH2-c1-M9t"/>
-                                        </mask>
-                                        <mask key="constraints">
-                                            <exclude reference="A45-S7-GXd"/>
-                                            <exclude reference="BZ7-fA-P8Q"/>
-                                            <exclude reference="G84-VZ-OOP"/>
-                                            <exclude reference="SGZ-zb-UYv"/>
-                                        </mask>
-                                    </variation>
-                                    <variation key="heightClass=regular-widthClass=compact">
-                                        <mask key="subviews">
-                                            <include reference="NH2-c1-M9t"/>
-                                        </mask>
-                                        <mask key="constraints">
-                                            <include reference="A45-S7-GXd"/>
-                                            <include reference="BZ7-fA-P8Q"/>
-                                            <include reference="G84-VZ-OOP"/>
-                                            <include reference="SGZ-zb-UYv"/>
-                                        </mask>
-                                    </variation>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="headerView" destination="7Sb-pG-Jd6" id="rSv-dB-SO5"/>
-                                    <outlet property="mainView" destination="NH2-c1-M9t" id="qGF-pv-RhP"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="headerImageView" destination="LQM-r4-FOE" id="SOG-bf-jJa"/>
+                                            <outlet property="headerLabel" destination="ILk-cu-SVn" id="QA4-kH-Zma"/>
+                                            <outlet property="headerView" destination="apb-o2-jE1" id="yFS-Cg-KrY"/>
+                                            <outlet property="mainView" destination="lLv-mR-OTJ" id="LbB-Nd-HJ3"/>
+                                            <outlet property="progressDetailLabel" destination="flJ-WL-7Wy" id="1zr-Mg-CkF"/>
+                                            <outlet property="progressView" destination="EwO-Vf-sdO" id="eTp-cX-Cq7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCard" rowHeight="400" id="QbX-pB-xXn" customClass="HomeTextTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QbX-pB-xXn" id="pqY-Pt-r61">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NH2-c1-M9t">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Sb-pG-Jd6">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jhH-2a-Qkk">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="gkz-gv-c2p"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="ygG-43-pdA"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="gkz-gv-c2p"/>
+                                                                            <exclude reference="ygG-43-pdA"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                                        <mask key="constraints">
+                                                                            <include reference="gkz-gv-c2p"/>
+                                                                            <include reference="ygG-43-pdA"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Shoes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEB-9T-9Hb">
+                                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="oEB-9T-9Hb" firstAttribute="trailing" secondItem="7Sb-pG-Jd6" secondAttribute="trailingMargin" id="93l-s9-yrL"/>
+                                                                <constraint firstAttribute="bottom" secondItem="oEB-9T-9Hb" secondAttribute="bottom" constant="10" id="K8S-ar-xf0"/>
+                                                                <constraint firstItem="jhH-2a-Qkk" firstAttribute="centerY" secondItem="7Sb-pG-Jd6" secondAttribute="centerY" id="RLC-fn-id5"/>
+                                                                <constraint firstItem="oEB-9T-9Hb" firstAttribute="top" secondItem="7Sb-pG-Jd6" secondAttribute="top" constant="9" id="XMN-c3-UeP"/>
+                                                                <constraint firstItem="oEB-9T-9Hb" firstAttribute="leading" secondItem="7Sb-pG-Jd6" secondAttribute="leadingMargin" id="XpK-Nr-aVl">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="38"/>
+                                                                </constraint>
+                                                                <constraint firstAttribute="height" constant="40" id="ekg-DZ-ATc"/>
+                                                                <constraint firstItem="oEB-9T-9Hb" firstAttribute="leading" secondItem="jhH-2a-Qkk" secondAttribute="trailing" constant="8" symbolic="YES" id="fY7-rb-N2h"/>
+                                                            </constraints>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="jhH-2a-Qkk"/>
+                                                                    <exclude reference="oEB-9T-9Hb"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <exclude reference="ekg-DZ-ATc"/>
+                                                                    <exclude reference="93l-s9-yrL"/>
+                                                                    <exclude reference="K8S-ar-xf0"/>
+                                                                    <exclude reference="XMN-c3-UeP"/>
+                                                                    <exclude reference="XpK-Nr-aVl"/>
+                                                                    <exclude reference="fY7-rb-N2h"/>
+                                                                    <exclude reference="RLC-fn-id5"/>
+                                                                </mask>
+                                                            </variation>
+                                                            <variation key="heightClass=regular-widthClass=compact">
+                                                                <mask key="subviews">
+                                                                    <include reference="jhH-2a-Qkk"/>
+                                                                    <include reference="oEB-9T-9Hb"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <include reference="ekg-DZ-ATc"/>
+                                                                    <include reference="93l-s9-yrL"/>
+                                                                    <include reference="K8S-ar-xf0"/>
+                                                                    <include reference="XMN-c3-UeP"/>
+                                                                    <include reference="XpK-Nr-aVl"/>
+                                                                    <include reference="fY7-rb-N2h"/>
+                                                                    <include reference="RLC-fn-id5"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="7Sb-pG-Jd6" firstAttribute="top" secondItem="NH2-c1-M9t" secondAttribute="top" id="DLw-ON-iRP"/>
+                                                        <constraint firstAttribute="trailing" secondItem="7Sb-pG-Jd6" secondAttribute="trailing" id="i2V-6J-fhN"/>
+                                                        <constraint firstItem="7Sb-pG-Jd6" firstAttribute="leading" secondItem="NH2-c1-M9t" secondAttribute="leading" id="q1z-2T-6ig"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="subviews">
+                                                            <exclude reference="7Sb-pG-Jd6"/>
+                                                        </mask>
+                                                        <mask key="constraints">
+                                                            <exclude reference="DLw-ON-iRP"/>
+                                                            <exclude reference="i2V-6J-fhN"/>
+                                                            <exclude reference="q1z-2T-6ig"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="subviews">
+                                                            <include reference="7Sb-pG-Jd6"/>
+                                                        </mask>
+                                                        <mask key="constraints">
+                                                            <include reference="DLw-ON-iRP"/>
+                                                            <include reference="i2V-6J-fhN"/>
+                                                            <include reference="q1z-2T-6ig"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="NH2-c1-M9t" firstAttribute="top" secondItem="pqY-Pt-r61" secondAttribute="topMargin" id="A45-S7-GXd"/>
+                                                <constraint firstItem="NH2-c1-M9t" firstAttribute="leading" secondItem="pqY-Pt-r61" secondAttribute="leadingMargin" id="BZ7-fA-P8Q"/>
+                                                <constraint firstItem="NH2-c1-M9t" firstAttribute="trailing" secondItem="pqY-Pt-r61" secondAttribute="trailingMargin" id="G84-VZ-OOP"/>
+                                                <constraint firstItem="NH2-c1-M9t" firstAttribute="bottom" secondItem="pqY-Pt-r61" secondAttribute="bottomMargin" id="SGZ-zb-UYv"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="NH2-c1-M9t"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="A45-S7-GXd"/>
+                                                    <exclude reference="BZ7-fA-P8Q"/>
+                                                    <exclude reference="G84-VZ-OOP"/>
+                                                    <exclude reference="SGZ-zb-UYv"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="NH2-c1-M9t"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="A45-S7-GXd"/>
+                                                    <include reference="BZ7-fA-P8Q"/>
+                                                    <include reference="G84-VZ-OOP"/>
+                                                    <include reference="SGZ-zb-UYv"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="headerView" destination="7Sb-pG-Jd6" id="rSv-dB-SO5"/>
+                                            <outlet property="mainView" destination="NH2-c1-M9t" id="qGF-pv-RhP"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCard" rowHeight="400" id="frI-eY-5xI" customClass="HomeTextTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="frI-eY-5xI" id="ezj-LD-qNz">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06l-iH-8g3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXW-zT-JiH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ECH-8d-eb5">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="2mk-SD-cSa"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="BkR-Ds-UMH"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="2mk-SD-cSa"/>
+                                                                            <exclude reference="BkR-Ds-UMH"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                                        <mask key="constraints">
+                                                                            <include reference="2mk-SD-cSa"/>
+                                                                            <include reference="BkR-Ds-UMH"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal Bests" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNS-KR-gwd">
+                                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="ECH-8d-eb5" firstAttribute="centerY" secondItem="sXW-zT-JiH" secondAttribute="centerY" id="1g5-3M-4in"/>
+                                                                <constraint firstItem="qNS-KR-gwd" firstAttribute="leading" secondItem="ECH-8d-eb5" secondAttribute="trailing" constant="8" symbolic="YES" id="5xe-K5-XWJ"/>
+                                                                <constraint firstItem="qNS-KR-gwd" firstAttribute="leading" secondItem="sXW-zT-JiH" secondAttribute="leadingMargin" id="C3q-Mg-aY5">
+                                                                    <variation key="heightClass=regular-widthClass=compact" constant="38"/>
+                                                                </constraint>
+                                                                <constraint firstItem="qNS-KR-gwd" firstAttribute="top" secondItem="sXW-zT-JiH" secondAttribute="top" constant="9" id="Daa-j6-CiE"/>
+                                                                <constraint firstAttribute="height" constant="40" id="MTz-G5-4uM"/>
+                                                                <constraint firstAttribute="bottom" secondItem="qNS-KR-gwd" secondAttribute="bottom" constant="10" id="x9p-7a-PQ0"/>
+                                                                <constraint firstItem="qNS-KR-gwd" firstAttribute="trailing" secondItem="sXW-zT-JiH" secondAttribute="trailingMargin" id="zmp-Q5-97A"/>
+                                                            </constraints>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="ECH-8d-eb5"/>
+                                                                    <exclude reference="qNS-KR-gwd"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <exclude reference="MTz-G5-4uM"/>
+                                                                    <exclude reference="5xe-K5-XWJ"/>
+                                                                    <exclude reference="C3q-Mg-aY5"/>
+                                                                    <exclude reference="Daa-j6-CiE"/>
+                                                                    <exclude reference="x9p-7a-PQ0"/>
+                                                                    <exclude reference="zmp-Q5-97A"/>
+                                                                    <exclude reference="1g5-3M-4in"/>
+                                                                </mask>
+                                                            </variation>
+                                                            <variation key="heightClass=regular-widthClass=compact">
+                                                                <mask key="subviews">
+                                                                    <include reference="ECH-8d-eb5"/>
+                                                                    <include reference="qNS-KR-gwd"/>
+                                                                </mask>
+                                                                <mask key="constraints">
+                                                                    <include reference="MTz-G5-4uM"/>
+                                                                    <include reference="5xe-K5-XWJ"/>
+                                                                    <include reference="C3q-Mg-aY5"/>
+                                                                    <include reference="Daa-j6-CiE"/>
+                                                                    <include reference="x9p-7a-PQ0"/>
+                                                                    <include reference="zmp-Q5-97A"/>
+                                                                    <include reference="1g5-3M-4in"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="sXW-zT-JiH" firstAttribute="top" secondItem="06l-iH-8g3" secondAttribute="top" id="5NY-IY-R7k"/>
+                                                        <constraint firstAttribute="trailing" secondItem="sXW-zT-JiH" secondAttribute="trailing" id="CWS-gV-pd1"/>
+                                                        <constraint firstItem="sXW-zT-JiH" firstAttribute="leading" secondItem="06l-iH-8g3" secondAttribute="leading" id="ghS-oL-hu5"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="subviews">
+                                                            <exclude reference="sXW-zT-JiH"/>
+                                                        </mask>
+                                                        <mask key="constraints">
+                                                            <exclude reference="5NY-IY-R7k"/>
+                                                            <exclude reference="CWS-gV-pd1"/>
+                                                            <exclude reference="ghS-oL-hu5"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="subviews">
+                                                            <include reference="sXW-zT-JiH"/>
+                                                        </mask>
+                                                        <mask key="constraints">
+                                                            <include reference="5NY-IY-R7k"/>
+                                                            <include reference="CWS-gV-pd1"/>
+                                                            <include reference="ghS-oL-hu5"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="06l-iH-8g3" firstAttribute="trailing" secondItem="ezj-LD-qNz" secondAttribute="trailingMargin" id="07o-0A-vzy"/>
+                                                <constraint firstItem="06l-iH-8g3" firstAttribute="top" secondItem="ezj-LD-qNz" secondAttribute="topMargin" id="BQM-T9-RAA"/>
+                                                <constraint firstItem="06l-iH-8g3" firstAttribute="leading" secondItem="ezj-LD-qNz" secondAttribute="leadingMargin" id="Q34-DA-MW8"/>
+                                                <constraint firstItem="06l-iH-8g3" firstAttribute="bottom" secondItem="ezj-LD-qNz" secondAttribute="bottomMargin" id="Y1h-9h-8yE"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="06l-iH-8g3"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="07o-0A-vzy"/>
+                                                    <exclude reference="BQM-T9-RAA"/>
+                                                    <exclude reference="Q34-DA-MW8"/>
+                                                    <exclude reference="Y1h-9h-8yE"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="06l-iH-8g3"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="07o-0A-vzy"/>
+                                                    <include reference="BQM-T9-RAA"/>
+                                                    <include reference="Q34-DA-MW8"/>
+                                                    <include reference="Y1h-9h-8yE"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="headerView" destination="sXW-zT-JiH" id="204-rX-hdf"/>
+                                            <outlet property="mainView" destination="06l-iH-8g3" id="tIw-51-whQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="KFg-AP-o0e" id="DMd-Oh-Eu0"/>
                             <outlet property="delegate" destination="KFg-AP-o0e" id="AxN-cz-xzd"/>
@@ -4274,13 +4874,27 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="QQC-YZ-gGD">
                                                     <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="4fQ-kN-7OZ"/>
+                                                    </constraints>
                                                     <date key="date" timeIntervalSinceReferenceDate="446494616.28639901">
                                                         <!--2015-02-24 18:16:56 +0000-->
                                                     </date>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="4fQ-kN-7OZ"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="4fQ-kN-7OZ"/>
+                                                        </mask>
+                                                    </variation>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="QQC-YZ-gGD" firstAttribute="top" secondItem="2j8-GS-Ytb" secondAttribute="topMargin" constant="1" id="3ek-GU-Pu4"/>
+                                                <constraint firstAttribute="centerY" secondItem="QQC-YZ-gGD" secondAttribute="centerY" id="6jw-Bp-EAc"/>
                                                 <constraint firstItem="QQC-YZ-gGD" firstAttribute="bottom" secondItem="2j8-GS-Ytb" secondAttribute="bottomMargin" id="QLz-nY-sQz"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="QQC-YZ-gGD" secondAttribute="trailing" constant="-8" id="ajg-Tj-7K4"/>
                                                 <constraint firstItem="QQC-YZ-gGD" firstAttribute="leading" secondItem="2j8-GS-Ytb" secondAttribute="leadingMargin" constant="-8" id="ra6-s4-UZn"/>
@@ -4291,6 +4905,7 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="3ek-GU-Pu4"/>
+                                                    <exclude reference="6jw-Bp-EAc"/>
                                                     <exclude reference="QLz-nY-sQz"/>
                                                     <exclude reference="ajg-Tj-7K4"/>
                                                     <exclude reference="ra6-s4-UZn"/>
@@ -4301,8 +4916,9 @@
                                                     <include reference="QQC-YZ-gGD"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="3ek-GU-Pu4"/>
-                                                    <include reference="QLz-nY-sQz"/>
+                                                    <exclude reference="3ek-GU-Pu4"/>
+                                                    <include reference="6jw-Bp-EAc"/>
+                                                    <exclude reference="QLz-nY-sQz"/>
                                                     <include reference="ajg-Tj-7K4"/>
                                                     <include reference="ra6-s4-UZn"/>
                                                 </mask>
@@ -4342,6 +4958,19 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRt-eF-aEs" customClass="DistancePicker" customModule="CG4_Coursework" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="H7O-UC-YET"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="H7O-UC-YET"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="H7O-UC-YET"/>
+                                                        </mask>
+                                                    </variation>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
@@ -4349,6 +4978,7 @@
                                                 <constraint firstItem="PRt-eF-aEs" firstAttribute="bottom" secondItem="SOB-on-mha" secondAttribute="bottomMargin" id="G2X-sv-ak1"/>
                                                 <constraint firstItem="PRt-eF-aEs" firstAttribute="leading" secondItem="SOB-on-mha" secondAttribute="leadingMargin" constant="-8" id="Gz5-y8-U2U"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="PRt-eF-aEs" secondAttribute="trailing" constant="-8" id="ThL-jT-Q5c"/>
+                                                <constraint firstAttribute="centerY" secondItem="PRt-eF-aEs" secondAttribute="centerY" id="UTQ-he-zfC"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -4359,6 +4989,7 @@
                                                     <exclude reference="G2X-sv-ak1"/>
                                                     <exclude reference="Gz5-y8-U2U"/>
                                                     <exclude reference="ThL-jT-Q5c"/>
+                                                    <exclude reference="UTQ-he-zfC"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -4366,10 +4997,11 @@
                                                     <include reference="PRt-eF-aEs"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="6Ge-Hc-imn"/>
-                                                    <include reference="G2X-sv-ak1"/>
+                                                    <exclude reference="6Ge-Hc-imn"/>
+                                                    <exclude reference="G2X-sv-ak1"/>
                                                     <include reference="Gz5-y8-U2U"/>
                                                     <include reference="ThL-jT-Q5c"/>
+                                                    <include reference="UTQ-he-zfC"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4407,10 +5039,24 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsV-az-Z7v" customClass="PacePicker" customModule="CG4_Coursework" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="UQO-tE-jhc"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="UQO-tE-jhc"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="UQO-tE-jhc"/>
+                                                        </mask>
+                                                    </variation>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wsV-az-Z7v" firstAttribute="leading" secondItem="6cF-VN-U2W" secondAttribute="leadingMargin" constant="-8" id="G2a-8I-dJQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="wsV-az-Z7v" secondAttribute="centerY" id="bip-xG-pkv"/>
                                                 <constraint firstItem="wsV-az-Z7v" firstAttribute="top" secondItem="6cF-VN-U2W" secondAttribute="topMargin" constant="1" id="cjn-WC-2Db"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="wsV-az-Z7v" secondAttribute="bottom" constant="-0.5" id="jcZ-WE-c9Q"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="wsV-az-Z7v" secondAttribute="trailing" constant="-8" id="mju-rr-D8i"/>
@@ -4421,6 +5067,7 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="G2a-8I-dJQ"/>
+                                                    <exclude reference="bip-xG-pkv"/>
                                                     <exclude reference="cjn-WC-2Db"/>
                                                     <exclude reference="jcZ-WE-c9Q"/>
                                                     <exclude reference="mju-rr-D8i"/>
@@ -4432,8 +5079,9 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="G2a-8I-dJQ"/>
-                                                    <include reference="cjn-WC-2Db"/>
-                                                    <include reference="jcZ-WE-c9Q"/>
+                                                    <include reference="bip-xG-pkv"/>
+                                                    <exclude reference="cjn-WC-2Db"/>
+                                                    <exclude reference="jcZ-WE-c9Q"/>
                                                     <include reference="mju-rr-D8i"/>
                                                 </mask>
                                             </variation>
@@ -4472,6 +5120,19 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-bL-cK3" customClass="DurationPicker" customModule="CG4_Coursework" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="ef5-cp-h3L"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="ef5-cp-h3L"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="ef5-cp-h3L"/>
+                                                        </mask>
+                                                    </variation>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
@@ -4479,6 +5140,7 @@
                                                 <constraint firstItem="0b2-bL-cK3" firstAttribute="top" secondItem="PKd-H9-n2N" secondAttribute="topMargin" constant="1" id="fmY-JE-Tsv"/>
                                                 <constraint firstItem="0b2-bL-cK3" firstAttribute="leading" secondItem="PKd-H9-n2N" secondAttribute="leadingMargin" constant="-8" id="rNJ-Y0-IRV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="0b2-bL-cK3" secondAttribute="bottom" constant="-0.5" id="vKm-kJ-8bt"/>
+                                                <constraint firstAttribute="centerY" secondItem="0b2-bL-cK3" secondAttribute="centerY" id="wiJ-nh-EzC"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -4489,6 +5151,7 @@
                                                     <exclude reference="fmY-JE-Tsv"/>
                                                     <exclude reference="rNJ-Y0-IRV"/>
                                                     <exclude reference="vKm-kJ-8bt"/>
+                                                    <exclude reference="wiJ-nh-EzC"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -4497,9 +5160,10 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="2bi-ey-mvg"/>
-                                                    <include reference="fmY-JE-Tsv"/>
+                                                    <exclude reference="fmY-JE-Tsv"/>
                                                     <include reference="rNJ-Y0-IRV"/>
-                                                    <include reference="vKm-kJ-8bt"/>
+                                                    <exclude reference="vKm-kJ-8bt"/>
+                                                    <include reference="wiJ-nh-EzC"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4535,12 +5199,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CXb-eo-QH1" id="xW8-Ql-lhC">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-mF-DGP">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-mF-DGP" customClass="ShoePicker" customModule="CG4_Coursework" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="162" id="aIC-77-3fx"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="aIC-77-3fx"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="aIC-77-3fx"/>
+                                                        </mask>
+                                                    </variation>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="nuW-mF-DGP" firstAttribute="leading" secondItem="xW8-Ql-lhC" secondAttribute="leadingMargin" constant="-8" id="0F0-Lo-gqt"/>
+                                                <constraint firstAttribute="centerY" secondItem="nuW-mF-DGP" secondAttribute="centerY" id="Dd9-2c-cKw"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="nuW-mF-DGP" secondAttribute="trailing" constant="-8" id="Ee1-y0-8rB"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="nuW-mF-DGP" secondAttribute="bottom" constant="-0.5" id="NyE-8P-gyM"/>
                                                 <constraint firstItem="nuW-mF-DGP" firstAttribute="top" secondItem="xW8-Ql-lhC" secondAttribute="topMargin" constant="1" id="dEZ-WA-paV"/>
@@ -4551,6 +5229,7 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="0F0-Lo-gqt"/>
+                                                    <exclude reference="Dd9-2c-cKw"/>
                                                     <exclude reference="Ee1-y0-8rB"/>
                                                     <exclude reference="NyE-8P-gyM"/>
                                                     <exclude reference="dEZ-WA-paV"/>
@@ -4562,9 +5241,10 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="0F0-Lo-gqt"/>
+                                                    <include reference="Dd9-2c-cKw"/>
                                                     <include reference="Ee1-y0-8rB"/>
-                                                    <include reference="NyE-8P-gyM"/>
-                                                    <include reference="dEZ-WA-paV"/>
+                                                    <exclude reference="NyE-8P-gyM"/>
+                                                    <exclude reference="dEZ-WA-paV"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4801,11 +5481,11 @@
                                     <action selector="calorieStepperValueChanged:" destination="QK3-Cd-usH" eventType="valueChanged" id="ZKC-Oe-03e"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calorie Goal:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tD7-R5-ZTt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calorie Goal (kCal):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tD7-R5-ZTt">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="H0u-GI-6n9"/>
-                                    <constraint firstAttribute="width" constant="100" id="OVr-xu-61I"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="148" id="fVW-QX-FBV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4813,13 +5493,13 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="H0u-GI-6n9"/>
-                                        <exclude reference="OVr-xu-61I"/>
+                                        <exclude reference="fVW-QX-FBV"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="H0u-GI-6n9"/>
-                                        <include reference="OVr-xu-61I"/>
+                                        <include reference="fVW-QX-FBV"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -5214,8 +5894,8 @@
         <image name="noTrophyImage90px" width="180" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bsH-SD-FIg"/>
         <segue reference="gOP-y7-gl8"/>
-        <segue reference="DBo-6W-Tg1"/>
         <segue reference="mLJ-aW-w2Z"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

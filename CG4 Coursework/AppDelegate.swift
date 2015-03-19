@@ -16,10 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.x
         
+        /*
+        if (UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8 {
+            UITableView.appearance().layoutMargins = UIEdgeInsetsZero
+            UITableViewCell.appearance().layoutMargins = UIEdgeInsetsZero
+            UITableViewCell.appearance().preservesSuperviewLayoutMargins = false
+        }
+        */
+        
         return true
     }
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        
+        println(url)
         
         StravaAuth().checkReturnURL(url)
         

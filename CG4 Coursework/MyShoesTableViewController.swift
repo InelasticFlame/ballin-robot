@@ -9,7 +9,7 @@
 import UIKit
 
 class MyShoesTableViewController: UITableViewController {
-
+    
     //MARK: - Global Variables
     
     private var shoes = [Shoe]()
@@ -22,7 +22,7 @@ class MyShoesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         shoes = Database().loadAllShoes() as [Shoe]
         
         tableView.reloadData()
@@ -48,16 +48,18 @@ class MyShoesTableViewController: UITableViewController {
             
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("shoeCell", forIndexPath: indexPath) as UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("shoeCell", forIndexPath: indexPath) as ShoeTableViewCell
             
-            cell.textLabel?.text = shoes[indexPath.row].name
-            cell.detailTextLabel?.text = Conversions().distanceForInterface(shoes[indexPath.row].miles)
+            let shoe = shoes[indexPath.row]
             
-            let shoeImage = shoes[indexPath.row].loadImage()
+            cell.shoeNameLabel.text = shoe.name
+            cell.shoeMilesLabel.text = Conversions().distanceForInterface(shoe.miles)
+            
+            let shoeImage = shoe.loadImage()
             
             if shoeImage != nil {
                 println("Shoe has image")
-                cell.imageView?.image = shoeImage
+                cell.shoeImageView.image = shoeImage
             }
             
             return cell
@@ -72,6 +74,9 @@ class MyShoesTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)

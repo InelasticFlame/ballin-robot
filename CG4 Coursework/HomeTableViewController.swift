@@ -11,13 +11,11 @@ import UIKit
 class HomeTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as HomeProgressTableViewCell
-        cell.setUpCell()
         
         if !NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) {
             let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
-            let newVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController
-            self.presentViewController(newVC, animated: true, completion: nil)
+            let setupVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController
+            self.presentViewController(setupVC, animated: true, completion: nil)
         }
     }
     
@@ -31,6 +29,8 @@ class HomeTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    /**
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -111,4 +111,5 @@ class HomeTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
+    */
 }

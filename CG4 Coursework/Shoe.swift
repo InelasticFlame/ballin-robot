@@ -41,7 +41,7 @@ class Shoe: NSObject {
     func loadImage() -> UIImage? {
         if let imageName = self.imageName { //1
             let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String //a
-            let imagePath = path.stringByAppendingPathComponent("\(self.imageName).png") //b
+            let imagePath = path.stringByAppendingPathComponent("\(imageName).png") //b
             
             let shoeImage = UIImage(contentsOfFile: imagePath) //c
             

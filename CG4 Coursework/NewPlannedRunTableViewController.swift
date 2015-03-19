@@ -33,9 +33,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         plannedRunDate.minimumDate = plan?.startDate //Prevents a user from planning a run before the plan begins
         plannedRunDate.maximumDate = plan?.endDate //Prevents a user from planning a run after the plan ends
         
-        runDateDetailLabel.text = plannedRunDate.date.shortDateString()
         updateDetailLabels()
         
+        plannedRunDate.addTarget(self, action: "updateDetailLabels", forControlEvents: .ValueChanged)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels", name: "UpdateDetailLabel", object: nil)
     }
 
@@ -45,6 +45,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     }
     
     func updateDetailLabels() {
+        runDateDetailLabel.text = plannedRunDate.date.shortDateString()
         if distanceDurationSegement.selectedSegmentIndex == 0 {
             runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr
         } else if distanceDurationSegement.selectedSegmentIndex == 1 {
@@ -125,11 +126,12 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "repeatPress" {
             if let destinationVC = segue.destinationViewController as? RepeatsTableViewController {
-                destinationVC.setSelectedRepeatOption(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text?)
+                destinationVC.repeatOption = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text?
             }
         } else if segue.identifier == "repeatEndDatePress" {
             if let destinationVC = segue.destinationViewController as? RepeatSettingsTableViewController {
                 destinationVC.repeatEnd = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text?
+                destinationVC.plannedRunDate = plannedRunDate.date
             }
         }
         
@@ -216,7 +218,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             }
             self.navigationController!.popViewControllerAnimated(true)
         } else {
-            println(error) //Handle validation error
+            println(error) //Handle validation erro
         }
     }
 }

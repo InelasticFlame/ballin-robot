@@ -10,9 +10,13 @@ import UIKit
 
 class WeightProgressBar: UIView {
 
+    //MARK: - Global Variables
+    
     private var currentWeight: CGFloat = 0.0
     private var goalWeight: CGFloat = 0.0
 
+    //MARK: - Initialisation
+    
     init(currentWeight: CGFloat, goalWeight: CGFloat, frame: CGRect) {
         self.currentWeight = currentWeight
         self.goalWeight = goalWeight
@@ -24,17 +28,15 @@ class WeightProgressBar: UIView {
         super.init(coder: aDecoder)
     }
     
+    //MARK: - Bar Drawing
+    
     override func drawRect(rect: CGRect) {
-        drawBarProgressBar(rect)
-    }
-
-    func drawBarProgressBar(rect: CGRect) {
         let barWidth = rect.size.width - 40 //add some padding to the bar
         let barHeight = rect.size.height - 20
         let pxPerKg = (barWidth/2) / goalWeight
         let fullBarRectPath = UIBezierPath(rect: CGRect(x: 20, y: 10, width: barWidth, height: barHeight))
         let progressBarRectPath = UIBezierPath(rect: CGRect(x: 20, y: 10, width: CGFloat(Int(currentWeight * pxPerKg)), height: barHeight))
-        //Round to an integer value (this ensures crispness) but the function accepts only CGFloats so cast the int back to a CGFloat
+        //Round to an integer value (this ensures no pixel bluring to make it look like half a pixel filled) but the function accepts only CGFloats so cast the int back to a CGFloat
         
         let fullBarLayer = CAShapeLayer()
         fullBarLayer.path = fullBarRectPath.CGPath
@@ -55,7 +57,7 @@ class WeightProgressBar: UIView {
         goalMarkerLayer.lineWidth = 1
         goalMarkerLayer.strokeColor = UIColor.blackColor().CGColor
         self.layer.addSublayer(goalMarkerLayer)
-
+        
         let goalString = NSString(format: "Goal: %1.2f kg", Double(goalWeight))
         let goalStringSize = goalString.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(12.0)])
         
@@ -69,7 +71,7 @@ class WeightProgressBar: UIView {
         goalTextLayer.position.y = (rect.size.height)
         goalTextLayer.contentsScale = UIScreen.mainScreen().scale
         self.layer.addSublayer(goalTextLayer)
-
+        
         let weightTextString = NSString(format: "Weight: %1.2f kg", Double(currentWeight))
         let weightTextSize = weightTextString.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)])
         
@@ -82,6 +84,5 @@ class WeightProgressBar: UIView {
         weightTextLayer.position.y = (rect.size.height / 2)
         weightTextLayer.contentsScale = UIScreen.mainScreen().scale
         self.layer.addSublayer(weightTextLayer)
-        
     }
 }

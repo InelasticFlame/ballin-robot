@@ -43,15 +43,7 @@ class RunsTableViewController: UITableViewController {
     This method reloads the data in the table when the view is about to appear, this ensures that the table is always up to date after further navigation through the app (the view is not reloaded fully each time)
     1. Loads all the runs from the database, storing them in the global array of Run objects, runs
     2. Reloads the tableView
-    3. IF there are no runs
-        a. Creates a new label that is the size of the screen
-        b. Sets the text of the label
-        c. Sets the text colour to dark gray
-        d. Sets the number of lines to 0; this tells the label to use as many lines as needed to fit all the text on
-        e. Sets the text to align center
-        f. Sets the font to the system font of size 16
-        g. Sizes the label to fix the view
-        h. Sets the background of the table view to the created label
+    3. Calls the function checkNoRunsLabel
     */
     override func viewWillAppear(animated: Bool) {
         self.tableView.backgroundView = nil
@@ -59,16 +51,37 @@ class RunsTableViewController: UITableViewController {
         self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
         tableView.reloadData() //2
         
-        if runs.count == 0 { //3
+        checkNoRunsLabel() //3
+    }
+    
+    /**
+    1. IF there are no runs
+        a. Creates a new label that is the size of the screen
+        b. Sets the text of the label
+        c. Sets the text colour to dark gray
+        d. Sets the number of lines to 0; this tells the label to use as many lines as needed to fit all the text on
+        e. Sets the text to align center
+        f. Sets the font to the system font of size 16
+        g. Sizes the label to fix the view
+        h. Removes the seperators from the table view
+        i. Sets the background of the table view to the created label
+    2. ELSE removes the background view (if there is one) and sets the seperator style to single line
+    */
+    func checkNoRunsLabel() {
+        if runs.count == 0 { //1
             let noRunsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)) //a
-            noRunsLabel.text = "No runs availible. Either add a run manually or pull down the table to refresh if a Strava Account is linked." //b
+            noRunsLabel.text = "No runs available. Either add a run manually or pull down the table to refresh if a Strava Account is linked." //b
             noRunsLabel.textColor = UIColor.darkGrayColor() //c
             noRunsLabel.numberOfLines = 0 //d
             noRunsLabel.textAlignment = .Center //e
             noRunsLabel.font = UIFont(name: "System", size: 16) //f
             noRunsLabel.sizeToFit() //g
+            self.tableView.separatorStyle = .None //h
             
-            self.tableView.backgroundView = noRunsLabel //h
+            self.tableView.backgroundView = noRunsLabel //i
+        } else { //2
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .SingleLine
         }
     }
     
@@ -150,6 +163,7 @@ class RunsTableViewController: UITableViewController {
             b. Calls the function deleteRunWithID from the Database class, IF it is successful
                 i. Remove the run from the array of runs
                ii. Delete the row from the table view
+              iii. Calls the function checkNoRunsLabel
     */
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete { //1
@@ -157,6 +171,7 @@ class RunsTableViewController: UITableViewController {
             if Database().deleteRunWithID(run) { //b
                 self.runs.removeAtIndex(indexPath.row) //i
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+                checkNoRunsLabel() //iii
             }
         }
     }

@@ -290,3 +290,12 @@ extension HKHealthStore {
         self.executeQuery(query) //3
     }
 }
+
+extension UITableView {
+    
+    func reloadTableViewCells() {
+        self.beginUpdates()
+        self.reloadData()
+        self.endUpdates()
+    }
+}

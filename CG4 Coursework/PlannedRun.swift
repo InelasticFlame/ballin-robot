@@ -76,19 +76,19 @@ class PlannedRun: NSObject {
         
         for run: Run in matchingRuns { //4
             if rank < 2 { //a
-                if run.distance >= self.distance { //i
+                if run.distance >= self.distance && self.distance != 0 { //i
                     rank = 2 //Y
                     matchingRun = run //Z
-                } else if run.duration >= self.duration { //ii
+                } else if run.duration >= self.duration && self.duration != 0 { //ii
                     rank = 2 //Y
                     matchingRun = run //Z
                 }
             }
             if rank < 1 { //b
-                if run.distance >= (self.distance * 0.5) { //i
+                if run.distance >= (self.distance * 0.5) && self.distance != 0 { //i
                     rank = 1 //Y
                     matchingRun = run //Z
-                } else if run.duration >= Int(Double(self.duration) * 0.5) { //ii
+                } else if run.duration >= Int(Double(self.duration) * 0.5) && self.duration != 0 { //ii
                     rank = 1 //Y
                     matchingRun = run //Z
                 }

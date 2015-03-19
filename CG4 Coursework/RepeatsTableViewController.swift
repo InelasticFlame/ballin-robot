@@ -10,27 +10,48 @@ import UIKit
 
 class RepeatsTableViewController: UITableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+    //MARK: - Global Variables
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        clearCheckmarks()
-        
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    var repeatOption: String? //A global string variable that stores the selected repeat option (if one has been previously set). This value is set by the NewPlannedRunTableView controller when the segue to this view is called.
+    
+    //MARK: - View Life Cycle
+    
+    /**
+    This method is called by the system whenever the view is about to appear on screen. It calls the function setSelectedRepeatOption (this is used to set up the view if a user has previously set a repeat option)
+    */
+    override func viewWillAppear(animated: Bool) {
+        setSelectedRepeatOption()
+    }
 
-        if let viewControllers = self.navigationController?.viewControllers.count {
+    //MARK: - Table View Data Source
+    
+    /**
+    This function is called by the system whenever a user selects a row in the table view. 
+    1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the seleccted option)
+    2. Sets the accessory of the cell selected to a Checkmark
+    3. Deselects the cell that was just selected animating the process
+    4. IF the current number of view controllers can be counted
+        a. IF the previousViewController is a NewPlannedRunTableViewController (the previous view controller will be the one at the index that is 2 less than the count (since counts start from 1 and indexes start at 0))
+            i. IF the text of the selected cell can be retrieved
+                ii. Call the function setRepeatDetailLabelText on the previous view controller passing the text of the selected cell
+    5. Dismiss the current view controller and animate the transition
+    */
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        clearCheckmarks() //1
+        
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark //2
+        tableView.deselectRowAtIndexPath(indexPath, animated: true) //3
+
+        if let viewControllersCount = self.navigationController?.viewControllers.count { //4
             
-            if let previousVC = self.navigationController?.viewControllers[viewControllers - 2] as? NewPlannedRunTableViewController {
-                if let selectedRepeatOption = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text {
-                    previousVC.setRepeatDetailLabelText(selectedRepeatOption)
+            if let previousVC = self.navigationController?.viewControllers[viewControllersCount - 2] as? NewPlannedRunTableViewController { //a
+                if let selectedRepeatOption = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text { //i
+                    previousVC.setRepeatDetailLabelText(selectedRepeatOption) //ii
                 }
             }
         }
         
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true) //5
     }
     
     /**
@@ -56,15 +77,21 @@ class RepeatsTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
-    func setSelectedRepeatOption(repeatOption: String?) {
+    /**
+    This method is called when the view loads. It sets up the view with the last selected repeatOption
+    1. Retrieve the number of rows in the fist section
+    2. FOR each cell in the first section
+        a. IF the cell can be retrieved
+            i. IF the text of the cell's text label is the same as the repeatOption
+                ii. Set the accessory of the cell to a Checkmark
+    */
+    func setSelectedRepeatOption() {
         
-        //Fix this: - Check that table view is loaded before running this method
-        
-        let rowCount = tableView.numberOfRowsInSection(0)
-        for var i = 0; i < rowCount; i++ {
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) {
-                if cell.textLabel?.text == repeatOption {
-                    cell.accessoryType = .Checkmark
+        let rowCount = tableView.numberOfRowsInSection(0) //1
+        for var i = 0; i < rowCount; i++ { //2
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) { //a
+                if cell.textLabel?.text == repeatOption { //i
+                    cell.accessoryType = .Checkmark //ii
                 }
             }
         }

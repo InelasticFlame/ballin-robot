@@ -25,7 +25,6 @@ class Plan: NSObject {
     Called to initialise the class, sets the properties of the Shoe to the passed values.
     1. Calls the local function checkIfActive
     2. Calls the local function loadPlannedRuns
-    3. Sorts the plannedRuns into date order (newest plans at the lowest index)
     */
     init(ID: Int, name: String, startDate: NSDate, endDate: NSDate) {
         self.ID = ID
@@ -36,7 +35,6 @@ class Plan: NSObject {
         super.init()
         self.checkIfActive() //1
         self.loadPlannedRuns() //2
-        self.plannedRuns = Conversions().sortPlansIntoDateOrder(plannedRuns: self.plannedRuns) //3
     }
     
     /**
@@ -59,9 +57,11 @@ class Plan: NSObject {
     }
     
     /**
-    Loads the plannedRuns using the loadPlannedRunsForPlan method from the Database, setting the return as an array of PlannedRun objects
+    1. Loads the plannedRuns using the loadPlannedRunsForPlan method from the Database, setting the return as an array of PlannedRun objects
+    2. Sorts the plannedRuns into date order (newest plans at the lowest index)
     */
     func loadPlannedRuns() {
-        plannedRuns = Database().loadPlannedRunsForPlan(self) as [PlannedRun]
+        plannedRuns = Database().loadPlannedRunsForPlan(self) as [PlannedRun] //1
+        self.plannedRuns = Conversions().sortPlansIntoDateOrder(plannedRuns: self.plannedRuns) //2
     }
 }

@@ -9,9 +9,14 @@
 import UIKit
 
 class ProgressBar: UIView {
+    
+    //MARK: - Global Variables
+    
     private let startAngle = CGFloat(M_PI)
     private let endAngle = CGFloat(M_PI * 2)
     private var progress: CGFloat = 0.0
+    
+    //MARK: - Initialisation
     
     init(progress: CGFloat, frame: CGRect) {
         self.progress = progress
@@ -22,6 +27,8 @@ class ProgressBar: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    //MARK: - Bar Drawing
     
     override func drawRect(rect: CGRect) {
         let arcRadius = (rect.size.height*11) / 16

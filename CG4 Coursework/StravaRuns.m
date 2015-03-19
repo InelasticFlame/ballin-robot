@@ -46,6 +46,8 @@
             
             NSMutableArray *CLCoords = [[NSMutableArray alloc] init];
             NSArray *polylinePoints = [StravaMap decodePolyline:activity.map.summaryPolyline];
+            
+            
             for (NSValue *coord in polylinePoints) {
                 CLLocation *coordinate = [[CLLocation alloc] initWithLatitude:[coord MKCoordinateValue].latitude longitude:[coord MKCoordinateValue].longitude];
                 [CLCoords addObject:coordinate];
@@ -62,8 +64,11 @@
         for (Run *run in runs) {
             [[FRDStravaClient sharedInstance] fetchLapsForActivity:run.ID success:^(NSArray *laps){
                 for (StravaActivityLap *lap in laps) {
-                    NSInteger lapPace = [[[Conversions alloc] init] metresPerSecondToSecondsPerMile:lap.averageSpeed];
-                    [run addSplit:lapPace];
+                    
+                    double lapPace = lap.movingTime;
+                    if (lap.distance == 1609.35) {
+                        [run addSplit:lapPace];
+                    }
                 }
                 [[Database init] saveRun:run];
                 _runsLoaded ++;

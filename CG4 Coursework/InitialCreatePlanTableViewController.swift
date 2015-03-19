@@ -26,9 +26,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     private var editingEndDate = false
     private var showNameWarning = false
     
-    private let pickerRowHeight: CGFloat = 162 //A constant GCFloat that stores the height of a cell that contains a picker view
-    private let defaultRowHeight: CGFloat = 44 //A constant CGFloat that stores the default height for a cell
-    
     //MARK: - View Life Cycle
     
     /**
@@ -104,26 +101,26 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         if indexPath.section == 1 {
             if indexPath.row == 1 {
                 if editingStartDate {
-                    return pickerRowHeight
+                    return Constants.TableView.PickerRowHeight
                 } else {
                     return 0
                 }
             } else if indexPath.row == 3 {
                 if editingEndDate {
-                    return pickerRowHeight
+                    return Constants.TableView.PickerRowHeight
                 } else {
                     return 0
                 }
             }
         } else if indexPath.section == 0 && indexPath.row == 1 {
             if showNameWarning {
-                return defaultRowHeight
+                return Constants.TableView.DefaultRowHeight
             } else {
                 return 0
             }
         }
         
-        return defaultRowHeight
+        return Constants.TableView.DefaultRowHeight
     }
     
     /**

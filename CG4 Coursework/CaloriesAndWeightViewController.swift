@@ -23,6 +23,7 @@ class CaloriesAndWeightViewController: UIViewController {
     @IBOutlet weak var calorieSummaryLabel: UILabel!
     @IBOutlet weak var eatenCaloriesLabel: UILabel!
     @IBOutlet weak var burntCaloriesLabel: UILabel!
+    @IBOutlet weak var weightErrorLabel: UILabel!
     
     //MARK: - Global Variables
     
@@ -33,30 +34,33 @@ class CaloriesAndWeightViewController: UIViewController {
     private var caloriesBurnt: Double = 0.0
     private var caloriesConsumed: Double = 0.0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(animated: Bool) {
+        weightErrorLabel.hidden = true
         setDateLabel()
         requestAuthorisationForHealthKitAccess()
     }
     
-    override func viewDidAppear(animated: Bool) {
-    }
-    
     func addWeightProgressBar() {
-        //Clear any existing progress bar
-        for view in weightProgressBarView.subviews as [UIView] {
-            view.removeFromSuperview()
-        }
-        
-        let frame = CGRect(x: 0, y: 0, width: self.weightProgressBarView.frame.width, height: self.weightProgressBarView.frame.height)
-        
-        let goalWeight = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Weight.GoalKey)
-        
-        let progressBar = WeightProgressBar(currentWeight: CGFloat(currentWeight), goalWeight: CGFloat(goalWeight), frame: frame)
-        self.weightProgressBarView.addSubview(progressBar)
+        println(currentWeight)
+            //Clear any existing progress bar
+            for view in weightProgressBarView.subviews as [UIView] {
+                view.removeFromSuperview()
+            }
+            
+            let frame = CGRect(x: 0, y: 0, width: self.weightProgressBarView.frame.width, height: self.weightProgressBarView.frame.height)
+            
+            let goalWeight = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Weight.GoalKey)
+            
+            let progressBar = WeightProgressBar(currentWeight: CGFloat(currentWeight), goalWeight: CGFloat(goalWeight), frame: frame)
+            self.weightProgressBarView.addSubview(progressBar)
     }
 
+    func hideWeightProgress(message: String) {
+        self.weightHistoryButton.hidden = true
+        weightErrorLabel.hidden = false
+        weightErrorLabel.text = message
+    }
+    
     func addCalorieProgressBar() {
         for view in caloriesProgressBarView.subviews as [UIView] {
             view.removeFromSuperview()
@@ -106,7 +110,10 @@ class CaloriesAndWeightViewController: UIViewController {
         self.healthStore.retrieveMostRecentSample(weightQuantity, predicate: predicate) { (currentWeight, error) -> Void in
             /* BLOCK START */
             if (error != nil) {
-                println("Error Reading From HealthKit Datastore: \(error.localizedDescription)")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.hideWeightProgress("Unable to get weight data.")
+                    println("Error Reading From HealthKit Datastore: \(error.localizedDescription)")
+                })
             }
             
             if let weight = currentWeight as? HKQuantitySample {
@@ -118,6 +125,12 @@ class CaloriesAndWeightViewController: UIViewController {
                     self.currentWeight = doubleWeight
                     self.addWeightProgressBar()
                     /* BLOCK END */
+                })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if self.currentWeight == 0 {
+                        self.hideWeightProgress("No weight data.")
+                    }
                 })
             }
             /* BLOCK END */
@@ -134,6 +147,12 @@ class CaloriesAndWeightViewController: UIViewController {
             /* BLOCK A START */
             if error != nil {
                 print(error.localizedDescription)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.calorieSummaryLabel.text = "Unable to get calorie data."
+                    self.burntCaloriesLabel.hidden = true
+                    self.eatenCaloriesLabel.hidden = true
+                })
+                return
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 /* BLOCK B START */
@@ -172,13 +191,38 @@ class CaloriesAndWeightViewController: UIViewController {
             
             if !success {
                 println("Authorising HealthKit access unsuccessful. Error: " + error.description)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    /* BLOCK D START */
+                    self.hideUIForNoAccess()
+                    /* BLOCK D END */
+                })
             } else {
                 println("Success: HealthKit access is authorised")
-                self.loadWeightDataFromHealthKit()
-                self.loadCalorieDataFromHealthKit()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    /* BLOCK D START */
+                    self.loadWeightDataFromHealthKit()
+                    self.loadCalorieDataFromHealthKit()
+                    /* BLOCK D END */
+                })
             }
             /* BLOCK END */
         }
+    }
+    
+    func hideUIForNoAccess() {
+        let noAccessLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.window!.frame.width, height: self.view.window!.frame.height))
+        noAccessLabel.text = "HealthKit access must be enabled to use this feature."
+        noAccessLabel.textColor = UIColor.blackColor()
+        noAccessLabel.backgroundColor = UIColor.whiteColor()
+        noAccessLabel.numberOfLines = 0
+        noAccessLabel.font = UIFont(name: "System", size: 16)
+        noAccessLabel.textAlignment = .Center
+        noAccessLabel.sizeToFit()
+        
+        self.navigationItem.leftBarButtonItem = .None
+        self.navigationItem.prompt = nil
+        
+        self.view = noAccessLabel
     }
 
     @IBAction func nextButtonPress(sender: AnyObject) {
