@@ -12,16 +12,15 @@ class Run: NSObject {
     
     //MARK: - Properties
     
-    var ID: Int
-    var distance: Double
-    var dateTime: NSDate
-    var pace: Int
-    var duration: Int
-    var shoe: Shoe?
-    var score: Double
-    var locations = Array<CLLocation>()
-    var type: String
-    var splits = Array<Int>()
+    var ID: Int //A property that stores the ID of a run
+    var distance: Double //The distance of the run, stored in miles
+    var dateTime: NSDate //The date an time at which the run was ran
+    var pace: Int //The pace of the run, stored in secs per mile
+    var duration: Int //The duration of the run, stored in seconds
+    var shoe: Shoe? //The shoe for the run, if there is one
+    var score: Double //The score of the run, with the maximum being 1000
+    var locations = Array<CLLocation>() //The locations for the run, used to draw the run route
+    var splits = Array<Int>() //The mile splits for the run, stored in seconds for each mile
     
     //MARK: - Initialisation
     
@@ -32,13 +31,12 @@ class Run: NSObject {
         self.pace = 0
         self.duration = 0
         self.score = 0
-        self.type = ""
     }
     
     /**
-    Called to initialise the class, sets the properties of the Shoe to the passed values.
+    Called to initialise the class, sets the properties of the Run to the passed values.
     */
-    init(runID: Int, distance: Double, dateTime: NSDate, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, runType: String, splits: Array<Int>?) {
+    init(runID: Int, distance: Double, dateTime: NSDate, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
         self.ID = runID
         self.distance = distance
         self.dateTime = dateTime
@@ -46,7 +44,6 @@ class Run: NSObject {
         self.duration = duration
         self.shoe = shoe
         self.score = runScore
-        self.type = runType
         if let _locations = runLocations { //if there are locations, store them
             self.locations = _locations
         }
@@ -57,12 +54,14 @@ class Run: NSObject {
     
     /**
     This method calculates the score for a run in the following way:
-    1.
-    2.
-    3.
-    4.
-    5.
-    6.
+    1. Creates the points from pace power as 1000 divide the pace
+    2. Calculates the point from the average pace as (2.4 to the power pointsFromPacePower) * 120
+    3. Creates the points from distance power as the distance divide 10
+    4. Calculates the points from the distance as (2.4 to the power pointsFromDistance) * 120
+    5. Calculates the total points as pointsFromDistance + pointsFromAveragePace
+    6. IF the totalPoints is more than 1000
+        a. Sets the score to 1000
+    7. ELSE sets the score to the total points
     */
     func calculateRunScore() {
         let pointsFromPacePower = 1000.0/Float(self.pace) //1
@@ -73,10 +72,10 @@ class Run: NSObject {
         
         let totalPoints = (pointsFromDistance + pointsFromAveragePace) //5
         
-        if totalPoints > 1000 {
-            self.score = 1000
-        } else {
-            self.score = totalPoints //6
+        if totalPoints > 1000 { //6
+            self.score = 1000 //a
+        } else { //7
+            self.score = totalPoints
         }
     }
     
@@ -106,18 +105,24 @@ class Run: NSObject {
         }
     }
     
+    /**
+    This method is used to calculate the different finish times for the run.
+    1. Calculate the fiveK, tenK, halfMarathon and fullMarathon times as the pace times the approprite distance
+    2. Converts the finish times into strings using the Conversions class
+    3. Returns each of the 4 string
+    */
     func calculateRunFinishTimes() -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
-        let fiveK = Int(Double(self.pace) * 3.1)
+        let fiveK = Int(Double(self.pace) * 3.1) //1
         let tenK = Int(Double(self.pace) * 6.2)
         let halfMarathon = Int(Double(self.pace) * 13.1)
         let fullMarathon = Int(Double(self.pace) * 26.2)
         
-        let fiveKStr = Conversions().runDurationForInterface(fiveK)
+        let fiveKStr = Conversions().runDurationForInterface(fiveK) //2
         let tenKStr = Conversions().runDurationForInterface(tenK)
         let halfMarathonStr = Conversions().runDurationForInterface(halfMarathon)
         let fullMarathonStr = Conversions().runDurationForInterface(fullMarathon)
         
-        return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr)
+        return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr) //3
     }
 
     /**

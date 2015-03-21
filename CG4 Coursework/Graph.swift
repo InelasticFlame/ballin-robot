@@ -13,50 +13,50 @@ class Graph: UIView {
     //MARK: - Global Variables
     
     private let indent: CGFloat = 10 //A global constant CGFloat that stores the indent (the gap between the edge of the view and the axes)
-    private let axesIndent: CGFloat = 30
-    private let markerHeight: CGFloat = 5
+    private let axesIndent: CGFloat = 30 //A global constant CGFloat that stores the axesIndent (the gap between the edge of the view and the axes)
+    private let markerHeight: CGFloat = 5 //A global constant CGFloat that stores the size of the marks on the axes
+    private let majorStep: CGFloat = 10 //A global constant CGFloat that stores the spacing of the majorSteps
+    private let minorStep: CGFloat = 2 //A global constant CGFloat that stores the spacing of the minor steps
     
-    private var originX: CGFloat = 0
-    private var originY: CGFloat = 0
-    private var yAxisMax: CGFloat = 0
-    private var xAxisMax: CGFloat = 0
-    private var yAxisLength: CGFloat = 0
-    private var xAxisLength: CGFloat = 0
-    private var yScale: CGFloat = 0
-    private var xScale: CGFloat = 0
-    private var maxYCoord: CGFloat = 0
-    private var majorStep: CGFloat = 10
-    private var minorStep: CGFloat = 2
-    private var graphStyle: GraphStyle
-    private var graphType: GraphType
     
-    private var values = [GraphCoordinate]()
+    private var originX: CGFloat = 0 //A global variable CGFloat that stores the position of the x coord of the origin
+    private var originY: CGFloat = 0 //A global variable CGFloat that stores the position of the y coord of the origin
+    private var yAxisMax: CGFloat = 0 //A global variable CGFloat that stores the maximum y coord of the y axis
+    private var xAxisMax: CGFloat = 0 //A global variable CGFloat that stores the maximum x coord of the y axis
+    private var yAxisLength: CGFloat = 0 //A global variable CGFloat that stores the length of the y axis
+    private var xAxisLength: CGFloat = 0 //A global variable CGFloat that stores the length of the x axis
+    private var yScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the y axis
+    private var xScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the x axis
+    private var maxYCoord: CGFloat = 0 //A global variable CGFloat that stores the maximum y coordinate of the data
     
-    enum GraphStyle {
-        case Line
-        case Bar
-    }
+    private let values = [GraphCoordinate]() //A global array of GraphCoordinate objects
+
+    //MARK: - Initialisation
     
-    enum GraphType {
-        case Pace
-        case Distance
-        case Duration
-        case Weight
-    }
-    
-    init(frame: CGRect, graphStyle: GraphStyle, coordinates: [GraphCoordinate]) {
+    /**
+    Called to initialise the class, sets the properties of the Graph to the passed values.
+    */
+    init(frame: CGRect, coordinates: [GraphCoordinate]) {
         values = coordinates
-        self.graphStyle = graphStyle
-        self.graphType = .Weight
         super.init(frame: frame)
     }
     
     required init(coder aDecoder: NSCoder) {
-        self.graphStyle = .Line
-        self.graphType = .Weight
         super.init(coder: aDecoder)
     }
     
+    /**
+    This method is called to draw the graph.
+    (Note: (0, 0) is the TOP left corner)
+    IF there are coordinates
+        1. Set the originX to the axesIndent
+        2. Set the originY to the rect height - axesIndent
+        3. Set the yAxis max to the value of indent
+        4. Set the xAxis max to the rect width - indent
+        5. Set the yAxisLength as the originY - yAxisMax
+        6. Set the xAxisLength as the rect width - axesIndent - indent
+        7.
+    */
     override func drawRect(rect: CGRect) {
         if values.count > 0 {
             originX = axesIndent
@@ -67,22 +67,9 @@ class Graph: UIView {
             xAxisLength = rect.width - axesIndent - indent
             xScale = xAxisLength/CGFloat(values.count)
             
-            if graphType == .Pace {
-                majorStep = 60
-                minorStep = 10
-            } else if graphType == .Duration {
-                majorStep = 3600
-                minorStep = 600
-            }
-            
             getYScale()
-            
-            if graphStyle == .Line {
-                xScale = xAxisLength/CGFloat(values.count - 1)
-                plotLineGraph()
-            } else {
-                plotBarGraph()
-            }
+            xScale = xAxisLength/CGFloat(values.count - 1)
+            plotLineGraph()
             
             let currentContext = UIGraphicsGetCurrentContext()
             CGContextSetStrokeColorWithColor(currentContext, UIColor.blackColor().CGColor)
@@ -138,16 +125,6 @@ class Graph: UIView {
         CGContextStrokePath(context)
     }
     
-    func plotBarGraph() {
-        let context = UIGraphicsGetCurrentContext()
-        
-        for i in 0...values.count - 1 {
-            let barRect = CGRect(x: (CGFloat(i) * xScale) + axesIndent + 5, y: frame.height - (values[i].y * yScale) - axesIndent, width: xScale - 10, height: values[i].y * yScale)
-            CGContextSetFillColorWithColor(context, UIColor.redColor().CGColor)
-            CGContextFillRect(context, barRect)
-        }
-    }
-    
     func getYScale() {
         var yInterval: CGFloat = 10.0
         var maxYCoord: CGFloat = 0.0
@@ -198,15 +175,9 @@ class Graph: UIView {
     }
     
     func yAxisLabel(markerNo: Int) -> String {
-        var label = ""
-        if graphType == .Pace || graphType == .Duration {
-            label = "\(markerNo)"
-        } else {
-            label = "\(markerNo * Int(majorStep))"
-        }
+        var label = "\(markerNo * Int(majorStep))"
         
         return label
     }
-    
 }
 

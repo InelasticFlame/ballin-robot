@@ -3739,7 +3739,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="shoeCell" rowHeight="90" id="adc-2v-vnm" customClass="ShoeTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="shoeCell" rowHeight="90" id="adc-2v-vnm" customClass="ShoeTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="adc-2v-vnm" id="PQX-Gz-ic8">
                                     <autoresizingMask key="autoresizingMask"/>

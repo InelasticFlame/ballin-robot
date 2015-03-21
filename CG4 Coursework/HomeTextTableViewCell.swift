@@ -22,7 +22,7 @@ class HomeTextTableViewCell: UITableViewCell {
         self.headerView.addBorder(2)
         self.mainView.addBorder(2)
         
-        let graph = Graph(frame: CGRect(x: 30, y: 50, width: 250, height: 250), graphStyle: .Line, coordinates: [GraphCoordinate]())
+        let graph = Graph(frame: CGRect(x: 30, y: 50, width: 250, height: 250), coordinates: [GraphCoordinate]())
         graph.backgroundColor = UIColor.clearColor()
         self.addSubview(graph)
     }

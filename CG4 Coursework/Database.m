@@ -468,7 +468,7 @@ static Database *_database; //A global variable that stores the current instance
                 NSDate *date = [[NSDate alloc] initWithDatabaseString:[NSString stringWithUTF8String:dateTimeStr]]; //x
                 
                 
-                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil runType:@"" splits:nil]; //xi
+                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil splits:nil]; //xi
                 run.locations = [self loadRunLocationsForRun:run]; //xii
                 run.splits = [self loadRunSplitsForRun:run]; //xiii
                 
@@ -1214,7 +1214,7 @@ static Database *_database; //A global variable that stores the current instance
  3. ELSE logs "Error Opening Database"
  4. Returns NO (false)
  */
--(BOOL)deleteShoeWithID:(Shoe *)shoe {
+-(BOOL)deleteShoe:(Shoe *)shoe {
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2

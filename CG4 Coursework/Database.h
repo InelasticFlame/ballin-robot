@@ -46,6 +46,6 @@
 
 -(BOOL)shoeNameExists:(NSString *)shoeName;
 
--(BOOL)deleteShoeWithID:(NSObject *)shoe;
+-(BOOL)deleteShoe:(NSObject *)shoe;
 
 @end

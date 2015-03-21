@@ -195,7 +195,7 @@ class AddRunTableViewController: UITableViewController {
         let selectedShoe: Shoe? = runShoePicker.selectedShoe()
         
         if runDistance > 0 && runPace > 0 && runDuration > 0 { //2
-            let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker.date, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, runType: "Run", splits: nil) //a
+            let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker.date, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
             run.calculateRunScore() //b
             Database().saveRun(run) //c
             Database().increaseShoeMiles(selectedShoe, byAmount: runDistance) //d
