@@ -38,7 +38,7 @@ class Conversions: NSObject {
     
     /**
     This method takes a distance in metres and returns it as a distance in miles
-    1. Converts the meters into kilometers and then converts into miles
+    1. Converts the meters into kilometres and then converts into miles
     2. Returns the miles
     */
     func metresToMiles(meters: Double) -> (Double) {
@@ -115,7 +115,7 @@ class Conversions: NSObject {
     3. IF the distanceUnit is the mile unit or there is no stored unit
         a. Return string is in the form "distance to 2 decimal places miles"
     4. ELSE IF the distanceUnit is the km unit
-        b. Let kilometers equal the distance times the milesToKm conversion
+        b. Let kilometres equal the distance times the milesToKm conversion
         c. Return string is in the form "kilometres to 2 decimal places km"
     5. Return the distanceString
     */
@@ -126,8 +126,8 @@ class Conversions: NSObject {
         if distanceUnit == Constants.DefaultsKeys.Distance.MilesUnit || distanceUnit == "" { //3
             distanceString = NSString(format: "%1.2f", distance) + " miles" //a
         } else if distanceUnit == Constants.DefaultsKeys.Distance.KmUnit { //4
-            let kilometers = distance * milesToKm //b
-            distanceString = NSString(format: "%1.2f", kilometers) + " km" //c
+            let kilometres = distance * milesToKm //b
+            distanceString = NSString(format: "%1.2f", kilometres) + " km" //c
         }
         
         return distanceString //5
@@ -139,7 +139,7 @@ class Conversions: NSObject {
     This method takes an array of Run objects and returns the total of their distances.
     1. Declares the local variable total which tracks the current total distance
     2. For each run object in the array, runs
-        a. Increases the total by the run's distane
+        a. Increases the total by the run's distance
     3. Returns the total
     */
     func totalUpRunMiles(runs: Array<Run>) -> Double {

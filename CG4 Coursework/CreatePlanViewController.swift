@@ -16,7 +16,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var plannedRunsTableView: UITableView!
     
     //MARK: - Global Variables
-    var plan: Plan? //A global optional variable that stores a Plan object. This is used to track the plan being eddited currently.
+    var plan: Plan? //A global optional variable that stores a Plan object. This is used to track the plan being edited currently.
     
     // MARK: - View Life Cycle
     
@@ -51,7 +51,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     
     /**
     This method is called by the system when the edit button is pressed.
-    1. Sets the plannedTableView to the editing option passed and the animation option passsed
+    1. Sets the plannedTableView to the editing option passed and the animation option passed
     */
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -107,7 +107,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     /**
-    This method is called by the system whenever the ata in the table view is loaded. It returns the height for a cell at a certain indexPath, in this case all cells have a fixed height of 60
+    This method is called by the system whenever the data in the table view is loaded. It returns the height for a cell at a certain indexPath, in this case all cells have a fixed height of 60
     */
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60

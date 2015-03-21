@@ -21,6 +21,8 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     @IBOutlet weak var warningLabel: UILabel!
     
     //MARK: - Global Variables
+    private let secondsInDay: Double = 86400 //A global constant that stores the number of seconds in a day
+    
     /* Boolean values that track whether the date picker cells are currently being shown */
     private var editingStartDate = false
     private var editingEndDate = false
@@ -32,8 +34,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     This method is called by the system when the view initially loads.
     1. Sets the delegate of the planNameTextField to this viewController
     2. Adds a target to each date picker that calls the appropriate method whenever the date picker has its value changed
-    3. Updates the text of the startDateDetailLabel and endDateDetailLabel to the currently selected value from the date picker, using their short date strings
-    4. Sets the minimum date for the endDatePicker to be the currently selected date of the start date picker
+    3. Sets the minimum date for the endDatePicker to be the currently selected date of the start date picker plus 1 day
+    4. Sets the minimum date for the startDatePicker to be today
+    5. Updates the text of the startDateDetailLabel and endDateDetailLabel to the currently selected value from the date picker, using their short date strings
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +45,10 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         startDatePicker.addTarget(self, action: "updateStartDate:", forControlEvents: .ValueChanged) //2
         endDatePicker.addTarget(self, action: "updateEndDate:", forControlEvents: .ValueChanged)
         
-        startDateDetailLabel.text = startDatePicker.date.shortDateString() //3
+        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, sinceDate: startDatePicker.date) //3
+        startDatePicker.minimumDate = NSDate()
+        startDateDetailLabel.text = startDatePicker.date.shortDateString() //5
         endDateDetailLabel.text = endDatePicker.date.shortDateString()
-        endDatePicker.minimumDate = startDatePicker.date //4
     }
     
     //MARK: - Text Field
@@ -65,17 +69,17 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     /**
     This method is called whenever the value of the start date picker is changed.
     1. Sets the text of the startDateDetailLabel to the selected date as a shortDateString
-    2. Sets the minimum date of the endDatePicker as the selected date (So a plan cannot finish before it has started)
+    2. Sets the minimum date of the endDatePicker as the selected date plus 1 day (So a plan cannot finish before it has started)
     3. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker (this is in case changing the minimum date has caused the date of the endDatePicker to update, otherwise nothing will change)
     */
     func updateStartDate(sender: AnyObject) {
         startDateDetailLabel.text = startDatePicker.date.shortDateString()
-        endDatePicker.minimumDate = startDatePicker.date
+        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, sinceDate: startDatePicker.date)
         endDateDetailLabel.text = endDatePicker.date.shortDateString()
     }
     
     /**
-    This methid is called whenever the value of the end date picker is changed.
+    This method is called whenever the value of the end date picker is changed.
     1. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker
     */
     func updateEndDate(sender: AnyObject) {
@@ -95,7 +99,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     2. IF the current section is the first section and the current row is the second row
         a. IF the planNameWarning needs to be shown return defaultRowHeight
         b. ELSE return 0
-    3. In the defaul case, return the defaultRowHeight
+    3. In the default case, return the defaultRowHeight
     */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 {
@@ -127,13 +131,13 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     This method is called whenever a user selects a row in the table
     1. IF the selected row is in the second section
         a. IF the selected row is the first row
-            b. IF the user is not alreadt editing the startDate
+            b. IF the user is not already editing the startDate
                 i. Set editingEndDate to false (hide the other picker)
                ii. Call the function reloadTableViewCells
               iii. Sets editingStartDate to true (show the new picker)
             c. ELSE sets editingStartDate to false (to hide the picker)
         d. IF the selected row is the third row
-            e. IF the user is not alreadt editing the endDate
+            e. IF the user is not already editing the endDate
                 i. Set editingStartDate to false (hide the other picker)
                ii. Call the function reloadTableViewCells
               iii. Set editingEndDate to true (show the new picker)
@@ -196,7 +200,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     }
     
     /**
-    This method is called by the system when the create button is pressed, it checks to see whether it should perform the tranistion to the next view.
+    This method is called by the system when the create button is pressed, it checks to see whether it should perform the transition to the next view.
     1. IF the segue to be performed is called "createPress"
         a. Calls the function validatePlanName, IF it returns true
             i. Returns true

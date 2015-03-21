@@ -36,7 +36,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     }
     
     /**
-    This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; as there is only one componet in this picker this function always returns 1 more than the total number of shoes (to allow space for a 'None' option)
+    This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; as there is only one component in this picker this function always returns 1 more than the total number of shoes (to allow space for a 'None' option)
     */
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return shoes.count + 1
@@ -44,7 +44,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system in order to set up the picker view. It returns the title for a row in a component. 
-    1. IF the current row is the frist row
+    1. IF the current row is the first row
         a. Return "None"
     2. ELSE
         b. Returns the name of the show at the index one less than the row (to make up for the None row)

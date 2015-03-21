@@ -23,21 +23,27 @@ class RepeatSettingsTableViewController: UITableViewController {
     
     /**
     This method is called by the system whenever the view is about to appear on screen.
-    1. Calls the function setPreviousRepeatEnd
+    1. Sets the minimum date of the repeatEndDatePicker to the plannedRunDate (repetition cannot end before the planned run has even started!)
     2. Sets the dateDetailLabel text to the current date of the repeatEndDatePicker
-    3. Sets the minimum date of the repeatEndDatePicker to the plannedRunDate (repetition cannot end before the planned run has even started!)
     */
     override func viewWillAppear(animated: Bool) {
-        setPreviousRepeatEnd() //1
+        repeatEndDatePicker.minimumDate = plannedRunDate //1
         dateDetailLabel.text = repeatEndDatePicker.date.shortDateString() //2
-        repeatEndDatePicker.minimumDate = plannedRunDate //3
+    }
+    
+    /**
+    This method is called by the system when the view appears on screen.
+    1. Calls the function setPreviousRepeatEnd
+    */
+    override func viewDidAppear(animated: Bool) {
+        setPreviousRepeatEnd() //1
     }
     
     //MARK: Table View Data Source
     
     /**
     This method is called by the system whenever a user selects a row in the table view.
-    1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the seleccted option)
+    1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the selected option)
     2. Sets the accessory of the cell selected to a Checkmark
     3. Deselects the cell that was just selected animating the process
     4. IF the current number of view controllers can be counted
@@ -96,19 +102,19 @@ class RepeatSettingsTableViewController: UITableViewController {
     This method is used to remove the accessory from all cells. This is so that if a new shoe is selected two checkmarks are not shown on the interface (such that it appears as if 2 rows have been selected)
     1. Declares the local constant sectionCount and sets its value to the number of sections in the table view
     2. FOR each section
-    a. Declares the local constant rowCount and sets its value to the number of rows in the current section
-    b. FOR each row
-    i. Sets the accessory of the cell in the current section for the current row to None
+        a. Declares the local constant rowCount and sets its value to the number of rows in the current section
+        b. FOR each row
+            i. Sets the accessory of the cell in the current section for the current row to None
     */
     func clearCheckmarks() {
-        let sectionCount = tableView.numberOfSections()
+        let sectionCount = tableView.numberOfSections() //1
         
-        for var sectionNo = 0; sectionNo < sectionCount; sectionNo++ {
+        for var sectionNo = 0; sectionNo < sectionCount; sectionNo++ { //2
             
-            let rowCount = tableView.numberOfRowsInSection(sectionNo)
+            let rowCount = tableView.numberOfRowsInSection(sectionNo) //a
             
-            for var rowNo = 0; rowNo < rowCount; rowNo++ {
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNo, inSection: sectionNo))?.accessoryType = .None
+            for var rowNo = 0; rowNo < rowCount; rowNo++ { //b
+                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNo, inSection: sectionNo))?.accessoryType = .None //i
             }
         }
     }
@@ -118,13 +124,13 @@ class RepeatSettingsTableViewController: UITableViewController {
     /**
     This method is called by the system when the endDatePicker has its selected date changed.
     1. Sets the text of the dateDetailLabel to the selected date as a short date string
-    2. Sets the accessory of the first cell in the second section to a Checkmark
-    3. Calls the function clearCheckmarks
+    2. Calls the function clearCheckmarks
+    3. Sets the accessory of the first cell in the second section to a Checkmark
     */
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
-        dateDetailLabel.text = repeatEndDatePicker.date.shortDateString()
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark
-        clearCheckmarks()
+        dateDetailLabel.text = repeatEndDatePicker.date.shortDateString() //1
+        clearCheckmarks() //2
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark //3
     }
     
 }

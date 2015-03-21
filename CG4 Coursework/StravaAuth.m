@@ -18,7 +18,7 @@
  /**
   1. Initialises the class; if successful
     a. Declares the local integer variable clientID of value 2994 (this is fixed to the value of set by the Strava API application online)
-    b. Declares the local string variable clientSecret (this value is fixed to the value set by the Strava API applicatiion online)
+    b. Declares the local string variable clientSecret (this value is fixed to the value set by the Strava API application online)
     c. Initialises the StravaClient with the clientID and clientSecret
   2. Returns the class
  */

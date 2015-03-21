@@ -46,7 +46,7 @@ class WeightHistoryViewController: UIViewController {
     /**
     This method is called to load the data for the graph
     1. Declare the unit to retrieve the weight in
-    2. Decalres the weightQuantity
+    2. Declares the weightQuantity
     3. Create a predicate to retrieve the samples between the start and end date
     4. Calls the function retrieveMostRecentSample passing the weight quantity and the predicate
     5. On completion performs the BLOCK A

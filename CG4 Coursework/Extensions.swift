@@ -16,7 +16,7 @@ extension UIView {
     /**
     This extension is used to add a dark gray border to a view.
     1. Sets the borderWidth the the border width passed when the function was called
-    2. Sets the border colour to dark gary
+    2. Sets the border colour to dark gray
     */
     func addBorder(borderWidth: CGFloat) {
         self.layer.borderWidth = borderWidth //1
@@ -140,7 +140,7 @@ extension NSDate {
     /**
     Returns true if a date is in today.
     1. Creates a gregorian calendar
-    2. Returns the boolen created by the calendar.
+    2. Returns the boolean created by the calendar.
     */
     func isToday() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) //1
@@ -151,7 +151,7 @@ extension NSDate {
     /**
     Returns true if a date was yesterday.
     1. Creates a gregorian calendar
-    2. Returns the boolen created by the calendar.
+    2. Returns the boolean created by the calendar.
     */
     func isYesterday() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) //1
@@ -222,7 +222,7 @@ extension HKHealthStore {
     /**
     This extension retrieves the most recent sample of a given type. By retrieving the most recent sample, if there have been multiple weight updates in one day (e.g. 10am; 72.3 kg and then 5pm; 72.2 kg) the final update for the day will be returned (72.2 kg) ensure that the data is as up to date as it can be for that day
     1. Declares the local constant sortDescriptor as a NSSortDescripter by the sample end date descending
-    2. Decalres the constant HKSampleQuery, query with the following settings
+    2. Declares the constant HKSampleQuery, query with the following settings
         * The passed sample type, the passed predicate, a limit of 1 result and the sortDescriptor *
     3. On completion performs the block
         B1. IF there is an error
@@ -260,14 +260,14 @@ extension HKHealthStore {
     1. Declares constant HKSampleQuery, query, with the following settings
         * The passed quantityType, the passed predicate and the option of a cumulative sum *
     2. On completion of the query, performs the block
-        B1. Decalres the local constant HKQuantity, sum, which is the total of the results
+        B1. Declares the local constant HKQuantity, sum, which is the total of the results
         B2. IF there is an error
             Ba. Perform the passed completion block passing nil for the result and the error
         B3. IF there is a sum
             Bb. Perform the passed completion block passing the doubleValue of the sum for the given unit for the result and nil for the error
         B4. ELSE
             Bc. Perform the passed completion block passing 0 for the sum and nil for the error
-    3. Execture the query
+    3. Execute the query
     */
     func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: ((Double!, NSError!) -> Void)!) {
         

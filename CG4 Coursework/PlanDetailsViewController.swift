@@ -89,7 +89,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     /**
-    This method is called by the system whenevr the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
+    This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
     */
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -120,11 +120,13 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
            ii. Sets the selection style and accessoryType of the cell to None
         f. ELSE IF the plannedRun matchRank is 1
             i. Sets the progressImage to the image called "Almost37px"
+           ii. Sets the cell accessory to a disclosure indicator
         g. ELSE IF the plannedRun matchRank is 2
             i. Sets the progressImage to the image called "Tick37px"
+           ii. Sets the cell accessory to a disclosure indicator
         h. ELSE IF the plannedRun matchRank is -1
             i. Sets the accessoryType and selectionType of the cell to None
-           ii. Sets the progressImage to nil
+           ii. Sets the progressImage to the image called "FutureRun37px"
     3. Returns the cell
     */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -147,12 +149,14 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.selectionStyle = .None
             } else if plannedRun.matchRank == 1 { //f
                 cell.progressImage.image = UIImage(named: "Almost37px") //i
+                cell.accessoryType = .DisclosureIndicator //ii
             } else if plannedRun.matchRank == 2 { //g
                 cell.progressImage.image = UIImage(named: "Tick37px") //i
+                cell.accessoryType = .DisclosureIndicator //ii
             } else if plannedRun.matchRank == -1 { //h
                 cell.accessoryType = .None //i
                 cell.selectionStyle = .None
-                cell.progressImage.image = nil //ii
+                cell.progressImage.image = UIImage(named: "FutureRun37px") //ii
             }
         }
         return cell //3
@@ -194,7 +198,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         a. IF the source of the segue is a PlanDetailsTableViewCell
             i. IF the indexPath for the cell can be retrieved
                 ii. IF there is matchingRun for the cell's row
-                  iii. Set the reun of the destination view controller to the matching run
+                  iii. Set the run of the destination view controller to the matching run
                    iv. Set the cell's selection state to false
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -52,7 +52,7 @@ class CaloriesAndWeightViewController: UIViewController {
     This method is called if weight data is retrieved successfully
     1. Clear any existing weight progress bar
     2. Create the frame for the progress bar (the same frame as the weight progress bar view but starting at the origin)
-    3. Retrive the goal weight from NSUserDefaults
+    3. Retrieve the goal weight from NSUserDefaults
     4. Create the weight progress bar
     5. Add the weight progress bar as a subview of the weightProgressBarView
     */
@@ -86,13 +86,13 @@ class CaloriesAndWeightViewController: UIViewController {
     1. Clear any existing calorie progress bars
     2. Create the frame for the progress bar (the same frame as the calorie progress bar view but starting at the origin)
     3. Calculate the net calories (the calories consumed - the calories burnt)
-    4. Retrieve the calore goal from the NSUserDefaults
+    4. Retrieve the calorie goal from the NSUserDefaults
     5. Calculate the progress as the netCalories divide the calorieGoal
     6. Create the progress bar
     7. Add the progress bar as a subview of the calorieProgressBarView
     8. Set the calorie summary label to "NETCALORIES calories used of CALORIEGOAL" both rounded to the nearest whole number
     9. Set the calorie burnt label to "CALOIRESBURNT calories burnt" rounded to the nearest whole number
-   10. Set the calories eaten label to "CALORIESCONSUMED calories consumbed" rounded to the nearest whole number
+   10. Set the calories eaten label to "CALORIESCONSUMED calories consumed" rounded to the nearest whole number
     */
     func addCalorieProgressBar() {
         for view in caloriesProgressBarView.subviews as [UIView] { //1
@@ -121,7 +121,7 @@ class CaloriesAndWeightViewController: UIViewController {
         b. Hide the next day button
     2. IF the currentDate is yesterday
         c. Set the label to "Yesterday"
-    3. ELSE set th label to the current date as a short date string
+    3. ELSE set the label to the current date as a short date string
     */
     func setDateLabel() {
         if currentDate.isToday() { //1
@@ -139,7 +139,7 @@ class CaloriesAndWeightViewController: UIViewController {
     /**
     This method is called once HealthKit access is authorised.
     1. Declare the unit to retrieve the weight in
-    2. Decalres the weightQuantity
+    2. Declares the weightQuantity
     3. Declares the start date as the distant past (IF there is any weight data it will be retrieved)
     4. Declares the end date as the very end of the currentDay
     5. Create a predicate to retrieve the samples between the start and end date
@@ -151,7 +151,7 @@ class CaloriesAndWeightViewController: UIViewController {
            ii. Retrieve the double value of the weight for the weightUnit (kilograms)
           iii. Retrieve the main thread and set the currentWeight to the double weight and call the function addWeightProgressBar
         c. ELSE
-           iv. Retrive the main thread and call the function hideWeightProgress
+           iv. Retrieve the main thread and call the function hideWeightProgress
     */
     func loadWeightDataFromHealthKit() {
         var weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram) //1
@@ -251,15 +251,15 @@ class CaloriesAndWeightViewController: UIViewController {
     }
     
     /**
-    This method is called to requestAuthrisation to access a user's HealthKit datastore. IF a user has not already stated a preference a view controlled by the system will appear prompting a user to respond.
+    This method is called to requestAuthorisation to access a user's HealthKit datastore. IF a user has not already stated a preference a view controlled by the system will appear prompting a user to respond.
     1. Delcares the data types to READ from the HealthKit datastore
-    2. Call the function requestAuthorizationToShareTypes passing an empty NSSet for WRITE types (we don't want to do any writing), and the 3 read types delcared as an NSSet
+    2. Call the function requestAuthorizationToShareTypes passing an empty NSSet for WRITE types (we don't want to do any writing), and the 3 read types declared as an NSSet
     3. Once the request has been performed run the following block
         a. IF not successful
             i. Log "Authorising HealthKit access unsuccessful. Error: " and the error
            ii. Retrieve the main thread and call the function hideUIForNoAccess
         b. ELSE
-          iii. Log "Success: HealthKit access is authroised."
+          iii. Log "Success: HealthKit access is authorised."
            iv. Retrieve the main thread and call the function loadWeightDataFromHealthKit and loadCalorieDateFromHealthKit
     */
     func requestAuthorisationForHealthKitAccess() {

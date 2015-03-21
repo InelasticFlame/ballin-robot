@@ -80,7 +80,7 @@ class Run: NSObject {
     }
     
     /**
-    This method adds a split to the array of stored splits for the run. This method is necassary as runs are created in an Objective-C environment (where arrays are just arrays of objects). In this case the split would have to be converted to an NSNumber object and then added to the array, so it is easy to pass the integer value for the split to the class and add it to the array in Swift.
+    This method adds a split to the array of stored splits for the run. This method is necessary as runs are created in an Objective-C environment (where arrays are just arrays of objects). In this case the split would have to be converted to an NSNumber object and then added to the array, so it is easy to pass the integer value for the split to the class and add it to the array in Swift.
     */
     func addSplit(split: Int) {
         self.splits.append(split)
@@ -140,7 +140,7 @@ class Run: NSObject {
     }
     
     /**
-    This method prints a descrption of the run object for use in testing.
+    This method prints a description of the run object for use in testing.
     */
     func description() -> String {
         let string = "ID = '\(self.ID)', DateTime = '\(self.dateTime.description)', Pace = '\(self.pace)', Duration = '\(self.duration)', Score = '\(self.score)', Number of locations = '\(self.locations.count)', Number of splits = '\(self.splits.count)'"

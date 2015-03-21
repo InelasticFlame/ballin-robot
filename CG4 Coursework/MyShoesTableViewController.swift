@@ -32,7 +32,7 @@ class MyShoesTableViewController: UITableViewController {
     // MARK: - Table View Data Source
 
     /**
-    This method is called by the system whenevr the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
+    This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

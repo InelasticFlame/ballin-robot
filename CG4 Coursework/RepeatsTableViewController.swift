@@ -27,7 +27,7 @@ class RepeatsTableViewController: UITableViewController {
     
     /**
     This function is called by the system whenever a user selects a row in the table view. 
-    1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the seleccted option)
+    1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the selected option)
     2. Sets the accessory of the cell selected to a Checkmark
     3. Deselects the cell that was just selected animating the process
     4. IF the current number of view controllers can be counted

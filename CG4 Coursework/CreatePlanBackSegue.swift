@@ -15,7 +15,7 @@ class CreatePlanBackSegue: UIStoryboardSegue {
     /**
     1. Declares the local constant sourceViewController
     2. Declares the local constant destinationViewController
-    3. Decalres the local constant naviagtionController
+    3. Declares the local constant naviagtionController
     4. IF there is a navigationController
         a. Moves to the rootViewController without an animation
         b. Presents the destinationViewController with an animation

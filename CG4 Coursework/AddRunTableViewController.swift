@@ -33,7 +33,7 @@ class AddRunTableViewController: UITableViewController {
     /**
     This method is called by the system when the view is initially loaded.
     1. Calls the function updateDetailLabels, passing nil (as there is no NSNotification)
-    2. Tells the view to listen for the notification UpdateDetailLabel; when it recieves this notification it should call the function updateDetailLabels (the system will also pass the dictionary passed along with the notification)
+    2. Tells the view to listen for the notification UpdateDetailLabel; when it receives this notification it should call the function updateDetailLabels (the system will also pass the dictionary passed along with the notification)
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +92,7 @@ class AddRunTableViewController: UITableViewController {
     //MARK: - Update Interface
     
     /**
-    This method is initially called when the view loads and then called whenever the view controller recieves the notification UpdateDetailLabel
+    This method is initially called when the view loads and then called whenever the view controller receives the notification UpdateDetailLabel
     1. IF there is a notification (i.e. any time when the method is called other than when the view initially loads)
         a. Call the function checkRunValues passing the notification
     2. Sets the runDateDetailLabel text to the date selected in the runDatePicker as a shortDateString
@@ -119,7 +119,7 @@ class AddRunTableViewController: UITableViewController {
     }
     
     /**
-    1. Decalres and initialises the local variables runDistance, runPace, runDuration, and userInfo
+    1. Declares and initialises the local variables runDistance, runPace, runDuration, and userInfo
     2. IF there is userInfo (a dictionary passed with the notification)
         a. Retrieve the pickerValueChanged as the object stored with the key "valueChanged"
         b. IF the pickerValueChanged is not the same as the currentPicker
@@ -175,7 +175,7 @@ class AddRunTableViewController: UITableViewController {
     
     /**
     This method is called by the system when the user presses the Done button.
-    1. Decalres and initialises the local variables runDistance, runPace, runDuration, and selectedShoe
+    1. Declares and initialises the local variables runDistance, runPace, runDuration, and selectedShoe
     2. IF the runDistance, runPace and runDuration are all > 0
         a. Create the run object using the values selected on the interface
         b. Calculates the runScore
@@ -186,7 +186,7 @@ class AddRunTableViewController: UITableViewController {
         f. Creates the error text
         g. Creates a UIAlert to display the error message with the title "Invalid Run"
         h. Add an OK button to the alert that dismisses the error message only
-        i. Display the erorr message
+        i. Display the error message
     */
     @IBAction func saveButtonPressed(sender: AnyObject) {
         let runDistance = runDistancePicker.selectedDistance().distance //1

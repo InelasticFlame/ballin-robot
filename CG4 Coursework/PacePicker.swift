@@ -116,7 +116,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called to set the picker to a certain pace (used in the Add New Run View Controller)
-    1. Decalres the local integer constant minutes as the pace divided by 60
+    1. Declares the local integer constant minutes as the pace divided by 60
     2. Declares the local integer constant seconds as the pace modulus 60
     3. Selects the row of the minutes in the first component
     4. Selects the row of the seconds in the second component

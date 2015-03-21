@@ -37,7 +37,7 @@ class WeightProgressBar: UIView {
     This method is called to draw the progress bar.
     1. Declare the local CGFloat barWidth as the width of the rect - 40 (to add padding)
     2. Declare the local CGFloat barHeight as the height of the rect - 20 (to add padding)
-    3. Calculate the pixels per kg as half the bar width divded by the goal weight (half the bar width is used as the goal weight is the middle of the bar)
+    3. Calculate the pixels per kg as half the bar width divided by the goal weight (half the bar width is used as the goal weight is the middle of the bar)
     4. Create the fullBarRectPath as a UIBezierPath from a rect (x = 20 due to the 40 padding, y = 10 due to the 10 padding)
     5. Create the progressBarRectPath as a UIBezierPath from a rect (where the width is the currentWeight * pxPerKg)
     6. Create the fullBar shape layer

@@ -95,7 +95,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
                      viii. IF there is a selectedShoe, call the function inceaseShoeMiles from the Database class passing the selectedShoe and the run distance
                        ix. IF there is an run shoe, call the function decreaseShoeMiles from the Database class passing the oldShoe and the run distance
                 x. Sets the shoe of the run stored on the shoesVC to the selectedShoe
-               xi. Removes the current view controller from the view heirachy
+               xi. Removes the current view controller from the view hierarchy
     
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

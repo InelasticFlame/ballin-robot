@@ -137,7 +137,7 @@ static Database *_database; //A global variable that stores the current instance
     b. Converts the SQL to an array of characters for use with the database
     c. Declares an sqlite3 statement
     d. Executes the SQL
-    e. IF the statement executes succesfully
+    e. IF the statement executes successfully
         i. Sets saveSuccessful to YES
        ii. Sets the run.ID to the last inserts row ID (this is the run's primary key)
       iii. Calls the function checkRunForNewPersonalBest passing the run
@@ -195,9 +195,9 @@ static Database *_database; //A global variable that stores the current instance
       iii. Converts the SQL to an array of characters for use with the database
        iv. Declares an sqlite3 statement
         v. Executes the SQL
-       vi. IF the statement executes succesfully, log "Saving Successful"
+       vi. IF the statement executes successfully, log "Saving Successful"
       vii. ELSE log "Error Saving"
-     viii. Realeses the statement
+     viii. Releases the statement
     b. Closes the database
  */
 -(void)saveLocationsForRun:(Run *)run {
@@ -234,7 +234,7 @@ static Database *_database; //A global variable that stores the current instance
        ii. Converts the SQL to characters for use with the database
       iii. Declares an sqlite3 statement
        iv. Executes the SQL
-        v. IF the statement executes succesfully, log "Saving Successful"
+        v. IF the statement executes successfully, log "Saving Successful"
        vi. ELSE log "Error Saving"
       vii. Release the statement
     b. Close the database
@@ -494,7 +494,7 @@ static Database *_database; //A global variable that stores the current instance
     a. Creates the SQL
     b. Converts the SQL to an array of characters for use with the database
     c. Declares an SQLite3 statement
-    d. Executes the statement, IF it excutes
+    d. Executes the statement, IF it executes
         i. While there are rows to read
            ii. Retrieves the coordinates of the location from the database as a string
           iii. Creates a CLLocation object using the location string
@@ -536,7 +536,7 @@ static Database *_database; //A global variable that stores the current instance
     a. Creates the SQL
     b. Converts the SQL to an array of characters for use with the database
     c. Declares an SQLite3 statement
-    d. Executes the statement, IF it excutes
+    d. Executes the statement, IF it executes
         i. While there are rows to read
        ii. Retrieves the mile number
       iii. Retrieves the mile pace
@@ -587,7 +587,7 @@ static Database *_database; //A global variable that stores the current instance
     e. ELSE
         i. Logs "Run Deleted Successfully"
        ii. Closes the database
-      iii. Retruns YES (true)
+      iii. Returns YES (true)
   3. ELSE logs "Error Opening Database" and returns NO (false)
   */
 -(BOOL)deleteRunWithID:(Run *)run {
@@ -677,7 +677,7 @@ static Database *_database; //A global variable that stores the current instance
         i. Logs "Planned Run Successfully Saved."
        ii. Closes the database
       iii. Returns YES (true)
-  3. ELSE logs "Error opening database" and Retruns NO (false)
+  3. ELSE logs "Error opening database" and Returns NO (false)
  */
 -(BOOL)savePlannedRun:(PlannedRun *)plannedRun ForPlan:(Plan *)plan {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -947,7 +947,7 @@ static Database *_database; //A global variable that stores the current instance
     b. Converts the SQL into a pure string to use with the database
     c. Declares an SQLite3 statement
     d. Executes the statement
-    e. IF the statement executes succesfully
+    e. IF the statement executes successfully
         i. Logs "Shoe Saved Successfully"
     f. ELSE
         i. Logs "Error Saving Shoe"
@@ -984,7 +984,7 @@ static Database *_database; //A global variable that stores the current instance
     a. Creates the SQL as an NSString
     b. Converts the SQL into a pure string to use with the database
     c. Declares the local char variable errorMessage
-    d. IF the statement does not execute succesfully
+    d. IF the statement does not execute successfully
         i. Converts the errorMessage to an NSString
        ii. Logs "Error increasing shoe miles: " and the error message
     e. ELSE
@@ -1019,7 +1019,7 @@ static Database *_database; //A global variable that stores the current instance
     a. Creates the SQL as an NSString
     b. Converts the SQL into a pure string to use with the database
     c. Declares the local char variable errorMessage
-    d. IF the statement does not execute succesfully
+    d. IF the statement does not execute successfully
         i. Converts the errorMessage to an NSString
        ii. Logs "Error decreasing shoe miles: " and the error message
     e. ELSE

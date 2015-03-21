@@ -27,7 +27,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     /**
     This method is called by the system when the view is initially loaded.
     1. Sets the delegate (controller) of the shoeNameTextField to this view controller
-    2. Tells the view controller to listen for the notification "UpdateDetailLabel" and to call the function updateDetailLabel wheneevr it recieves this notification
+    2. Tells the view controller to listen for the notification "UpdateDetailLabel" and to call the function updateDetailLabel wheneevr it receives this notification
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +69,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
             i. Sets the image picker to be a camera view
            ii. Sets the camera to photos mode
           iii. Presents the image picker
-        f. When a user presses "Choose Exisitng"
+        f. When a user presses "Choose Existing"
             i. Sets the image picker source to the Photos library
            ii. Presents the image picker
         g. When the user presses the "Cancel" button
@@ -164,7 +164,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     /**
     This method is called by the system when a user presses the Save button. If a plan passes all the validation checks it will be saved.
     1. Declares the local constant UITableViewCell; errorCell that stores a reference to the cell that displays the error message
-    2. Decalres the local tuple shoeNameValidation and stores the return of the validateString function performed on the string in the shoeNameTextField
+    2. Declares the local tuple shoeNameValidation and stores the return of the validateString function performed on the string in the shoeNameTextField
     3. IF the shoeName is valid
         a. IF a shoe exists with the current name
             i. Sets the error cell text to be "A shoe name must be unique."

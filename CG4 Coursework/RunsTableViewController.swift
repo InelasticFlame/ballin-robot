@@ -11,15 +11,15 @@ import UIKit
 class RunsTableViewController: UITableViewController {
     //MARK: - Global Variables
     
-    var runs = [Run]() //Creates and inititalises a global array of Run objects
+    var runs = [Run]() //Creates and initialises a global array of Run objects
     
     //MARK: - View Life Cycle
     
     /**
     This method is called by the system when the view is first loaded
     1. Sets the right button on the navigation bar as an Edit button
-    2. Tells the view controller to listen for a notification called "RunLoadComplete", and if it recieves the notification to call the function finishLoad
-    3. Tells the view controller to listen for a notification called "AuthorisedSuccessfully", and if it recieves the notification to call the function loadRuns
+    2. Tells the view controller to listen for a notification called "RunLoadComplete", and if it receives the notification to call the function finishLoad
+    3. Tells the view controller to listen for a notification called "AuthorisedSuccessfully", and if it receives the notification to call the function loadRuns
     4. Retrieves the string from the user defaults with the access token key, IF it's character count is greater than 0
         a. Creates and sets the refresh control for the table
         b. Tells the refresh control to call the function authorise when it is used
@@ -63,9 +63,9 @@ class RunsTableViewController: UITableViewController {
         e. Sets the text to align center
         f. Sets the font to the system font of size 16
         g. Sizes the label to fix the view
-        h. Removes the seperators from the table view
+        h. Removes the separators from the table view
         i. Sets the background of the table view to the created label
-    2. ELSE removes the background view (if there is one) and sets the seperator style to single line
+    2. ELSE removes the background view (if there is one) and sets the separator style to single line
     */
     func checkNoRunsLabel() {
         if runs.count == 0 { //1
@@ -117,7 +117,7 @@ class RunsTableViewController: UITableViewController {
     // MARK: - Table View Data Source
 
     /**
-    This method is called by the system whenevr the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
+    This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
@@ -136,7 +136,7 @@ class RunsTableViewController: UITableViewController {
     This method is called by the system when the data is loaded in the table, it creates a new cell and populates it with the data for a particular run.
     1. Creates a new cell with the identifier runCell, that is of type RunTableViewCell
     2. Gets the run object for the current cell
-    3. Sets the labels in the cell to the approriate text, using the stringify methods from the Conversions class
+    3. Sets the labels in the cell to the appropriate text, using the stringify methods from the Conversions class
     4. Retrieves the score colour for the current run and sets the background colour of the cell to that colour
     5. Sets the alpha of the progressView to 0.4
     6. Returns the cell

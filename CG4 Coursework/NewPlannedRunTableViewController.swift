@@ -36,7 +36,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     1. Sets the minimum date and maximum date of the plannedRunDate picker to the plan start and end dates respectively
     2. Calls the function updateDetailLabels (to setup the interface)
     3. Tells the plannedRunDate picker to call the function updateDetailLabels when its value is changed
-    4. Tells the view controller to listen for the notification called "UpdateDetailLabel" and to call the function updateDetailLabels when it recieves the notification
+    4. Tells the view controller to listen for the notification called "UpdateDetailLabel" and to call the function updateDetailLabels when it receives the notification
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,9 +166,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     /**
     This method is called by the system when the user presses the Done button
     1. Declares the local string variable error, the double variable planDistance and the integer variable planDuration
-    2. Resigns the runDetailsTextField as the first repsonder (the foucs) (this dismisses the keyboard)
+    2. Resigns the runDetailsTextField as the first responder (the focus) (this dismisses the keyboard)
     3. IF the run has a DISTANCE
-        a. Sets the planDistance to the selceted distance of the plannedDistancePicker
+        a. Sets the planDistance to the selected distance of the plannedDistancePicker
     4. ELSE IF the run has a DURATION
         b. Sets the planDuration to the selected duration of the plannedDurationPicker
     5. IF the planDistance and the planDuration equal 0
@@ -285,11 +285,11 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     // MARK: - Navigation
     
     /**
-    This method is called by the system whenever a segue is about to be performed. It passes the relevant information to the destination view controller so that the view can be setup appropriatley.
-    1. IF the segue has the indentifier "repeatPress"
+    This method is called by the system whenever a segue is about to be performed. It passes the relevant information to the destination view controller so that the view can be setup appropriately.
+    1. IF the segue has the identifier "repeatPress"
         a. Retrieve the destination view controller as a RepeatsTableViewController
             i. Sets the repeatOption of the destinationVC to the detailLabel of the repeatOption cell
-    2. ELSE IF the segue has indetifier "repeatEndDatePress"
+    2. ELSE IF the segue has idetifier "repeatEndDatePress"
         b. Retrieve the destination view controller as a RepeatSettingsTableViewController
            ii. Sets the repeatEnd of the destinationVC to the detailLabel of the repeatEnd cell
           iii. Sets the plannedRunDate of the destinationVC to the plannedRunDatePicker date

@@ -56,7 +56,7 @@ class SetupViewController: UIViewController {
        14. Retrieves the calorie goal and stores it as a local integer constant
        15. Set the value of the weight steppers as the calorie goal
        16. Sets changes made to false
-    17. Tells the class to listen for the notification  AuthorisedSuccessfully and to call the function updateStravaLabel when it recieves the notification
+    17. Tells the class to listen for the notification  AuthorisedSuccessfully and to call the function updateStravaLabel when it receives the notification
     18. Calls the function updateWeightGoalLabel
     19. Calls the function updateCalorieGoalLabel
     20. Calls the function updateGoalDistanceLabel
@@ -212,7 +212,7 @@ class SetupViewController: UIViewController {
     }
     
     /**
-    This method is called when the user changes the value of the weight segemnet. It sets the changesMade to true and calls the function updateWeightGoalLabel
+    This method is called when the user changes the value of the weight segment. It sets the changesMade to true and calls the function updateWeightGoalLabel
     */
     @IBAction func weightSegmentValueChanged(sender: UISegmentedControl) {
         changesMade = true
@@ -247,7 +247,7 @@ class SetupViewController: UIViewController {
     
     /**
     This method updates the text of the weight goal label.
-    1. IF the weightSegement selected is the first segement
+    1. IF the weightSegment selected is the first segment
         a. The weightStepperLabel text is the value of the weightStepper + kg
     2. ELSE
         b. The weightStepperLabel text is the value of the weightStepper + lb
@@ -262,7 +262,7 @@ class SetupViewController: UIViewController {
     
     /**
     This method updates the text of the weight goal label.
-    1. IF the distanceSegment selected is the first segement
+    1. IF the distanceSegment selected is the first segment
         a. The goalDistanceStepperLabel text is the value of the goalDistanceStepper + mi
     2. ELSE
         b. The goalDistanceStepperLabel text is the value of the goalDistanceStepper + km
