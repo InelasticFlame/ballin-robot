@@ -12,26 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.x
-        
-        /*
-        if (UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8 {
-            UITableView.appearance().layoutMargins = UIEdgeInsetsZero
-            UITableViewCell.appearance().layoutMargins = UIEdgeInsetsZero
-            UITableViewCell.appearance().preservesSuperviewLayoutMargins = false
-        }
-        */
-        
-        return true
-    }
     
+    /**
+    This method is called by the system when the app is opened via a URL (set in the Info.plist file)
+    1. Calls the function checkReturnURL passing the url that opened the app
+    */
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
         
-        println(url)
-        
-        StravaAuth().checkReturnURL(url)
+        StravaAuth().checkReturnURL(url) //1
         
         return true
     }

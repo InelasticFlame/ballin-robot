@@ -20,9 +20,10 @@ class WeightHistoryViewController: UIViewController {
     
     //MARK: - Global Variables
     
-    private let secondsInDay: Double = 86400
-    private var graphCoords = [GraphCoordinate]()
-    var healthStore = HKHealthStore()
+    private let secondsInDay: Double = 86400 //A global constant that stores the number of seconds in a day
+    private let healthStore = HKHealthStore() //A global HKHealthStore that is used to access the HealthKit data store
+    
+    private var graphCoords = [GraphCoordinate]() //A global mutable array of GraphCoordiantes that stores the graphCoords
     
     //MARK: - View Life Cycle
     
@@ -34,6 +35,8 @@ class WeightHistoryViewController: UIViewController {
         loadWeightForLast7Days(startDate, endDate: endDate)
     }
 
+    //MARK: - Graph Data Loading
+    
     func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
         var weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram)
         
@@ -52,7 +55,11 @@ class WeightHistoryViewController: UIViewController {
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     /* BLOCK START */
-                    self.graphCoords.append(GraphCoordinate(x: startDate.shortDateString(), y: CGFloat(doubleWeight)))
+                    let dateStr = startDate.shortestDateString()
+                    let cutTo = countElements(dateStr) - 3
+                    let xStr = dateStr.substringToIndex(advance(dateStr.startIndex, cutTo))
+                    
+                    self.graphCoords.append(GraphCoordinate(x: xStr, y: CGFloat(doubleWeight)))
                     if self.graphCoords.count == 7 {
                         self.drawWeightGraph()
                     }
@@ -63,7 +70,11 @@ class WeightHistoryViewController: UIViewController {
             if result == nil {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     /* BLOCK START */
-                    self.graphCoords.append(GraphCoordinate(x: startDate.shortDateString(), y: CGFloat(0)))
+                    let dateStr = startDate.shortestDateString()
+                    let cutTo = countElements(dateStr) - 3
+                    let xStr = dateStr.substringToIndex(advance(dateStr.startIndex, cutTo))
+                    
+                    self.graphCoords.append(GraphCoordinate(x: xStr, y: CGFloat(0)))
                     if self.graphCoords.count == 7 {
                         self.drawWeightGraph()
                     }
@@ -80,6 +91,8 @@ class WeightHistoryViewController: UIViewController {
             /* BLOCK END */
         }
     }
+    
+    //MARK: - Graph Drawing
     
     func drawWeightGraph() {
         var greatestWeight: CGFloat = graphCoords[0].y

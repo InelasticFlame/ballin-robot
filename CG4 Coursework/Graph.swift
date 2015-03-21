@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
     
 class Graph: UIView {
     
@@ -103,12 +102,10 @@ class Graph: UIView {
                 }
                 CGContextStrokePath(currentContext)
                 CGContextSetLineWidth(currentContext, 0.4)
-                //                if yScale > 5 {
                 for markerNo in 0...Int(maxYCoord/minorStep) { //2 MARKERS
                     let yMarkerY = yScale * minorStep * CGFloat(markerNo)
                     CGContextMoveToPoint(currentContext, originX, originY - yMarkerY)
                     CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY)
-                    //                    }
                 }
                 CGContextStrokePath(currentContext)
                 CGContextSetLineWidth(currentContext, 2)
@@ -118,10 +115,11 @@ class Graph: UIView {
             CGContextMoveToPoint(currentContext, axesIndent, rect.height - axesIndent)
             CGContextAddLineToPoint(currentContext, rect.width - indent, rect.height - axesIndent)
             
-            for markerNumber in 0...values.count {
+            for markerNumber in 0...values.count - 1 {
                 let xMarkerX = xScale * CGFloat(markerNumber)
                 CGContextMoveToPoint(currentContext, axesIndent + xMarkerX, rect.height - axesIndent)
                 CGContextAddLineToPoint(currentContext, axesIndent + xMarkerX, rect.height - axesIndent + markerHeight)
+                self.addXAxisTextToGraph(self.values[markerNumber].x, xCoord: originX + xMarkerX, yCoord: originY + 60)
             }
             
             CGContextStrokePath(currentContext)
@@ -183,6 +181,19 @@ class Graph: UIView {
         textLayer.foregroundColor = UIColor.blackColor().CGColor
         textLayer.frame = CGRectMake(xCoord, yCoord, 100, 12);
         textLayer.contentsScale = UIScreen.mainScreen().scale
+        self.layer.addSublayer(textLayer)
+    }
+    
+    func addXAxisTextToGraph(text: String, xCoord: CGFloat, yCoord: CGFloat) {
+        let textLayer = CATextLayer()
+        textLayer.string = text
+        textLayer.fontSize = 10
+        textLayer.font = UIFont.systemFontOfSize(10)
+        textLayer.foregroundColor = UIColor.blackColor().CGColor
+        textLayer.frame = CGRectMake(xCoord, yCoord, 100, 12);
+        textLayer.contentsScale = UIScreen.mainScreen().scale
+        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(M_PI/2)))
+        textLayer.position = CGPointMake(xCoord, yCoord)
         self.layer.addSublayer(textLayer)
     }
     

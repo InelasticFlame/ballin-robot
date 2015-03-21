@@ -83,7 +83,7 @@
                             <constraint firstItem="ks9-3V-DNz" firstAttribute="leading" secondItem="ig7-hF-y9z" secondAttribute="leadingMargin" constant="-16" id="CTQ-Hg-2bP"/>
                             <constraint firstItem="ks9-3V-DNz" firstAttribute="top" secondItem="dR7-Wn-NnZ" secondAttribute="bottom" id="Eos-XI-f8H"/>
                             <constraint firstItem="M9U-z2-esm" firstAttribute="leading" secondItem="ig7-hF-y9z" secondAttribute="leadingMargin" id="FKc-gN-dj7"/>
-                            <constraint firstItem="Fcp-gE-KRP" firstAttribute="top" secondItem="ks9-3V-DNz" secondAttribute="bottom" constant="14" id="Kvj-FV-St6"/>
+                            <constraint firstItem="Fcp-gE-KRP" firstAttribute="top" secondItem="ks9-3V-DNz" secondAttribute="bottom" constant="20" id="Kvj-FV-St6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ks9-3V-DNz" secondAttribute="trailing" constant="-16" id="RJ0-10-cZd"/>
                             <constraint firstItem="Fcp-gE-KRP" firstAttribute="leading" secondItem="ig7-hF-y9z" secondAttribute="leadingMargin" id="bgb-EZ-4ef"/>
                             <constraint firstItem="uO0-jE-AKd" firstAttribute="top" secondItem="M9U-z2-esm" secondAttribute="bottom" constant="8" id="xXC-tH-bOm"/>
@@ -208,7 +208,7 @@
                                             <constraint firstAttribute="height" constant="21" id="Z94-zH-xgr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -826,7 +826,7 @@
                                     <constraint firstAttribute="height" constant="21" id="fdW-zm-7Il"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -2810,10 +2810,21 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="b5R-Nm-aTs">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="4cX-dG-upB" style="IBUITableViewCellStyleDefault" id="b5R-Nm-aTs">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b5R-Nm-aTs" id="BQc-0U-OUd">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4cX-dG-upB">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Fm2-Gf-h3k" detailTextLabel="S8U-Vc-dP6" style="IBUITableViewCellStyleValue1" id="6Tv-OC-Be3">
@@ -2893,7 +2904,7 @@
                         <outlet property="distanceDurationSegement" destination="gQW-Qf-xvR" id="JYi-yq-Xkw"/>
                         <outlet property="plannedDistancePicker" destination="qXJ-CL-63m" id="oun-6N-Sl0"/>
                         <outlet property="plannedDurationPicker" destination="4GM-OE-oUX" id="QVG-iC-MBv"/>
-                        <outlet property="plannedRunDate" destination="77c-GT-pDD" id="ECf-sI-S1M"/>
+                        <outlet property="plannedRunDatePicker" destination="77c-GT-pDD" id="qN2-fI-eNF"/>
                         <outlet property="runDateDetailLabel" destination="Xno-CK-vPX" id="dxz-33-kvz"/>
                         <outlet property="runDetailsTextField" destination="RYa-JL-eD5" id="0h3-ka-vP6"/>
                         <outlet property="runDistanceDurationDetailLabel" destination="9cb-Cv-DPe" id="Cuz-kT-cUx"/>
@@ -3726,7 +3737,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yxY-SL-Oez">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="shoeCell" rowHeight="90" id="adc-2v-vnm" customClass="ShoeTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -3755,7 +3766,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shoe Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uv-p9-kgJ">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlT-HM-iBd">
@@ -4026,7 +4037,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Shoe Image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ggH-RT-isi">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>

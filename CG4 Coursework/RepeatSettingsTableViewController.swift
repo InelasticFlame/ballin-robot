@@ -17,7 +17,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     //MARK: - Global Variables
     
     var repeatEnd: String? //A global string variable that stores the selected repeat end option (if one has been previously set). This value is set by the NewPlannedRunTableView controller when the segue to this view is called.
-    var plannedRunDate: NSDate?
+    var plannedRunDate: NSDate? //A global optional NSDate variable that stores the date of the planned run. This is so that the repeat end cannot be set to before the planned run date.
     
     //MARK: - View Life Cycle
     

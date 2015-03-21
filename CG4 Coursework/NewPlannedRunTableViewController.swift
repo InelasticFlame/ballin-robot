@@ -13,7 +13,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     // MARK: - Storyboard Links
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var distanceDurationSegement: UISegmentedControl!
-    @IBOutlet weak var plannedRunDate: UIDatePicker!
+    @IBOutlet weak var plannedRunDatePicker: UIDatePicker!
     @IBOutlet weak var plannedDistancePicker: DistancePicker!
     @IBOutlet weak var plannedDurationPicker: DurationPicker!
     @IBOutlet weak var runDateDetailLabel: UILabel!
@@ -21,35 +21,61 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var runDetailsTextField: UITextField!
     
     // MARK: - Global Variables
-    private var editingRunDate = false
-    private var editingRunDistanceDuration = false
-    private var showRepeat = false
-    private let secondsInDay: Double = 86400
-    var plan: Plan?
+    private let secondsInDay: Double = 86400 //A global double constant that stores the number of seconds in a day. Used to increase a date by 24 hours
     
+    private var editingRunDate = false //A global boolean variable that tracks whether a user is editing the run date (so the run date picker should be shown)
+    private var editingRunDistanceDuration = false //A global boolean variable that tracks whether a user is editing the runDistance or duration (so the runDistance or runDuration picker should be shown)
+    private var showRepeat = false //A global boolean variable that tracks whether the user has selected a repeat option other than 'Never' so the repeatOptions cell should be displayed
+    private var showError = false //A global boolean variable that tracks whether the error message cell should be displayed (because the planned run has failed a validation check)
+    var plan: Plan? //A global optional variable plan object that stores the plan the runs are being created for
+    
+    //MARK: - View Life Cycle
+    
+    /**
+    This method is called by the system when the view is first loaded.
+    1. Sets the minimum date and maximum date of the plannedRunDate picker to the plan start and end dates respectively
+    2. Calls the function updateDetailLabels (to setup the interface)
+    3. Tells the plannedRunDate picker to call the function updateDetailLabels when its value is changed
+    4. Tells the view controller to listen for the notification called "UpdateDetailLabel" and to call the function updateDetailLabels when it recieves the notification
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        plannedRunDate.minimumDate = plan?.startDate //Prevents a user from planning a run before the plan begins
-        plannedRunDate.maximumDate = plan?.endDate //Prevents a user from planning a run after the plan ends
+        //1
+        plannedRunDatePicker.minimumDate = plan?.startDate //Prevents a user from planning a run before the plan begins
+        plannedRunDatePicker.maximumDate = plan?.endDate //Prevents a user from planning a run after the plan ends
         
-        updateDetailLabels()
+        updateDetailLabels() //2
         
-        plannedRunDate.addTarget(self, action: "updateDetailLabels", forControlEvents: .ValueChanged)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels", name: "UpdateDetailLabel", object: nil)
+        plannedRunDatePicker.addTarget(self, action: "updateDetailLabels", forControlEvents: .ValueChanged) //3
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels", name: "UpdateDetailLabel", object: nil) //4
     }
 
+    //MARK: - Interface Updates
+    
+    /**
+    This method is called by the system when the value of the distanceDuration segment is changed
+    1. Calls the function reloadTableViewCells (to show the correct picker based on the selected segment)
+    2. Calls the function updateDetailLabel (to set the interface to the new type (distance or duration))
+    */
     @IBAction func distanceDurationSegmentValueChanged(sender: UISegmentedControl) {
-        reloadTableViewCells()
-        updateDetailLabels()
+        tableView.reloadTableViewCells() //1
+        updateDetailLabels() //2
     }
     
+    /**
+    1. Sets the text of the runDateDetailLabel to the selected plannedRun date as a short date string
+    2. IF the distanceDuration segment selected is the first segment (DISTANCE)
+        a. Sets the runDistanceDuration label text to the plannedDistancePicker selected distance as a string
+    3. ELSE (DURATION)
+        b. Sets the runDistanceDuration label text to the plannedDurationPicker selected duration as a string
+    */
     func updateDetailLabels() {
-        runDateDetailLabel.text = plannedRunDate.date.shortDateString()
-        if distanceDurationSegement.selectedSegmentIndex == 0 {
-            runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr
-        } else if distanceDurationSegement.selectedSegmentIndex == 1 {
-            runDistanceDurationDetailLabel.text = plannedDurationPicker.selectedDuration().durationStr
+        runDateDetailLabel.text = plannedRunDatePicker.date.shortDateString() //1
+        if distanceDurationSegement.selectedSegmentIndex == 0 { //2
+            runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr //a
+        } else if distanceDurationSegement.selectedSegmentIndex == 1 { //3
+            runDistanceDurationDetailLabel.text = plannedDurationPicker.selectedDuration().durationStr //b
         }
     }
     
@@ -66,159 +92,248 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         return false //2
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
 
+    /**
+    This method is called by the system whenever the data in the table view is loaded
+    1. IF the indexPath has a row of either 0, 2, 5 or 7 (these should always be displayed)
+        a. Return the default row height
+    2. ELSE IF the indexPath has a row of 8 and the repeat should be shown
+        b. Return the default row height
+    3. ELSE IF the indexPath has a row of 6 and the error should be shown
+        c. Return the default row height
+    4. ELSE
+        d. IF the indexPath has a row of 1 and the user is editing the run date
+            i. Return the picker row height
+        e. IF the user is editing the run distance or duration
+           ii. IF the selected segment in the distanceDuration segment is the first segment AND the indexPath has a row of 3 (DISTANCE)
+                Z. Return the picker row height
+          iii. IF the selected segment in the distanceDuration segment is the second segment AND the indexPath has a row of 4 (DURATION)
+                Y. Return the picker row height
+    5. In the default case return 0
+    */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 5 || indexPath.row == 7 {
-            return 44
-            
-        } else if indexPath.row == 8 && showRepeat {
-            return 44
-        } else {
-            if indexPath.row == 1 && editingRunDate {
-                return 162
+        if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 5 || indexPath.row == 7 { //1
+            return Constants.TableView.DefaultRowHeight //a
+        } else if indexPath.row == 8 && showRepeat { //2
+            return Constants.TableView.DefaultRowHeight //b
+        } else if indexPath.row == 6 && showError { //3
+            return Constants.TableView.DefaultRowHeight //c
+        } else { //4
+            if indexPath.row == 1 && editingRunDate { //d
+                return Constants.TableView.PickerRowHeight //i
             }
             
-            if editingRunDistanceDuration {
-                if distanceDurationSegement.selectedSegmentIndex == 0 && indexPath.row == 3 {
-                    return 162
+            if editingRunDistanceDuration { //e
+                if distanceDurationSegement.selectedSegmentIndex == 0 && indexPath.row == 3 { //ii
+                    return Constants.TableView.PickerRowHeight //Z
                 }
             
-                if distanceDurationSegement.selectedSegmentIndex == 1 && indexPath.row == 4 {
-                    return 162
+                if distanceDurationSegement.selectedSegmentIndex == 1 && indexPath.row == 4 { //iii
+                    return Constants.TableView.PickerRowHeight //Y
                 }
             }
         }
         
-        return  0
+        return  0 //5
     }
     
+    /**
+    This method is called by the system whenever a user selects a row in the table view
+    1. IF the selected cell is the first cell (DATE)
+        a. Swap the value of editingRunDate
+        b. Sets editingRunDistanceDuration to false
+    2. IF the selected cell is the fourth cell (DISTANCE/DURATION)
+        c. Swap the value of editingRunDistanceDuration
+        d. Sets editingRunDate to false
+    3. Calls the function reloadTableViewCells
+    */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
-            if !editingRunDate {
-                editingRunDate = true
-            } else {
-                editingRunDate = false
-            }
-            editingRunDistanceDuration = false
+        if indexPath.row == 0 { //1
+            editingRunDate = !editingRunDate //a
+            editingRunDistanceDuration = false //b
         
-        } else if indexPath.row == 2 {
-            if !editingRunDistanceDuration {
-                editingRunDistanceDuration = true
-            } else {
-                editingRunDistanceDuration = false
-            }
-            editingRunDate = false
+        } else if indexPath.row == 2 { //2
+            editingRunDistanceDuration = !editingRunDistanceDuration //b
+            editingRunDate = false //c
         }
         
-        reloadTableViewCells()
+        tableView.reloadTableViewCells() //3
     }
-    
-    func reloadTableViewCells() {
-        self.tableView.beginUpdates()
-        self.tableView.reloadData()
-        self.tableView.endUpdates()
-    }
-    
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "repeatPress" {
-            if let destinationVC = segue.destinationViewController as? RepeatsTableViewController {
-                destinationVC.repeatOption = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text?
-            }
-        } else if segue.identifier == "repeatEndDatePress" {
-            if let destinationVC = segue.destinationViewController as? RepeatSettingsTableViewController {
-                destinationVC.repeatEnd = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text?
-                destinationVC.plannedRunDate = plannedRunDate.date
-            }
-        }
-        
-    }
+    //MARK: - Planned Run Saving
     
-    func setRepeatDetailLabelText(repeatText: String) {
-        if repeatText != "Never" {
-            showRepeat = true
-            reloadTableViewCells()
-        } else {
-            showRepeat = false
-            reloadTableViewCells()
-        }
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text = repeatText
-    }
-    
-    func setRepeatEndDetailLabelText(repeatEndOption: String) {
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text = repeatEndOption
-    }
-    
+    /**
+    This method is called by the system when the user presses the Done button
+    1. Declares the local string variable error, the double variable planDistance and the integer variable planDuration
+    2. Resigns the runDetailsTextField as the first repsonder (the foucs) (this dismisses the keyboard)
+    3. IF the run has a DISTANCE
+        a. Sets the planDistance to the selceted distance of the plannedDistancePicker
+    4. ELSE IF the run has a DURATION
+        b. Sets the planDuration to the selected duration of the plannedDurationPicker
+    5. IF the planDistance and the planDuration equal 0
+        c. Appends "A run must have distance or duration greater than 0."
+    6. Validates the text in the run details textField
+    7. IF the string isn't valid
+        d. Appends the stringValidationError onto the error
+    8. IF there isn't an error
+        e. Declare the local double variable timeInterval and the local NSDate repeatEndDate
+        f. Sets showError to false
+        g. Calls the function reloadTableViewCells (if there was an error already displayed it should now be hidden)
+        h. IF a user has selected a repeat
+            i. Retrieve the repeatCell
+           ii. Retrieve the text from the detail label of the repeat cel
+          iii. Perform a switch on the text of the detail label
+               iv. In the case of "Every Day" the timeInterval is secondsInDay
+                v. In the case of "Every Week" the timeInterval is secondsInDay * 7
+               vi. This is the continued for all repeat options
+              vii. In the default case log "Error Identifying Repeat Option"
+         viii. Retrieve the endRepeatCell
+           ix. IF the detailLabel of the endRepeatCell has text "Until Plan End"
+                x. The plannedRun should be repeated until the plan end date so set the repeatEndDate to the plan end date
+           xi. ELSE
+              xii. The plannedRun should be repeated until the date selected so set the repeatEndDate to the date created from the short date string of the endRepeatCell text
+         xiii. Declare the local NSDate variable plannedRunDate and set its value to the plannedRunDatePicker date
+          xiv. While the plannedRunDate is before the repeatEndDate
+               xv. Create the planned run and save it to the database using the savePlannedRun method from the Database class
+              xvi. Increase the plannedRunDate by the time interval
+        i. ELSE
+            j. Create the planned run and save it to the database using the savePlannedRun method from the Database class
+        k. Dismiss the current view
+    9. ELSE (there is an error)
+        l. Sets the error cell text label text to the error
+        m. Set show error to true
+        n. Calls the function reloadTableViewCells to display the error
+    */
     @IBAction func donePressed(sender: AnyObject) {
-        var error = ""
+        var error = "" //1
         var planDistance = 0.0
         var planDuration = 0
         
-        if distanceDurationSegement.selectedSegmentIndex == 0 {
-            planDistance = plannedDistancePicker.selectedDistance().distance
-        } else if distanceDurationSegement.selectedSegmentIndex == 1 {
-            planDuration = plannedDurationPicker.selectedDuration().duration
+        self.runDetailsTextField.resignFirstResponder() //2
+        
+        if distanceDurationSegement.selectedSegmentIndex == 0 { //3
+            planDistance = plannedDistancePicker.selectedDistance().distance //a
+        } else if distanceDurationSegement.selectedSegmentIndex == 1 { //4
+            planDuration = plannedDurationPicker.selectedDuration().duration //b
         }
         
-        if planDistance == 0 && planDuration == 0 {
-            error += "A plan must have a distance or duration greater than 0. \n"
+        if planDistance == 0 && planDuration == 0 { //5
+            error += "A run must have a distance or duration greater than 0. \n" //c
         }
         
-        let stringValidation = runDetailsTextField.text.validateString("Plan details", maxLength: 40, minLength: 0)
-        if !stringValidation.valid {
-            error += "\(stringValidation.error) \n"
+        let stringValidation = runDetailsTextField.text.validateString("Plan details", maxLength: 40, minLength: 0) //6
+        if !stringValidation.valid { //7
+            error += stringValidation.error + "\n" //d
         }
         
-        if error == "" {
-            
-            var timeInterval: Double = 0
+        if error == "" { //8
+            var timeInterval: Double = 0 //e
             var repeatEndDate = NSDate()
             
-            if showRepeat { //If this is true then a user is selecting a repeat option
-                if let repeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0)) {
-                    if let text = repeatCell.detailTextLabel?.text as String? {
-                        switch text {
-                        case "Every Day":
+            showError = false //f
+            tableView.reloadTableViewCells() //g
+            
+            if showRepeat { //h
+                if let repeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0)) { //i
+                    if let text = repeatCell.detailTextLabel?.text as String? { //ii
+                        switch text { //iii
+                        case "Every Day": //iv
                             timeInterval = secondsInDay
-                        case "Every Week":
+                        case "Every Week": //v
                             timeInterval = secondsInDay * 7
-                        case "Every 2 Weeks":
+                        case "Every 2 Weeks": //vi
                             timeInterval = secondsInDay * 14
                         case "Every 3 Weeks":
                             timeInterval = secondsInDay * 21
                         case "Every 4 Weeks":
                             timeInterval = secondsInDay * 28
-                        default:
+                        default: //vii
                             println("Every Identifying Repeat Option")
                         }
                     }
                 }
-                if let endRepeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0)) {
-                    if endRepeatCell.detailTextLabel?.text == "Until Plan End" {
-                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: plan!.endDate)
-                    } else {
-                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!))
+                
+                if let endRepeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0)) { //viii
+                    if endRepeatCell.detailTextLabel?.text == "Until Plan End" { //ix
+                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: plan!.endDate) //x
+                    } else { //xi
+                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!)) //xii
                     }
                 }
                 
-                var plannedRunDates = plannedRunDate.date
+                var plannedRunDate = plannedRunDatePicker.date //xiii
                 
-                while plannedRunDates.compare(repeatEndDate) == .OrderedAscending {
-                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDates, distance: planDistance, duration: planDuration, details: runDetailsTextField.text)
+                while plannedRunDate.compare(repeatEndDate) == .OrderedAscending { //xiv
+                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
                     Database().savePlannedRun(plannedRun, forPlan: plan)
-                    plannedRunDates = NSDate(timeInterval: timeInterval, sinceDate: plannedRunDates)
+                    plannedRunDate = NSDate(timeInterval: timeInterval, sinceDate: plannedRunDate) //xvi
                 }
-            } else {
-                let plannedRun = PlannedRun(ID: 0, date: plannedRunDate.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text)
+            } else { //i
+                let plannedRun = PlannedRun(ID: 0, date: plannedRunDatePicker.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //j
                 
                 Database().savePlannedRun(plannedRun, forPlan: plan)
             }
-            self.navigationController!.popViewControllerAnimated(true)
-        } else {
-            println(error) //Handle validation erro
+            self.navigationController!.popViewControllerAnimated(true) //k
+        } else { //9
+            self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 6, inSection: 0))?.textLabel?.text? = error //l
+            showError = true //m
+            self.tableView.reloadTableViewCells() //n
         }
+    }
+    
+    // MARK: - Navigation
+    
+    /**
+    This method is called by the system whenever a segue is about to be performed. It passes the relevant information to the destination view controller so that the view can be setup appropriatley.
+    1. IF the segue has the indentifier "repeatPress"
+        a. Retrieve the destination view controller as a RepeatsTableViewController
+            i. Sets the repeatOption of the destinationVC to the detailLabel of the repeatOption cell
+    2. ELSE IF the segue has indetifier "repeatEndDatePress"
+        b. Retrieve the destination view controller as a RepeatSettingsTableViewController
+           ii. Sets the repeatEnd of the destinationVC to the detailLabel of the repeatEnd cell
+          iii. Sets the plannedRunDate of the destinationVC to the plannedRunDatePicker date
+    */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "repeatPress" { //1
+            if let destinationVC = segue.destinationViewController as? RepeatsTableViewController { //a
+                destinationVC.repeatOption = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text? //i
+            }
+        } else if segue.identifier == "repeatEndDatePress" { //2
+            if let destinationVC = segue.destinationViewController as? RepeatSettingsTableViewController { //b
+                destinationVC.repeatEnd = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text? //ii
+                destinationVC.plannedRunDate = plannedRunDatePicker.date //iii
+            }
+        }
+        
+    }
+    
+    /**
+    This method is called by the RepeatsTableViewController when a user selects a repeat.
+    1. IF The repeatText isn't "Never"
+        a. Sets showRepeat to true (the user should now be able to set an end date for the repeat)
+        b. Calls the function reloadTableViewCells
+    2. ELSE
+        c. Sets showRepeat to false
+        d. Calls the function reloadTableViewCells
+    3. Sets the text of the repeat cell detail label to the repeatText
+    */
+    func setRepeatDetailLabelText(repeatText: String) {
+        if repeatText != "Never" { //1
+            showRepeat = true //a
+            tableView.reloadTableViewCells() //b
+        } else { //2
+            showRepeat = false //c
+            tableView.reloadTableViewCells() //d
+        }
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text = repeatText //3
+    }
+    
+    /**
+    This method is called by the RepeatSettingsTableViewController when a user selects a setting for their repeat option
+    1. Sets the text of the repeat setting detail label to the repeatEndOption
+    */
+    func setRepeatEndDetailLabelText(repeatEndOption: String) {
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text = repeatEndOption
     }
 }
