@@ -7,104 +7,184 @@
 //
 
 import UIKit
+import HealthKit
 
 class HomeTableViewController: UITableViewController {
     
-    override func viewDidAppear(animated: Bool) {
-        
-        if !NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) {
-            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
-            let setupVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController
-            self.presentViewController(setupVC, animated: true, completion: nil)
-        }
-    }
+    //MARK: - Storyboard Links
     
+    /* These variables store links to controls on the interface, connected via the Storyboard. */
+    @IBOutlet weak var distanceHeaderView: UIView!
+    @IBOutlet weak var distanceMainView: UIView!
+    @IBOutlet weak var shoesHeaderView: UIView!
+    @IBOutlet weak var shoesMainView: UIView!
+    @IBOutlet weak var personalBestsHeaderView: UIView!
+    @IBOutlet weak var personalBestMainView: UIView!
+    @IBOutlet weak var distanceProgressView: UIView!
+    
+    @IBOutlet weak var distanceProgressLabel: UILabel!
+    @IBOutlet weak var shoeNameLabel: UILabel!
+    @IBOutlet weak var shoeDistanceLabel: UILabel!
+    @IBOutlet weak var shoeImageView: UIImageView!
+    @IBOutlet weak var longestDurationLabel: UILabel!
+    @IBOutlet weak var bestAveragePaceLabel: UILabel!
+    @IBOutlet weak var longestDistanceLabel: UILabel!
+    @IBOutlet weak var fastestMileLabel: UILabel!
+   
+    
+    private var shoes = [Shoe]()
+    
+    //MARK: - View Life Cycle
+    
+    /**
+    This method is called by the system when the view is first loaded. It adds borders to the views on screen.
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-
-    /**
-    
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //Returns the number of sections in the table view (4 is used for a section per card)
-        return 4
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //Returns the number of rows in each section (1 is used for 1 card per section)
-        return 1
-    }
-
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // Configure the cell...
-        let cellHeaders = ["Miles Ran This Month", "Today's Calories", "My Shoes", "Personal Bests"]
-
-        if indexPath.section < 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("ProgressCard", forIndexPath: indexPath) as HomeProgressTableViewCell
-            cell.headerLabel.text = cellHeaders[indexPath.section]
-            cell.headerImageView.image = UIImage(named: cellHeaders[indexPath.section])
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("TextCard", forIndexPath: indexPath) as HomeTextTableViewCell
-            
-            return cell
-        }
-
+        distanceHeaderView.addBorder(2)
+        distanceMainView.addBorder(2)
+        shoesHeaderView.addBorder(2)
+        shoesMainView.addBorder(2)
+        personalBestsHeaderView.addBorder(2)
+        personalBestMainView.addBorder(2)
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    /** 
+    This method is called by the system whenever the view will appear.
+    1. IF initial setup has not been complete
+        a. Retrieve the main storyboard
+        b. Retrieve the setup view controller
+        c. Present the setup view controller
+    2. Calls the function loadPersonalBests
+    3. Call the function loadDistanceProgress
+    4. Call the function loadShoes, passing an NSTimer with the userInfo of a dictionary containing 0
+        (a timer is initially created and passed because the function is called using a timer so it will cycle round in a timer)
+    */
+    override func viewDidAppear(animated: Bool) {
         
-        return self.view.frame.width*0.9
+        if !NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
+            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil) //a
+            let setupVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController //b
+            self.presentViewController(setupVC, animated: true, completion: nil) //c
+        }
+        
+        loadPersonalBests() //2
+        loadDistanceProgress() //3
+        loadShoes(NSTimer(timeInterval: 0, target: self, selector: "loadShoes:", userInfo: NSDictionary(object: NSNumber(integer: 0), forKey: "currentShoe"), repeats: false)) //4
     }
     
+    /**
+    This method is called by the system whenever the data is loaded in the table. It returns the height for a cell in the table which in this case is always 320
+    */
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 320
+    }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
+    /**
+    This method is called to loads the shoes to the interface.
+    1. Loads all the shoes from the database as an array of Shoe objects
+    2. IF there are shoes
+        a. Retrieve the userInfo from the timer
+        b. Retrieve the current shoe as the object in the dictionary with the key "currentShoe" and its integer value
+        c. IF the currentShoe is the same as the number of shoes, reset the value of currentShoe to 0
+        d. Set the text of the shoeName label to the name of the current shoe
+        e. Set the text of the shoeDistance label to the current miles of the shoe, conveted to a string using the Conversions class
+        f. Load the shoe image
+        g. IF there is an image
+            i. Set the shoeImageView image to the shoeImage
+        h. ELSE
+           ii. Set the image to the default image (ShoeTab30)
+        i. Create a new timer for 3 seconds that will call "loadShoes" when it finishes. Storing the userInfo of a dictionary with the currentShoe increased by one in it
+    3. ELSE
+        j. Set the text of the shoeNameLabel to "No Shoes"
     */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    func loadShoes(timer: NSTimer) {
+        shoes = Database().loadAllShoes() as [Shoe] //1
+        if shoes.count > 0 { //2
+            let userInfo = timer.userInfo as NSDictionary //a
+            var currentShoe = userInfo.objectForKey("currentShoe")?.integerValue //b
+            if currentShoe == shoes.count { //c
+                currentShoe = 0
+            }
+            
+            shoeNameLabel.text = shoes[currentShoe!].name //d
+            shoeDistanceLabel.text = Conversions().distanceForInterface(shoes[currentShoe!].miles) //e
+            let shoeImage = shoes[currentShoe!].loadImage() //f
+            if shoeImage != nil { //g
+                shoeImageView.image = shoeImage //i
+            } else { //h
+                shoeImageView.image = UIImage(named: "ShoeTab30") //ii
+            }
+            
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("loadShoes:"), userInfo: NSDictionary(object: NSNumber(integer: currentShoe! + 1), forKey: "currentShoe"), repeats: false) //i
+        } else { //3
+            shoeNameLabel.text = "No Shoes" //j
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
+    /**
+    This method is called to load the distance progress to the interface.
+    1. Clear any existing progress bars
+    2. Retrieve the goal miles from the NSUserDefaults
+    3. Retrieve the current month as a string
+    4. Load all the runs for this month from the Database as an array of Run objects
+    5. Calculate the total miles
+    6. Calculate the progress towards to the goal distance
+    7. Create the frame for the progress bar (the same frame as the progress view but at the origin)
+    8. Create the progress bar
+    9. Add the progress bar as a subview of the distanceProgressBar view
+   10. Set the text of the distance progress label
     */
+    func loadDistanceProgress() {
+        for view in distanceProgressView.subviews as [UIView] { //1
+            view.removeFromSuperview()
+        }
+        
+        let goalMiles = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Distance.GoalKey) //2
+        let currentMonth = NSDate().monthYearString() //3
+        let runs = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '___\(currentMonth)%'") as [Run] //4
+        let totalMiles = Conversions().totalUpRunMiles(runs) //5
+        let progress = CGFloat(totalMiles/goalMiles) //6
+        
+        let progressFrame = CGRect(x: 0, y: 0, width: distanceProgressView.frame.width, height: distanceProgressView.frame.height) //7
+        let progressBar = ProgressBar(progress: progress, frame: progressFrame) //8
+        self.distanceProgressView.addSubview(progressBar) //9
+        
+        distanceProgressLabel.text = Conversions().distanceForInterface(totalMiles) + " of " + Conversions().distanceForInterface(goalMiles) + " ran this month." //10
+    }
+    
+    /**
+    This method is called to fill the personal bests cell with the personal bests.
+    1. Initialises and stores a reference to the standardUserDefaults
+    2. Retrieves the longestDistance, longestDuration, fastestMile and fastestAveragePace from the userDefaults
+    3. IF there is a longestDistance
+        a. Set the text of the longestDistanceLabel to the longestDistance converted to a string using the Conversions class
+    4. This process is the repeated for the other 3 personal bests
+    */
+    func loadPersonalBests() {
+        let userDefaults = NSUserDefaults.standardUserDefaults() //1
+        let longestDistance = userDefaults.doubleForKey(Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //2
+        let longestDuration = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
+        let fastestMile = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.FastestMileKey)
+        let fastestAveragePace = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
+        
+        if longestDistance > 0 { //4
+            longestDistanceLabel.text = "Longest Distance: " + Conversions().distanceForInterface(longestDistance) //a
+        }
+        
+        //4
+        
+        if longestDuration > 0 {
+            longestDurationLabel.text = "Longest Duration: " + Conversions().runDurationForInterface(longestDuration)
+        }
+        
+        if fastestMile > 0 {
+            fastestMileLabel.text = "Fastest Mile: " + Conversions().averagePaceForInterface(fastestMile)
+        }
+        
+        if fastestAveragePace > 0 {
+            bestAveragePaceLabel.text = "Best Avg. Pace: " + Conversions().averagePaceForInterface(fastestAveragePace)
+        }
+    }
 }

@@ -141,7 +141,7 @@ class WeightHistoryViewController: UIViewController {
     3. Calculate the weightDelta as the greatestWeight minus the lowestWeight
     4. Set the text of the greatestWeight, lowestWeight and weightVariation labels
     5. Create the frame for the graph as the frame of the graphView but starting at the origin
-    6. Create the graph
+    6. Create the graph (the array is reversed as the array has the weights with the newest at the start rather than the end)
     7. Set the background colour of the graph to be clear
     8. Add the graph as a subview of the graphView
     */

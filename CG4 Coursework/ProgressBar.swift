@@ -23,7 +23,11 @@ class ProgressBar: UIView {
     This method is called when the class initialises. It sets the passed properties and the background colour to clear.
     */
     init(progress: CGFloat, frame: CGRect) {
-        self.progress = progress
+        if progress > 1 {
+            self.progress = 1
+        } else {
+            self.progress = progress
+        }
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
     }

@@ -29,21 +29,19 @@ class CaloriesAndWeightViewController: UIViewController {
     
     private var currentDate = NSDate() //A global NSDate variable that stores the current date of the view
     private var currentWeight: Double = 0.0 //A global double variable that is used to store the current weight
-    private var caloriesBurnt: Double = 0.0 //A global double variable that is used to store the calories burnt
-    private var caloriesConsumed: Double = 0.0 //A global double variable that is used to store the calories consumed
+    var caloriesBurnt: Double = 0.0 //A global double variable that is used to store the calories burnt
+    var caloriesConsumed: Double = 0.0 //A global double variable that is used to store the calories consumed
     
     //MARK: - View Life Cycle
     
     /**
     This method is called by the system whenever the view will appear on screen.
-    1. Sets the weightErrorLabel to be hidden
-    2. Calls the function setDateLabel
-    3. calls the function requestAuthorisationForHealthKitAccess
+    1. Calls the function setDateLabel
+    2. calls the function requestAuthorisationForHealthKitAccess
     */
     override func viewWillAppear(animated: Bool) {
-        weightErrorLabel.hidden = true //1
-        setDateLabel() //2
-        requestAuthorisationForHealthKitAccess() //3
+        setDateLabel() //1
+        requestAuthorisationForHealthKitAccess() //2
     }
     
     //MARK: - Interface Updates
@@ -84,34 +82,40 @@ class CaloriesAndWeightViewController: UIViewController {
     /**
     This method is called if the calorie data is retrieved successfully.
     1. Clear any existing calorie progress bars
-    2. Create the frame for the progress bar (the same frame as the calorie progress bar view but starting at the origin)
-    3. Calculate the net calories (the calories consumed - the calories burnt)
-    4. Retrieve the calorie goal from the NSUserDefaults
-    5. Calculate the progress as the netCalories divide the calorieGoal
-    6. Create the progress bar
-    7. Add the progress bar as a subview of the calorieProgressBarView
-    8. Set the calorie summary label to "NETCALORIES calories used of CALORIEGOAL" both rounded to the nearest whole number
-    9. Set the calorie burnt label to "CALOIRESBURNT calories burnt" rounded to the nearest whole number
-   10. Set the calories eaten label to "CALORIESCONSUMED calories consumed" rounded to the nearest whole number
+    2. IF there is some calorie data (i.e. one of calories burnt or calories consumed are more than 0)
+        a. Create the frame for the progress bar (the same frame as the calorie progress bar view but starting at the origin)
+        b. Calculate the net calories (the calories consumed - the calories burnt)
+        c. Retrieve the calorie goal from the NSUserDefaults
+        d. Calculate the progress as the netCalories divide the calorieGoal
+        e. Create the progress bar
+        f. Add the progress bar as a subview of the calorieProgressBarView
+        g. Set the calorie summary label to "NETCALORIES calories used of CALORIEGOAL" both rounded to the nearest whole number
+        h. Set the calorie burnt label to "CALOIRESBURNT calories burnt" rounded to the nearest whole number
+        i. Set the calories eaten label to "CALORIESCONSUMED calories consumed" rounded to the nearest whole number
+    3. ELSE
+        j. Sets the calorie summary label to "No calorie data."
     */
     func addCalorieProgressBar() {
         for view in caloriesProgressBarView.subviews as [UIView] { //1
             view.removeFromSuperview()
         }
-        
-        let frame = CGRect(x: 0, y: 0, width: caloriesProgressBarView.frame.width, height: caloriesProgressBarView.frame.height) //2
-        
-        let netCalories = caloriesConsumed - caloriesBurnt //3
-        let calorieGoal = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Calories.GoalKey) //4
-        
-        let progress: Double = netCalories / calorieGoal //5
-        
-        let progressBar = ProgressBar(progress: CGFloat(progress), frame: frame) //6
-        self.caloriesProgressBarView.addSubview(progressBar) //7
-        
-        calorieSummaryLabel.text = NSString(format: "%1.0f calories used of %1.0f", netCalories, calorieGoal) //8
-        burntCaloriesLabel.text = NSString(format: "%1.0f calories burnt", caloriesBurnt) //9
-        eatenCaloriesLabel.text = NSString(format: "%1.0f calories consumed", caloriesConsumed) //10
+        if caloriesBurnt > 0 || caloriesConsumed > 0 { //2
+            let frame = CGRect(x: 0, y: 0, width: caloriesProgressBarView.frame.width, height: caloriesProgressBarView.frame.height) //a
+            
+            let netCalories = caloriesConsumed - caloriesBurnt //b
+            let calorieGoal = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Calories.GoalKey) //c
+            
+            let progress: Double = netCalories / calorieGoal //d
+            
+            let progressBar = ProgressBar(progress: CGFloat(progress), frame: frame) //e
+            self.caloriesProgressBarView.addSubview(progressBar) //f
+            
+            calorieSummaryLabel.text = NSString(format: "%1.0f calories used of %1.0f", netCalories, calorieGoal) //g
+            burntCaloriesLabel.text = NSString(format: "%1.0f calories burnt", caloriesBurnt) //h
+            eatenCaloriesLabel.text = NSString(format: "%1.0f calories consumed", caloriesConsumed) //i
+        } else { //3
+            calorieSummaryLabel.text = "No calorie data." //j
+        }
     }
     
     /**

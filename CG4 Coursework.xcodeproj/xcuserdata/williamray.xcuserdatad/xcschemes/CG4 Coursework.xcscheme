@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B621B73E1A48C65100A4A49C"
-               BuildableName = "CG4 Coursework.app"
-               BlueprintName = "CG4 Coursework"
-               ReferencedContainer = "container:CG4 Coursework.xcodeproj">
+               BuildableName = "Fit - Run Tracker.app"
+               BlueprintName = "Fit - Run Tracker"
+               ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B621B7551A48C65100A4A49C"
-               BuildableName = "CG4 CourseworkTests.xctest"
-               BlueprintName = "CG4 CourseworkTests"
-               ReferencedContainer = "container:CG4 Coursework.xcodeproj">
+               BuildableName = "Fit - Run TrackerTests.xctest"
+               BlueprintName = "Fit - Run TrackerTests"
+               ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B621B7551A48C65100A4A49C"
-               BuildableName = "CG4 CourseworkTests.xctest"
-               BlueprintName = "CG4 CourseworkTests"
-               ReferencedContainer = "container:CG4 Coursework.xcodeproj">
+               BuildableName = "Fit - Run TrackerTests.xctest"
+               BlueprintName = "Fit - Run TrackerTests"
+               ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B621B73E1A48C65100A4A49C"
-            BuildableName = "CG4 Coursework.app"
-            BlueprintName = "CG4 Coursework"
-            ReferencedContainer = "container:CG4 Coursework.xcodeproj">
+            BuildableName = "Fit - Run Tracker.app"
+            BlueprintName = "Fit - Run Tracker"
+            ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,13 +72,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B621B73E1A48C65100A4A49C"
-            BuildableName = "CG4 Coursework.app"
-            BlueprintName = "CG4 Coursework"
-            ReferencedContainer = "container:CG4 Coursework.xcodeproj">
+            BuildableName = "Fit - Run Tracker.app"
+            BlueprintName = "Fit - Run Tracker"
+            ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -90,13 +91,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B621B73E1A48C65100A4A49C"
-            BuildableName = "CG4 Coursework.app"
-            BlueprintName = "CG4 Coursework"
-            ReferencedContainer = "container:CG4 Coursework.xcodeproj">
+            BuildableName = "Fit - Run Tracker.app"
+            BlueprintName = "Fit - Run Tracker"
+            ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

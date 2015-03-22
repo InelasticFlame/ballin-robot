@@ -289,6 +289,7 @@ extension HKHealthStore {
         
         self.executeQuery(query) //3
     }
+    
 }
 
 extension UITableView {

@@ -34,7 +34,7 @@ class PersonalBestsTableViewController: UITableViewController {
         b. Set the image of the longestDistanceImageView to the achieved image
     5. This process is the repeated for the other 3 personal bests
     */
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         let userDefaults = NSUserDefaults.standardUserDefaults() //1
         let achievedImage = UIImage(named: "trophyImage90px") //2
         let longestDistance = userDefaults.doubleForKey(Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //3

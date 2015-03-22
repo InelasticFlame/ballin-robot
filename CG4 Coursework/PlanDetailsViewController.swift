@@ -55,23 +55,28 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     1. Calls the function loadPlannedRuns on the current plan
     2. Reloads the data in the planDetailsTableView
     3. IF there is a plan
-        a. For each plannedRun in the plan's plannedRuns array
+        a. Sets the value of missedruns, almostMetRuns and metRuns to 0
+        b. For each plannedRun in the plan's plannedRuns array
             i. IF the plannedRun has a matchRank of 0
                 Z. Increase the number of missedRuns by 1
            ii. ELSE IF the plannedRun has a matchRank of 1
                 Y. Increase the number of almostMetRuns by 1
           iii. ELSE IF the plannedRun has a matchRank of 2
                 x. Increase the number of metRuns by 1
-        b. Sets the text of the runsPlannedLabel to the number of plannedRuns
-        c. Sets the text of the runsMissedLabel to the number of runs missed
-        d. Sets the text of the runsAlmostMetLabel to the number of runsAlmostMet
-        e. Sets the text of the runsMetLabel to the number of metRuns
+        c. Sets the text of the runsPlannedLabel to the number of plannedRuns
+        d. Sets the text of the runsMissedLabel to the number of runs missed
+        e. Sets the text of the runsAlmostMetLabel to the number of runsAlmostMet
+        f. Sets the text of the runsMetLabel to the number of metRuns
     */
     override func viewWillAppear(animated: Bool) {
         plan?.loadPlannedRuns() //1
         planDetailsTableView.reloadData() //2
         if let plan = plan { //3
-            for plannedRun in plan.plannedRuns { //a
+            missedRuns = 0 //a
+            almostMetRuns = 0
+            metRuns = 0
+            
+            for plannedRun in plan.plannedRuns { //b
                 if plannedRun.matchRank == 0 { //i
                     missedRuns += 1 //Z
                 } else if plannedRun.matchRank == 1 { //ii
@@ -81,10 +86,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
             
-            runsPlannedLabel.text = "\(plan.plannedRuns.count)" //b
-            runsMissedLabel.text = "\(missedRuns)" //c
-            runsAlmostMetLabel.text = "\(almostMetRuns)" //d
-            runsMetLabel.text = "\(metRuns)" //e
+            runsPlannedLabel.text = "\(plan.plannedRuns.count)" //c
+            runsMissedLabel.text = "\(missedRuns)" //d
+            runsAlmostMetLabel.text = "\(almostMetRuns)" //e
+            runsMetLabel.text = "\(metRuns)" //f
         }
     }
     

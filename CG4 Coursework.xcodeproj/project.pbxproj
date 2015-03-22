@@ -30,7 +30,6 @@
 		B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */; };
 		B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B636014F1A9A0ACA0020FB80 /* Extensions.swift */; };
 		B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */; };
-		B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */; };
 		B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */; };
 		B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */; };
 		B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B649540D1AA3627800A00C1B /* HealthKit.framework */; };
@@ -39,7 +38,6 @@
 		B668D7C61AB86F6C00CC5E51 /* ShoeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */; };
 		B668DB051A4C782100DC7CE6 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */; };
 		B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */; };
-		B668DB091A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668DB081A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift */; };
 		B668DB0B1A4DE60800DC7CE6 /* Miles Ran This Month.png in Resources */ = {isa = PBXBuildFile; fileRef = B668DB0A1A4DE60800DC7CE6 /* Miles Ran This Month.png */; };
 		B668DB0D1A4DE61100DC7CE6 /* Today's Calories.png in Resources */ = {isa = PBXBuildFile; fileRef = B668DB0C1A4DE61100DC7CE6 /* Today's Calories.png */; };
 		B668DB0F1A4DE8F800DC7CE6 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668DB0E1A4DE8F800DC7CE6 /* ProgressBar.swift */; };
@@ -111,7 +109,6 @@
 		B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRun.swift; sourceTree = "<group>"; };
 		B636014F1A9A0ACA0020FB80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRunTableViewCell.swift; sourceTree = "<group>"; };
-		B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTextTableViewCell.swift; sourceTree = "<group>"; };
 		B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalBestsTableViewController.swift; sourceTree = "<group>"; };
 		B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesAndWeightViewController.swift; sourceTree = "<group>"; };
 		B649540D1AA3627800A00C1B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -121,7 +118,6 @@
 		B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoeTableViewCell.swift; sourceTree = "<group>"; };
 		B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
-		B668DB081A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProgressTableViewCell.swift; sourceTree = "<group>"; };
 		B668DB0A1A4DE60800DC7CE6 /* Miles Ran This Month.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Miles Ran This Month.png"; sourceTree = "<group>"; };
 		B668DB0C1A4DE61100DC7CE6 /* Today's Calories.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Today's Calories.png"; sourceTree = "<group>"; };
 		B668DB0E1A4DE8F800DC7CE6 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -384,8 +380,6 @@
 			isa = PBXGroup;
 			children = (
 				B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */,
-				B668DB081A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift */,
-				B6487EB21A4E0ECC00DB436B /* HomeTextTableViewCell.swift */,
 			);
 			name = "Home View";
 			sourceTree = "<group>";
@@ -550,7 +544,6 @@
 				B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */,
 				B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */,
 				B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */,
-				B668DB091A4DE25700DC7CE6 /* HomeProgressTableViewCell.swift in Sources */,
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B6995A4E1AB36F8700686327 /* ShoePicker.swift in Sources */,
 				B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */,
@@ -580,7 +573,6 @@
 				B6CFA95C1A9F6067000EDB00 /* Graph.swift in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
-				B6487EB31A4E0ECC00DB436B /* HomeTextTableViewCell.swift in Sources */,
 				B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */,
 				B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */,
 				B668D7C61AB86F6C00CC5E51 /* ShoeTableViewCell.swift in Sources */,
@@ -716,7 +708,7 @@
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "CG4 Coursework";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -737,7 +729,7 @@
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "CG4 Coursework";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -758,7 +750,7 @@
 				);
 				INFOPLIST_FILE = "CG4 CourseworkTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "CG4 CourseworkTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CG4 Coursework.app/CG4 Coursework";
 			};
 			name = Debug;
@@ -773,7 +765,7 @@
 				);
 				INFOPLIST_FILE = "CG4 CourseworkTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "CG4 CourseworkTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CG4 Coursework.app/CG4 Coursework";
 			};
 			name = Release;
