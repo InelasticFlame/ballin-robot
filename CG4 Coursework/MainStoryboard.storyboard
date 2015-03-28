@@ -33,7 +33,7 @@
         <!--Weight History-->
         <scene sceneID="1ez-OU-YIb">
             <objects>
-                <viewController id="Bce-uL-7oc" customClass="WeightHistoryViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Bce-uL-7oc" customClass="WeightHistoryViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dR7-Wn-NnZ"/>
                         <viewControllerLayoutGuide type="bottom" id="g0b-7a-Jdo"/>
@@ -143,7 +143,7 @@
         <!--Calories-->
         <scene sceneID="oh6-yd-gJF">
             <objects>
-                <viewController id="S8P-D5-d8n" customClass="CaloriesAndWeightViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="S8P-D5-d8n" customClass="CaloriesAndWeightViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KKS-Zg-O2v"/>
                         <viewControllerLayoutGuide type="bottom" id="d9M-bu-Y5P"/>
@@ -396,13 +396,13 @@
         <!--My Runs-->
         <scene sceneID="gbb-Nw-1av">
             <objects>
-                <tableViewController id="Ps4-eg-EVW" customClass="RunsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Ps4-eg-EVW" customClass="RunsTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="RLs-2w-BTM">
                         <rect key="frame" x="2" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="runCell" rowHeight="100" id="kJv-Fu-ozU" customClass="RunTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="runCell" rowHeight="100" id="kJv-Fu-ozU" customClass="RunTableViewCell" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kJv-Fu-ozU" id="9Cb-GZ-cmN">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -562,13 +562,13 @@
         <!--Run Splits Table View Controller-->
         <scene sceneID="gZC-Er-YYR">
             <objects>
-                <tableViewController storyboardIdentifier="RunSplitsTableViewController" id="b8g-Wv-dT1" customClass="RunSplitsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RunSplitsTableViewController" id="b8g-Wv-dT1" customClass="RunSplitsTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XLe-eN-8yh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="splitsCell" textLabel="d9c-Cc-qFp" detailTextLabel="B4w-07-1dG" style="IBUITableViewCellStyleValue1" id="PY3-Gd-9sq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="splitsCell" textLabel="d9c-Cc-qFp" detailTextLabel="B4w-07-1dG" style="IBUITableViewCellStyleValue1" id="PY3-Gd-9sq">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PY3-Gd-9sq" id="o8f-NR-AIG">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -610,7 +610,7 @@
         <!--Run Shoes Table View Controller-->
         <scene sceneID="MvV-jD-kBH">
             <objects>
-                <tableViewController storyboardIdentifier="RunShoeTableViewController" id="ba5-yt-rjK" customClass="RunShoesTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RunShoeTableViewController" id="ba5-yt-rjK" customClass="RunShoesTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="19p-aQ-MYy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -772,7 +772,7 @@
         <!--Run Shoe Selector Table View Controller-->
         <scene sceneID="1db-Ol-f00">
             <objects>
-                <tableViewController id="qbt-NG-LxF" customClass="RunShoeSelectorTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="qbt-NG-LxF" customClass="RunShoeSelectorTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="smH-yB-fL9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -810,7 +810,7 @@
         <!--Run Details View Controller-->
         <scene sceneID="qgo-Jy-Tle">
             <objects>
-                <viewController storyboardIdentifier="RunMapViewController" id="w9X-vU-lo3" customClass="RunDetailsViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RunMapViewController" id="w9X-vU-lo3" customClass="RunDetailsViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yPf-px-Bie"/>
                         <viewControllerLayoutGuide type="bottom" id="ThO-07-vq6"/>
@@ -878,7 +878,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwJ-0z-wq3" customClass="MapOverlay" customModule="CG4_Coursework" customModuleProvider="target">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwJ-0z-wq3" customClass="MapOverlay" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WRl-Zw-Wd3">
@@ -1205,7 +1205,7 @@
         <!--Run Page View Controller-->
         <scene sceneID="7Ch-xZ-knz">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="HH3-a6-WMB" customClass="RunPageViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="HH3-a6-WMB" customClass="RunPageViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="No0-SA-qaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="988.5" y="726"/>
@@ -1213,7 +1213,7 @@
         <!--Plan Summary-->
         <scene sceneID="SdY-eJ-a2r">
             <objects>
-                <viewController id="QcT-W0-RXh" customClass="PlanDetailsViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QcT-W0-RXh" customClass="PlanDetailsViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oyS-yZ-8hB"/>
                         <viewControllerLayoutGuide type="bottom" id="hP1-Ti-DvX"/>
@@ -1765,7 +1765,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlanDetails" rowHeight="60" id="qiD-xQ-wTj" customClass="PlanDetailsTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlanDetails" rowHeight="60" id="qiD-xQ-wTj" customClass="PlanDetailsTableViewCell" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qiD-xQ-wTj" id="xI5-P8-qoC">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1959,7 +1959,7 @@
         <!--My Training Plans-->
         <scene sceneID="tVR-Ex-mLj">
             <objects>
-                <tableViewController id="rfd-JD-347" customClass="TrainingPlansTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="rfd-JD-347" customClass="TrainingPlansTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SPB-ak-r8y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2036,7 +2036,7 @@
         <!--Create Plan-->
         <scene sceneID="ze6-s2-noK">
             <objects>
-                <tableViewController id="dhd-ga-Mmc" customClass="InitialCreatePlanTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="dhd-ga-Mmc" customClass="InitialCreatePlanTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Jbk-kU-xNR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2291,7 +2291,7 @@
                     <navigationItem key="navigationItem" title="Create Plan" id="hzn-wR-FQx">
                         <barButtonItem key="rightBarButtonItem" title="Create" id="HMU-gy-BVP">
                             <connections>
-                                <segue destination="kdk-Fk-eLo" kind="custom" identifier="createPress" customClass="CreatePlanBackSegue" customModule="CG4_Coursework" customModuleProvider="target" id="mLJ-aW-w2Z"/>
+                                <segue destination="kdk-Fk-eLo" kind="custom" identifier="createPress" customClass="CreatePlanBackSegue" customModule="Fit___Run_Tracker" customModuleProvider="target" id="mLJ-aW-w2Z"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2311,7 +2311,7 @@
         <!--Plan Runs-->
         <scene sceneID="kkp-1B-wJd">
             <objects>
-                <viewController id="kdk-Fk-eLo" customClass="CreatePlanViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kdk-Fk-eLo" customClass="CreatePlanViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N8y-ae-ap5"/>
                         <viewControllerLayoutGuide type="bottom" id="yAp-bD-FOO"/>
@@ -2337,7 +2337,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlannedRun" rowHeight="60" id="5bw-xY-CIE" customClass="PlannedRunTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlannedRun" rowHeight="60" id="5bw-xY-CIE" customClass="PlannedRunTableViewCell" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5bw-xY-CIE" id="lDX-VQ-6NI">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2496,7 +2496,7 @@
         <!--New Planned Run-->
         <scene sceneID="Gwf-O8-Ejc">
             <objects>
-                <tableViewController id="RKe-Pa-jiE" customClass="NewPlannedRunTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="RKe-Pa-jiE" customClass="NewPlannedRunTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="6LF-W4-SkM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2664,7 +2664,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zD9-YS-ZF7" id="wU3-uy-aH7">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXJ-CL-63m" customClass="DistancePicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXJ-CL-63m" customClass="DistancePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="BqI-79-gme"/>
@@ -2719,7 +2719,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mCK-L8-wkF" id="olb-fJ-CHh">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4GM-OE-oUX" customClass="DurationPicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4GM-OE-oUX" customClass="DurationPicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="3RI-zE-r54"/>
@@ -2917,7 +2917,7 @@
         <!--End Repeat-->
         <scene sceneID="iTg-0P-qwF">
             <objects>
-                <tableViewController id="XQj-gx-rtY" customClass="RepeatSettingsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="XQj-gx-rtY" customClass="RepeatSettingsTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IwB-VO-ckf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3056,7 +3056,7 @@
         <!--Repeat-->
         <scene sceneID="89f-3w-JwT">
             <objects>
-                <tableViewController id="Gsg-61-Pft" customClass="RepeatsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Gsg-61-Pft" customClass="RepeatsTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="AgN-lF-T6j">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3255,7 +3255,7 @@
         <!--More-->
         <scene sceneID="Ovg-Uy-Jzd">
             <objects>
-                <tableViewController id="P7n-T0-uSa" customClass="MoreTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="P7n-T0-uSa" customClass="MoreTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="R90-vD-CCj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3337,7 +3337,7 @@
         <!--Personal Bests-->
         <scene sceneID="jdi-Cq-Fjp">
             <objects>
-                <tableViewController id="P8A-no-vNf" customClass="PersonalBestsTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="P8A-no-vNf" customClass="PersonalBestsTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="5bQ-Mo-fMy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3716,13 +3716,13 @@
         <!--My Shoes-->
         <scene sceneID="2CK-Fc-6DV">
             <objects>
-                <tableViewController id="Ydv-jK-efp" customClass="MyShoesTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Ydv-jK-efp" customClass="MyShoesTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yxY-SL-Oez">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="shoeCell" rowHeight="90" id="adc-2v-vnm" customClass="ShoeTableViewCell" customModule="CG4_Coursework" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="shoeCell" rowHeight="90" id="adc-2v-vnm" customClass="ShoeTableViewCell" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="adc-2v-vnm" id="PQX-Gz-ic8">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -3866,7 +3866,7 @@
         <!--New Shoe-->
         <scene sceneID="PhH-B4-KNz">
             <objects>
-                <tableViewController id="HXu-S6-Lgz" customClass="AddNewShoeTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="HXu-S6-Lgz" customClass="AddNewShoeTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="A0l-za-Te7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3965,7 +3965,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8PF-i1-dJc" id="1vD-YY-GoJ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNM-Wf-FfV" customClass="DistancePicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNM-Wf-FfV" customClass="DistancePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="rFN-G1-sJh"/>
@@ -4128,7 +4128,7 @@
         <!--Home-->
         <scene sceneID="xVl-EJ-aXL">
             <objects>
-                <tableViewController id="KFg-AP-o0e" customClass="HomeTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="KFg-AP-o0e" customClass="HomeTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bc9-Y3-lDY">
                         <rect key="frame" x="0.0" y="-2" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4264,6 +4264,10 @@
                                                             <exclude reference="yiT-Pg-4W6"/>
                                                         </mask>
                                                         <mask key="constraints">
+                                                            <exclude reference="1YL-hn-KFy"/>
+                                                            <exclude reference="SUi-Wc-ta7"/>
+                                                            <exclude reference="buS-Pe-sGc"/>
+                                                            <exclude reference="fHJ-fo-33h"/>
                                                             <exclude reference="0l3-ie-O0m"/>
                                                             <exclude reference="3JJ-oA-5Rq"/>
                                                             <exclude reference="zCK-JC-j8U"/>
@@ -4271,10 +4275,6 @@
                                                             <exclude reference="1sw-Hm-nhE"/>
                                                             <exclude reference="Ek5-J2-727"/>
                                                             <exclude reference="G6z-Tn-7VJ"/>
-                                                            <exclude reference="1YL-hn-KFy"/>
-                                                            <exclude reference="SUi-Wc-ta7"/>
-                                                            <exclude reference="buS-Pe-sGc"/>
-                                                            <exclude reference="fHJ-fo-33h"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
@@ -4284,6 +4284,10 @@
                                                             <include reference="yiT-Pg-4W6"/>
                                                         </mask>
                                                         <mask key="constraints">
+                                                            <include reference="1YL-hn-KFy"/>
+                                                            <include reference="SUi-Wc-ta7"/>
+                                                            <include reference="buS-Pe-sGc"/>
+                                                            <exclude reference="fHJ-fo-33h"/>
                                                             <include reference="0l3-ie-O0m"/>
                                                             <include reference="3JJ-oA-5Rq"/>
                                                             <include reference="zCK-JC-j8U"/>
@@ -4291,10 +4295,6 @@
                                                             <include reference="1sw-Hm-nhE"/>
                                                             <include reference="Ek5-J2-727"/>
                                                             <include reference="G6z-Tn-7VJ"/>
-                                                            <include reference="1YL-hn-KFy"/>
-                                                            <include reference="SUi-Wc-ta7"/>
-                                                            <include reference="buS-Pe-sGc"/>
-                                                            <exclude reference="fHJ-fo-33h"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -4663,17 +4663,17 @@
                                                             <exclude reference="2ri-9N-Q3O"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <exclude reference="5NY-IY-R7k"/>
-                                                            <exclude reference="CWS-gV-pd1"/>
-                                                            <exclude reference="ghS-oL-hu5"/>
-                                                            <exclude reference="ckJ-VM-b1o"/>
+                                                            <exclude reference="HxD-xq-GMY"/>
+                                                            <exclude reference="knv-mH-HuU"/>
                                                             <exclude reference="Seh-Ik-W7f"/>
                                                             <exclude reference="ayH-ZF-crQ"/>
                                                             <exclude reference="nFc-Eh-bIJ"/>
                                                             <exclude reference="0eH-cP-JZX"/>
                                                             <exclude reference="BYW-uB-nwi"/>
-                                                            <exclude reference="HxD-xq-GMY"/>
-                                                            <exclude reference="knv-mH-HuU"/>
+                                                            <exclude reference="ckJ-VM-b1o"/>
+                                                            <exclude reference="5NY-IY-R7k"/>
+                                                            <exclude reference="CWS-gV-pd1"/>
+                                                            <exclude reference="ghS-oL-hu5"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
@@ -4685,17 +4685,17 @@
                                                             <include reference="2ri-9N-Q3O"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <include reference="5NY-IY-R7k"/>
-                                                            <include reference="CWS-gV-pd1"/>
-                                                            <include reference="ghS-oL-hu5"/>
-                                                            <include reference="ckJ-VM-b1o"/>
+                                                            <include reference="HxD-xq-GMY"/>
+                                                            <include reference="knv-mH-HuU"/>
                                                             <include reference="Seh-Ik-W7f"/>
                                                             <include reference="ayH-ZF-crQ"/>
                                                             <include reference="nFc-Eh-bIJ"/>
                                                             <include reference="0eH-cP-JZX"/>
                                                             <include reference="BYW-uB-nwi"/>
-                                                            <include reference="HxD-xq-GMY"/>
-                                                            <include reference="knv-mH-HuU"/>
+                                                            <include reference="ckJ-VM-b1o"/>
+                                                            <include reference="5NY-IY-R7k"/>
+                                                            <include reference="CWS-gV-pd1"/>
+                                                            <include reference="ghS-oL-hu5"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -4764,7 +4764,7 @@
         <!--Add Run-->
         <scene sceneID="3u1-3Q-kcc">
             <objects>
-                <tableViewController id="b5M-JG-DYN" customClass="AddRunTableViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="b5M-JG-DYN" customClass="AddRunTableViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Oyu-Qr-QTg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4887,7 +4887,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xae-rm-c1w" id="SOB-on-mha">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRt-eF-aEs" customClass="DistancePicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRt-eF-aEs" customClass="DistancePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="H7O-UC-YET"/>
@@ -4968,7 +4968,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7NX-zM-OPa" id="6cF-VN-U2W">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsV-az-Z7v" customClass="PacePicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsV-az-Z7v" customClass="PacePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="UQO-tE-jhc"/>
@@ -5049,7 +5049,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l0d-FS-9El" id="PKd-H9-n2N">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-bL-cK3" customClass="DurationPicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-bL-cK3" customClass="DurationPicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="ef5-cp-h3L"/>
@@ -5130,7 +5130,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CXb-eo-QH1" id="xW8-Ql-lhC">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-mF-DGP" customClass="ShoePicker" customModule="CG4_Coursework" customModuleProvider="target">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-mF-DGP" customClass="ShoePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="aIC-77-3fx"/>
@@ -5236,7 +5236,7 @@
         <!--Setup-->
         <scene sceneID="dw0-PC-HzZ">
             <objects>
-                <viewController storyboardIdentifier="setupViewController" id="QK3-Cd-usH" customClass="SetupViewController" customModule="CG4_Coursework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setupViewController" id="QK3-Cd-usH" customClass="SetupViewController" customModule="Fit___Run_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4EJ-Jg-X6o"/>
                         <viewControllerLayoutGuide type="bottom" id="m1w-s0-JsB"/>

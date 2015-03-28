@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/Database.m"
-            timestampString = "448132805.585813"
+            timestampString = "448826655.243064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "558"
-            endingLineNumber = "558"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "-loadRunSplitsForRun:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/Database.m"
-            timestampString = "448132807.951973"
+            timestampString = "448826655.243064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
             landmarkName = "-loadRunLocationsForRun:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/PlannedRun.swift"
-            timestampString = "448655975.444923"
+            timestampString = "449088794.357219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "checkForCompletedRun()"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CG4 Coursework/PlannedRun.swift"
-            timestampString = "448656022.884681"
+            timestampString = "449088794.357219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "checkForCompletedRun()"
             landmarkType = "5">
          </BreakpointContent>
@@ -86,16 +86,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CG4 Coursework/Database.m"
-            timestampString = "448721789.818889"
+            filePath = "CG4 Coursework/StravaRuns.m"
+            timestampString = "449089105.597922"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1225"
-            endingLineNumber = "1225"
-            landmarkName = "-deleteShoe:"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "-loadRunsFromStrava"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -25,6 +25,11 @@ class Plan: NSObject {
     Called to initialise the class, sets the properties of the Shoe to the passed values.
     1. Calls the local function checkIfActive
     2. Calls the local function loadPlannedRuns
+    
+    :param: ID The ID of the Plan object.
+    :param: name The name of the Plan as a string.
+    :param: startDate The date that the Plan starts as an NSDate.
+    :param: endDate The date that the Plan ends as an NSDate.
     */
     init(ID: Int, name: String, startDate: NSDate, endDate: NSDate) {
         self.ID = ID

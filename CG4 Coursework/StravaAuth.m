@@ -16,6 +16,7 @@
 #pragma mark - Initialisation
 
  /**
+  This method is used to initialise the class.
   1. Initialises the class; if successful
     a. Declares the local integer variable clientID of value 2994 (this is fixed to the value of set by the Strava API application online)
     b. Declares the local string variable clientSecret (this value is fixed to the value set by the Strava API application online)
@@ -87,6 +88,8 @@
             B2c. Logs "Error retrieving access token" and the localised error description
     Failure block
         B1b. Logs "Error parsing access token" and the localised error description
+  
+  @param url The URL returned from the authorisation request.
  */
 -(void)checkReturnURL:(NSURL *)url {
     [[FRDStravaClient sharedInstance] parseStravaAuthCallback:url withSuccess:^(NSString *stateInfo, NSString *code){ //1

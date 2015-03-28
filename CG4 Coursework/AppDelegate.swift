@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
     This method is called by the system when the app is opened via a URL (set in the Info.plist file)
     1. Calls the function checkReturnURL passing the url that opened the app
+    
+    :param: application The App itself.
+    :param: url The URL the app was opened with.
+    :returns: Returns a boolean value indicating if the delegate successfully handle the URL request.
     */
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
         

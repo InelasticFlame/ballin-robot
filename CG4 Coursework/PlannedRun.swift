@@ -31,6 +31,12 @@ class PlannedRun: NSObject {
     /**
     Called to initialise the class, sets the properties of the Shoe to the passed values.
     1. Calls the local function checkForCompletedRun to see if the plannedRun has a matching actual run
+    
+    :param: ID The ID of the Planned Run object.
+    :param: date The date of the Planned Run.
+    :param: distance The distance to be ran in miles as a double (if the planned run is for a duration this value should be 0).
+    :param: duration The duration to be ran in seconds as an integer (if the planned run is for a distance this value should be 0).
+    :param: details The details for the Planned Run as a string. This value is optional.
     */
     init(ID: Int, date: NSDate, distance: Double, duration: Int, details: String?) {
         self.ID = ID

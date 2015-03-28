@@ -17,7 +17,9 @@ class RepeatsTableViewController: UITableViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system whenever the view is about to appear on screen. It calls the function setSelectedRepeatOption (this is used to set up the view if a user has previously set a repeat option)
+    This method is called by the system whenever the view is about to appear on screen. It calls the function setSelectedRepeatOption (this is used to set up the view if a user has previously set a repeat option).
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         setSelectedRepeatOption()
@@ -26,7 +28,7 @@ class RepeatsTableViewController: UITableViewController {
     //MARK: - Table View Data Source
     
     /**
-    This function is called by the system whenever a user selects a row in the table view. 
+    This method is called by the system whenever a user selects a row in the table view. It sets the selection indicator and then dismisses the view to return to the previous view.
     1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the selected option)
     2. Sets the accessory of the cell selected to a Checkmark
     3. Deselects the cell that was just selected animating the process
@@ -35,6 +37,9 @@ class RepeatsTableViewController: UITableViewController {
             i. IF the text of the selected cell can be retrieved
                 ii. Call the function setRepeatDetailLabelText on the previous view controller passing the text of the selected cell
     5. Dismiss the current view controller and animate the transition
+    
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         clearCheckmarks() //1
@@ -78,7 +83,7 @@ class RepeatsTableViewController: UITableViewController {
     // MARK: - Navigation
     
     /**
-    This method is called when the view loads. It sets up the view with the last selected repeatOption
+    This method is called when the view loads. It sets up the view with the last selected repeatOption.
     1. Retrieve the number of rows in the fist section
     2. FOR each cell in the first section
         a. IF the cell can be retrieved

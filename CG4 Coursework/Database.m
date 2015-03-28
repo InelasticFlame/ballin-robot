@@ -7,7 +7,7 @@
 //
 
 #import "Database.h"
-#import <CG4_Coursework-Swift.h>
+#import <Fit___Run_Tracker-Swift.h>
 #import "FRDStravaClientImports.h"
 
 #pragma GCC diagnostic ignored "-Wformat-security"
@@ -35,6 +35,7 @@ static Database *_database; //A global variable that stores the current instance
 
 #pragma mark Initialisation
 /**
+ This method initialises the class and calls the function to create the database tables if the database doesn't exist.
  1. Creates and initialises the class
  2. Finds the directoryPaths
  3. Finds the documents path
@@ -47,20 +48,17 @@ static Database *_database; //A global variable that stores the current instance
         NSString *documentsPath = directoryPaths[0]; //3
         
         self.databasePath = [documentsPath stringByAppendingPathComponent:@"RunDatabase.db"]; //4
-        NSLog(self.databasePath);
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:self.databasePath]) { //5
             [self createDatabaseTables];
         }
-        
-        #warning Testing Only
-        [self createDatabaseTables];
     }
     
     return self;
 }
 
 /**
+ This method creates and sets up the database.
  1. Converts the databasePath from an NSString into a pure string for use with the database
  2. Creates the errorMessage
  3. IF the database opens at the databasePath
@@ -130,6 +128,7 @@ static Database *_database; //A global variable that stores the current instance
 
 #pragma mark Run Saving
 /**
+ This method is used to save a run object.
  1. Declares the local variable saveSuccessful as NO
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF the database opens at the databasePath
@@ -148,6 +147,8 @@ static Database *_database; //A global variable that stores the current instance
  4. IF the save was successful
     a. IF the run has locations, call saveLocationsForRun function
     b. IF the run has splits, call saveSplitsForRun function
+ 
+ @param run The Run object to be saved.
  */
 -(void)saveRun:(Run *)run {
     BOOL saveSuccessful = NO; //1
@@ -187,6 +188,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
 /**
+ This method is used to save the locations for a run.
  1. Converts the databasePath from an NSString into a pure string for use with the database
  2. IF opening the database is successful
     a. FOR each location in the run.locations array
@@ -199,6 +201,8 @@ static Database *_database; //A global variable that stores the current instance
       vii. ELSE log "Error Saving"
      viii. Releases the statement
     b. Closes the database
+ 
+ @param run The Run object to save the locations for.
  */
 -(void)saveLocationsForRun:(Run *)run {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -227,6 +231,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to save the splits for a run.
  1. Converts the databasePath from an NSString into a pure string for use with the database
  2. IF opening the database is successful
     a. FOR each split in the run.splits array
@@ -238,6 +243,8 @@ static Database *_database; //A global variable that stores the current instance
        vi. ELSE log "Error Saving"
       vii. Release the statement
     b. Close the database
+  
+  @param The Run object to save the splits for.
  */
 -(void)saveSplitsForRun:(Run *)run {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -265,6 +272,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to add a shoe to a run.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Declares the local NSString variable sql
@@ -282,6 +290,10 @@ static Database *_database; //A global variable that stores the current instance
       iii. Returns NO (false)
   3. Logs "Error opening database"
   4. Returns NO (false)
+  
+  @param shoe The Shoe to save to the run.
+  @param run The Run to save the shoe to.
+  @return A boolean indicating if the save has been successfull.
  */
 -(BOOL)saveShoe:(Shoe *)shoe ToRun:(Run *)run {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -314,6 +326,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to check if a run is a new personal best.
   1. Initialises the local user defautls and stores it in the local variable userDefaults
   2. Retrieves the longest distance personal best
   3. Retrieves the longest duration personal best
@@ -329,6 +342,8 @@ static Database *_database; //A global variable that stores the current instance
     a. IF the run split has a pace faster (less than) the fastest mile
         i. Set the fastest mile to the run split pace
        ii. Update the fastest mile personal best to the run split pace
+  
+  @param run The Run objects to check for new personal bests.
  */
 -(void)checkRunForNewPersonalBest:(Run *)run {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults]; //1
@@ -357,6 +372,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to remove a shoe from all of the runs it is linked to. This is used in the process of deleting a shoe.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. Calls the function loadRunsWithQuery and loading all runs where the ShoeID is the shoe to be removed, storing the returned runs in the constant array runsWithShoe
   3. IF the database opens successfuly
@@ -378,6 +394,9 @@ static Database *_database; //A global variable that stores the current instance
             C. Returns YES (true)
     b. ELSE returns YES (true)
   4. ELSE returns NO (false)
+  
+  @param shoe The Shoe object to be removed from all runs.
+  @return A boolean indicating if the shoe has been removed from the runs successfully.
  */
 -(BOOL)removeShoeFromRuns:(Shoe *)shoe {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -418,6 +437,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Run Loading
 
  /**
+  This method is used to load a run with the option of adding a query to the end of the selection.
   1. Creates and initialises the local mutable array, runs
   2. Converts the databasePath from an NSString into a pure string for use with the database
   3. IF opening the database is successful
@@ -444,6 +464,9 @@ static Database *_database; //A global variable that stores the current instance
   4. ELSE logs "Error Opening Database"
   5. Sorts the runs into date order
   6. Returns the array of runs
+  
+  @param query The query to filter the database using.
+  @return An NSArray of Run objects retrieved from the database.
  */
 -(NSArray *)loadRunsWithQuery:(NSString *)query {
     NSMutableArray *runs = [[NSMutableArray alloc] init]; //1
@@ -488,6 +511,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to load the locations for a run as part of the process of loading a run.
  1. Creates and initialises the local mutable array, locations
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF opening the database is successful
@@ -503,6 +527,9 @@ static Database *_database; //A global variable that stores the current instance
        vi. Close the database
     e. Else logs "Error Loading Locations"
  4. Returns the locations array
+  
+  @param run The Run object to load the locations for.
+  @return An NSArray of CLLocation objects that plot the route of the run.
  */
 -(NSArray *)loadRunLocationsForRun:(Run *)run {
     NSMutableArray *locations = [[NSMutableArray alloc] init]; //1
@@ -530,6 +557,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
 /**
+ This method is used to load the splits for a run as part of the process of loading a run.
  1. Creates and initialises the local mutable array, splits
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF opening the database is successful
@@ -545,6 +573,9 @@ static Database *_database; //A global variable that stores the current instance
     f. Closes the database
     g. Else logs "Error Loading Locations"
  4. Returns the splits array
+ 
+ @param run The Run object to load the splits for.
+ @return An NSArray of NSNumber objects of the mile splits.
  */
 -(NSArray *)loadRunSplitsForRun:(Run *)run {
     NSMutableArray *splits = [[NSMutableArray alloc] init];
@@ -574,6 +605,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Run Deleting
 
  /**
+  This method is used to delete a run.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL
@@ -589,8 +621,11 @@ static Database *_database; //A global variable that stores the current instance
        ii. Closes the database
       iii. Returns YES (true)
   3. ELSE logs "Error Opening Database" and returns NO (false)
+  
+  @param run The Run to delete from the database.
+  @return Returns a boolean value indicating if the deletion has been successfull.
   */
--(BOOL)deleteRunWithID:(Run *)run {
+-(BOOL)deleteRun:(Run *)run {
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
@@ -618,6 +653,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Plan Saving
 
 /**
+ This method is used to create a new plan.
  1. Declares the local variables planID, an NSInteger and the plan an new Plan object
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF the database opens successfully
@@ -634,6 +670,11 @@ static Database *_database; //A global variable that stores the current instance
     f. Closes the database
  4. ELSE Logs "Error Opening Database"
  5. Returns nil as the default case
+ 
+ @param name The name of the plan as a string.
+ @param startDate The start date of the plan as an NSDate.
+ @param endDate The end date of the plan as an NSDate.
+ @return The created plan as a Plan object or if the plan cannot be created successfully returns nil.
  */
 -(Plan *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
     NSInteger planID; //1
@@ -664,6 +705,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to save a planned run to a plan.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF the database opens successfully
     a. Creates the SQL
@@ -678,6 +720,10 @@ static Database *_database; //A global variable that stores the current instance
        ii. Closes the database
       iii. Returns YES (true)
   3. ELSE logs "Error opening database" and Returns NO (false)
+  
+  @param plannedRun The Planned Run object to be saved.
+  @param plan The Plan object to save the planned runs to.
+  @return A boolean indicating if the planned run was saved successfully.
  */
 -(BOOL)savePlannedRun:(PlannedRun *)plannedRun ForPlan:(Plan *)plan {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -705,6 +751,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Plan Loading
 
  /**
+  This method is used to load all the training plans from the database.
   1. Creates and initialises the local mutable array, trainingPlans
   2. Converts the databasePath from an NSString into a pure string for use with the database
   3. IF opening the database is successful
@@ -724,6 +771,8 @@ static Database *_database; //A global variable that stores the current instance
     e. Closes the database
   4. ELSE logs "Error Opening Database"
   5. Returns the trainingPlans array
+  
+  @return An NSArray of Plan objects containing all plans from the database.
  */
 -(NSArray *)loadAllTrainingPlans {
     NSMutableArray *trainingPlans = [[NSMutableArray alloc] init]; //1
@@ -758,6 +807,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to load the planned runs for a plan it is called during the process of loading the plan.
   1. Creates and initialises the local mutable array, plannedRuns
   2. Converts the databasePath from an NSString into a pure string for use with the database
   3. IF opening the database is successful
@@ -777,6 +827,9 @@ static Database *_database; //A global variable that stores the current instance
   f. Closes the database
  4. ELSE logs "Error Opening Database"
  5. Returns the plannedRuns array
+  
+  @param plan The Plan object to load the planned runs for.
+  @return An NSArray of Planned Run objects.
  */
 -(NSArray *)loadPlannedRunsForPlan:(Plan *)plan {
     NSMutableArray *plannedRuns = [[NSMutableArray alloc] init]; //1
@@ -812,6 +865,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Plan Deleting
 
  /**
+  This method is used to delete a plan from the database.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL
@@ -828,6 +882,9 @@ static Database *_database; //A global variable that stores the current instance
       iii. Calls the function deletePlannedRunsForPlan return the boolean returned by that function
   3. ELSE logs "Error Opening Database"
   4. Returns NO (false)
+  
+  @param plan The Plan object to be deleted.
+  @return A boolean indicating if the deletion has been successful.
  */
 -(BOOL)deletePlan:(Plan *)plan {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -854,6 +911,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is called to delete all the planned runs from a plan.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL
@@ -870,6 +928,9 @@ static Database *_database; //A global variable that stores the current instance
       iii. Returns YES (true)
  3. ELSE logs "Error Opening Database"
  4. Returns NO (false)
+  
+  @param plan The Plan object to delete the planned runs for.
+  @return A boolean indicating if the deletion of planned runs has been successful.
  */
 -(BOOL)deletePlannedRunsForPlan:(Plan *)plan {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -896,6 +957,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is called to delete a single planned run.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL
@@ -912,6 +974,9 @@ static Database *_database; //A global variable that stores the current instance
       iii. Returns YES (true)
  3. ELSE logs "Error Opening Database"
  4. Returns NO (false)
+  
+  @param plannedRun The Planned Run object to be deleted.
+  @return A boolean indicating if the planned run has been deleted successfully.
  */
 -(BOOL)deletePlannedRun:(PlannedRun *)plannedRun {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -941,6 +1006,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Shoe Saving
 
  /**
+  This method is used to save a shoe to the database.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL as an NSString
@@ -954,6 +1020,8 @@ static Database *_database; //A global variable that stores the current instance
     g. Releases the statement
     h. Closes the database
   3. ELSE logs "Error Opening Database"
+  
+  @param shoe The Shoe object to be saved to the database.
  */
 -(void)saveShoe:(Shoe *)shoe {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -979,6 +1047,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to increase the current mileage of a shoe by a set amount.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL as an NSString
@@ -991,6 +1060,9 @@ static Database *_database; //A global variable that stores the current instance
         i. Logs "Shoe miles increased successfully"
     f. Closes the database
   3. ELSE logs "Error Opening Database"
+  
+  @param shoe The Shoe object to have its distance increased.
+  @param amount A double value of the number of miles to increase the distance by.
  */
 -(void)increaseShoeMiles:(Shoe *)shoe byAmount:(double)amount {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -1014,6 +1086,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
 /**
+ This method is used to decrease the current mileage of a shoe by a set amount.
  1. Converts the databasePath from an NSString into a pure string for use with the database
  2. IF opening the database is successful
     a. Creates the SQL as an NSString
@@ -1026,6 +1099,9 @@ static Database *_database; //A global variable that stores the current instance
         i. Logs "Shoe miles decreased successfully"
     f. Closes the database
  3. ELSE logs "Error Opening Database"
+ 
+ @param shoe The Shoe object to have its distance decreased.
+ @param amount A double value of the number of miles to decrease the distance by.
  */
 -(void)decreaseShoeMiles:(Shoe *)shoe byAmount:(double)amount {
     const char *charDbPath = [_databasePath UTF8String]; //1
@@ -1052,6 +1128,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Shoe Loading
 
  /**
+  This method is used to load all the shoes from the database.
   1. Creates and initialises the local mutable array, shoes
   2. Converts the databasePath from an NSString into a pure string for use with the database
   3. IF opening the database is successful
@@ -1069,6 +1146,8 @@ static Database *_database; //A global variable that stores the current instance
     e. Closes the database
  4. ELSE logs "Error Opening Database"
  5. Returns the shoes array
+  
+  @return An NSArray of Shoe objects that contains all shoes stored in the database.
  */
 -(NSArray *)loadAllShoes {
     NSMutableArray *shoes = [[NSMutableArray alloc] init]; //1
@@ -1102,6 +1181,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
 /**
+ This method is used to load a shoe with a specific ID.
  1. Creates and initialises the local Shoe object variable, shoe
  2. Converts the databasePath from an NSString into a pure string for use with the database
  3. IF opening the database is successful
@@ -1118,7 +1198,10 @@ static Database *_database; //A global variable that stores the current instance
     e. Releases the statement
     f. Closes the database
  4. ELSE logs "Error Opening Database"
- 5. Returns the shoes array
+ 5. Returns the shoe
+ 
+ @param ID The integer value of the shoe's ID.
+ @return The Shoe object loaded from the database with the passed ID.
  */
 -(Shoe *)loadShoeWithID:(int)ID {
     Shoe *shoe; //1
@@ -1152,6 +1235,7 @@ static Database *_database; //A global variable that stores the current instance
 }
 
  /**
+  This method is used to check if a shoe with a certain name already exists in the database.
   1. Declares the local boolean variable shoeNameExists and sets it to NO (false)
   2. Converts the databasePath from an NSString into a pure string for use with the database
   3. IF opening the database is successful
@@ -1166,6 +1250,9 @@ static Database *_database; //A global variable that stores the current instance
     g. Closes the database
   4. Else logs "Error Opening Database"
   5. Returns shoeNameExists
+  
+  @param shoeName The shoe name to check to see if exists already as a string.
+  @return A boolean indicating whether the shoe name exists or not.
  */
 -(BOOL)shoeNameExists:(NSString *)shoeName {
     BOOL shoeNameExists = NO;
@@ -1197,6 +1284,7 @@ static Database *_database; //A global variable that stores the current instance
 #pragma mark Shoe Deleting
 
  /**
+  This method is used to delete a shoe from the database.
   1. Converts the databasePath from an NSString into a pure string for use with the database
   2. IF opening the database is successful
     a. Creates the SQL
@@ -1213,6 +1301,9 @@ static Database *_database; //A global variable that stores the current instance
       iii. Returns YES (true)
  3. ELSE logs "Error Opening Database"
  4. Returns NO (false)
+  
+  @param The Shoe object to be deleted from the database.
+  @return A boolean indicating if the deletion has been successful.
  */
 -(BOOL)deleteShoe:(Shoe *)shoe {
     const char *charDbPath = [_databasePath UTF8String]; //1

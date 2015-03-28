@@ -67,6 +67,8 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         d. Sets the text of the runsMissedLabel to the number of runs missed
         e. Sets the text of the runsAlmostMetLabel to the number of runsAlmostMet
         f. Sets the text of the runsMetLabel to the number of metRuns
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         plan?.loadPlannedRuns() //1
@@ -95,6 +97,9 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :returns: An integer value that is the number of sections in the table view.
     */
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -102,6 +107,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of rows in a section, which is the number of runs in the array of plannedRuns. IF there is no plan then it is 0
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let plan = plan {
@@ -133,6 +142,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             i. Sets the accessoryType and selectionType of the cell to None
            ii. Sets the progressImage to the image called "FutureRun37px"
     3. Returns the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -170,7 +183,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Navigation
 
     /**
-    This method is called by the system to check if a segue should be performed.
+    This method is called by the system to check if a segue should be performed. It checks to see if a planned run does have a matching run, if it doens't the segue shouldn't be performed.
     1. IF the source of the segue is a PlanDetailsTableViewCell
         a. IF the indexPath for the cell can be retrieved
             i. IF there is matchingRun for the cell's row
@@ -179,6 +192,9 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         b. Return true
     3. In the default case return false
     
+    :param: identifier The string that identifies the triggered segue.
+    :param: sender The object that initiated the segue.
+    :returns: A boolean value indicating whether the segue should be performed.
     */
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         if let cell = sender as? PlanDetailsTableViewCell { //1
@@ -195,7 +211,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     /**
-    This method is called by the system when a segue is about to be performed.
+    This method is called by the system when a segue is about to be performed. It is used to prepare the new view.
     1. IF the destination view controller is a CreatePlanViewController
         a. IF there is a plan
             i. Set the plan of the destinationVC to the plan
@@ -205,6 +221,9 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 ii. IF there is matchingRun for the cell's row
                   iii. Set the run of the destination view controller to the matching run
                    iv. Set the cell's selection state to false
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destinationVC = segue.destinationViewController as? CreatePlanViewController { //1

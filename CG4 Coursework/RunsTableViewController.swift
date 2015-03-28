@@ -16,7 +16,7 @@ class RunsTableViewController: UITableViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view is first loaded
+    This method is called by the system when the view is first loaded. It is used to initially configure the view.
     1. Sets the right button on the navigation bar as an Edit button
     2. Tells the view controller to listen for a notification called "RunLoadComplete", and if it receives the notification to call the function finishLoad
     3. Tells the view controller to listen for a notification called "AuthorisedSuccessfully", and if it receives the notification to call the function loadRuns
@@ -40,10 +40,12 @@ class RunsTableViewController: UITableViewController {
     }
     
     /**
-    This method reloads the data in the table when the view is about to appear, this ensures that the table is always up to date after further navigation through the app (the view is not reloaded fully each time)
+    This method is called by the system whenever the view will appear on screen. It reloads the data in the table when the view is about to appear, this ensures that the table is always up to date after further navigation through the app (the view is not reloaded fully each time).
     1. Loads all the runs from the database, storing them in the global array of Run objects, runs
     2. Reloads the tableView
     3. Calls the function checkNoRunsLabel
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         self.tableView.backgroundView = nil
@@ -55,6 +57,7 @@ class RunsTableViewController: UITableViewController {
     }
     
     /**
+    This method is called to check to see if there are any runs stored. If there aren't any, it hides the table view and adds a message telling users how they can add runs.
     1. IF there are no runs
         a. Creates a new label that is the size of the screen
         b. Sets the text of the label
@@ -103,7 +106,7 @@ class RunsTableViewController: UITableViewController {
     }
     
     /**
-    This method is called once the runs have been loaded from Strava and stored in the database.
+    This method is called once the runs have been loaded from Strava and stored in the database. It updates the table view with the new runs.
     1. Loads all the runs from the database and stores them in the global array 'runs'
     2. Reloeads the data in the table view
     3. Tells the refresh control to end refreshing
@@ -118,6 +121,9 @@ class RunsTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :returns: An integer value that is the number of sections in the table view.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
@@ -126,6 +132,10 @@ class RunsTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of rows in a section, which is the number of runs in the array of runs.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -140,6 +150,10 @@ class RunsTableViewController: UITableViewController {
     4. Retrieves the score colour for the current run and sets the background colour of the cell to that colour
     5. Sets the alpha of the progressView to 0.4
     6. Returns the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("runCell", forIndexPath: indexPath) as RunTableViewCell //1
@@ -157,18 +171,22 @@ class RunsTableViewController: UITableViewController {
     }
 
     /**
-    This method is called when a user presses the delete button whilst the table is in edit mode.
+    This method is called when a user presses the delete button whilst the table is in edit mode. It removes a run from the table view and also from the database.
     1. IF the edit being performed is a delete
             a. Get the run for the row to be deleted
             b. Calls the function deleteRunWithID from the Database class, IF it is successful
                 i. Remove the run from the array of runs
                ii. Delete the row from the table view
               iii. Calls the function checkNoRunsLabel
+    
+    :param: tableView The UITableView that is requesting the insertion of the deletion.
+    :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
+    :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete { //1
             let run = self.runs[indexPath.row] //a
-            if Database().deleteRunWithID(run) { //b
+            if Database().deleteRun(run) { //b
                 self.runs.removeAtIndex(indexPath.row) //i
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
                 checkNoRunsLabel() //iii
@@ -179,10 +197,13 @@ class RunsTableViewController: UITableViewController {
     //MARK: - Navigation
 
     /**
-    This method prepares the new view.
+    This method prepares the new view. It is called by the system whenever is a segue is to be performed.
     1. Find the indexPath of the selected cell
     2. IF the destinationViewController is a RunPageViewController
         a. Set the run of the selected view controller to the run for the selected cell
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "runDetails" {

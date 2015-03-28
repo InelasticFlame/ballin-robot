@@ -12,6 +12,8 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
 
     /**
     This method is called when the class initialises. It sets the delegate of the picker view to this class.
+    
+    :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,6 +25,9 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system in order to set up the picker view. It returns the number of components (columns) in the picker, which is this case is fixed as 3.
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :returns: The number of components.
     */
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 3
@@ -30,6 +35,10 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
 
     /**
     This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; IF the component is the last component return 2 (for miles or km), otherwise it returns 100 (for 0 to 99 miles or hundredths of a mile)
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :param: component An integer identifying the component the number of rows should be returned for.
+    :returns: The number of rows in the component.
     */
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 2 {
@@ -50,6 +59,11 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
             i. Return 'mi'
         d. ELSE
             i. Return 'km'
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :param: row An integer identifying the row for which the title should be returned for.
+    :param: component An integer identifying the component that the row is in.
+    :returns: A string that is the title for the row.
     */
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         if component == 0 { //1
@@ -68,6 +82,10 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system when a user selects a row in a component. It posts a notification called UpdateDateDetailLabel passing the user info of a dictionary with the value 'DISTANCE' stored for the key 'valueChanged'.
+    
+    :param: pickerView The UIPickerView informing the delegate that a row has been selected.
+    :param: row An integer identifying the row which was selected.
+    :param: component An integer identifying the component that the row is in.
     */
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "DISTANCE", forKey: "valueChanged"))
@@ -88,6 +106,9 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
         c. Declares the local double constant totalKmDistance as the kilometres plus the hundredthsKilometres divided by 100
         d. Sets the distance equal to the totalKmDistance converted to miles
         e. Sets the distance string as the "totalKmDistance km"
+    
+    :returns: distance - The distance selected in the picker as a double.
+    :returns: distanceStr - The distance selected as a string in the user's chosen unit.
     */
     func selectedDistance() -> (distance: Double, distanceStr: String) {
         var distance = 0.00
@@ -121,6 +142,8 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     3. Sets the selected row in the first component as the number of miles
     4. Sets the selected row in the second component as the number of hundredths of miles
     5. Sets the selected row in the third component as the 'mi' unit
+    
+    :param: distance The distance to set the picker to as a double in miles.
     */
     func setDistance(distance: Double) {
         let miles = Int(distance) //1

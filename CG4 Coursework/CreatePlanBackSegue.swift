@@ -13,6 +13,7 @@ class CreatePlanBackSegue: UIStoryboardSegue {
     /* It removes the InitialCreatePlanViewController from the system and then presents the destinationViewController, this is so that a user cannot go back to this screen once they progress to the next view */
     
     /**
+    This method is called by the system to perform the segue. It defines what the system should do in order to perform it.
     1. Declares the local constant sourceViewController
     2. Declares the local constant destinationViewController
     3. Declares the local constant naviagtionController

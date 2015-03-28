@@ -38,6 +38,8 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     
     /**
     This method is called by the system whenever the view appears on screen. It calls the function updateDetailLabel (this needs to be called once the view has appeared so that the table view is fully loaded)
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(animated: Bool) {
         updateDetailLabel()
@@ -47,8 +49,13 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    Uses the following parameters:
+        textField: the UITextField that triggered the method to be called.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
+    
+    :param: textField The UITextField whose return button was pressed.
+    :returns: A boolean value indicating whether the text field's default behaviour should be perform (true) or not (false)
     */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
@@ -59,7 +66,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     // MARK: - Table View Data Source
     
     /**
-    This method is called by the system whenever a user selects a cell in the table view.
+    This method is called by the system whenever a user selects a cell in the table view. If the user presses the Shoe Image cell it display as impage picker on the screen.
     1. IF the fifth cell is selected
         a. Create an image picker controller
         b. Sets the delegate (controller) of the image picker to this class
@@ -79,6 +86,9 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         i. Switches the value of showDistancePicker
         j. Calls the function reloadTableViewCells to adjust the cell heights
     3. Sets the cell that was selected to be deselected, animating the transition
+    
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 4 { //1
@@ -119,6 +129,10 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         d. Return 0
     5. ELSE
         e. Return the default row height
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row that's height is being requested.
+    :returns: A CGFloat value that is the rows height.
     */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 1 && showError { //1
@@ -143,11 +157,15 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     // MARK: - Image Picker
 
     /**
-    This method is called by the system when a user selects an image using the ImagePickerController.
+    This method is called by the system when a user selects an image using the ImagePickerController. It stores the image in the global selectedImage variable and displays it on the interface.
     1. Sets the selectedImage to the image selected using the image picker controller
     2. Sets the shoeImageView's image to the selected image
     3. Calls the function reloadTableViewCells
     4. Dismisses the image picker view controller and animates the transition
+    
+    :param: picker The UIImagePickerController managing the image picker interface.
+    :param: image The UIImage selected by the user.
+    :param: editingInfo An NSDictionary containing any relevant editing information.
     */
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         
@@ -162,7 +180,9 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     // MARK: - Navigation
     
     /**
-    This method is called by the system when a user presses the Save button. If a plan passes all the validation checks it will be saved.
+    This method is called by the system when a user presses the Save button. If a shoe passes all the validation checks the saveShoe function will be called.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Declares the local constant UITableViewCell; errorCell that stores a reference to the cell that displays the error message
     2. Declares the local tuple shoeNameValidation and stores the return of the validateString function performed on the string in the shoeNameTextField
     3. IF the shoeName is valid
@@ -181,6 +201,8 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         d. Sets the error cell text to the validation error
         e. Sets showError to be true
         f. Calls the function reloadTableViewCells
+    
+    :param: sender The object that called the action (in this case the Save button).
     */
     @IBAction func saveButtonPressed(sender: AnyObject) {
         let errorCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) //1
@@ -213,7 +235,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     //MARK: - Shoe Saving
     
     /**
-    This method is used to save a shoe if all validation checks have been passed successfully.
+    This method is used to save a shoe if all validation checks have been passed successfully. It then dismisses the view.
     1. Declares the local string variable shoeNamePath
     2. IF there is an image selected
         a. Convert the image into an NSData object to save in the documents directory

@@ -28,7 +28,7 @@ class WeightHistoryViewController: UIViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view is initially loaded.
+    This method is called by the system when the view is initially loaded. It sets the view to its initial state.
     1. Set the startDate as today (by converting the current date (and time) to a date string and back the date becomes the very start of the day)
     2. Set the end date as the very end of the currentDay
     3. Call the function loadWeightForLast7Days passing the startDate and endDate
@@ -44,7 +44,7 @@ class WeightHistoryViewController: UIViewController {
     //MARK: - Graph Data Loading
     
     /**
-    This method is called to load the data for the graph
+    This method is called to load the data for the graph.
     1. Declare the unit to retrieve the weight in
     2. Declares the weightQuantity
     3. Create a predicate to retrieve the samples between the start and end date
@@ -71,6 +71,9 @@ class WeightHistoryViewController: UIViewController {
             v. Set the endDate as the startDate
            vi. Set the startDate to be the endDate -1 day
           vii. Call the function loadWeightForLast7Days
+    
+    :param: startDate The start of the first day to retrieve the weight data from.
+    :param: endDate The end of the first day to retrieve the weight data from.
     */
     func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
         var weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram) //1
@@ -131,7 +134,7 @@ class WeightHistoryViewController: UIViewController {
     //MARK: - Graph Drawing
     
     /**
-    This method is called if the weight data is successfully loaded from the HealthKit datastore
+    This method is called if the weight data is successfully loaded from the HealthKit datastore. It draws the weight against time graph for the data loaded.
     1. Declare the local CGFloats greatestWeight and lowestWeight setting their values to the first coordinate in the array of graphCoords
     2. FOR each graphCoordinate after the first
         a. IF it is greater than the greatest weight

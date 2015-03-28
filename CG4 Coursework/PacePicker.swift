@@ -12,6 +12,8 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
 
     /**
     This method is called when the class initialises. It sets the delegate of the picker view to this class.
+
+    :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,6 +25,9 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system in order to set up the picker view. It returns the number of components (columns) in the picker, which is this case is fixed as 3.
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :returns: The number of components.
     */
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 3
@@ -30,6 +35,10 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; IF the component is the last component return 2 (for per miles or per km), otherwise it returns 60 (for 0 to 59 minutes or seconds)
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :param: component An integer identifying the component the number of rows should be returned for.
+    :returns: The number of rows in the component.
     */
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 2 {
@@ -50,6 +59,11 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
             i. Return '/mi'
         d. ELSE
             i. Return '/km'
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :param: row An integer identifying the row for which the title should be returned for.
+    :param: component An integer identifying the component that the row is in.
+    :returns: A string that is the title for the row.
     */
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         if component == 0 { //1
@@ -68,6 +82,10 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system when a user selects a row in a component. It posts a notification called UpdateDateDetailLabel passing the user info of a dictionary with the value 'PACE' stored for the key 'valueChanged'.
+    
+    :param: pickerView The UIPickerView informing the delegate that a row has been selected.
+    :param: row An integer identifying the row which was selected.
+    :param: component An integer identifying the component that the row is in.
     */
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "PACE", forKey: "valueChanged"))
@@ -89,6 +107,9 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
         d. Sets the pace to the integer value of the doublePace
         e. Sets the pace string to "MM:ss /km" where the minutesPerKm and secondsPerKm use 2 digits (e.g. 2 is 02)
     5. Returns the pace and the paceStr
+    
+    :returns: pace - An integer value that is the selected pace in seconds per mile.
+    :returns: paceStr - The pace that is selected as a string in the user's chosen unit.
     */
     func selectedPace() -> (pace: Int, paceStr: String) {
         var pace = 0 //1
@@ -121,6 +142,8 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     3. Selects the row of the minutes in the first component
     4. Selects the row of the seconds in the second component
     5. Selects the first row in the last component
+    
+    :params: pace The pace to set the picker to as an integer in seconds per mile.
     */
     func setPace(pace: Int) {
         let minutes = pace / 60

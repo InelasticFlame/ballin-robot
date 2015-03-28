@@ -24,6 +24,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     //MARK: - View Life Cycle
     
     /**
+    This method is called by the system when the view is initially loaded. It configures the view ready for display on the interface.
     1. Sets the delegate of the mapKitView to this view controller
     2. IF the run has locations
         a. Calls the function drawRouteLineOnMap
@@ -82,7 +83,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     //MARK: - Map Drawing Methods
     
     /**
-    This method is used to drawn the run route onto the map.
+    This method is used to draw the run route onto the map.
     1. IF the user preference is for a Satellite map, set the map to Satellite
     2. IF the user preference is for a Hybrid map, set the map to Hybrid
     3. ELSE set the map to standard
@@ -182,13 +183,17 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
 
     
     /**
-    This method is called by the system whenever there is a request to add an overlay to the MapKit View.
+    This method is called by the system whenever there is a request to add an overlay to the MapKit View. It creates a renderer to draw the polyline.
     1. IF the overlay to be added is a MKPolyline
         a. Create the polyline renderer for this overlay
         b. Set the line colour
         c. Set the line width
         d. Return the renderer
     2. Otherwise return nil
+    
+    :param: mapView The MKMapView that requested the renderer.
+    :param: overlay The MKOverlay object that is to be rendered.
+    :returns: The MKOverlayRenderer to use to present the overlay on the map.
     */
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         

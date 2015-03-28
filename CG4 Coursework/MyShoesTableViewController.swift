@@ -17,10 +17,12 @@ class MyShoesTableViewController: UITableViewController {
     //MARK: - View Life Cycle
 
     /**
-    This method is called by the system whenever the view is about to appear on screen.
+    This method is called by the system whenever the view is about to appear on screen. It loads the shoes from the database and reloads the table view.
     1. Sets the right bar button item to an edit button
     2. Loads all the shoes from the database as an array of Shoe objects, storing them in the array shoes
     3. Reloads the data in the table view
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         self.navigationItem.rightBarButtonItem = self.editButtonItem() //1
@@ -33,6 +35,8 @@ class MyShoesTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -40,6 +44,10 @@ class MyShoesTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of rows in a section, which is the number of shoes in the array of shoes + 1 (for the Add Shoe option)
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shoes.count + 1
@@ -59,6 +67,10 @@ class MyShoesTableViewController: UITableViewController {
         h. IF there is a shoe image
             i. Set the shoeImageView image to the shoe image
         j. Return the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if shoes.count == 0 || indexPath.row == shoes.count { //1
@@ -88,6 +100,10 @@ class MyShoesTableViewController: UITableViewController {
     1. IF the cell is an addNewShoeCell
         a. Return false
     2. ELSE return true
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row to be edited.
+    :returns: A boolean indicating whether the cell at the specified indexPath can be edited.
     */
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         if tableView.cellForRowAtIndexPath(indexPath)?.reuseIdentifier == "addNewShoeCell" { //1
@@ -99,6 +115,10 @@ class MyShoesTableViewController: UITableViewController {
     
     /**
     This method is called by the system whenever the data is loaded in the table view. It returns the height for a particular cell, which in this case is 90 for all cells.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row that's height is being requested.
+    :returns: A CGFloat value that is the rows height.
     */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
@@ -106,23 +126,32 @@ class MyShoesTableViewController: UITableViewController {
     
     /**
     This method is called by the system when a user selects a row in the table view. It deselects the cell and animates the process.
+    
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)
     }
 
     /**
-    This method is called when a user presses the delete button whilst the table is in edit mode.
+    This method is called when a user presses the delete button whilst the table is in edit mode. It removes the shoe from the database and from the table view.
     1. IF the edit being performed is a delete
         a. Calls the function deleteShoe from the Database class, IF it is successful
             i. Remove the shoe from the array of shoe
            ii. Delete the row from the table view
+          iii. Reloads the data in the table view
+    
+    :param: tableView The UITableView that is requesting the insertion of the deletion.
+    :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
+    :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete { //1
             if Database().deleteShoe(shoes[indexPath.row]) { //a
                 shoes.removeAtIndex(indexPath.row) //i
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+                tableView.reloadData() //iii
             }
         }
     }

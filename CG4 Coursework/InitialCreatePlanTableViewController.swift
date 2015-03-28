@@ -31,7 +31,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view initially loads.
+    This method is called by the system when the view initially loads. It configures the view to the initial state.
     1. Sets the delegate of the planNameTextField to this viewController
     2. Adds a target to each date picker that calls the appropriate method whenever the date picker has its value changed
     3. Sets the minimum date for the endDatePicker to be the currently selected date of the start date picker plus 1 day
@@ -55,8 +55,13 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    Uses the following parameters:
+        textField: the UITextField that triggered the method to be called.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
+    
+    :param: textField The UITextField whose return button was pressed.
+    :returns: A boolean value indicating whether the text field's default behaviour should be perform (true) or not (false)
     */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
@@ -67,10 +72,14 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     //MARK: - Date Picker Control
     
     /**
-    This method is called whenever the value of the start date picker is changed.
+    This method is called whenever the value of the start date picker is changed. It updates the start date label and updates the minimum date of the end date picker.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Sets the text of the startDateDetailLabel to the selected date as a shortDateString
     2. Sets the minimum date of the endDatePicker as the selected date plus 1 day (So a plan cannot finish before it has started)
     3. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker (this is in case changing the minimum date has caused the date of the endDatePicker to update, otherwise nothing will change)
+    
+    :param: sender The object that called the action (in this case the startDatePicker).
     */
     func updateStartDate(sender: AnyObject) {
         startDateDetailLabel.text = startDatePicker.date.shortDateString()
@@ -79,8 +88,12 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     }
     
     /**
-    This method is called whenever the value of the end date picker is changed.
+    This method is called whenever the value of the end date picker is changed. It updates the end date label.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker
+    
+    :param: sender The object that called the action (in this case the endDatePicker).
     */
     func updateEndDate(sender: AnyObject) {
         endDateDetailLabel.text = endDatePicker.date.shortDateString()
@@ -89,6 +102,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     //MARK: - Table View Data Source
     
     /**
+    This method is called by the system to return the height for a specific row in the table view.
     1. IF the current section is the second section
         a. IF the current row is the second row
             i. IF the user is editingStartDate return pickerRowHeight
@@ -100,6 +114,10 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         a. IF the planNameWarning needs to be shown return defaultRowHeight
         b. ELSE return 0
     3. In the default case, return the defaultRowHeight
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row that's height is being requested.
+    :returns: A CGFloat value that is the rows height.
     */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 {
@@ -128,7 +146,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     }
     
     /**
-    This method is called whenever a user selects a row in the table
+    This method is called whenever a user selects a row in the table. It updates which cells should be displayed and which cells should be hidden in the table view.
     1. IF the selected row is in the second section
         a. IF the selected row is the first row
             b. IF the user is not already editing the startDate
@@ -142,13 +160,16 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
                ii. Call the function reloadTableViewCells
               iii. Set editingEndDate to true (show the new picker)
             f. ELSE sets editingEndDate to false (to hide the picker)
+    
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 { //1
             if indexPath.row == 0 { //a
                 if !editingStartDate { //b
                     editingEndDate = false //i
-                    reloadTableViewCells() //ii
+                    tableView.reloadTableViewCells() //ii
                     editingStartDate = true //iii
                 } else { //c
                     editingStartDate = false
@@ -156,7 +177,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
             } else if indexPath.row == 2 {
                 if !editingEndDate {
                     editingStartDate = false
-                    reloadTableViewCells()
+                    tableView.reloadTableViewCells()
                     editingEndDate = true
                 } else {
                     editingEndDate = false
@@ -164,29 +185,20 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
             }
         }
         
-        reloadTableViewCells()
-    }
-    
-    /**
-    This function is called whenever a new row is shown/hidden in the table view
-    1. Calls the beginUpdates function of the table view, this tells the system that the following lines should be animated and performed
-    2. Reloads the data in the table view
-    3. Calls the endUpdates function
-    */
-    func reloadTableViewCells() {
-        self.tableView.beginUpdates()
-        self.tableView.reloadData()
-        self.tableView.endUpdates()
+        tableView.reloadTableViewCells()
     }
 
     // MARK: - Navigation
 
     /**
-    This method is called by the system when is segue is about to be performed.
+    This method is called by the system when is segue is about to be performed. It sets up the new view.
     1. IF the segue being performed is called "createPress"
         a. Calls the function createNewPlanWithName from the Database class, IF it returns a plan
             i. IF the destinationViewController for the segue is a CreatePlanTableViewController
                 ii. Set the plan of the destinationViewController to the plan returned from the database
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "createPress" { //1
@@ -202,7 +214,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     /**
     This method is called by the system when the create button is pressed, it checks to see whether it should perform the transition to the next view.
     1. IF the segue to be performed is called "createPress"
-        a. Calls the function validatePlanName, IF it returns true
+        a. Calls the validates the planName, IF it is valid
             i. Returns true
         b. ELSE
             i. Sets showNameWarning to true
@@ -210,6 +222,10 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
           iii. Calls the function reloadTableViewCells
            iv. Returns false
     2. In the default case returns true
+    
+    :param: identifier The string that identifies the triggered segue.
+    :param: sender The object that initiated the segue.
+    :returns: A boolean value indicating whether the segue should be performed.
     */
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         if identifier == "createPress" { //1
@@ -219,7 +235,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
             } else { //b
                 showNameWarning = true //i
                 warningLabel.text = stringValidation.error //ii
-                reloadTableViewCells() //iii
+                tableView.reloadTableViewCells() //iii
                 return false //iv
             }
         }

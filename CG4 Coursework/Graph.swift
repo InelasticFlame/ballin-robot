@@ -35,12 +35,20 @@ class Graph: UIView {
     
     /**
     Called to initialise the class, sets the properties of the Graph to the passed values.
+    Uses the following parameters
+    
+    :param: frame The frame rectangle for the view, measured in points.
+    :param: coordinates An array of GraphCoordinates which are the values to plot onto the graph.
     */
     init(frame: CGRect, coordinates: [GraphCoordinate]) {
         values = coordinates
         super.init(frame: frame)
     }
     
+    /**
+    Uses the following parameters:
+        coder: an NSCoder that is used to unarchive the class.
+    */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -84,6 +92,8 @@ class Graph: UIView {
             j. Draw a line from the xAxis to the end of the marker
             k. Add the text label for the marker
        24. Tells the system to draw the currently queued lines
+    
+    :param: rect A CGRect that is the portion of the view’s bounds that needs to be updated.
     */
     override func drawRect(rect: CGRect) {
         if values.count > 0 {
@@ -204,6 +214,10 @@ class Graph: UIView {
     
     /**
     Creates a CATextLayer and configures its properties, then adds the layer as a sublayer to the view
+
+    :param: text A string that is the text to add to the graph.
+    :param: xCoord A CGFloat that is the x coordinate of the location to draw the text
+    :param: yCoord A CGFloat that is the y coordinate of the location to draw the text
     */
     func addTextToGraph(text: String, xCoord: CGFloat, yCoord: CGFloat) {
         let textLayer = CATextLayer()
@@ -219,6 +233,10 @@ class Graph: UIView {
     /**
     Creates a CATextLayer and configures its properties, then adds the layer as a sublayer to the view.
     Unlike the addTextToGraph method this method rotates the text pi/2 radians so that it is vertical.
+    
+    :param: text A string that is the text to add to the graph.
+    :param: xCoord A CGFloat that is the x coordinate of the location to draw the text
+    :param: yCoord A CGFloat that is the y coordinate of the location to draw the text
     */
     func addXAxisTextToGraph(text: String, xCoord: CGFloat, yCoord: CGFloat) {
         let textLayer = CATextLayer()
@@ -235,6 +253,8 @@ class Graph: UIView {
     
     /**
     Creates the label for the yAxis as the markerNo * majorStep converted to a string
+
+    :param: markerNo An Integer value that is the number of the current marker.
     */
     func yAxisLabel(markerNo: Int) -> String {
         var label = "\(markerNo * Int(majorStep))"

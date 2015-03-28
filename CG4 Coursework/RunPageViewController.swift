@@ -12,14 +12,14 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     
     //MARK: - Global Variables
     
-    private let pages = ["RunShoeTableViewController", "RunMapViewController", "RunSplitsTableViewController"] //The views to be shown by the PageViewController
+    private let pages = ["RunShoeTableViewController", "RunMapViewController", "RunSplitsTableViewController"] //A global constant array of string objects that contain the views to be shown by the PageViewController
     var pagesViewControllers = [UIViewController]() //A global array of UIViewControllers that stores the 3 pages being shown by the PageViewController
     var run: Run? //An optional global variable that stores the run being viewed as a Run object
 
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view controller is first loaded.
+    This method is called by the system when the view controller is first loaded. It configures the page controller and the views that it displays.
     1. Sets the delegate and dataSource of the PageViewController to this view controller
     2. Sets the storyboard to use as the storyboard called MainStoryboard
     3. Loads the detailsVC as the view controller with the identifier at stored at index 1 in the pages array; this view controller is of type RunDetailsViewController
@@ -57,6 +57,10 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     2. ELSE IF the current displayed view controller is a RunShoesTableViewController
         a. Returns the next view controller as the view controller stored at index 1 in pagesViewControllers (this the RunDetailsViewController)
     3. ELSE returns nil (i.e. no view controller is to be displayed after this view; so a user can swipe left no more)
+    
+    :param: pageViewController The page view controller requesting the next view controller.
+    :param: viewController The view controller that the user navigated away from.
+    :returns: The next UIViewController to be displayed by the pageViewController after the current viewController.
     */
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         
@@ -77,6 +81,10 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     2. ELSE IF the current displayed view controller is a RunSplitsTableViewController
         a. Returns the next view controller as the view controller stored at index 1 in pagesViewControllers (this the RunDetailsViewController)
     3. ELSE returns nil (i.e. no view controller is to be displayed after this view; so a user can swipe right no more)
+    
+    :param: pageViewController The page view controller requesting the next view controller.
+    :param: viewController The view controller that the user navigated away from.
+    :returns: The next UIViewController to be displayed by the pageViewController before the current viewController.
     */
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         

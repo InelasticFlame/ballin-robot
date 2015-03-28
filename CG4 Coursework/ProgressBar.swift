@@ -21,6 +21,9 @@ class ProgressBar: UIView {
     
     /**
     This method is called when the class initialises. It sets the passed properties and the background colour to clear.
+    
+    :param: A CGRect of the frame rectangle for the view, measured in points.
+    :param: progress A CGFloat value that is the amount of progress as a decimal.
     */
     init(progress: CGFloat, frame: CGRect) {
         if progress > 1 {
@@ -32,6 +35,11 @@ class ProgressBar: UIView {
         self.backgroundColor = UIColor.clearColor()
     }
 
+    /**
+    This method initialises the class using an unarchiver.
+    
+    :param: coder An NSCoder that is used to unarchive the class.
+    */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -58,6 +66,8 @@ class ProgressBar: UIView {
    15. Sets the string (text), font size, font, foreground colour (font colour), frame, position of the text layer
    16. Sets the contentsScale to the mainScreen scale (so if it is retina display the text is clear)
    17. Adds the progressTextLayer as a sublayer
+    
+    :param: The portion of the view’s bounds that needs to be updated.
     */
     override func drawRect(rect: CGRect) {
         let arcRadius = (rect.size.height*11) / 16 //1

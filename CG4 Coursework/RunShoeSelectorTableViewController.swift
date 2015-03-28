@@ -14,7 +14,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
     var run: Run? //A global optional variable to store the run being displayed as a Run object
     
     /**
-    This method is called by the system whenever the view is about to appear
+    This method is called by the system whenever the view is about to appear. It configures the view to its initially state ready to display on the screen.
     1. Sets the global array shoes as the array return from the loadAllShoes method from the Database class, stating that the returned object is an array of Shoe objects
     2. Reloads the data in the table view
     3. IF the run has a shoe
@@ -22,6 +22,8 @@ class RunShoeSelectorTableViewController: UITableViewController {
         b. IF the selectedShoe's ID matches the current shoe in the array
             i. Sets the accessory of the cell at the indexPath with a row 1 greater than the current shoe index to a checkmark (the row is 1 greater than that of the shoe index as the first row is used for the "None" option)
     4. ELSE sets the accessory of the first cell in the table to a checkmark
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         shoes = Database().loadAllShoes() as [Shoe] //1
@@ -44,6 +46,9 @@ class RunShoeSelectorTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the table view data is loaded. It returns the number of sections in the table view which in this case is fixed as 1.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :returns: An integer value that is the number of sections in the table view.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -52,19 +57,27 @@ class RunShoeSelectorTableViewController: UITableViewController {
     
     /**
     This method is called by the system whenever the table view data is loaded. It returns the number of rows in the table view. In this case it returns 1 more than the total number of shoes (this is because there is one row to be used for a "None" option)
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shoes.count + 1
     }
 
     /**
-    This method is called by the system whenever the table view data is loaded. It creates a new cell and populate it with the appropriate data.
+    This method is called by the system whenever the table view data is loaded. It creates a new cell and populates it with the appropriate data.
     1. Creates the new cell as a table view cell with the identifier "shoeCell"
     2. IF the current row is the first
         a. Sets the text label of the cell to "None"
     3. ELSE
         a. Sets the text label to the shoe name at then index 1 less than the current row (1 less because the first row is a 'None' cell so the table view is one step ahead of the array)
     4. Returns the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("shoeCell", forIndexPath: indexPath) as UITableViewCell //1
@@ -79,7 +92,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
     }
 
     /**
-    This method is called by the system whenever a user selects a row in the table view.
+    This method is called by the system whenever a user selects a row in the table view. It removes any existing selection, updates the view for the new selection and updates the mileage of each shoe in the database.
     1. Calls the local function clearCheckmarks
     2. Sets the accessory of the cell at the selected indexPath to a Checkmark
     3. Deselects the selected row with an animation
@@ -97,6 +110,8 @@ class RunShoeSelectorTableViewController: UITableViewController {
                 x. Sets the shoe of the run stored on the shoesVC to the selectedShoe
                xi. Removes the current view controller from the view hierarchy
     
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         clearCheckmarks() //1

@@ -31,7 +31,7 @@ class SetupViewController: UIViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view is initially loaded.
+    This method is called by the system when the view is initially loaded. It sets up the view with any existing settings
     1. IF setup has already been performed
         2. Declares the local constant userDefaults as a reference to the standardUserDefaults
         3. IF there is an ACCESS_TOKEN stored
@@ -174,13 +174,15 @@ class SetupViewController: UIViewController {
     //MARK: - Interface Actions
     
     /**
-    This method is called when the user presses the done button
+    This method is called when the user presses the done button. It saves the current settings.
     1. IF changes have been made
         a. Create an alert with the title "Save Settings?" and the options 'Save' and 'Cancel'
         (Pressing save calls the function saveSettings and dismisses the view controller, pressing cancel just dismisses the view controller)
         b. Present the alert
     2. ELSE
         a. Dismiss the setupViewController
+    
+    :param: sender The object that called the action (in this case the Done button).
     */
     @IBAction func donePressed(sender: AnyObject) {
         if changesMade { //1
@@ -198,6 +200,8 @@ class SetupViewController: UIViewController {
     
     /**
     This method is called when the user presses the Connect With Strava button. It calls the function authoriseNewAccount from the StravaAuth class
+    
+    :param: sender The object that called the action (in this case the Strava Connect button).
     */
     @IBAction func stravaConnectButtonPressed(sender: AnyObject) {
         StravaAuth().authoriseNewAccount()
@@ -205,6 +209,8 @@ class SetupViewController: UIViewController {
 
     /**
     This method is called when the user changes the value of the distant segment. It sets the changesMade to true and calls the function updateGoalDistanceLabel
+    
+    :param: sender The UISegmentedControl that triggered the method to be called.
     */
     @IBAction func distanceSegmentValueChanged(sender: UISegmentedControl) {
         changesMade = true
@@ -213,6 +219,8 @@ class SetupViewController: UIViewController {
     
     /**
     This method is called when the user changes the value of the weight segment. It sets the changesMade to true and calls the function updateWeightGoalLabel
+    
+    :param: sender The UISegmentedControl that triggered the method to be called.
     */
     @IBAction func weightSegmentValueChanged(sender: UISegmentedControl) {
         changesMade = true
@@ -221,6 +229,8 @@ class SetupViewController: UIViewController {
     
     /**
     This method is called when the user changes the value of the calorie stepper. It sets the changesMade to true and calls the function updateCalorieGoalLabel
+    
+    :param: sender The UIStepper that triggered the method to be called.
     */
     @IBAction func calorieStepperValueChanged(sender: UIStepper) {
         changesMade = true
@@ -229,6 +239,8 @@ class SetupViewController: UIViewController {
     
     /**
     This method is called when the user changes the value of the weight stepper. It sets the changesMade to true and calls the function updateWeightGoalLabel
+    
+    :param: sender The UIStepper that triggered the method to be called.
     */
     @IBAction func weightStepperValueChanged(sender: UIStepper) {
         changesMade = true
@@ -237,6 +249,8 @@ class SetupViewController: UIViewController {
     
     /** 
     This method is called when the user changes the value of the goal distance stepper. It sets the changesMade to true and calls the function updateGoalDistanceLabel
+    
+    :param: sender The UIStepper that triggered the method to be called.
     */
     @IBAction func goalDistanceStepperValueChanged(sender: UIStepper) {
         changesMade = true

@@ -25,7 +25,7 @@ class TrainingPlansTableViewController: UITableViewController {
     }
     
     /**
-    This method is called each time the view will appear on screen.
+    This method is called each time the view will appear on screen. It is used to load the plans and sort them into active and in active to then display them in the table view.
     1. Clears the arrays of any existing plans, without keeping its current size
     2. Retrieves the plans from the database using the Database class as an array of Plan objects
     3. FOR each plan in unsortedPlans
@@ -34,6 +34,8 @@ class TrainingPlansTableViewController: UITableViewController {
         b. ELSE
             i. Adds the plan to the second array (In-active Plans)
     4. Reloads the data in the table view
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         plans[0].removeAll(keepCapacity: false) //1
@@ -56,6 +58,9 @@ class TrainingPlansTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 2.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :returns: An integer value that is the number of sections in the table view.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -64,6 +69,10 @@ class TrainingPlansTableViewController: UITableViewController {
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of rows in a section, which is the number of plans in the array of plans for the current section.
     (ActivePlans in section 0, InactivePlans in section 1)
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return plans[section].count
@@ -80,6 +89,10 @@ class TrainingPlansTableViewController: UITableViewController {
         a. Creates an 'inactivePlan' cell
         b. Set the textLabel text to the name of the InactivePlan at the current row
         c. Returns the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 { //1
@@ -110,11 +123,15 @@ class TrainingPlansTableViewController: UITableViewController {
     }
 
     /**
-    This method is called when a user presses the delete button whilst the table is in edit mode.
+    This method is called when a user presses the delete button whilst the table is in edit mode. It removes the training plan from the database and from the table view.
     1. IF the edit being performed is a delete
         a. IF the plan for the selected row in the selected section is successfully deleted from the database
             i. Remove the plan from the array of plans
            ii. Remove the row selected with the Fade animation
+    
+    :param: tableView The UITableView that is requesting the insertion of the deletion.
+    :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
+    :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete { //1
@@ -128,10 +145,13 @@ class TrainingPlansTableViewController: UITableViewController {
     // MARK: - Navigation
 
     /**
-    This method is called by the system when it is about to perform a segue.
+    This method is called by the system when it is about to perform a segue. It is used to configure the new view.
     1. IF the destination view controller is a PlanDetailsViewController
         a. IF the selectedIndex for the cell is successfully retrieved
             i. Set the plan property of the destination view controller to the plan for the selected row in the selected section
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destinationVC = segue.destinationViewController as? PlanDetailsViewController { //1

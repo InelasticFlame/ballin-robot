@@ -19,6 +19,10 @@ class WeightProgressBar: UIView {
     
     /**
     This method is called when the class initialises. It sets the passed properties and the background colour to clear.
+    
+    :param: currentWeight A CGFloat value that is the user's current weight
+    :param: goalWeight A CGFloat value that is the user's goal weight
+    :param: frame The frame rectangle for the view, measured in points.
     */
     init(currentWeight: CGFloat, goalWeight: CGFloat, frame: CGRect) {
         self.currentWeight = currentWeight
@@ -27,6 +31,9 @@ class WeightProgressBar: UIView {
         self.backgroundColor = UIColor.clearColor()
     }
     
+    /**
+    :param: coder An NSCoder that is used to unarchive the class.
+    */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -62,6 +69,8 @@ class WeightProgressBar: UIView {
    21. Sets the contentsScale to the mainScreen scale (so if it is retina display the text is clear)
    22. Adds the goalTextLayer as a sublayer
    23. Repeats this process for the weightTextLayer this time using the currentWeight
+    
+    :param: rect The portion of the view’s bounds that needs to be updated.
     */
     override func drawRect(rect: CGRect) {
         let barWidth = rect.size.width - 40 //1

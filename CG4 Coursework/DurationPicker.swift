@@ -12,6 +12,8 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
 
     /**
     This method is called when the class initialises. It sets the delegate of the picker view to this class.
+    
+    :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,6 +25,9 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system in order to set up the picker view. It returns the number of components (columns) in the picker, which is this case is fixed as 3.
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :returns: The number of components.
     */
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 3
@@ -30,6 +35,10 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; IF the component is the first component return 24 (for 0 to 23 hours), otherwise it returns 60 (for 0 to 59 minutes or seconds)
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :param: component An integer identifying the component the number of rows should be returned for.
+    :returns: The number of rows in the component.
     */
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
@@ -47,6 +56,11 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
         b. Return the row number followed by 'm', using 2 digits for the row number (e.g. 2 will be 02m)
     3. ELSE
         c. Return the row number followed by 's', using 2 digits for the row number
+    
+    :param: pickerView The UIPickerView requesting the number of components.
+    :param: row An integer identifying the row for which the title should be returned for.
+    :param: component An integer identifying the component that the row is in.
+    :returns: A string that is the title for the row.
     */
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         if component == 0 { //1
@@ -60,6 +74,10 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     
     /**
     This method is called by the system when a user selects a row in a component. It posts a notification called UpdateDateDetailLabel passing the user info of a dictionary with the value 'DURATION' stored for the key 'valueChanged'.
+    
+    :param: pickerView The UIPickerView informing the delegate that a row has been selected.
+    :param: row An integer identifying the row which was selected.
+    :param: component An integer identifying the component that the row is in.
     */
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "DURATION", forKey: "valueChanged"))
@@ -75,6 +93,9 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     6. Calculates the duration in seconds as the number of hours * 3600 added to the number of minutes * 60 and added to the number of seconds
     7. Sets the durationStr to hours, minutes and seconds in the form HOURSh MINUTESm SECONDSs
     8. Returns the duration and the durationStr
+    
+    :returns: duration - The duration selected as an integer in seconds.
+    :returns: durationStr - The duration selected as a string in the form HH:mm:ss
     */
     func selectedDuration() -> (duration: Int, durationStr: String) {
         var duration = 0 //1
@@ -99,6 +120,8 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     5. Sets the selected row in the first column to the number of hours
     6. Sets the selected row in the second column to the number of minutes
     7. Sets the selected row in the third column to the number of seconds
+    
+    :param: duration The duration to set the picker to as an integer in seconds.
     */
     func setDuration(duration: Int) {
         let hours = duration/3600

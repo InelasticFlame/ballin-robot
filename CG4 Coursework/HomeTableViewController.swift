@@ -32,7 +32,7 @@ class HomeTableViewController: UITableViewController {
     @IBOutlet weak var fastestMileLabel: UILabel!
    
     
-    private var shoes = [Shoe]()
+    private var shoes = [Shoe]() //A global array of Shoe objects that stores the shoes in the database.
     
     //MARK: - View Life Cycle
     
@@ -60,6 +60,8 @@ class HomeTableViewController: UITableViewController {
     3. Call the function loadDistanceProgress
     4. Call the function loadShoes, passing an NSTimer with the userInfo of a dictionary containing 0
         (a timer is initially created and passed because the function is called using a timer so it will cycle round in a timer)
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(animated: Bool) {
         
@@ -76,6 +78,10 @@ class HomeTableViewController: UITableViewController {
     
     /**
     This method is called by the system whenever the data is loaded in the table. It returns the height for a cell in the table which in this case is always 320
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row that's height is being requested.
+    :returns: A CGFloat value that is the rows height.
     */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 320
@@ -98,6 +104,8 @@ class HomeTableViewController: UITableViewController {
         i. Create a new timer for 3 seconds that will call "loadShoes" when it finishes. Storing the userInfo of a dictionary with the currentShoe increased by one in it
     3. ELSE
         j. Set the text of the shoeNameLabel to "No Shoes"
+    
+    :param: timer The NSTimer object that calls the function.
     */
     func loadShoes(timer: NSTimer) {
         shoes = Database().loadAllShoes() as [Shoe] //1

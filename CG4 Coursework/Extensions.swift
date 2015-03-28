@@ -17,6 +17,8 @@ extension UIView {
     This extension is used to add a dark gray border to a view.
     1. Sets the borderWidth the the border width passed when the function was called
     2. Sets the border colour to dark gray
+    
+    :param: borderWidth A CGFloat value of the width of border to add.
     */
     func addBorder(borderWidth: CGFloat) {
         self.layer.borderWidth = borderWidth //1
@@ -33,14 +35,16 @@ extension NSDate {
     This initialiser takes a date string in the form "dd/MM/yyyy" and creates a new NSDate object with this date.
     1. Creates the date formatter
     2. Sets the date format to "dd/MM/yyyy"
-    3. Sets the locale to the current locale
+    3. Sets the locale to the en_GB (for consistency)
     4. Creates the new date using the date formatter
     5. Calls the init with timeInterval sinceDate initialiser passing the created date and a time interval of 0
+    
+    :param: shortDateString the date as a string to create the NSDate with.
     */
     convenience init (shortDateString: String) {
         let dateFormatter = NSDateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyy" //2
-        dateFormatter.locale = NSLocale.currentLocale() //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
         
         let newDate = dateFormatter.dateFromString(shortDateString) //4
         self.init(timeInterval: 0, sinceDate: newDate!) //5
@@ -50,14 +54,16 @@ extension NSDate {
     This initialiser takes a date string in the form "dd/MM/yyyyHH:mm:ss" and creates a new NSDate object with this date, this is used when a run is loaded from the database.
     1. Creates the date formatter
     2. Sets the date format to "dd/MM/yyyyHH:mm:ss"
-    3. Sets the locale to the current locale
+    3. Sets the locale to the en_GB (for consistency)
     4. Creates the new date using the date formatter
     5. Calls the init with timeInterval sinceDate initialiser passing the created date and a time interval of 0
+    
+    :param: databaseString A string of the date to create the NSDate with.
     */
     convenience init (databaseString: String) {
         let dateFormatter = NSDateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
-        dateFormatter.locale = NSLocale.currentLocale() //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
         
         let newDate = dateFormatter.dateFromString(databaseString) //4
         self.init(timeInterval: 0, sinceDate: newDate!) //5
@@ -66,40 +72,52 @@ extension NSDate {
     //MARK: Methods
     
     /**
-    Returns the date in the form "dd/MM/yyyyHH:mm:ss" as string for saving to the database.
+    This method returns the date in the form "dd/MM/yyyyHH:mm:ss" as string for saving to the database.
     1. Creates a date formatter
     2. Sets the date format
-    3. Returns the string created by the date formatter
+    3. Sets the locale to the en_GB (for consistency)
+    4. Returns the string created by the date formatter
+    
+    :returns: The date in the form "dd/MM/yyyyHH:mm:ss" as a string
     */
     func databaseString() -> String {
         let dateFormatter = NSDateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
         
-        return dateFormatter.stringFromDate(self) //3
+        return dateFormatter.stringFromDate(self) //4
     }
     
     /**
-    Returns the date in the form "dd/MM/yyyy" as string for display on the interface.
+    This method returns the date in the form "dd/MM/yyyy" as string for display on the interface.
     1. Creates a date formatter
     2. Sets the date format
-    3. Returns the string created by the date formatter
+    3. Sets the locale to the en_GB (for consistency)
+    4. Returns the string created by the date formatter
+    
+    :returns: The date in the form "dd/MM/yyyy" as a string
     */
     func shortDateString() -> String {
         let dateFormatter = NSDateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyy" //2
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
         
-        return dateFormatter.stringFromDate(self) //3
+        return dateFormatter.stringFromDate(self) //4
     }
     
     /**
     Returns the date in the form "dd/MM/YY" (e.g. 23/10/14) as string for display on the interface.
     1. Creates a date formatter
     2. Sets the date format
-    3. Returns the string created by the date formatter
+    3. Sets the locale to the en_GB (for consistency)
+    4. Returns the string created by the date formatter
+    
+    :returns: The date in the form "dd/MM/yy" as a string
     */
     func shortestDateString() -> String {
         let dateFormatter = NSDateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/YY" //2
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB")
         
         return dateFormatter.stringFromDate(self) //3
     }
@@ -111,6 +129,8 @@ extension NSDate {
     3. Retrieves the year as an integer using the calendar of the date formatter
     4. Creates the monthYear string 
     5. Returns the monthYearString
+    
+    :returns: The date in the form "/MM/yyyy" as a string
     */
     func monthYearString() -> String {
         let dateFormatter = NSDateFormatter() //1
@@ -126,13 +146,15 @@ extension NSDate {
     Returns the date in the form 12 hour time format (e.g. 01:56 pm)
     1. Creates the date formatter
     2. Sets the date format
-    3. Sets the locale to the current locale
+    3. Sets the locale to the en_GB (for consistency)
     4. Returns the string created by the date formatter
+    
+    :returns: The time portion of the date in the form "HH:mm a" as a string
     */
     func timeString12Hour() -> String {
         let dateFormatter = NSDateFormatter() //1
         dateFormatter.dateFormat = "hh:mm a" //2
-        dateFormatter.locale = NSLocale.currentLocale() //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
         
         return dateFormatter.stringFromDate(self) //4
     }
@@ -141,6 +163,8 @@ extension NSDate {
     Returns true if a date is in today.
     1. Creates a gregorian calendar
     2. Returns the boolean created by the calendar.
+    
+    :returns: A boolean that indicates if the date is in today or not.
     */
     func isToday() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) //1
@@ -152,6 +176,8 @@ extension NSDate {
     Returns true if a date was yesterday.
     1. Creates a gregorian calendar
     2. Returns the boolean created by the calendar.
+    
+    :returns: A boolean that indicates if the date is in yesterday or not.
     */
     func isYesterday() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) //1
@@ -169,6 +195,8 @@ extension CLLocation {
     1. Splits the location string on the ', ' and stores the first half as the latitude string
     2. Splits the location string on the ', ' and stores the last half as the longitude string
     3. Initialises the CLLocation object using the double values of the latitude and longitude strings
+    
+    :param: location A string of the location to create the CLLocation object with.
     */
     convenience init (locationString: String) {
         let latString = locationString.componentsSeparatedByString(", ").first! as NSString //1
@@ -181,7 +209,7 @@ extension CLLocation {
 extension String {
     
     /**
-    This function checks that a string is valid. It takes the arguemnts stringName (the name of the string being checked), maxLength (the maximum length of the string) and minLength (the minimum length of the string)
+    This function checks that a string is valid.
     1. Declares the local variable error as a string
     2. Creates the regular expression to check the string with; in this case the letters A to z, numbers 0 to 9, ?!. are allowed.
     3. Removes all the spaces in the string and stores it as testString
@@ -195,6 +223,12 @@ extension String {
         a. Sets the error
         b. Returns the result of the predicate evaluating the test string and the error
     7. In the default case returns false and the error
+    
+    :param: stringName A String of the name of the string being validated.
+    :param: maxLength An integer that is the maximum length of the string.
+    :param: minLength An integer that is the minimum length of the string.
+    :returns: valid - A boolean that indicates if the string is valid or not
+    :returns: error - A string that stores the validation error (if there is one)
     */
     func validateString(stringName: String, maxLength: Int, minLength: Int) -> (valid: Bool, error: String) {
         var error = "Error testing string." //1
@@ -232,6 +266,10 @@ extension HKHealthStore {
         B3. ELSE
             Bc. Perform the completion block with a nil sample and nil error
     4. Execute the query
+    
+    :param: sampleType A HKSampleType object which is the sample to retrieve.
+    :param: predicate An NSPredicate to filter the data with.
+    :param: completion The block to perform on completion of the request. (The completion block has parameters of a HKSample object and an NSError object and returns nothing)
     */
     func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: ((HKSample!, NSError!) -> Void)!) {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false) //1
@@ -268,6 +306,11 @@ extension HKHealthStore {
         B4. ELSE
             Bc. Perform the passed completion block passing 0 for the sum and nil for the error
     3. Execute the query
+    
+    :param: quantityType A HKQuantityType object which is the quantity to retrieve.
+    :param: unit The HKUnit to retrieve the quantity in.
+    :param: predicate An NSPredicate to filter the data with.
+    :param: completion The block to perform on completion of the request. (The completion block has parameters of a Double and an NSError object and returns nothing)
     */
     func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: ((Double!, NSError!) -> Void)!) {
         
@@ -294,6 +337,12 @@ extension HKHealthStore {
 
 extension UITableView {
     
+    /**
+    This function is called whenever a new row is shown/hidden in the table view. It reloads the data in the table view and animates the process.
+    1. Calls the beginUpdates function of the table view, this tells the system that the following lines should be animated and performed
+    2. Reloads the data in the table view
+    3. Calls the endUpdates function
+    */
     func reloadTableViewCells() {
         self.beginUpdates()
         self.reloadData()

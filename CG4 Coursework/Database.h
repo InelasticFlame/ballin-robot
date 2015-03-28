@@ -25,7 +25,7 @@
 
 -(BOOL)saveShoe:(NSObject *)shoe ToRun:(NSObject *)run;
 
--(BOOL)deleteRunWithID:(NSObject *)run;
+-(BOOL)deleteRun:(NSObject *)run;
 
 //Plans
 -(NSObject *)createNewPlanWithName:(NSString*)name startDate:(NSDate*)startDate andEndDate:(NSDate*)endDate;

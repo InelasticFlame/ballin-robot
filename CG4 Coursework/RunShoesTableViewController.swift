@@ -15,7 +15,7 @@ class RunShoesTableViewController: UITableViewController {
     var run: Run? //A global optional variable to store the run being displayed as a Run object
     
     /**
-    This method is called by the system when the view is first loaded.
+    This method is called by the system when the view is first loaded. It configures the view to its initial state ready to display on the screen.
     1. Adds padding to the top of the table view so that it doesn't display under the navigation bar
     2. Declares and initialises the local constant pageControl as a UIPageControl
     3. Sets the number of pages to 3
@@ -41,7 +41,7 @@ class RunShoesTableViewController: UITableViewController {
     }
     
     /**
-    This method is called by the system when the view appears on screen.
+    This method is called by the system when the view appears on screen. It loads the table view with the appropriate data in the static cells.
     1. IF there is a run
         a. Declares the local variable finishTimes and initialises it with the tuple returned from the function calculateRunFinishTimes called on the run
         b. Sets the detail text label of the first row in the second section of the table view to the fiveK string of the finishTimes tuple
@@ -51,6 +51,8 @@ class RunShoesTableViewController: UITableViewController {
         f. IF there is a shoe 
             i. Sets the text of the first cell in the first section of the table view to the shoe's name
         g. ELSE sets the text of the first cell in the first section of the table view to "None"
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(animated: Bool) {
         if let run = run { //1
@@ -72,15 +74,21 @@ class RunShoesTableViewController: UITableViewController {
     
     /**
     This method is called by the system whenever a user selects a row in the table view. It deselects the row and animates the process.
+    
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)
     }
     
     /**
-    This method is called by the system whenever a segue is about to be performed.
+    This method is called by the system whenever a segue is about to be performed. It prepares the new view ready for display.
     1. IF the destination view controller is a RunShoeSelectorTableViewController
         a. Sets the run of the destinationVC to the current run
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destinationVC = segue.destinationViewController as? RunShoeSelectorTableViewController { //1

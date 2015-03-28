@@ -35,6 +35,16 @@ class Run: NSObject {
     
     /**
     Called to initialise the class, sets the properties of the Run to the passed values.
+    
+    :param: runID The ID of the run.
+    :param: distance The distance of the run in miles as a double.
+    :param: dateTime The time and date of the run as an NSDate object.
+    :param: pace The pace of the run in seconds per mile as an Integer.
+    :param: duration The duration of the run in seconds as an Integer.
+    :param: shoe The shoe that the run was ran in. This object is optional.
+    :param: runScore The score for the run as a double.
+    :param: runLocations The array of CLLocation objects that map the route of the run.
+    :param: splits The mile splits for the run as an Array of Integers in seconds per mile.
     */
     init(runID: Int, distance: Double, dateTime: NSDate, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
         self.ID = runID
@@ -81,6 +91,8 @@ class Run: NSObject {
     
     /**
     This method adds a split to the array of stored splits for the run. This method is necessary as runs are created in an Objective-C environment (where arrays are just arrays of objects). In this case the split would have to be converted to an NSNumber object and then added to the array, so it is easy to pass the integer value for the split to the class and add it to the array in Swift.
+    
+    :param: split The pace of the split in seconds per mile as an integer.
     */
     func addSplit(split: Int) {
         self.splits.append(split)
@@ -94,6 +106,8 @@ class Run: NSObject {
         b. Return the orangeColour
     3. ELSE
         c. Return the greenColour
+    
+    :returns: The UIColor that represents the run's score.
     */
     func scoreColour() -> UIColor {
         if self.score < 400 { //1
@@ -110,6 +124,11 @@ class Run: NSObject {
     1. Calculate the fiveK, tenK, halfMarathon and fullMarathon times as the pace times the approprite distance
     2. Converts the finish times into strings using the Conversions class
     3. Returns each of the 4 string
+    
+    :returns: fiveK - The 5k finish time as a String.
+    :returns: tenK - The 10k finish time as a String.
+    :returns: halfMarathon - The Half Marathon finish time as a String.
+    :returns: fullMarathon - The Full Marathon finish time as a String.
     */
     func calculateRunFinishTimes() -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
         let fiveK = Int(Double(self.pace) * 3.1) //1
@@ -130,6 +149,8 @@ class Run: NSObject {
     1. IF the distance, duration and pace are all greater than nothing (this is to handle the case where a run returned from Strava has erroneous values e.g. -1)
         a. Return true
     2. ELSE return false
+    
+    :returns: A boolean value that indicates if the run is valid or not.
     */
     func valid() -> Bool {
         if self.distance > 0 && self.duration > 0 && self.pace > 0 {
@@ -141,6 +162,8 @@ class Run: NSObject {
     
     /**
     This method prints a description of the run object for use in testing.
+    
+    :returns: The run's description as a string.
     */
     func description() -> String {
         let string = "ID = '\(self.ID)', DateTime = '\(self.dateTime.description)', Pace = '\(self.pace)', Duration = '\(self.duration)', Score = '\(self.score)', Number of locations = '\(self.locations.count)', Number of splits = '\(self.splits.count)'"

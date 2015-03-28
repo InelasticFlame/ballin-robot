@@ -25,7 +25,7 @@ class PersonalBestsTableViewController: UITableViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system whenever the view appears on screen
+    This method is called by the system whenever the view appears on screen. It is used to configure the interface with the personal bests of a user.
     1. Initialises and stores a reference to the standardUserDefaults
     2. Declares the local constant UIImage achievedImage which is the image called "trophyImage90px"
     3. Retrieves the longestDistance, longestDuration, fastestMile and fastestAveragePace from the userDefaults
@@ -33,6 +33,8 @@ class PersonalBestsTableViewController: UITableViewController {
         a. Set the text of the longestDistanceLabel to the longestDistance converted to a string using the Conversions class
         b. Set the image of the longestDistanceImageView to the achieved image
     5. This process is the repeated for the other 3 personal bests
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         let userDefaults = NSUserDefaults.standardUserDefaults() //1

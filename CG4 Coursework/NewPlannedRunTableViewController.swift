@@ -32,7 +32,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view is first loaded.
+    This method is called by the system when the view is first loaded. It configures the view to its initial state.
     1. Sets the minimum date and maximum date of the plannedRunDate picker to the plan start and end dates respectively
     2. Calls the function updateDetailLabels (to setup the interface)
     3. Tells the plannedRunDate picker to call the function updateDetailLabels when its value is changed
@@ -54,9 +54,11 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     //MARK: - Interface Updates
     
     /**
-    This method is called by the system when the value of the distanceDuration segment is changed
+    This method is called by the system when the value of the distanceDuration segment is changed. It shows the correct picker view in the table view.
     1. Calls the function reloadTableViewCells (to show the correct picker based on the selected segment)
     2. Calls the function updateDetailLabel (to set the interface to the new type (distance or duration))
+    
+    :param: sender The UISegmentedControl that triggered the method to be called.
     */
     @IBAction func distanceDurationSegmentValueChanged(sender: UISegmentedControl) {
         tableView.reloadTableViewCells() //1
@@ -64,6 +66,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     }
     
     /**
+    This method is called when the view controller recieves the 'updateDetailLabels' notification. It is used to set the text of the detail labels to the values of the pickers.
     1. Sets the text of the runDateDetailLabel to the selected plannedRun date as a short date string
     2. IF the distanceDuration segment selected is the first segment (DISTANCE)
         a. Sets the runDistanceDuration label text to the plannedDistancePicker selected distance as a string
@@ -83,8 +86,13 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
+    Uses the following parameters:
+        textField: the UITextField that triggered the method to be called.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
+    
+    :param: textField The UITextField whose return button was pressed.
+    :returns: A boolean value indicating whether the text field's default behaviour should be perform (true) or not (false)
     */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
@@ -95,7 +103,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     // MARK: - Table View Data Source
 
     /**
-    This method is called by the system whenever the data in the table view is loaded
+    This method is called by the system whenever the data in the table view is loaded. It returns the height for a row at a specific index path.
     1. IF the indexPath has a row of either 0, 2, 5 or 7 (these should always be displayed)
         a. Return the default row height
     2. ELSE IF the indexPath has a row of 8 and the repeat should be shown
@@ -111,6 +119,10 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
           iii. IF the selected segment in the distanceDuration segment is the second segment AND the indexPath has a row of 4 (DURATION)
                 Y. Return the picker row height
     5. In the default case return 0
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row that's height is being requested.
+    :returns: A CGFloat value that is the rows height.
     */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 5 || indexPath.row == 7 { //1
@@ -139,7 +151,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     }
     
     /**
-    This method is called by the system whenever a user selects a row in the table view
+    This method is called by the system whenever a user selects a row in the table view. It sets which picker views should be shown and which should be hidden.
     1. IF the selected cell is the first cell (DATE)
         a. Swap the value of editingRunDate
         b. Sets editingRunDistanceDuration to false
@@ -147,6 +159,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         c. Swap the value of editingRunDistanceDuration
         d. Sets editingRunDate to false
     3. Calls the function reloadTableViewCells
+    
+    :param: tableView The UITableView object informing the delegate about the new row selection.
+    :param: indexPath The NSIndexPath of the row selected.
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 { //1
@@ -164,7 +179,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     //MARK: - Planned Run Saving
     
     /**
-    This method is called by the system when the user presses the Done button
+    This method is called by the system when the user presses the Done button. It validates the planned run and saves it to the database (if validation is successful) and then dismisses the view controller.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Declares the local string variable error, the double variable planDistance and the integer variable planDuration
     2. Resigns the runDetailsTextField as the first responder (the focus) (this dismisses the keyboard)
     3. IF the run has a DISTANCE
@@ -204,6 +221,8 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         l. Sets the error cell text label text to the error
         m. Set show error to true
         n. Calls the function reloadTableViewCells to display the error
+    
+    :param: sender The object that called the action (in this case the Done button).
     */
     @IBAction func donePressed(sender: AnyObject) {
         var error = "" //1
@@ -293,6 +312,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         b. Retrieve the destination view controller as a RepeatSettingsTableViewController
            ii. Sets the repeatEnd of the destinationVC to the detailLabel of the repeatEnd cell
           iii. Sets the plannedRunDate of the destinationVC to the plannedRunDatePicker date
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "repeatPress" { //1
@@ -309,7 +331,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     }
     
     /**
-    This method is called by the RepeatsTableViewController when a user selects a repeat.
+    This method is called by the RepeatsTableViewController when a user selects a repeat. It is used to display the selected repeat on this view.
     1. IF The repeatText isn't "Never"
         a. Sets showRepeat to true (the user should now be able to set an end date for the repeat)
         b. Calls the function reloadTableViewCells
@@ -317,6 +339,8 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         c. Sets showRepeat to false
         d. Calls the function reloadTableViewCells
     3. Sets the text of the repeat cell detail label to the repeatText
+    
+    :param: repeatText The string for the selected repeat.
     */
     func setRepeatDetailLabelText(repeatText: String) {
         if repeatText != "Never" { //1
@@ -330,8 +354,10 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     }
     
     /**
-    This method is called by the RepeatSettingsTableViewController when a user selects a setting for their repeat option
+    This method is called by the RepeatSettingsTableViewController when a user selects a setting for their repeat option. It is used to display the selected repeat end option on this view.
     1. Sets the text of the repeat setting detail label to the repeatEndOption
+    
+    :param: repeatEndOption The string of the selected end option for the repeat.
     */
     func setRepeatEndDetailLabelText(repeatEndOption: String) {
         tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text = repeatEndOption

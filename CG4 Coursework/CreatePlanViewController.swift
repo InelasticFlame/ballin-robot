@@ -21,7 +21,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view is first loaded.
+    This method is called by the system when the view is first loaded. It configures the view to its initial state.
     1. Hides the back button of the navigation bar
     2. Sets the dataSource and delegate of the plannedRunsTableView to this view controller
     3. Sets the right button of the bottom navigation item to an edit button
@@ -38,9 +38,11 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     /**
-    This method is called by the system whenever the view is about to appear on screen.
+    This method is called by the system whenever the view is about to appear on screen. It loads the planned runs and reloads the table view to display the planned runs on the interface.
     1. Loads the plannedRuns for the current plan
     2. Reloads the data in the tableView
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         plan?.loadPlannedRuns()
@@ -50,7 +52,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: - Editing
     
     /**
-    This method is called by the system when the edit button is pressed.
+    This method is called by the system when the edit button is pressed. It sets the table view into edit mode.
     1. Sets the plannedTableView to the editing option passed and the animation option passed
     */
     override func setEditing(editing: Bool, animated: Bool) {
@@ -63,6 +65,9 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     
     /**
     This method is called by the system whenever the data in the table view is loaded, it returns the number of sections in the table view which in this case is fixed 1.
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :returns: An integer value that is the number of sections in the table view.
     */
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -70,6 +75,10 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     
     /**
     This method is called by the system whenever the data in the table view is loaded, it returns the number of rows in the table view. In this case, IF there is a plan it returns the number of plannedRuns; otherwise it returns 0
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let plan = plan {
@@ -90,6 +99,10 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     6. ELSE 
         b. Sets the text of the distanceDurationLabel to the plannedRun duration converted to a string using the Conversions class
     7. Returns the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlannedRun", forIndexPath: indexPath) as PlannedRunTableViewCell //1
@@ -108,18 +121,26 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     
     /**
     This method is called by the system whenever the data in the table view is loaded. It returns the height for a cell at a certain indexPath, in this case all cells have a fixed height of 60
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: indexPath The NSIndexPath of the row that's height is being requested.
+    :returns: A CGFloat value that is the rows height.
     */
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60
     }
     
     /**
-    This method is called when a user presses the delete button whilst the table is in edit mode.
+    This method is called when a user presses the delete button whilst the table is in edit mode. It deletes a planned run from the database and from the tableview.
     1. IF the edit being performed is a delete
         a. IF there is a plan
             b. Calls the function deletePlannedRun from the Database class passing the plannedRun at the index of the current row; IF it is succesful
                 i. Remove the plannedRun from the array
                ii. Delete the row at the indexPath with the animation of a Fade
+    
+    :param: tableView The UITableView that is requesting the insertion of the deletion.
+    :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
+    :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete { //1
@@ -136,10 +157,13 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Navigation
 
     /**
-    This method is called by the system whenever a segue is about to be performed.
+    This method is called by the system whenever a segue is about to be performed. It configures the new view.
     1. IF the destination view controller is a NewPlannedRunTableViewController
         a. IF there is a plan
             i. Set the plan of the destination view controller to the plan
+    
+    :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
+    :param: sender The object that caused the segue.
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destinationVC = segue.destinationViewController as? NewPlannedRunTableViewController { //1
@@ -150,8 +174,12 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     /**
-    This method is called by the system when the 'Done' button is pressed
+    This method is called by the system when the 'Done' button is pressed. It is used to dismiss the current view.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Dismiss the current view controller
+    
+    :param: sender The object that called the action (in this case the Done button).
     */
     @IBAction func doneButtonPressed(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true) //1

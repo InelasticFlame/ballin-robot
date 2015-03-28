@@ -17,7 +17,7 @@ class RunSplitsTableViewController: UITableViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system when the view is first loaded.
+    This method is called by the system when the view is first loaded. It configures the view ready for display.
     1. Adds padding to the top of the table view so that it doesn't display under the navigation bar
     2. Declares and initialises the local constant pageControl as a UIPageControl
     3. Sets the number of pages to 3
@@ -43,7 +43,7 @@ class RunSplitsTableViewController: UITableViewController {
     }
 
     /**
-    This method is called by the system when the view appears on screen.
+    This method is called by the system when the view appears on screen. If there are no splits for a particular run it hides the table view and adds a label explaining the problem.
     1. IF there are no splits
         a. Creates a new label that is the size of the screen
         b. Sets the text of the label
@@ -53,6 +53,8 @@ class RunSplitsTableViewController: UITableViewController {
         f. Sets the font to the system font of size 16
         g. Sizes the label to fix the view
         h. Sets the background of the table view to the created label
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(animated: Bool) {
         if run?.splits.count == 0 {
@@ -72,6 +74,9 @@ class RunSplitsTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the table view data is loaded. It returns the number of sections in the table view which in this case is fixed as 1
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :returns: An integer value that is the number of sections in the table view.
     */
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -79,6 +84,10 @@ class RunSplitsTableViewController: UITableViewController {
 
     /**
     This method is called by the system whenever the table view data is loaded. It returns the number of rows in the table view. In this case, if there is a run it returns the number of splits stored otherwise it returns 0
+    
+    :param: tableView The UITableView that is requesting the information from the delegate.
+    :param: section The section that's number of rows needs returning as an integer.
+    :returns: An integer value that is the number of rows in the section.
     */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let run = run {
@@ -96,6 +105,10 @@ class RunSplitsTableViewController: UITableViewController {
     3. Sets the detail text label of the cell text to run split at the current row converted to a string using the Conversions class
         (NOTE: run is unwrapped as if any cells are being loaded in the table there MUST be a run as there has to be a splits in the first place)
     4. Returns the cell
+    
+    :param: tableView The UITableView that is requesting the cell.
+    :param: indexPath The NSIndexPath of the cell requested.
+    :returns: The UITableViewCell for the indexPath.
     */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("splitsCell", forIndexPath: indexPath) as UITableViewCell //1

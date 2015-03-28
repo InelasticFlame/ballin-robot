@@ -21,6 +21,11 @@ class Shoe: NSObject {
     
     /**
     Called to initialise the class, sets the properties of the Shoe to the passed values.
+    
+    :param: ID The ID of the Shoe.
+    :param: name The name of the Shoe as a string.
+    :param: miles The distance ran in the Shoe in miles as a double.
+    :param: imageName The name of the Shoe's image store in the local documents directory. This is optional.
     */
     init(ID: Int, name: String, miles: Double, imageName: String?) {
         self.ID = ID
@@ -37,6 +42,8 @@ class Shoe: NSObject {
         c. Loads the image from the file at the imagePath
         d. Returns the shoeImage
     2. In the default case returns nil
+    
+    :returns: The UIImage stored for the Shoe (if there is one). Otherwise returns nil.
     */
     func loadImage() -> UIImage? {
         if let imageName = self.imageName { //1

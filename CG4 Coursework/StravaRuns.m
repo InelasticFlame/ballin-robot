@@ -9,7 +9,7 @@
 #import "StravaRuns.h"
 #import "Database.h"
 #import "FRDStravaClientImports.h"
-#import <CG4_Coursework-Swift.h>
+#import <Fit___Run_Tracker-Swift.h>
 #import <MapKit/MapKit.h>
 
 #pragma GCC diagnostic ignored "-Wformat-security"

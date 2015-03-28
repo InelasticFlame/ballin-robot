@@ -35,9 +35,11 @@ class CaloriesAndWeightViewController: UIViewController {
     //MARK: - View Life Cycle
     
     /**
-    This method is called by the system whenever the view will appear on screen.
+    This method is called by the system whenever the view will appear on screen. It configures the view to its initial state.
     1. Calls the function setDateLabel
     2. calls the function requestAuthorisationForHealthKitAccess
+    
+    :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
         setDateLabel() //1
@@ -47,7 +49,7 @@ class CaloriesAndWeightViewController: UIViewController {
     //MARK: - Interface Updates
     
     /**
-    This method is called if weight data is retrieved successfully
+    This method is called if weight data is retrieved successfully. It adds a weight progress bar to the interface.
     1. Clear any existing weight progress bar
     2. Create the frame for the progress bar (the same frame as the weight progress bar view but starting at the origin)
     3. Retrieve the goal weight from NSUserDefaults
@@ -72,6 +74,8 @@ class CaloriesAndWeightViewController: UIViewController {
     1. Hides the weight history button
     2. Shows the weight error label
     3. Sets the text of the weight error label to the message
+    
+    :param: message The string to display as the reason weight progress could not be displayed.
     */
     func hideWeightProgress(message: String) {
         self.weightHistoryButton.hidden = true //1
@@ -80,7 +84,7 @@ class CaloriesAndWeightViewController: UIViewController {
     }
     
     /**
-    This method is called if the calorie data is retrieved successfully.
+    This method is called if the calorie data is retrieved successfully. It adds a calorie progress bar to the UI.
     1. Clear any existing calorie progress bars
     2. IF there is some calorie data (i.e. one of calories burnt or calories consumed are more than 0)
         a. Create the frame for the progress bar (the same frame as the calorie progress bar view but starting at the origin)
@@ -141,7 +145,7 @@ class CaloriesAndWeightViewController: UIViewController {
     //MARK: - HealthKit Data Loading
     
     /**
-    This method is called once HealthKit access is authorised.
+    This method is called once HealthKit access is authorised. It loads the weight data from healthkit.
     1. Declare the unit to retrieve the weight in
     2. Declares the weightQuantity
     3. Declares the start date as the distant past (IF there is any weight data it will be retrieved)
@@ -194,7 +198,7 @@ class CaloriesAndWeightViewController: UIViewController {
     }
     
     /**
-    This method is called once HealthKit access has been authorised.
+    This method is called once HealthKit access has been authorised. It loads the calorie data from HealthKit.
     1. Declare the unit to retrieve calories from the HealthKit datastore in
     2. Declares the caloriesBurnt quantity
     3. Declares the caloriesConsumed quantity
@@ -295,6 +299,7 @@ class CaloriesAndWeightViewController: UIViewController {
     }
     
     /**
+    This method is used to hide the user interface elements if HealthKit access is not authorised.
     1. Create and configure a label to display the error "HealthKit access must be enabled to use this feature."
     2. Remove the left bar button and set the navigation prompt to nil
     3. Set the view to the UILabel (removes anything else)
@@ -318,11 +323,15 @@ class CaloriesAndWeightViewController: UIViewController {
     //MARK: - Interface Actions
     
     /**
-    This method is called by the system when the user presses the Next Day button on the interface
+    This method is called by the system when the user presses the Next Day button on the interface. It moves the view forward one day.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Sets the current date to be the old currentDate increased by 1 day
     2. Calls the function setDateLabel
     3. Calls the function loadWeightDataFromHealthKit
     4. Calls the function loadCalorieDateFromHealthKit
+    
+    :param: sender The object that called the action (in this case the Next button).
     */
     @IBAction func nextButtonPress(sender: AnyObject) {
         currentDate = NSDate(timeInterval: secondsInDay, sinceDate: currentDate) //1
@@ -332,12 +341,16 @@ class CaloriesAndWeightViewController: UIViewController {
     }
     
     /**
-    This method is called by the system when the user presses the Previous Day button on the interface
+    This method is called by the system when the user presses the Previous Day button on the interface. It moves the view backwards 1 day.
+    Uses the following parameters:
+        sender: the object that triggered the method to be called.
     1. Sets the text of the nextDayButton to "Next Day" (this shows the button)
     2. Sets the current date to be the old currentDate decreased by 1 day
     3. Calls the function setDateLabel
     4. Calls the function loadWeightDataFromHealthKit
     5. Calls the function loadCalorieDateFromHealthKit
+    
+    :param: sender The object that called the action (in this case the Previous button).
     */
     @IBAction func previousDayPress(sender: AnyObject) {
         nextDayButton.title = "Next Day" //1
