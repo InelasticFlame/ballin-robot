@@ -14,7 +14,7 @@ class ShoeTableViewCell: UITableViewCell {
     //MARK: - Storyboard Links
     
     /* These variables store links to controls on the interface, connected via the Storyboard. */
-    @IBOutlet weak var shoeNameLabel: UILabel!
-    @IBOutlet weak var shoeMilesLabel: UILabel!
-    @IBOutlet weak var shoeImageView: UIImageView!
+    @IBOutlet weak var shoeNameLabel: UILabel! //Top label
+    @IBOutlet weak var shoeMilesLabel: UILabel! //Bottom label
+    @IBOutlet weak var shoeImageView: UIImageView! //Right hand image view
 }
