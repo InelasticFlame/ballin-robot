@@ -21,15 +21,14 @@ class Conversions: NSObject {
     
     /**
     This method takes an input of a speed in metres per second and converts it into seconds per mile.
-    Uses the following parameters:
-        metresPerSec: a double value that is the number of metres per second to convert.
-    Returns the following values:
-        A double value of the speed in seconds per mile.
     1. Converts to metresPerHour
     2. Converts to kilometres per hour
     3. Converts to miles per hour
     4. Converts to seconds per mile
     5. Returns the seconds per mile
+    
+    :param: metresPerSec A double value that is the number of metres per second to convert.
+    :retruns: A double value of the speed in seconds per mile.
     */
     func metresPerSecondToSecondsPerMile(metresPerSec: Double) -> Double {
         let metresPerHour = metresPerSec * 3600 //1
@@ -42,12 +41,11 @@ class Conversions: NSObject {
     
     /**
     This method takes a distance in metres and returns it as a distance in miles.
-    Uses the following parameters:
-        meters: a double value that is the number of metres to convert.
-    Returns the following values:
-        A double value of the distance in metres.
     1. Converts the meters into kilometres and then converts into miles
     2. Returns the miles
+    
+    :param: meters A double value that is the number of metres to convert.
+    :returns: A double value of the distance in metres.
     */
     func metresToMiles(meters: Double) -> (Double) {
         let miles = (meters/1000)*kmToMiles
@@ -59,10 +57,6 @@ class Conversions: NSObject {
     
     /**
     This method takes a run pace as an integer and then converts it into a string to display on the interface based on a user's unit preference.
-    Uses the following parameters:
-        pace: an integer value that is the pace to convert to a string.
-    Returns the following values:
-        The pace as a string (using the user's chosen unit).
     1. Declares the local string variable paceString
     2. Declares the local constant string paceUnit which is the stored string in the userDefaults for the pace unit
     3. IF the paceUnit is the min per mile unit or there is no unit
@@ -74,6 +68,9 @@ class Conversions: NSObject {
         b. Let kilometres per hour equal the miles per hour times milesToKm
         c. Return string is in the form "kmh to 2 decimal places km/h"
     5. Return the paceString
+    
+    :param: pace An integer value that is the pace to convert to a string.
+    :returns: The pace as a string (using the user's chosen unit).
     */
     func averagePaceForInterface(pace: Int) -> String {
         var paceString = ""
@@ -94,10 +91,6 @@ class Conversions: NSObject {
     
     /**
     This method takes a run duration as an integer and then converts it into a string to display on the interface.
-    Uses the following parameters:
-        duration: an integer value that is the duration to convert to a string.
-    Returns the following values:
-        The duration as a string.
     1. Declares the local string variable durationString
     2. Let hours equal the duration divided by 3600 seconds as an integer
     3. Let the minutes (in terms of seconds) equal the duration modulus 3600 as an integer
@@ -108,6 +101,9 @@ class Conversions: NSObject {
     7. ELSE
         b. Return string is in the form "mm:ss"
     8. Return the durationString
+    
+    :param: duration An integer value that is the duration to convert to a string.
+    :returns: The duration as a string.
     */
     func runDurationForInterface(duration: Int) -> String {
         var duratonString = "" //1
@@ -127,10 +123,6 @@ class Conversions: NSObject {
     
     /**
     This method is used to convert a distance as a double and convert it into a string to display on the interface based on a user's unit perference.
-    Uses the following parameters:
-        distance: a double value that is the distance to convert to a string.
-    Returns the following values:
-        The distane as a string (based on the user's unit perference).
     1. Declares the local string variable distanceString
     2. Declares the local constant distanceUnit which is the stored string in the userDefaults for the distance unit
     3. IF the distanceUnit is the mile unit or there is no stored unit
@@ -139,6 +131,9 @@ class Conversions: NSObject {
         b. Let kilometres equal the distance times the milesToKm conversion
         c. Return string is in the form "kilometres to 2 decimal places km"
     5. Return the distanceString
+    
+    :param: distance A double value that is the distance to convert to a string.
+    :returns: The distane as a string (based on the user's unit perference).
     */
     func distanceForInterface(distance: Double) -> String {
         var distanceString = "" //1
@@ -158,14 +153,13 @@ class Conversions: NSObject {
     
     /**
     This method takes an array of Run objects and returns the total of their distances.
-    Uses the following parameters:
-        runs: an array of Run objects that distances are to be summed.
-    Returns the following values:
-        A double value of the sum of the run distances.
     1. Declares the local variable total which tracks the current total distance
     2. For each run object in the array, runs
         a. Increases the total by the run's distance
     3. Returns the total
+    
+    :param: runs An array of Run objects that distances are to be summed.
+    :returns: A double value of the sum of the run distances.
     */
     func totalUpRunMiles(runs: Array<Run>) -> Double {
         var total = 0.0 //1
@@ -178,12 +172,11 @@ class Conversions: NSObject {
     
     /**
     This method sorts an array of Run objects into order of their dates.
-    Uses the following parameters:
-        runs (called array locally): an array of Run objects that are to be sorted by their dates.
-    Returns the following values:
-        An array of Run objects in date order.
     1. Sorts the array based on the dateTime; runs with a smaller timeIntervalSinceNow (e.g. how long ago it was) go at the lowest index
     2. Returns the array of sorted runs
+    
+    :param: runs (called array locally): an array of Run objects that are to be sorted by their dates.
+    :returns: An array of Run objects in date order.
     */
     func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
         
@@ -196,12 +189,11 @@ class Conversions: NSObject {
     
     /**
     This method sorts an array of Planned Run objects into order of their dates.
-    Uses the following parameters:
-        plannedRuns (called array locally): an array of Planned Run objects that are to be sorted by their dates.
-    Returns the following values:
-        An array of PlannedRun objects in date order.
     1. Sorts the array based on the dateTime; runs with a smaller timeIntervalSinceNow (e.g. how long ago it was) go at the lowest index
     2. Returns the array of sorted plannedRuns
+    
+    :param: plannedRuns (called array locally): an array of Planned Run objects that are to be sorted by their dates.
+    :returns: An array of PlannedRun objects in date order.
     */
     func sortPlansIntoDateOrder(plannedRuns array: Array<PlannedRun>) -> Array<PlannedRun> {
         var plannedRuns = array //Create a mutable copy of the array
