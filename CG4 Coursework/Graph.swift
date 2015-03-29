@@ -27,7 +27,7 @@ class Graph: UIView {
     private var xAxisLength: CGFloat = 0 //A global variable CGFloat that stores the length of the x axis
     private var yScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the y axis
     private var xScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the x axis
-    private var maxYCoord: CGFloat = 0 //A global variable CGFloat that stores the maximum y of the axis
+    private var maxYValue: CGFloat = 0 //A global variable CGFloat that stores the maximum y of the axis
     
     private let values = [GraphCoordinate]() //A global array of GraphCoordinate objects
 
@@ -35,7 +35,6 @@ class Graph: UIView {
     
     /**
     Called to initialise the class, sets the properties of the Graph to the passed values.
-    Uses the following parameters
     
     :param: frame The frame rectangle for the view, measured in points.
     :param: coordinates An array of GraphCoordinates which are the values to plot onto the graph.
@@ -93,6 +92,12 @@ class Graph: UIView {
             k. Add the text label for the marker
        24. Tells the system to draw the currently queued lines
     
+    Uses the following local variables:
+        currentContext - A constant that stores the current graphics context as a CGContext.
+        markerNo - An integer variable that stores the current marker number.
+        yMarkerY - An integer constant that stores the y coordinate of the current y marker.
+        xMarkerX - An integer constant that stores the x coordinate of the current x marker.
+    
     :param: rect A CGRect that is the portion of the view’s bounds that needs to be updated.
     */
     override func drawRect(rect: CGRect) {
@@ -117,7 +122,7 @@ class Graph: UIView {
             CGContextMoveToPoint(currentContext, originX, originY) //13
             CGContextAddLineToPoint(currentContext, originX, yAxisMax) //14
             
-            for markerNo in 0...Int(maxYCoord/majorStep) { //15  -  MAJOR MARKERS
+            for markerNo in 0...Int(maxYValue/majorStep) { //15  -  MAJOR MARKERS
                 let yMarkerY = yScale * majorStep * CGFloat(markerNo) //a
                 CGContextMoveToPoint(currentContext, originX, originY - yMarkerY) //b
                 CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY) //c
@@ -125,7 +130,7 @@ class Graph: UIView {
             }
             CGContextStrokePath(currentContext) //16
             CGContextSetLineWidth(currentContext, 0.4) //17
-            for markerNo in 0...Int(maxYCoord/minorStep) { //18  -  2 MARKERS
+            for markerNo in 0...Int(maxYValue/minorStep) { //18  -  2 MARKERS
                 let yMarkerY = yScale * minorStep * CGFloat(markerNo) //e
                 CGContextMoveToPoint(currentContext, originX, originY - yMarkerY) //f
                 CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY) //g
@@ -157,17 +162,21 @@ class Graph: UIView {
     5. FOR pointNo from 1 to one less than the number of coordinates
         a. Draw a line to the next coordinate
     6. Tells the system to draw the currently queued lines
+    
+    Uses the following local variables:
+        currentContext - A constant that stores the current graphics context as a CGContext.
+        pointNo - An integer variable that stores the current index of the point being plotted.
     */
     func plotLineGraph() {
-        let context = UIGraphicsGetCurrentContext() //1
-        CGContextSetLineWidth(context, 2) //2
-        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor) //3
+        let currentContext = UIGraphicsGetCurrentContext() //1
+        CGContextSetLineWidth(currentContext, 2) //2
+        CGContextSetStrokeColorWithColor(currentContext, UIColor.redColor().CGColor) //3
         
-        CGContextMoveToPoint(context, originX, originY - (values[0].y * yScale)) //4
+        CGContextMoveToPoint(currentContext, originX, originY - (values[0].y * yScale)) //4
         for pointNo in 1...values.count - 1 { //5
-            CGContextAddLineToPoint(context, (CGFloat(pointNo) * xScale) + originX, originY - (values[pointNo].y * yScale)) //a
+            CGContextAddLineToPoint(currentContext, (CGFloat(pointNo) * xScale) + originX, originY - (values[pointNo].y * yScale)) //a
         }
-        CGContextStrokePath(context) //6
+        CGContextStrokePath(currentContext) //6
     }
     
     /**
@@ -186,6 +195,12 @@ class Graph: UIView {
         d. Set the yScale as the yAxisLength dive the maxYValue
     8. Set the global yScale as the yScale
     9. Set the maxYCoord as the maxYValue
+    
+    Uses the following local variables:
+        yScale - A variable CGFloat that stores the scale to use on the y axis
+        maxYCoord - A variable CGFloat that stores the maximum y coordinate in the array of values
+        coordinate - A constant GraphCoordinate that stores the current graph coordinate from the array of values
+        maxYValue - A variable CGFloat that stores the maximum value on the y axis (this is either then maxYCoord if it is a multiple of 10, or the next 10 to the maxYCoord rounded up)
     */
     func getYScale() {
         var yScale: CGFloat = 10.0 //1
@@ -209,12 +224,15 @@ class Graph: UIView {
         }
         
         self.yScale = yScale //8
-        self.maxYCoord = maxYValue //9
+        self.maxYValue = maxYValue //9
     }
     
     /**
     Creates a CATextLayer and configures its properties, then adds the layer as a sublayer to the view
-
+    
+    Uses the following local variables:
+        textLayer - A constant CATextLayer to create and add to the graph.
+    
     :param: text A string that is the text to add to the graph.
     :param: xCoord A CGFloat that is the x coordinate of the location to draw the text
     :param: yCoord A CGFloat that is the y coordinate of the location to draw the text
@@ -233,6 +251,9 @@ class Graph: UIView {
     /**
     Creates a CATextLayer and configures its properties, then adds the layer as a sublayer to the view.
     Unlike the addTextToGraph method this method rotates the text pi/2 radians so that it is vertical.
+    
+    Uses the following local variables:
+        textLayer - A constant CATextLayer to create and add to the graph.
     
     :param: text A string that is the text to add to the graph.
     :param: xCoord A CGFloat that is the x coordinate of the location to draw the text
@@ -254,10 +275,13 @@ class Graph: UIView {
     /**
     Creates the label for the yAxis as the markerNo * majorStep converted to a string
 
+    Uses the following local variables:
+        label - A constant string that is the text for the label.
+    
     :param: markerNo An Integer value that is the number of the current marker.
     */
     func yAxisLabel(markerNo: Int) -> String {
-        var label = "\(markerNo * Int(majorStep))"
+        let label = "\(markerNo * Int(majorStep))"
         
         return label
     }

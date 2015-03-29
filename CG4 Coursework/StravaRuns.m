@@ -59,6 +59,23 @@ This method is used to retrieve a user's runs from their Strava account. In the 
  4. IF there are no activities post the notification "RunLoadComplete"
  ****END   A****
  For both BLOCK A failure and BLOCK B failure log the localised description of the error
+ 
+ Uses the following local variables:
+    runs - An NSMutableArray used to store all the runs retrieved from Strava
+    lastLoadDate - An NSDate object that represents 1 week ago (initially, and then whatever the previous date was, if there is one)
+    lastLoad - An NSString that stores the last load date as a string from the user defaults
+ The block uses the following local variables:
+    converter - An instance of the Conversions class
+    distance - A double that is the distance ran
+    dateTime - An NSDate object that is the date and time of the run
+    pace - An NSInteger that is the pace the run was ran at
+    duration - An NSInteger that is the length of the run
+    CLCoords - An NSMutableArray used to store all the CLLocation objects that map the run's route
+    polylinePoints - An NSArray (immutable) that stores the decoded polyline points
+    coord - A constant NSValue that is the current coordinate in the array of polylinePoints
+    coordinate - A CLLocation object that is the created from the NSValue, coord
+    run - The Run object created
+    lap - The current lap from the array laps
  */
 -(void)loadRunsFromStrava {
     runsLoaded = 0; //1

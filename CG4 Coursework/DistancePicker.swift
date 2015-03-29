@@ -107,6 +107,14 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
         d. Sets the distance equal to the totalKmDistance converted to miles
         e. Sets the distance string as the "totalKmDistance km"
     
+    Uses the following local variables:
+        distance - A double variable that stores the selected distance
+        distanceStr - A string variable that stores the selected distance as a string
+        miles - A double constant that is the selected number of whole miles
+        hundredthsMiles - A double constant that is the selected number of hundredths of miles
+        kilometres - A double constant that is the selected number of whole kilometres
+        hundredthsKilometres - A double constant that is the selected number of hundredths of kilometres
+    
     :returns: distance - The distance selected in the picker as a double.
     :returns: distanceStr - The distance selected as a string in the user's chosen unit.
     */
@@ -142,6 +150,10 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     3. Sets the selected row in the first component as the number of miles
     4. Sets the selected row in the second component as the number of hundredths of miles
     5. Sets the selected row in the third component as the 'mi' unit
+    
+    Uses the following local variables:
+        miles - A constant integer that is the number of whole miles to set the distance to
+        hundredthsMiles - A constant integer that is the number of hundredths of miles to set the distance to
     
     :param: distance The distance to set the picker to as a double in miles.
     */

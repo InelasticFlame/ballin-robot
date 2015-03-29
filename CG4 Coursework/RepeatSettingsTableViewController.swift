@@ -93,6 +93,9 @@ class RepeatSettingsTableViewController: UITableViewController {
         b. Sets the accessory of the first cell in the second section to a checkmark
         c. Sets the date of the endDatePicker to the previously selected date
         d. Sets the text of the dateDetailLabel to the repeatEnd
+    
+    Uses the following local variables:
+        repeatEndDate - A constant string that is the date to end repeats as a string
     */
     func setPreviousRepeatEnd() {
         if repeatEnd == "Until Plan End" { //1
@@ -112,6 +115,12 @@ class RepeatSettingsTableViewController: UITableViewController {
         a. Declares the local constant rowCount and sets its value to the number of rows in the current section
         b. FOR each row
             i. Sets the accessory of the cell in the current section for the current row to None
+    
+    Uses the following local variables:
+        sectionCount - An integer constant that is the number of sections in the table view
+        sectionNo - An integer variable that is the current section being cleared
+        rowCount - An integer constant that is the number of rows in a certain section
+        rowNo - An integer variable that is the current row in a section
     */
     func clearCheckmarks() {
         let sectionCount = tableView.numberOfSections() //1

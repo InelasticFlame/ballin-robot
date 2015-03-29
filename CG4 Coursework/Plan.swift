@@ -49,6 +49,10 @@ class Plan: NSObject {
     3. IF the earlier date of today and the startDate is the startDate and the latest date of the today and the endDate is the endDate
         a. Set the plan as active
     4. ELSE set the plan as inactive
+    
+    Uses the following local variables:
+        today - A constant NSDate that represents today
+        endDate - A constant NSDate that is the very end of the plan end date day
     */
     func checkIfActive() {
         let today = NSDate()
@@ -62,6 +66,7 @@ class Plan: NSObject {
     }
     
     /**
+    This method loads the planned runs for the plan.
     1. Loads the plannedRuns using the loadPlannedRunsForPlan method from the Database, setting the return as an array of PlannedRun objects
     2. Sorts the plannedRuns into date order (newest plans at the lowest index)
     */

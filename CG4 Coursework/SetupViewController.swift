@@ -60,6 +60,15 @@ class SetupViewController: UIViewController {
     18. Calls the function updateWeightGoalLabel
     19. Calls the function updateCalorieGoalLabel
     20. Calls the function updateGoalDistanceLabel
+    
+    Uses the following local variables:
+        userDefaults - A constant reference to the standard user defaults
+        distanceUnit - A constant string that stores the distance unit from the user defaults
+        distanceGoal - A constant double that stores the goal distance from the user defaults
+        paceUnit - A constant string that stores the pace unit from the user defaults
+        weightUnit - A constant string that store the weight unit from the user defaults
+        weightGoal - A constant double that stores the weight goal from the user defaults
+        caloireGoal - A constant integer that stores the calorie goal from the user defaults
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,6 +142,9 @@ class SetupViewController: UIViewController {
     8. Sets the calorie goal as the value of the calorie stepper
     9. Sets the InitialSetup as being completed (true)
     10. Dismisses the setup view controller
+    
+    Uses the following local variables:
+        userDefaults - A constant reference to the standard user defaults
     */
     func saveSettings() {
         let userDefaults = NSUserDefaults.standardUserDefaults() //1
@@ -181,6 +193,9 @@ class SetupViewController: UIViewController {
         b. Present the alert
     2. ELSE
         a. Dismiss the setupViewController
+    
+    Uses the following local variables:
+        alert - A constant UIAlertController that is alert message to display on screen
     
     :param: sender The object that called the action (in this case the Done button).
     */

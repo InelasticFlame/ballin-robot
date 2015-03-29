@@ -90,6 +90,9 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     3. ELSE
         b. Return the shoe that is at the index one less than the selected row (to make up for the None row)
     
+    Uses the following local variables:
+        selectedRow - An integer constant that is the selected row
+    
     :returns: The selected shoe in the picker as a Shoe object.
     */
     func selectedShoe() -> Shoe? {

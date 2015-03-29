@@ -145,6 +145,12 @@ class AddRunTableViewController: UITableViewController {
           vii. Calculate the new distance as the duration divided by the pace as a double
          viii. Sets the value of the runDistancePicker to the newDistance
     
+    Uses the following local variables:
+        runDistance - A constant double that is the distance selected using the runDistancePicker
+        runPace - A constant integer that is the pace selected using the runPacePicker
+        runDuration - A constant integer that is the duration selected using the runDurationPicker
+        userInfo - A constant NSDictionary that stores the userInfo from the notification
+    
     :param: notification The NSNotification which called the method.
     */
     func checkRunValues(notification: NSNotification) {
@@ -187,8 +193,6 @@ class AddRunTableViewController: UITableViewController {
     
     /**
     This method is called by the system when the user presses the Done button. It validates the run and saves into the database.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Declares and initialises the local variables runDistance, runPace, runDuration, and selectedShoe
     2. IF the runDistance, runPace and runDuration are all > 0
         a. Create the run object using the values selected on the interface
@@ -201,6 +205,12 @@ class AddRunTableViewController: UITableViewController {
         g. Creates a UIAlert to display the error message with the title "Invalid Run"
         h. Add an OK button to the alert that dismisses the error message only
         i. Display the error message
+    
+    Uses the following local variables:
+        runDistance - A constant double that is the distance selected using the runDistancePicker
+        runPace - A constant integer that is the pace selected using the runPacePicker
+        runDuration - A constant integer that is the duration selected using the runDurationPicker
+        selectedShoe - A constant optional Shoe that is the shoe selected in the runShoePicker
     
     :param: sender The object that called the action (in this case the Save button).
     */

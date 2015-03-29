@@ -20,11 +20,16 @@ class CreatePlanBackSegue: UIStoryboardSegue {
     4. IF there is a navigationController
         a. Moves to the rootViewController without an animation
         b. Presents the destinationViewController with an animation
+    
+    Uses the following local variables:
+        sourceViewController - The view controller that the segue starts from
+        destinationViewController - The view controller that the segue leads to
+        navigationController - The main navigation controller of the system
     */
     override func perform() {
-        let sourceViewController = self.sourceViewController as UIViewController //The view controller that the segue starts from
-        let destinationViewController = self.destinationViewController as UIViewController //The view controller that the segue leads to
-        let navigationController = sourceViewController.navigationController as UINavigationController? //The main navigation controller of the system
+        let sourceViewController = self.sourceViewController as UIViewController
+        let destinationViewController = self.destinationViewController as UIViewController
+        let navigationController = sourceViewController.navigationController as UINavigationController?
         
         if let navigationController = navigationController {
             navigationController.popToRootViewControllerAnimated(false)

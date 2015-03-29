@@ -21,14 +21,17 @@ class ProgressBar: UIView {
     
     /**
     This method is called when the class initialises. It sets the passed properties and the background colour to clear.
+    1. IF the progress is more than 1
+        a. Set the progress to 1 (cannot have more than 100% progress)
+    2. ELSE set the progress to the progress
     
     :param: A CGRect of the frame rectangle for the view, measured in points.
     :param: progress A CGFloat value that is the amount of progress as a decimal.
     */
     init(progress: CGFloat, frame: CGRect) {
-        if progress > 1 {
-            self.progress = 1
-        } else {
+        if progress > 1 { //1
+            self.progress = 1 //a
+        } else { //2
             self.progress = progress
         }
         super.init(frame: frame)
@@ -66,6 +69,18 @@ class ProgressBar: UIView {
    15. Sets the string (text), font size, font, foreground colour (font colour), frame, position of the text layer
    16. Sets the contentsScale to the mainScreen scale (so if it is retina display the text is clear)
    17. Adds the progressTextLayer as a sublayer
+    
+    Uses the following local variables:
+        arcRadius - A constant CGFloat that stores the radius of the arc
+        arcCentrePoint - A constant CGPoint that stores the centre point of the arc
+        fullArc - A constant UIBezierPath that stores the path for the full arc (the grey background arc)
+        progressAngle - A constant CGFloat that stores the angle to create the progress arc to
+        progressArc - A constant UIBezierPath that stores the path for the progress arc (the red foreground arc)
+        fullArcLayer - A constant CAShapeLayer for the full arc
+        progressArcLayer - A constant CAShapeLayer for the progress arc
+        progressTextString - A constant NSString that stores the progress as a string
+        progressTextSize - A constant CGSize that stores the size required for the progress string
+        progressTextLayer - A constant CATextLayer for the text to add to the progress bar
     
     :param: The portion of the view’s bounds that needs to be updated.
     */

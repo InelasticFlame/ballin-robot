@@ -23,6 +23,9 @@ class RunShoeSelectorTableViewController: UITableViewController {
             i. Sets the accessory of the cell at the indexPath with a row 1 greater than the current shoe index to a checkmark (the row is 1 greater than that of the shoe index as the first row is used for the "None" option)
     4. ELSE sets the accessory of the first cell in the table to a checkmark
     
+    Uses the following local variables:
+        shoeNo - An integer variable that is the current shoe number in the array shoes
+    
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
@@ -75,6 +78,9 @@ class RunShoeSelectorTableViewController: UITableViewController {
         a. Sets the text label to the shoe name at then index 1 less than the current row (1 less because the first row is a 'None' cell so the table view is one step ahead of the array)
     4. Returns the cell
     
+    Uses the following local variables:
+        cell - A UITableView cell for the current indexPath
+    
     :param: tableView The UITableView that is requesting the cell.
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
@@ -109,6 +115,9 @@ class RunShoeSelectorTableViewController: UITableViewController {
                        ix. IF there is an run shoe, call the function decreaseShoeMiles from the Database class passing the oldShoe and the run distance
                 x. Sets the shoe of the run stored on the shoesVC to the selectedShoe
                xi. Removes the current view controller from the view hierarchy
+    
+    Uses the following local variables:
+        selectedShoe - An option Shoe variable that is the show selected on the interface
     
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
@@ -160,6 +169,12 @@ class RunShoeSelectorTableViewController: UITableViewController {
         a. Declares the local constant rowCount and sets its value to the number of rows in the current section
         b. FOR each row
             i. Sets the accessory of the cell in the current section for the current row to None
+    
+    Uses the following local variables:
+        sectionCount - An integer constant that is the number of sections in the table view
+        sectionNo - An integer variable that is the current section being cleared
+        rowCount - An integer constant that is the number of rows in a certain section
+        rowNo - An integer variable that is the current row in a section
     */
     func clearCheckmarks() {
         let sectionCount = tableView.numberOfSections()

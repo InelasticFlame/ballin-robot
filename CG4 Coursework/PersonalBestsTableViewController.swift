@@ -34,6 +34,14 @@ class PersonalBestsTableViewController: UITableViewController {
         b. Set the image of the longestDistanceImageView to the achieved image
     5. This process is the repeated for the other 3 personal bests
     
+    Uses the following local variables:
+        userDefaults - A constant reference to the standard user defaults
+        achievedImage - A constant UIImage that is the image to display if a personal best has been achieved
+        longestDistance - A constant double that is the longest distance from the user defaults
+        longestDuration - A constant integer that is the longest duration from the user defaults
+        fastestMile - A constant integer that is the fastest mile from the user defaults
+        fastestAveragePace - A constant integer that is the fastest pace from the user defaults
+    
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {

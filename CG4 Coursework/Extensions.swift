@@ -39,6 +39,10 @@ extension NSDate {
     4. Creates the new date using the date formatter
     5. Calls the init with timeInterval sinceDate initialiser passing the created date and a time interval of 0
     
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the date.
+        newDate - A constant NSDate that is the created date.
+    
     :param: shortDateString the date as a string to create the NSDate with.
     */
     convenience init (shortDateString: String) {
@@ -57,6 +61,10 @@ extension NSDate {
     3. Sets the locale to the en_GB (for consistency)
     4. Creates the new date using the date formatter
     5. Calls the init with timeInterval sinceDate initialiser passing the created date and a time interval of 0
+    
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the date.
+        newDate - A constant NSDate that is the created date.
     
     :param: databaseString A string of the date to create the NSDate with.
     */
@@ -78,6 +86,9 @@ extension NSDate {
     3. Sets the locale to the en_GB (for consistency)
     4. Returns the string created by the date formatter
     
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the string.
+    
     :returns: The date in the form "dd/MM/yyyyHH:mm:ss" as a string
     */
     func databaseString() -> String {
@@ -94,6 +105,9 @@ extension NSDate {
     2. Sets the date format
     3. Sets the locale to the en_GB (for consistency)
     4. Returns the string created by the date formatter
+    
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the string.
     
     :returns: The date in the form "dd/MM/yyyy" as a string
     */
@@ -112,6 +126,9 @@ extension NSDate {
     3. Sets the locale to the en_GB (for consistency)
     4. Returns the string created by the date formatter
     
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the string.
+    
     :returns: The date in the form "dd/MM/yy" as a string
     */
     func shortestDateString() -> String {
@@ -129,6 +146,12 @@ extension NSDate {
     3. Retrieves the year as an integer using the calendar of the date formatter
     4. Creates the monthYear string 
     5. Returns the monthYearString
+    
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the string
+        month - A constant integer value that stores the date's month
+        year - A constant integer value that stores the date's year
+        monthYearString - A constant string that stores the month year string
     
     :returns: The date in the form "/MM/yyyy" as a string
     */
@@ -149,6 +172,9 @@ extension NSDate {
     3. Sets the locale to the en_GB (for consistency)
     4. Returns the string created by the date formatter
     
+    Uses the following local variables:
+        dateFormatter - A constant NSDateFormatter used to create the string
+    
     :returns: The time portion of the date in the form "HH:mm a" as a string
     */
     func timeString12Hour() -> String {
@@ -164,6 +190,9 @@ extension NSDate {
     1. Creates a gregorian calendar
     2. Returns the boolean created by the calendar.
     
+    Uses the following local variables:
+        calendar - A constant NSCalendar used to test the date
+    
     :returns: A boolean that indicates if the date is in today or not.
     */
     func isToday() -> Bool {
@@ -176,6 +205,9 @@ extension NSDate {
     Returns true if a date was yesterday.
     1. Creates a gregorian calendar
     2. Returns the boolean created by the calendar.
+    
+    Uses the following local variables:
+        calendar - A constant NSCalendar used to test the date
     
     :returns: A boolean that indicates if the date is in yesterday or not.
     */
@@ -195,6 +227,10 @@ extension CLLocation {
     1. Splits the location string on the ', ' and stores the first half as the latitude string
     2. Splits the location string on the ', ' and stores the last half as the longitude string
     3. Initialises the CLLocation object using the double values of the latitude and longitude strings
+    
+    Uses the following local variables:
+        latString - A constant string that stores the latitude as a string
+        longString - A constant string that stores the longitude as a string
     
     :param: location A string of the location to create the CLLocation object with.
     */
@@ -223,6 +259,11 @@ extension String {
         a. Sets the error
         b. Returns the result of the predicate evaluating the test string and the error
     7. In the default case returns false and the error
+    
+    Uses the following local variables:
+        error - A string variable that stores the validation error
+        regEx - A constant string that stores the regular expression to check the string with
+        testString - A constant string that is the string to be validate with space removed
     
     :param: stringName A String of the name of the string being validated.
     :param: maxLength An integer that is the maximum length of the string.
@@ -267,6 +308,10 @@ extension HKHealthStore {
             Bc. Perform the completion block with a nil sample and nil error
     4. Execute the query
     
+    Uses the following local variables:
+        sortDescriptor - A constant NSSortDescriptor to filter the results using.
+        query - A constant HKSampleQuery used to query the health kit datastore.
+    
     :param: sampleType A HKSampleType object which is the sample to retrieve.
     :param: predicate An NSPredicate to filter the data with.
     :param: completion The block to perform on completion of the request. (The completion block has parameters of a HKSample object and an NSError object and returns nothing)
@@ -306,6 +351,9 @@ extension HKHealthStore {
         B4. ELSE
             Bc. Perform the passed completion block passing 0 for the sum and nil for the error
     3. Execute the query
+    
+    Uses the following local variables:
+        query - A constant HKStatisticsQuery used to query the health kit datastore.
     
     :param: quantityType A HKQuantityType object which is the quantity to retrieve.
     :param: unit The HKUnit to retrieve the quantity in.

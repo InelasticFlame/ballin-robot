@@ -12,8 +12,8 @@ class WeightProgressBar: UIView {
 
     //MARK: - Global Variables
     
-    private var currentWeight: CGFloat = 0.0
-    private var goalWeight: CGFloat = 0.0
+    private var currentWeight: CGFloat = 0.0 //A global CGFloat that stores the user's current weight to display
+    private var goalWeight: CGFloat = 0.0 //A global CGFloat that stores the user's goal weight to display
 
     //MARK: - Initialisation
     
@@ -69,6 +69,22 @@ class WeightProgressBar: UIView {
    21. Sets the contentsScale to the mainScreen scale (so if it is retina display the text is clear)
    22. Adds the goalTextLayer as a sublayer
    23. Repeats this process for the weightTextLayer this time using the currentWeight
+    
+    Uses the following local variables:
+        barWidth - A constant CGFloat that stores the width of the bar
+        barHeight - A constant CGFloat that stores the height of the bar
+        pxPerKg - A constant CGFloat The number of pixels to use per kilogram
+        fullBarRectPath - A constant UIBezierPath that stores the full bars path
+        progressBarRectPath - A constant UIBezierPath that stores the progress bars path
+        fullBarLayer - A constant CAShapeLayer that is the full prgress bar
+        progressBarLayer - A constant CAShapeLayer that is the progress bar
+        goalMarkerLayer - A constant CAShapeLayer that is the line for the goal
+        goalString - A string variable that stores the goal weight as a string
+        weightString - A string variable that stores the current weight as a string
+        goalStringSize - A constant CGSize that is the size required for the goalString
+        goalTextLayer - A CATextLayer that is for the goal text
+        weightTextSize - A constant CGSize that is the size required for the weightTextString
+        weightTextLayer - A CATextLayer that is for the current weight text
     
     :param: rect The portion of the view’s bounds that needs to be updated.
     */

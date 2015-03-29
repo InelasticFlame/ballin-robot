@@ -100,6 +100,10 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         b. Sets the text of the distanceDurationLabel to the plannedRun duration converted to a string using the Conversions class
     7. Returns the cell
     
+    Uses the following local variables:
+        cell - A PlannedRunTableViewCell that is the cell to display at the current indexPath
+        plannedRun - The Planned Run object for the current cell
+    
     :param: tableView The UITableView that is requesting the cell.
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
@@ -175,8 +179,6 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     
     /**
     This method is called by the system when the 'Done' button is pressed. It is used to dismiss the current view.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Dismiss the current view controller
     
     :param: sender The object that called the action (in this case the Done button).

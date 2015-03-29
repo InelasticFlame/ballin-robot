@@ -27,6 +27,12 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     5. Loads the remaining two view controllers in the same way
     6. Stores the 3 view controllers in the array pagesViewControllers in the order they should be in the page control
     7. Sets the initial view controller being shown by the Page View Controller as the detailsVC
+    
+    Uses the following local variables:
+        storyboard - A UIStoryboard that is the main storyboard
+        detailsVC - A RunDetailsViewController
+        splitsVC - A RunSplitsTableViewController
+        shoesVC - A RunShoesTableViewController
     */
     override func viewDidLoad() {
         super.viewDidLoad()

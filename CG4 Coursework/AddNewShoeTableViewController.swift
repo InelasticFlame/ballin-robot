@@ -49,8 +49,6 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
-    Uses the following parameters:
-        textField: the UITextField that triggered the method to be called.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
     
@@ -86,6 +84,10 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         i. Switches the value of showDistancePicker
         j. Calls the function reloadTableViewCells to adjust the cell heights
     3. Sets the cell that was selected to be deselected, animating the transition
+    
+    Uses the following local variables:
+        imagePicker - The UIImagePickerController to create and configure before displaying to the user
+        actionMenu - The UIAlertController to create and configure before displaying to the user
     
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
@@ -149,6 +151,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     }
     
     /**
+    This method updates the text of the distance detail label in the current distance cell.
     */
     func updateDetailLabel() {
         tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0))?.detailTextLabel?.text = shoeDistancePicker.selectedDistance().distanceStr
@@ -181,8 +184,6 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     
     /**
     This method is called by the system when a user presses the Save button. If a shoe passes all the validation checks the saveShoe function will be called.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Declares the local constant UITableViewCell; errorCell that stores a reference to the cell that displays the error message
     2. Declares the local tuple shoeNameValidation and stores the return of the validateString function performed on the string in the shoeNameTextField
     3. IF the shoeName is valid
@@ -201,6 +202,11 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         d. Sets the error cell text to the validation error
         e. Sets showError to be true
         f. Calls the function reloadTableViewCells
+    
+    Uses the following local variables:
+        errorCell - The UITableViewCell that will contain the error message
+        shoeNameValidation - A tuple of (boolean, string) that stores whether the plan name is valid and if it isn't any error that there is
+        actionMenu - The UIAlertController to create and configure before displaying to the user
     
     :param: sender The object that called the action (in this case the Save button).
     */
@@ -251,6 +257,13 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     4. Creates the shoe using the values from the interface
     5. Calls the function saveShoe from the database class passing the shoe
     6. Dismisses this view controller, animating the transition
+    
+    Uses the following local variables:
+        shoeNamePath - A string variable that stores the shoe name part of the image path
+        imageData - Constant NSData object that stores the image in a form that can be saved
+        documentsPath - A constant string that is the path to the documents folder
+        imagePath - A constant string that is the full image path
+        shoe - A constant Shoe object that is the shoe to be saved to the database
     */
     func saveShoe() {
         var shoeNamePath = ""

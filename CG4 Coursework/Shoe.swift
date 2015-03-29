@@ -43,6 +43,11 @@ class Shoe: NSObject {
         d. Returns the shoeImage
     2. In the default case returns nil
     
+    Uses the following local variables:
+        path - A constant string that is the path to the documents directory
+        imagePath - A constant string that is the full image path
+        shoeImage - A constant UIImage that is the shoe's image retrieved from the documents directory
+    
     :returns: The UIImage stored for the Shoe (if there is one). Otherwise returns nil.
     */
     func loadImage() -> UIImage? {

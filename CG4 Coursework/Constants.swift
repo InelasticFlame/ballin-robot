@@ -13,6 +13,8 @@ struct Constants {
     
     struct DefaultsKeys { //User Defaults Keys and return values
         
+        /* The keys that settings are stored in in the UserDefaults and the values to store as strings */
+        
         struct InitialSetup {
             static let SetupKey = "INITIAL_SETUP"
         }
@@ -39,13 +41,6 @@ struct Constants {
         
         struct Calories {
             static let GoalKey = "CALORIE_UNIT"
-        }
-        
-        struct MapStyle {
-            static let StyleKey = "MAP_STYLE"
-            static let Hybrid = "HYBRID"
-            static let Satellite = "SATELLITE"
-            static let Standard = "STANDARD"
         }
         
         struct PersonalBests {

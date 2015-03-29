@@ -68,6 +68,10 @@ class MyShoesTableViewController: UITableViewController {
             i. Set the shoeImageView image to the shoe image
         j. Return the cell
     
+    Uses the following local variables:
+        cell - The UITableViewCell for the current indexPath
+        shoe - A constant Shoe object that is the shoe for the current indexPath
+    
     :param: tableView The UITableView that is requesting the cell.
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.

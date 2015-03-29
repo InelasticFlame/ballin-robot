@@ -22,6 +22,10 @@
     b. Declares the local string variable clientSecret (this value is fixed to the value set by the Strava API application online)
     c. Initialises the StravaClient with the clientID and clientSecret
   2. Returns the class
+  
+  Uses the following local variables:
+    clientID - An NSInteger variable that is the client ID (fixed for the Strava API application)
+    clientSecret - An NSString that is the client secret (this value is fixed to the value set by the Strava API application online)
  */
 -(id)init {
     
@@ -41,6 +45,9 @@
   This method is called to authorise a new account; in this case there will be no access token already set, or if there is already an access token it is to be ignored so a new account can be linked.
   1. Declares the local string variable url; this is the url that the authorisation request will return using (this is configured online using the Strava API application)
   2. Calls the function authorizeWithCallbackURL from the currently initialised StravaClient
+  
+  Uses the following local variables:
+    url - An NSString that is the URL to be used as the call back from the api request.
  */
 -(void)authoriseNewAccount {
     NSString *url = @"CG4Coursework://authorization"; //1
@@ -57,6 +64,10 @@
   3. ELSE
     a. Declares the local string variable url; this is the url that the authorisation request will return using (this is configured online using the Strava API application)
     b. Calls the function authorizeWithCallbackURL from the currently initialised StravaClient
+  
+  Uses the following local variables:
+    previousAccessToken - An NSString variable that is the previous access token from the user defaults
+    url - An NSString variable that is the URL to be used as the call back from the api request.
  */
 -(void)authorise {
     NSString *previousAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"ACCESS_TOKEN"];
@@ -94,8 +105,6 @@
 -(void)checkReturnURL:(NSURL *)url {
     [[FRDStravaClient sharedInstance] parseStravaAuthCallback:url withSuccess:^(NSString *stateInfo, NSString *code){ //1
         /* SUCCESS 1 BLOCK START */
-        
-        NSLog([NSString stringWithFormat:@"%@", url]);
         
         [[FRDStravaClient sharedInstance] exchangeTokenForCode:code success:^(StravaAccessTokenResponse *response){ //B1a
             /* SUCCESS 2 BLOCK START */

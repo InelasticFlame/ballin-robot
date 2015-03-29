@@ -55,6 +55,12 @@ class CaloriesAndWeightViewController: UIViewController {
     3. Retrieve the goal weight from NSUserDefaults
     4. Create the weight progress bar
     5. Add the weight progress bar as a subview of the weightProgressBarView
+    
+    Uses the following local variables:
+        view - The current UIView in the weightProgressBarView's subviews
+        frame - A constant CGRect to use as the frame for the progress bar
+        goalWeight - A constant double that is the user's goal weight from the user defaults
+        progressBar - The WeightProgressBar that is to display on the interface
     */
     func addWeightProgressBar() {
         for view in weightProgressBarView.subviews as [UIView] { //1
@@ -98,6 +104,14 @@ class CaloriesAndWeightViewController: UIViewController {
         i. Set the calories eaten label to "CALORIESCONSUMED calories consumed" rounded to the nearest whole number
     3. ELSE
         j. Sets the calorie summary label to "No calorie data."
+    
+    Uses the following local variables:
+        view - The current UIView in the caloriesProgressBarView subviews
+        frame - A constant CGRect that is the frame to use for the progress bar
+        netCalories - A constant double that is the user's net calories (consumed calories - calories burnt in activities).
+        calorieGoal - A constant double that is the user's calorie goal from the user defaults
+        progress - A constant double that is the progress towards the calorie goal
+        progressBar - The ProgressBar to display on the interface
     */
     func addCalorieProgressBar() {
         for view in caloriesProgressBarView.subviews as [UIView] { //1
@@ -160,14 +174,23 @@ class CaloriesAndWeightViewController: UIViewController {
           iii. Retrieve the main thread and set the currentWeight to the double weight and call the function addWeightProgressBar
         c. ELSE
            iv. Retrieve the main thread and call the function hideWeightProgress
+    
+    Uses the following local variables:
+        weightUnit - A constant HKUnit that is the unit to retrieve the weight data in
+        weightQuantity - A constant HKQuantityType that is the quantity to retrieve from the health kit datastore (body mass)
+        startDate - A constant NSDate that is the startDate to look for samples, this is the distant past
+        endDate - A constant NSDate that is the endDate to retrieve for samples, this is the very end of the current day
+        predicate - A constant NSPredicate to filter the query using
+    
+        doubleWeight - This is used by the block; it is a double constant that stores the user's weight as a double (converted from a HKQuantitySample)
     */
     func loadWeightDataFromHealthKit() {
-        var weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram) //1
+        let weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram) //1
         
         let weightQuantity = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass) //2
         
-        var startDate = NSDate.distantPast() as NSDate //3
-        var endDate = NSDate(timeInterval: secondsInDay - 1, sinceDate: NSDate(shortDateString: self.currentDate.shortDateString())) //4
+        let startDate = NSDate.distantPast() as NSDate //3
+        let endDate = NSDate(timeInterval: secondsInDay - 1, sinceDate: NSDate(shortDateString: self.currentDate.shortDateString())) //4
         //The 'end date' that is the very end of the day of the start date
         
         let predicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: nil) //5
@@ -215,12 +238,18 @@ class CaloriesAndWeightViewController: UIViewController {
            vi. Once complete perform BLOCK C
                 Z. IF there is an error log it
                 Y. Retrieve the main thread and set the caloriesBurnt to the sum retrieved and call the function addCalorieProgressBar
+    
+    Uses the following local variables:
+        unit - A constant HKUnit that is the unit to retrieve the calorie data in
+        caloriesBurnt - A constant HKQuantityType that is the quantity to query the datastore for (active energy burned)
+        caloriesConsumed - A constant HKQuantityType that is the quantity to query the datastore for (dietary energy consumed)
+        predicate - A constant NSPredicate used to filter the results of the query
     */
     func loadCalorieDataFromHealthKit() {
         let unit = HKUnit(fromEnergyFormatterUnit: .Kilocalorie) //1
         let caloriesBurnt = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned) //2
         let caloriesConsumed = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed) //3
-        let predicate = HKQuery.predicateForSamplesWithStartDate(NSDate(shortDateString: self.currentDate.shortDateString()), endDate: NSDate(timeInterval: 86399, sinceDate: NSDate(shortDateString: self.currentDate.shortDateString())), options: nil) //4
+        let predicate = HKQuery.predicateForSamplesWithStartDate(NSDate(shortDateString: self.currentDate.shortDateString()), endDate: NSDate(timeInterval: secondsInDay - 1, sinceDate: NSDate(shortDateString: self.currentDate.shortDateString())), options: nil) //4
         
         self.healthStore.retrieveSumOfSample(caloriesConsumed, unit: unit, predicate: predicate) { (sum, error) -> Void in //5
             /* BLOCK A START */ //6
@@ -269,6 +298,11 @@ class CaloriesAndWeightViewController: UIViewController {
         b. ELSE
           iii. Log "Success: HealthKit access is authorised."
            iv. Retrieve the main thread and call the function loadWeightDataFromHealthKit and loadCalorieDateFromHealthKit
+    
+    Uses the following local variables:
+        caloriesBurnt - A constant HKQuantityType that is to be requested permission to read
+        caloriesConsumed - A constant HKQuantityType that is to be requested permission to read
+        weight - A constant HKQuantityType that is to be requested permission to read
     */
     func requestAuthorisationForHealthKitAccess() {
         let caloriesConsumed = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed) //1
@@ -303,6 +337,9 @@ class CaloriesAndWeightViewController: UIViewController {
     1. Create and configure a label to display the error "HealthKit access must be enabled to use this feature."
     2. Remove the left bar button and set the navigation prompt to nil
     3. Set the view to the UILabel (removes anything else)
+    
+    Uses the following local variables:
+        noAccessLabel - The UILabel to display if there is no access to HealthKit
     */
     func hideUIForNoAccess() {
         let noAccessLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.window!.frame.width, height: self.view.window!.frame.height)) //1
@@ -324,8 +361,6 @@ class CaloriesAndWeightViewController: UIViewController {
     
     /**
     This method is called by the system when the user presses the Next Day button on the interface. It moves the view forward one day.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Sets the current date to be the old currentDate increased by 1 day
     2. Calls the function setDateLabel
     3. Calls the function loadWeightDataFromHealthKit
@@ -342,8 +377,6 @@ class CaloriesAndWeightViewController: UIViewController {
     
     /**
     This method is called by the system when the user presses the Previous Day button on the interface. It moves the view backwards 1 day.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Sets the text of the nextDayButton to "Next Day" (this shows the button)
     2. Sets the current date to be the old currentDate decreased by 1 day
     3. Calls the function setDateLabel

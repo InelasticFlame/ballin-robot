@@ -29,7 +29,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     2. IF the run has locations
         a. Calls the function drawRouteLineOnMap
     3. ELSE
-        b. Calls the function hideMapForNoLocations
+        b. Hides the mapKitView
     4. IF there is a run
         c. Convert the run distance to a string and set the distanceLabel text as the string
         d. Convert the run score to a string and set the scoreLabel text as the string
@@ -46,6 +46,9 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         p. Add a border to the mapKitView
         q. Add a border to the headerOverlay
         r. Add a border to the overlayView
+    
+    Uses the following local variables:
+        progressBackground - A UIView that is the background to use for the progress (top) bar
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +57,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         if run?.locations.count > 0 { //2
             drawRouteLineOnMap() //a
         } else { //3
-            hideMapForNoLocations() //b
+            self.mapKitView.hidden = true //b
         }
         
         if let run = run { //4
@@ -84,26 +87,20 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     
     /**
     This method is used to draw the run route onto the map.
-    1. IF the user preference is for a Satellite map, set the map to Satellite
-    2. IF the user preference is for a Hybrid map, set the map to Hybrid
-    3. ELSE set the map to standard
-    4. IF there is a run
+    1. IF there is a run
         a. Create an array of CLLocationCoordinate2D
         b. FOR each location, and the locations coordinates to the array
         c. Create the polyline for the array of coordinates
         d. Add the polyline to the map as an overlay
         e. Call the function centreMapOnRunArea
+    
+    Uses the following local variables:
+        coords - An array of CLLocationCoordinate2D objects that stores the individual coordinates for the location points
+        location - The current CLLocation object from the array run.locations
     */
     func drawRouteLineOnMap() {
-        if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.MapStyle.StyleKey) == Constants.DefaultsKeys.MapStyle.Satellite { //1
-            mapKitView.mapType = .Satellite
-        } else if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.MapStyle.StyleKey) == Constants.DefaultsKeys.MapStyle.Hybrid { //2
-            mapKitView.mapType = .Hybrid
-        } else { //3
-            mapKitView.mapType = .Standard
-        }
         
-        if let run = run { //4
+        if let run = run { //1
             var coords = Array<CLLocationCoordinate2D>() //a
             for location in run.locations { //b
                 coords.append(location.coordinate)
@@ -136,6 +133,20 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             j. Create the coordinateSpan using the latDelta and longDelta
             k. Create the region to show on the map using the centreCoord and the coordinateSpan
             l. Set the region currently displayed on the map to the new region
+    
+    Uses the following local variables:
+        minLat - A double variable that stores the minimum latitude of the set of coordinates
+        minLong - A double variable that stores the minimum longitude of the set of coordinates
+        maxLat - A double variable that stores the maximum latitude of the set of coordinates
+        maxLong - A double variable that stores the maximum longitude of the set of coordinates
+        currentCoordNo - An integer variable that tracks the current coordinate number
+        centreLat - A constant double that is the midpoint between the maxLat and minLat
+        centreLong - A constant double that is the midpoint between the maxLong and minLong
+        centreCoord - A constant CLLocationCoordinate2D made from the centre lat and long which is the centre of run
+        latDelta - A constant double that is the change in latitude
+        longDelta - A constant double that is the change in longitude
+        coordinateSpan - A MKCoordinateSpan made from the latitude and longitude delta which is the span to display
+        region - A MKCoordinateRegion which is the region for the map kit view to display
     */
     func centreMapOnRunArea() {
         var minLat, minLong, maxLat, maxLong: Double //1
@@ -147,8 +158,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                 minLong = firstLocation.coordinate.longitude //c
                 maxLong = firstLocation.coordinate.longitude
                 
-                for var i = 1; i < run.locations.count; i++ { //d
-                    let currentCoordinate = run.locations[i].coordinate //i
+                for var currentCoordNo = 1; currentCoordNo < run.locations.count; currentCoordNo++ { //d
+                    let currentCoordinate = run.locations[currentCoordNo].coordinate //i
         
                     if currentCoordinate.latitude < minLat { //ii
                         minLat = currentCoordinate.latitude
@@ -191,6 +202,9 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         d. Return the renderer
     2. Otherwise return nil
     
+    Uses the following local variables:
+        polylineRenderer - A MKPolylineRenderer used to render the polyline
+    
     :param: mapView The MKMapView that requested the renderer.
     :param: overlay The MKOverlay object that is to be rendered.
     :returns: The MKOverlayRenderer to use to present the overlay on the map.
@@ -204,15 +218,6 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             return polylineRenderer //d
         }
         return nil //2
-    }
-    
-    
-    /**
-    Where there aren't any locations, this method hides the map and adds some filler content.
-    */
-    func hideMapForNoLocations() {
-        self.mapKitView.hidden = true
-        //Add filler content
     }
 
 }

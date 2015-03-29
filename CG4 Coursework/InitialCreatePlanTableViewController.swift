@@ -55,8 +55,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
-    Uses the following parameters:
-        textField: the UITextField that triggered the method to be called.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
     
@@ -73,8 +71,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     
     /**
     This method is called whenever the value of the start date picker is changed. It updates the start date label and updates the minimum date of the end date picker.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Sets the text of the startDateDetailLabel to the selected date as a shortDateString
     2. Sets the minimum date of the endDatePicker as the selected date plus 1 day (So a plan cannot finish before it has started)
     3. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker (this is in case changing the minimum date has caused the date of the endDatePicker to update, otherwise nothing will change)
@@ -89,8 +85,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     
     /**
     This method is called whenever the value of the end date picker is changed. It updates the end date label.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker
     
     :param: sender The object that called the action (in this case the endDatePicker).
@@ -222,6 +216,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
           iii. Calls the function reloadTableViewCells
            iv. Returns false
     2. In the default case returns true
+    
+    Uses the following local variables:
+        stringValidation - A tuple of (boolean, string) that stores whether the plan name is valid and if it isn't any error that there is
     
     :param: identifier The string that identifies the triggered segue.
     :param: sender The object that initiated the segue.

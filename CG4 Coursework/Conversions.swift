@@ -27,6 +27,12 @@ class Conversions: NSObject {
     4. Converts to seconds per mile
     5. Returns the seconds per mile
     
+    Uses the following local variables:
+        metresPerHour - A double constant that stores the number of metres ran in an hour.
+        kmPerHour - A double constant that stores the number of kilometres ran in an hour.
+        milesPerHour - A double constant that stores the number of miles ran in an hour.
+        secPerMile - An integer constant that stores the number of seconds requried per mile.
+    
     :param: metresPerSec A double value that is the number of metres per second to convert.
     :retruns: A double value of the speed in seconds per mile.
     */
@@ -41,8 +47,11 @@ class Conversions: NSObject {
     
     /**
     This method takes a distance in metres and returns it as a distance in miles.
-    1. Converts the meters into kilometres and then converts into miles
+    1. Converts the metres into kilometres and then converts into miles
     2. Returns the miles
+    
+    Uses the following local variables:
+        miles - A double constant that stores the number of miles converted from metres.
     
     :param: meters A double value that is the number of metres to convert.
     :returns: A double value of the distance in metres.
@@ -68,6 +77,14 @@ class Conversions: NSObject {
         b. Let kilometres per hour equal the miles per hour times milesToKm
         c. Return string is in the form "kmh to 2 decimal places km/h"
     5. Return the paceString
+    
+    Uses the following local variables:
+        paceString - A string variable that stores the pace as a string.
+        paceUnit - A constant string that stores the pace unit.
+        minutes - A constant integer that stores the number of minutes per mile
+        seconds - A constant integer that stores the number of seconds per mile
+        mph - A constant double that stores the pace in miles per hours
+        kmh - A constant double that stores the pace in kilometres per hour
     
     :param: pace An integer value that is the pace to convert to a string.
     :returns: The pace as a string (using the user's chosen unit).
@@ -102,6 +119,13 @@ class Conversions: NSObject {
         b. Return string is in the form "mm:ss"
     8. Return the durationString
     
+    Uses the following local variables:
+        durationString - A string variable that stores the duration as a string
+        hours - A constant integer that stores the number of hours ran
+        minutesInSeconds - A constant integer that stores the number of minutes ran in seconds
+        minutes - A constant integer that stores the number of minutes ran
+        seconds - A constant integer that stores the number of seconds ran
+    
     :param: duration An integer value that is the duration to convert to a string.
     :returns: The duration as a string.
     */
@@ -132,6 +156,11 @@ class Conversions: NSObject {
         c. Return string is in the form "kilometres to 2 decimal places km"
     5. Return the distanceString
     
+    Uses the following local variables:
+        distanceString - A string variable that stores the distance as a string
+        distanceUnit - A string constant that stores the unit to use for the distance
+        kilometres - A double constant that stores the distance in kilometres
+    
     :param: distance A double value that is the distance to convert to a string.
     :returns: The distane as a string (based on the user's unit perference).
     */
@@ -158,6 +187,10 @@ class Conversions: NSObject {
         a. Increases the total by the run's distance
     3. Returns the total
     
+    Uses the following local variables:
+        total - A double variable that stores the total distance run
+        run - A Run constant that stores the current run object
+    
     :param: runs An array of Run objects that distances are to be summed.
     :returns: A double value of the sum of the run distances.
     */
@@ -175,6 +208,9 @@ class Conversions: NSObject {
     1. Sorts the array based on the dateTime; runs with a smaller timeIntervalSinceNow (e.g. how long ago it was) go at the lowest index
     2. Returns the array of sorted runs
     
+    Uses the following local variables:
+        runs - A mutable array of Run objects.
+    
     :param: runs (called array locally): an array of Run objects that are to be sorted by their dates.
     :returns: An array of Run objects in date order.
     */
@@ -191,6 +227,9 @@ class Conversions: NSObject {
     This method sorts an array of Planned Run objects into order of their dates.
     1. Sorts the array based on the dateTime; runs with a smaller timeIntervalSinceNow (e.g. how long ago it was) go at the lowest index
     2. Returns the array of sorted plannedRuns
+    
+    Uses the following local variables:
+        plannedRuns - A mutable array of PlannedRun objects.
     
     :param: plannedRuns (called array locally): an array of Planned Run objects that are to be sorted by their dates.
     :returns: An array of PlannedRun objects in date order.

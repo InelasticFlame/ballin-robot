@@ -74,6 +74,12 @@ class PlannedRun: NSObject {
         a. Set the rank to -1
     7. Set the matchingRank property to the rank
     8. Set the matchingRun property to the matchingRun
+    
+    Uses the following local variables:
+        matchingRuns - A immutable array of Run objects that contains all the runs that were ran on the planned run's date
+        rank - A integer variable that is the rank of the match (0 = missed, 1 = kind of match, 2 = match, -1 = not happened yet)
+        matchingRun - A Run variable that is the run which most closely matches the planned run
+        now - A constant NSDate that represents now
     */
     func checkForCompletedRun(){
         let matchingRuns = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as [Run] //1

@@ -63,9 +63,15 @@ class RepeatsTableViewController: UITableViewController {
     This method is used to remove the accessory from all cells. This is so that if a new shoe is selected two checkmarks are not shown on the interface (such that it appears as if 2 rows have been selected)
     1. Declares the local constant sectionCount and sets its value to the number of sections in the table view
     2. FOR each section
-    a. Declares the local constant rowCount and sets its value to the number of rows in the current section
-    b. FOR each row
-    i. Sets the accessory of the cell in the current section for the current row to None
+        a. Declares the local constant rowCount and sets its value to the number of rows in the current section
+        b. FOR each row
+            i. Sets the accessory of the cell in the current section for the current row to None
+    
+    Uses the following local variables:
+        sectionCount - An integer constant that is the number of sections in the table view
+        sectionNo - An integer variable that is the current section being cleared
+        rowCount - An integer constant that is the number of rows in a certain section
+        rowNo - An integer variable that is the current row in a section
     */
     func clearCheckmarks() {
         let sectionCount = tableView.numberOfSections()
@@ -89,12 +95,16 @@ class RepeatsTableViewController: UITableViewController {
         a. IF the cell can be retrieved
             i. IF the text of the cell's text label is the same as the repeatOption
                 ii. Set the accessory of the cell to a Checkmark
+    
+    Uses the following local variables:
+        rowCount - An integer constant that is the number of rows in a certain section
+        rowNumber - An integer variable that is the current row
     */
     func setSelectedRepeatOption() {
         
         let rowCount = tableView.numberOfRowsInSection(0) //1
-        for var i = 0; i < rowCount; i++ { //2
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) { //a
+        for var rowNumber = 0; rowNumber < rowCount; rowNumber++ { //2
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNumber, inSection: 0)) { //a
                 if cell.textLabel?.text == repeatOption { //i
                     cell.accessoryType = .Checkmark //ii
                 }

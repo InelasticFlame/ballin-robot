@@ -24,6 +24,9 @@ class RunShoesTableViewController: UITableViewController {
     6. Sets the current page indicator tint colour (the colour of the circle of the currently shown page)
     7. Sets the position of the page control to the middle of the screen in the x direction and just at the bottom of the table view (-28 pixels for padding)
     8. Adds the page control as a subview of the current view
+    
+    Uses the following local variables:
+        pageControl - A UIPageControl to add to the interface
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,9 @@ class RunShoesTableViewController: UITableViewController {
         f. IF there is a shoe 
             i. Sets the text of the first cell in the first section of the table view to the shoe's name
         g. ELSE sets the text of the first cell in the first section of the table view to "None"
+    
+    Uses the following local variables:
+        finishTimes - A tuple of type (string, string, string, string) that stores the 4 finish times
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */

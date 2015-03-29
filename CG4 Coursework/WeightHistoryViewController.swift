@@ -32,12 +32,16 @@ class WeightHistoryViewController: UIViewController {
     1. Set the startDate as today (by converting the current date (and time) to a date string and back the date becomes the very start of the day)
     2. Set the end date as the very end of the currentDay
     3. Call the function loadWeightForLast7Days passing the startDate and endDate
+    
+    Uses the following local variables:
+        startDate - A constant NSDate that is the start of the first day to retrieve
+        endDate - A constant NSDate that is the end of the first day to retrieve
     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var startDate = NSDate(shortDateString: NSDate().shortDateString()) //1
-        var endDate = NSDate(timeInterval: secondsInDay, sinceDate: startDate) //2
+        let startDate = NSDate(shortDateString: NSDate().shortDateString()) //1
+        let endDate = NSDate(timeInterval: secondsInDay, sinceDate: startDate) //2
         loadWeightForLast7Days(startDate, endDate: endDate) //3
     }
 
@@ -71,6 +75,18 @@ class WeightHistoryViewController: UIViewController {
             v. Set the endDate as the startDate
            vi. Set the startDate to be the endDate -1 day
           vii. Call the function loadWeightForLast7Days
+    
+    Uses the following local variables:
+        weightUnit - A constant HKUnit that is the unit to retrieve the weight data in
+        weightQuantity - A constant HKQuantityType that is the quantity to retrieve from the health kit datastore (body mass)
+        predicate - A constant NSPredicate to filter the query using
+    The block use the following variables:
+        doubleWeight - A constant double that is the user's weight converted to a double from the weight quantity sample
+        dateStr - A constant string that is the start date as a shortest date string
+        charsToRemoveTo - A constant integer that is the index to cut the string to (3 chars removed for the year section of the date)
+        xStr - A constant string that is the dateStr cut to the charsToRemoveTo
+        startDate - A constant NSDate that is the start of the next day to retrieve
+        endDate - A constant NSDate that is the end of the next day to retrieve
     
     :param: startDate The start of the first day to retrieve the weight data from.
     :param: endDate The end of the first day to retrieve the weight data from.
@@ -147,6 +163,13 @@ class WeightHistoryViewController: UIViewController {
     6. Create the graph (the array is reversed as the array has the weights with the newest at the start rather than the end)
     7. Set the background colour of the graph to be clear
     8. Add the graph as a subview of the graphView
+    
+    Uses the following local variables:
+        greatestWeight - A variable CGFloat that is the user's greatest weight over the 7 day period
+        lowestWeight - A variable CGFloat that is the user's least weight over the 7 day period
+        weightDelta - A constant CGFloat that is the weight variation over the 7 day period
+        frame - A constant CGRect that is the frame to use for the graph
+        graph - The Graph of weight against time that is to be displayed on the interface
     */
     func drawWeightGraph() {
         var greatestWeight: CGFloat = graphCoords[0].y //1
@@ -161,7 +184,7 @@ class WeightHistoryViewController: UIViewController {
             }
         }
         
-        var weightDelta = greatestWeight - lowestWeight //3
+        let weightDelta = greatestWeight - lowestWeight //3
         
         greatestWeightLabel.text = NSString(format: "Greatest Weight: %1.2f kg", Double(greatestWeight)) //4
         lowestWeightLabel.text = NSString(format: "Lowest Weight: %1.2f kg", Double(lowestWeight))

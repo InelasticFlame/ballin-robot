@@ -69,6 +69,9 @@ class RunsTableViewController: UITableViewController {
         h. Removes the separators from the table view
         i. Sets the background of the table view to the created label
     2. ELSE removes the background view (if there is one) and sets the separator style to single line
+    
+    Uses the following local variables:
+        noRunsLabel - A UILabel to display if there are no runs
     */
     func checkNoRunsLabel() {
         if runs.count == 0 { //1
@@ -151,6 +154,10 @@ class RunsTableViewController: UITableViewController {
     5. Sets the alpha of the progressView to 0.4
     6. Returns the cell
     
+    Uses the following local variables:
+        cell - A RunTableViewCell that is the cell to display at the current indexPath
+        run - A Run object that is the current run for this cell
+    
     :param: tableView The UITableView that is requesting the cell.
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
@@ -178,6 +185,9 @@ class RunsTableViewController: UITableViewController {
                 i. Remove the run from the array of runs
                ii. Delete the row from the table view
               iii. Calls the function checkNoRunsLabel
+    
+    Uses the following local variables:
+        run - The Run object for the current cell
     
     :param: tableView The UITableView that is requesting the insertion of the deletion.
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.

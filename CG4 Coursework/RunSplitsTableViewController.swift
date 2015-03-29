@@ -26,6 +26,9 @@ class RunSplitsTableViewController: UITableViewController {
     6. Sets the current page indicator tint colour (the colour of the circle of the currently shown page)
     7. Sets the position of the page control to the middle of the screen in the x direction and just at the bottom of the table view (-28 pixels for padding)
     8. Adds the page control as a subview of the current view
+    
+    Uses the following local variables:
+        pageControl - A UIPageControl to add to the interface
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,19 +57,22 @@ class RunSplitsTableViewController: UITableViewController {
         g. Sizes the label to fix the view
         h. Sets the background of the table view to the created label
     
+    Uses the following local variables:
+        noSplitsLabel - A UILabel to display if there are no splits
+    
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(animated: Bool) {
         if run?.splits.count == 0 {
-            let noSplits = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)) //a
-            noSplits.text = "There are no splits stored for this run." //b
-            noSplits.textColor = UIColor.blackColor() //c
-            noSplits.numberOfLines = 0 //d
-            noSplits.textAlignment = .Center //e
-            noSplits.font = UIFont(name: "System", size: 16) //f
-            noSplits.sizeToFit() //g
+            let noSplitsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)) //a
+            noSplitsLabel.text = "There are no splits stored for this run." //b
+            noSplitsLabel.textColor = UIColor.blackColor() //c
+            noSplitsLabel.numberOfLines = 0 //d
+            noSplitsLabel.textAlignment = .Center //e
+            noSplitsLabel.font = UIFont(name: "System", size: 16) //f
+            noSplitsLabel.sizeToFit() //g
             
-            self.tableView.backgroundView = noSplits //h
+            self.tableView.backgroundView = noSplitsLabel //h
         }
     }
     
@@ -105,6 +111,9 @@ class RunSplitsTableViewController: UITableViewController {
     3. Sets the detail text label of the cell text to run split at the current row converted to a string using the Conversions class
         (NOTE: run is unwrapped as if any cells are being loaded in the table there MUST be a run as there has to be a splits in the first place)
     4. Returns the cell
+    
+    Uses the following local variables:
+        cell - A UITableView cell for the current indexPath
     
     :param: tableView The UITableView that is requesting the cell.
     :param: indexPath The NSIndexPath of the cell requested.

@@ -35,6 +35,9 @@ class TrainingPlansTableViewController: UITableViewController {
             i. Adds the plan to the second array (In-active Plans)
     4. Reloads the data in the table view
     
+    Using the following local variables:
+        unsortedPlans - An immutable array of Plan objects that stores all the plans from the database 
+    
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(animated: Bool) {
@@ -89,6 +92,9 @@ class TrainingPlansTableViewController: UITableViewController {
         a. Creates an 'inactivePlan' cell
         b. Set the textLabel text to the name of the InactivePlan at the current row
         c. Returns the cell
+    
+    Uses the following local variables:
+        cell - A UITableView cell for the current indexPath
     
     :param: tableView The UITableView that is requesting the cell.
     :param: indexPath The NSIndexPath of the cell requested.

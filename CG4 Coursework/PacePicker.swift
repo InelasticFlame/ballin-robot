@@ -108,6 +108,15 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
         e. Sets the pace string to "MM:ss /km" where the minutesPerKm and secondsPerKm use 2 digits (e.g. 2 is 02)
     5. Returns the pace and the paceStr
     
+    Uses the following local variables:
+        pace - An integer variable that stores the selected pace
+        paceStr - A string variable that stores the pace as a string
+        minutesPerMile - An integer constant that stores the number of minutes per mile
+        secondsPerMile - An integer constant that stores the seconds part of the pace
+        minutesPerKm - An integer constant that stores the number of minutes per kilometer
+        secondsPerKm - An integer constant that stores the seconds part per kilometer
+        doublePace - A double constant that stores the pace in seconds per mile
+    
     :returns: pace - An integer value that is the selected pace in seconds per mile.
     :returns: paceStr - The pace that is selected as a string in the user's chosen unit.
     */
@@ -142,6 +151,10 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     3. Selects the row of the minutes in the first component
     4. Selects the row of the seconds in the second component
     5. Selects the first row in the last component
+    
+    Uses the following local variables:
+        minutes - A constant integer that is the number of seconds per mile
+        seconds - A constant integer that is the seconds part of the pace per mile
     
     :params: pace The pace to set the picker to as an integer in seconds per mile.
     */

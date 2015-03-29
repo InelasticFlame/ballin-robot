@@ -86,8 +86,6 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
-    Uses the following parameters:
-        textField: the UITextField that triggered the method to be called.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
     2. Returns false
     
@@ -180,8 +178,6 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     
     /**
     This method is called by the system when the user presses the Done button. It validates the planned run and saves it to the database (if validation is successful) and then dismisses the view controller.
-    Uses the following parameters:
-        sender: the object that triggered the method to be called.
     1. Declares the local string variable error, the double variable planDistance and the integer variable planDuration
     2. Resigns the runDetailsTextField as the first responder (the focus) (this dismisses the keyboard)
     3. IF the run has a DISTANCE
@@ -221,6 +217,16 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         l. Sets the error cell text label text to the error
         m. Set show error to true
         n. Calls the function reloadTableViewCells to display the error
+    
+    Uses the following local variables:
+        error - A string variable that stores any error
+        planDistance - A double variable that stores the plan distance
+        planDuration - An integer variable that stores the plan duration
+        stringValidation - A tuple of (boolean, string) that stores whether the plan name is valid and if it isn't any error that there is
+        timeInterval - A double variable that stores the time interval between repeated planned runs
+        repeatEndDate - A variable NSDate of which to end the repetition on
+        plannedRunDate - A variable NSDate that is the date of the planned run
+        plannedRun - A Planned Run that is the planned run to add to the database
     
     :param: sender The object that called the action (in this case the Done button).
     */

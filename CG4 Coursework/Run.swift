@@ -72,6 +72,13 @@ class Run: NSObject {
     6. IF the totalPoints is more than 1000
         a. Sets the score to 1000
     7. ELSE sets the score to the total points
+    
+    Uses the following local variables:
+        pointsFromPacePower - A constant float that is the power to raise 2.4 to to calculate the points from the pace
+        pointsFromAveragePace - A constant double that is the points from the average pace
+        pointsFromDistancePower - A constant float that is the power to raise 2.4 to to calculate the points from the distance
+        pointsFromDistance - A constant double that is the points from the distance
+        totalPoints - A constant double that is the total points
     */
     func calculateRunScore() {
         let pointsFromPacePower = 1000.0/Float(self.pace) //1
@@ -125,6 +132,16 @@ class Run: NSObject {
     2. Converts the finish times into strings using the Conversions class
     3. Returns each of the 4 string
     
+    Uses the following local variables:
+        fiveK - An integer constant that is the time required to run 5k at this pace
+        tenK - An integer constant that is the time reuired to run 10k at this pace
+        halfMarathon - An integer constant that is the time reuired to run a half marathon at this pace
+        fullMarathon - An integer constant that is the time reuired to run a full marathon at this pace
+        fiveKStr - A constant string that is the time required to run 5k as a string
+        tenKStr - A constant string that is the time required to run 10k as a string
+        halfMarathonStr - A constant string that is the time required to run a half marathon as a string
+        fullMarathonStr - A constant string that is the time required to run a full marathon as a string
+    
     :returns: fiveK - The 5k finish time as a String.
     :returns: tenK - The 10k finish time as a String.
     :returns: halfMarathon - The Half Marathon finish time as a String.
@@ -166,8 +183,6 @@ class Run: NSObject {
     :returns: The run's description as a string.
     */
     func description() -> String {
-        let string = "ID = '\(self.ID)', DateTime = '\(self.dateTime.description)', Pace = '\(self.pace)', Duration = '\(self.duration)', Score = '\(self.score)', Number of locations = '\(self.locations.count)', Number of splits = '\(self.splits.count)'"
-        
-        return string
+        return "ID = '\(self.ID)', DateTime = '\(self.dateTime.description)', Pace = '\(self.pace)', Duration = '\(self.duration)', Score = '\(self.score)', Number of locations = '\(self.locations.count)', Number of splits = '\(self.splits.count)'"
     }
 }

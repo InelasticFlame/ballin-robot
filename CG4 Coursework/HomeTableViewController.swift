@@ -61,6 +61,10 @@ class HomeTableViewController: UITableViewController {
     4. Call the function loadShoes, passing an NSTimer with the userInfo of a dictionary containing 0
         (a timer is initially created and passed because the function is called using a timer so it will cycle round in a timer)
     
+    Uses the following local variables:
+        storyboard - A constant UIStoryboard that is the main story board
+        newVC - A constant UIViewController that is the setup view controller
+    
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(animated: Bool) {
@@ -105,6 +109,11 @@ class HomeTableViewController: UITableViewController {
     3. ELSE
         j. Set the text of the shoeNameLabel to "No Shoes"
     
+    Uses the following local variables:
+        userInfo - A constant NSDictionary that is the user info from the timer
+        currentShoe - An integer variable that is the index of the current shoe being displayed
+        shoeImage - A constant UIImage that is the shoe's image
+    
     :param: timer The NSTimer object that calls the function.
     */
     func loadShoes(timer: NSTimer) {
@@ -143,6 +152,16 @@ class HomeTableViewController: UITableViewController {
     8. Create the progress bar
     9. Add the progress bar as a subview of the distanceProgressBar view
    10. Set the text of the distance progress label
+    
+    Uses the following local variables:
+        view - The current UIView in the distanceProgressView subviews
+        goalMiles - A constant double that is the goal distance from the user defaults
+        currentMonth - A constant string that is the current month
+        runs - A constant array of run objects loaded from the database
+        totalMiles - A constant double that is the total distance ran this month
+        progress - A constant double that is the amount of progress made towards the goal distance
+        progressFrame - A constant CGRect which is the frame to use for the progress bar    
+        progressBar - A constant ProgressBar
     */
     func loadDistanceProgress() {
         for view in distanceProgressView.subviews as [UIView] { //1
@@ -169,6 +188,13 @@ class HomeTableViewController: UITableViewController {
     3. IF there is a longestDistance
         a. Set the text of the longestDistanceLabel to the longestDistance converted to a string using the Conversions class
     4. This process is the repeated for the other 3 personal bests
+    
+    Uses the following local variables:
+        userDefaults - A constant reference to the standard user defaults
+        longestDistance - A constant double that is the longest distance from the user defaults
+        longestDuration - A constant integer that is the longest duration from the user defaults
+        fastestMile - A constant integer that is the fastest mile from the user defaults
+        fastestAveragePace - A constant integer that is the fastest pace from the user defaults
     */
     func loadPersonalBests() {
         let userDefaults = NSUserDefaults.standardUserDefaults() //1

@@ -94,6 +94,13 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     7. Sets the durationStr to hours, minutes and seconds in the form HOURSh MINUTESm SECONDSs
     8. Returns the duration and the durationStr
     
+    Uses the following local variables:
+        duration - An integer variable that stores the duration selected
+        durationStr - A string variable that stores the selected duration as a string
+        hours - An integer constant that is the number of hours selected
+        minutes - An integer constant that is the number of minutes selected
+        seconds - An integer constant that is the number of seconds selected
+    
     :returns: duration - The duration selected as an integer in seconds.
     :returns: durationStr - The duration selected as a string in the form HH:mm:ss
     */
@@ -120,6 +127,12 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     5. Sets the selected row in the first column to the number of hours
     6. Sets the selected row in the second column to the number of minutes
     7. Sets the selected row in the third column to the number of seconds
+    
+    Uses the following local variables:
+        hours - An integer constant that is the number of hours ran for
+        remainingSeconds - An integer constant that is the number of leftover seconds
+        minutes - An integer constant that is the number of minutes ran for
+        seconds - An integer constant that is the number of seconds ran for
     
     :param: duration The duration to set the picker to as an integer in seconds.
     */

@@ -19,6 +19,10 @@ class MoreTableViewController: UITableViewController {
         b. Load the new view controller as the viewController called "setupStoryboard" from the loaded storyboard
         c. Show the new view controller
     
+    Uses the following local variables:
+        storyboard - A constant UIStoryboard that is the main story board
+        newVC - A constant UIViewController that is the setup view controller
+    
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
