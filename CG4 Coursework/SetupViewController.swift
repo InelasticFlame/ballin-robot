@@ -76,7 +76,7 @@ class SetupViewController: UIViewController {
         if UserDefaults.standard.bool(forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
             let userDefaults = UserDefaults.standard //2
             
-            if (userDefaults.string(forKey: "ACCESS_TOKEN")?.count)! > 0 { //3
+            if (userDefaults.string(forKey: "ACCESS_TOKEN") ?? "").count > 0 { //3
                 updateStravaLabel() //a
             }
             

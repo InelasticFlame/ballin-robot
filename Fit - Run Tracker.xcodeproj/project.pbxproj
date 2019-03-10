@@ -402,7 +402,7 @@
 				TargetAttributes = {
 					B621B73E1A48C65100A4A49C = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 65B7RMWPL4;
+						DevelopmentTeam = 3G8JD7RB8D;
 						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
@@ -658,10 +658,11 @@
 				CODE_SIGN_ENTITLEMENTS = "CG4 Coursework/CG4 Coursework.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Roger-Ray.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.William-Ray.Fit---Run-Tracker";
 				PRODUCT_NAME = "Fit - Run Tracker";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
@@ -682,10 +683,11 @@
 				CODE_SIGN_ENTITLEMENTS = "CG4 Coursework/CG4 Coursework.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Roger-Ray.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.William-Ray.Fit---Run-Tracker";
 				PRODUCT_NAME = "Fit - Run Tracker";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";

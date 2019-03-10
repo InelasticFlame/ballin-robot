@@ -77,7 +77,7 @@ class HomeTableViewController: UITableViewController {
         
         loadPersonalBests() //2
         loadDistanceProgress() //3
-        loadShoes(timer: Timer(timeInterval: 0, target: self, selector: Selector("loadShoes:"), userInfo: NSDictionary(object: NSNumber(value: 0), forKey: "currentShoe" as NSCopying), repeats: false)) //4
+        loadShoes(timer: Timer(timeInterval: 0, target: self, selector: #selector(HomeTableViewController.loadShoes), userInfo: NSDictionary(object: NSNumber(value: 0), forKey: "currentShoe" as NSCopying), repeats: false)) //4
     }
     
     /**
@@ -133,7 +133,7 @@ class HomeTableViewController: UITableViewController {
             } else { //h
                 shoeImageView.image = UIImage(named: "ShoeTab30") //ii
             }
-            Timer.scheduledTimer(timeInterval: 3, target: self, selector: Selector("loadShoes:"), userInfo: NSDictionary(object: NSNumber(value: currentShoe! + 1), forKey: "currentShoe" as NSCopying), repeats: false)
+            Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(HomeTableViewController.loadShoes), userInfo: NSDictionary(object: NSNumber(value: currentShoe! + 1), forKey: "currentShoe" as NSCopying), repeats: false)
         } else { //3
             shoeNameLabel.text = "No Shoes" //j
         }

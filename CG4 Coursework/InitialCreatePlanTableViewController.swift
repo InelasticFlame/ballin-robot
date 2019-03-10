@@ -42,8 +42,8 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         super.viewDidLoad()
         
         planNameTextField.delegate = self //1
-        startDatePicker.addTarget(self, action: Selector("updateStartDate:"), for: .valueChanged)
-        endDatePicker.addTarget(self, action: Selector("updateEndDate:"), for: .valueChanged)
+        startDatePicker.addTarget(self, action: #selector(InitialCreatePlanTableViewController.updateStartDate), for: .valueChanged)
+        endDatePicker.addTarget(self, action: #selector(InitialCreatePlanTableViewController.updateEndDate), for: .valueChanged)
         
         endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date //3
         startDatePicker.minimumDate = NSDate() as Date
