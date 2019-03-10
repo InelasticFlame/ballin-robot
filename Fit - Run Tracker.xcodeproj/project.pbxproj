@@ -20,7 +20,6 @@
 		B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7441A48C65100A4A49C /* AppDelegate.swift */; };
 		B621B74E1A48C65100A4A49C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B621B74D1A48C65100A4A49C /* Images.xcassets */; };
 		B621B7511A48C65100A4A49C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B621B74F1A48C65100A4A49C /* LaunchScreen.xib */; };
-		B621B75D1A48C65100A4A49C /* CG4_CourseworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B75C1A48C65100A4A49C /* CG4_CourseworkTests.swift */; };
 		B621B7691A48C66E00A4A49C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B621B7681A48C66E00A4A49C /* Database.m */; };
 		B621B76B1A48C67F00A4A49C /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B76A1A48C67F00A4A49C /* Run.swift */; };
 		B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B76C1A48C68900A4A49C /* Shoe.swift */; };
@@ -64,16 +63,6 @@
 		B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B621B7571A48C65100A4A49C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B621B7371A48C65100A4A49C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B621B73E1A48C65100A4A49C;
-			remoteInfo = "CG4 Coursework";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3584E6B474B032369155AAC1 /* Pods-CG4 Coursework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CG4 Coursework.release.xcconfig"; path = "Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,7 +82,6 @@
 		B621B7441A48C65100A4A49C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B621B74D1A48C65100A4A49C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B621B7501A48C65100A4A49C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B621B7561A48C65100A4A49C /* Fit - Run TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B621B75B1A48C65100A4A49C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B621B75C1A48C65100A4A49C /* CG4_CourseworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CG4_CourseworkTests.swift; sourceTree = "<group>"; };
 		B621B7661A48C66D00A4A49C /* CG4 Coursework-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CG4 Coursework-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -155,13 +143,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B621B7531A48C65100A4A49C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -201,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				B621B73F1A48C65100A4A49C /* Fit - Run Tracker.app */,
-				B621B7561A48C65100A4A49C /* Fit - Run TrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -411,31 +391,13 @@
 			productReference = B621B73F1A48C65100A4A49C /* Fit - Run Tracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B621B7551A48C65100A4A49C /* Fit - Run TrackerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B621B7631A48C65100A4A49C /* Build configuration list for PBXNativeTarget "Fit - Run TrackerTests" */;
-			buildPhases = (
-				B621B7521A48C65100A4A49C /* Sources */,
-				B621B7531A48C65100A4A49C /* Frameworks */,
-				B621B7541A48C65100A4A49C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B621B7581A48C65100A4A49C /* PBXTargetDependency */,
-			);
-			name = "Fit - Run TrackerTests";
-			productName = "CG4 CourseworkTests";
-			productReference = B621B7561A48C65100A4A49C /* Fit - Run TrackerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B621B7371A48C65100A4A49C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "William Ray";
 				TargetAttributes = {
 					B621B73E1A48C65100A4A49C = {
@@ -446,10 +408,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					B621B7551A48C65100A4A49C = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = B621B73E1A48C65100A4A49C;
 					};
 				};
 			};
@@ -467,7 +425,6 @@
 			projectRoot = "";
 			targets = (
 				B621B73E1A48C65100A4A49C /* Fit - Run Tracker */,
-				B621B7551A48C65100A4A49C /* Fit - Run TrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -480,13 +437,6 @@
 				B668DB051A4C782100DC7CE6 /* MainStoryboard.storyboard in Resources */,
 				B621B7511A48C65100A4A49C /* LaunchScreen.xib in Resources */,
 				B621B74E1A48C65100A4A49C /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B621B7541A48C65100A4A49C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,23 +530,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B621B7521A48C65100A4A49C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B621B75D1A48C65100A4A49C /* CG4_CourseworkTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B621B7581A48C65100A4A49C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B621B73E1A48C65100A4A49C /* Fit - Run Tracker */;
-			targetProxy = B621B7571A48C65100A4A49C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B621B74F1A48C65100A4A49C /* LaunchScreen.xib */ = {
@@ -623,15 +557,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -649,6 +587,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -665,8 +604,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -674,6 +615,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -683,6 +625,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -691,15 +635,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 404B3079BACA5930E7B1519D /* Pods-CG4 Coursework.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "CG4 Coursework/CG4 Coursework.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Roger-Ray.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Fit - Run Tracker";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
@@ -712,53 +657,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3584E6B474B032369155AAC1 /* Pods-CG4 Coursework.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "CG4 Coursework/CG4 Coursework.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Roger-Ray.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Fit - Run Tracker";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		B621B7641A48C65100A4A49C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CG4 CourseworkTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Fit - Run TrackerTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CG4 Coursework.app/CG4 Coursework";
-			};
-			name = Debug;
-		};
-		B621B7651A48C65100A4A49C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CG4 CourseworkTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Fit - Run TrackerTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CG4 Coursework.app/CG4 Coursework";
 			};
 			name = Release;
 		};
@@ -779,15 +691,6 @@
 			buildConfigurations = (
 				B621B7611A48C65100A4A49C /* Debug */,
 				B621B7621A48C65100A4A49C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B621B7631A48C65100A4A49C /* Build configuration list for PBXNativeTarget "Fit - Run TrackerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B621B7641A48C65100A4A49C /* Debug */,
-				B621B7651A48C65100A4A49C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
