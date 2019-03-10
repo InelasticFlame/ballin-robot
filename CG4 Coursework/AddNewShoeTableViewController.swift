@@ -153,7 +153,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     /**
     This method updates the text of the distance detail label in the current distance cell.
     */
-    func updateDetailLabel() {
+    @objc func updateDetailLabel() {
         tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.detailTextLabel?.text = shoeDistancePicker.selectedDistance().distanceStr
     }
 
@@ -271,7 +271,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         
         /* Save Image */
         if selectedImage != nil {
-            let imageData = UIImagePNGRepresentation(selectedImage!)
+            let imageData = selectedImage!.pngData()
             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             shoeNamePath = (shoeNameTextField.text?.replacingOccurrences(of: " ", with: ""))!
             let imagePath = NSURL(fileURLWithPath: documentsPath).appendingPathComponent("\(shoeNamePath).png")

@@ -146,7 +146,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .delete { //1
             if let plan = plan { //a
                 if Database().deletePlannedRun(plan.plannedRuns[indexPath.row]) { //b

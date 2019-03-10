@@ -73,7 +73,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     3. ELSE (DURATION)
         b. Sets the runDistanceDuration label text to the plannedDurationPicker selected duration as a string
     */
-    func updateDetailLabels() {
+    @objc func updateDetailLabels() {
         runDateDetailLabel.text = (plannedRunDatePicker.date as NSDate).shortDateString() //1
         if distanceDurationSegement.selectedSegmentIndex == 0 { //2
             runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr //a

@@ -97,14 +97,14 @@ class RunsTableViewController: UITableViewController {
     /**
     This method calls the function authorise from the StravaAuth class. It is called by the refresh control when a user pulls the table down before the runs are loaded from Strava.
     */
-    func authorise() {
+    @objc func authorise() {
         StravaAuth().authorise()
     }
     
     /**
     This method calls the function loadRunsFromStrava from the StravaRuns classs. It is called after the authorise function has finished (runs cannot be pulled from the Strava server unless the user is authorised first).
     */
-    func loadRuns() {
+    @objc func loadRuns() {
         StravaRuns().loadFromStrava()
     }
     
@@ -114,7 +114,7 @@ class RunsTableViewController: UITableViewController {
     2. Reloeads the data in the table view
     3. Tells the refresh control to end refreshing
     */
-    func finishLoad() {
+    @objc func finishLoad() {
         self.runs = Database().loadRuns(withQuery: "") as! Array<Run> //1
         self.tableView.reloadData() //2
         self.refreshControl?.endRefreshing() //3
@@ -192,7 +192,7 @@ class RunsTableViewController: UITableViewController {
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete { //1
             let run = self.runs[indexPath.row] //a
             if Database().deleteRun(run) { //b

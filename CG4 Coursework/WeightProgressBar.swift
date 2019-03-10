@@ -128,7 +128,7 @@ class WeightProgressBar: UIView {
             weightTextString = NSString(format: "Weight: %1.2f lb", Double(currentWeight) * Conversions().kgToPounds) as String //d
         }
         
-        let goalStringSize = goalString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]) //18
+        let goalStringSize = goalString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 12.0)])) //18
         
         let goalTextLayer = CATextLayer() //19
         goalTextLayer.string = goalString //20
@@ -142,7 +142,7 @@ class WeightProgressBar: UIView {
         self.layer.addSublayer(goalTextLayer) //22
         
         
-        let weightTextSize = weightTextString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17.0)]) //23
+        let weightTextSize = weightTextString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 17.0)])) //23
         
         let weightTextLayer = CATextLayer()
         weightTextLayer.string = weightTextString
@@ -154,4 +154,15 @@ class WeightProgressBar: UIView {
         weightTextLayer.contentsScale = UIScreen.main.scale
         self.layer.addSublayer(weightTextLayer)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

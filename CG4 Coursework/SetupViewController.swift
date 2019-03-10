@@ -112,7 +112,7 @@ class SetupViewController: UIViewController {
             changesMade = false //16
         }
         
-        NotificationCenter.default.addObserver(self, selector: "updateStravaLabel", name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //17
+        NotificationCenter.default.addObserver(self, selector: #selector(SetupViewController.updateStravaLabel), name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //17
         
         updateWeightGoalLabel() //18
         updateCalorieGoalLabel() //19
@@ -201,7 +201,7 @@ class SetupViewController: UIViewController {
     */
     @IBAction func donePressed(sender: AnyObject) {
         if changesMade { //1
-            let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertControllerStyle.alert) //a
+            let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertController.Style.alert) //a
             alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
                 self.saveSettings()
                 self.dismiss(animated: true, completion: nil)
@@ -314,7 +314,7 @@ class SetupViewController: UIViewController {
     /**
     This method updates the StravaLabel when a user's account has been authorised. It sets the text colour to green and sets the text of the label to "Authorised"
     */
-    func updateStravaLabel() {
+    @objc func updateStravaLabel() {
         stravaAuthorisedLabel.textColor = UIColor.green
         stravaAuthorisedLabel.text = "Authorised"
     }

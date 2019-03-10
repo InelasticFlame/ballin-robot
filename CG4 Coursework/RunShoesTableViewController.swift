@@ -31,7 +31,7 @@ class RunShoesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.contentInset = UIEdgeInsetsMake(navigationController!.navigationBar.frame.size.height, 0,0,0);
+        self.tableView.contentInset = UIEdgeInsets.init(top: navigationController!.navigationBar.frame.size.height, left: 0,bottom: 0,right: 0);
         
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 3

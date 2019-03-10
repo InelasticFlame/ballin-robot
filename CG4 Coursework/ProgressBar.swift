@@ -106,7 +106,7 @@ class ProgressBar: UIView {
         self.layer.addSublayer(progressArcLayer) //11
         
         let progressTextString = NSString(format: "%1.2f%%", Double(progress * 100)) //12
-        let progressTextSize = progressTextString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20.0)]) //13
+        let progressTextSize = progressTextString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 20.0)])) //13
         
         let progressTextLayer = CATextLayer() //14
         progressTextLayer.string = progressTextString //15
@@ -119,4 +119,15 @@ class ProgressBar: UIView {
         progressTextLayer.contentsScale = UIScreen.main.scale //16
         self.layer.addSublayer(progressTextLayer) //17
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

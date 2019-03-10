@@ -139,7 +139,7 @@ class TrainingPlansTableViewController: UITableViewController {
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete { //1
             if Database().deletePlan(plans[indexPath.section][indexPath.row]) { //a
                 plans[indexPath.section].remove(at: indexPath.row) //i

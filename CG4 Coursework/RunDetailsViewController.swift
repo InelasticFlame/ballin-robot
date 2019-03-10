@@ -70,8 +70,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             progressBackground.backgroundColor = run.scoreColour() //h
             progressBackground.alpha = 0.4 //i
             overlayView.headerOverlay.addSubview(progressBackground) //j
-            overlayView.headerOverlay.bringSubview(toFront: overlayView.dateLabel) //k
-            overlayView.headerOverlay.bringSubview(toFront: overlayView.timeLabel) //l
+            overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //k
+            overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //l
             
             overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(pace: run.pace) //m
             overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(duration: run.duration) //n
@@ -106,7 +106,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                 coords.append(location.coordinate)
             }
             let polyLine = MKPolyline(coordinates: &coords, count: coords.count) //c
-            mapKitView.add(polyLine) //d
+            mapKitView.addOverlay(polyLine) //d
             centreMapOnRunArea() //e
         }
     }
@@ -183,7 +183,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                 
                 let latDelta = (maxLat - minLat) * 1.1 //h
                 let longDelta = (maxLong - minLong) * 1.1 //i
-                let coordinateSpan = MKCoordinateSpanMake(latDelta, longDelta) //j
+                let coordinateSpan = MKCoordinateSpan.init(latitudeDelta: latDelta, longitudeDelta: longDelta) //j
                 
                 let region = MKCoordinateRegion(center: centreCoord, span: coordinateSpan) //k
                 
