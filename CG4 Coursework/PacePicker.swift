@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PacePicker: UIPickerView, UIPickerViewDelegate {
+class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
 
     /**
     This method is called when the class initialises. It sets the delegate of the picker view to this class.
@@ -19,17 +19,12 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
         super.init(coder: aDecoder)!
         
         self.delegate = self
+        self.dataSource = self
     }
     
     //MARK: - Picker View Data Source
     
-    /**
-    This method is called by the system in order to set up the picker view. It returns the number of components (columns) in the picker, which is this case is fixed as 3.
-    
-    :param: pickerView The UIPickerView requesting the number of components.
-    :returns: The number of components.
-    */
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
     
@@ -40,7 +35,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component the number of rows should be returned for.
     :returns: The number of rows in the component.
     */
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 2 {
             return 2
         } else {

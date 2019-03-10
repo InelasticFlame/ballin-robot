@@ -39,7 +39,7 @@ class AddRunTableViewController: UITableViewController {
         super.viewDidLoad()
         
         updateDetailLabels(notification: nil) //1
-        NotificationCenter.default.addObserver(self, selector: Selector("updateDetailLabels:"), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //2
+        NotificationCenter.default.addObserver(self, selector: #selector(AddRunTableViewController.updateDetailLabels), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //2
     }
 
     // MARK: - Table View Data Source
@@ -112,7 +112,7 @@ class AddRunTableViewController: UITableViewController {
     
     :param: notification The NSNotification which called the method.
     */
-    func updateDetailLabels(notification: NSNotification?) {
+    @objc func updateDetailLabels(notification: NSNotification?) {
         if let notification = notification { //1
             checkRunValues(notification: notification) //a
         }

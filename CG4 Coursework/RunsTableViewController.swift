@@ -33,7 +33,9 @@ class RunsTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.finishLoad), name: NSNotification.Name(rawValue: "RunLoadComplete"), object: nil) //2
         NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.loadRuns), name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //3
         
-        if (UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Strava.AccessTokenKey)?.count)! > 0 { //4
+        
+        
+        if (UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Strava.AccessTokenKey) ?? "").count > 0 { //4
             self.refreshControl = UIRefreshControl() //a
             self.refreshControl?.addTarget(self, action: #selector(RunsTableViewController.authorise), for: .valueChanged) //b
         }

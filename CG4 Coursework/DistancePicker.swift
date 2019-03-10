@@ -8,8 +8,8 @@
 
 import UIKit
 
-class DistancePicker: UIPickerView, UIPickerViewDelegate {
-
+class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     /**
     This method is called when the class initialises. It sets the delegate of the picker view to this class.
     
@@ -19,35 +19,23 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
         super.init(coder: aDecoder)!
         
         self.delegate = self
+        self.dataSource = self
     }
 
     //MARK: - Picker View Data Source
     
-    /**
-    This method is called by the system in order to set up the picker view. It returns the number of components (columns) in the picker, which is this case is fixed as 3.
-    
-    :param: pickerView The UIPickerView requesting the number of components.
-    :returns: The number of components.
-    */
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
-
-    /**
-    This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; IF the component is the last component return 2 (for miles or km), otherwise it returns 100 (for 0 to 99 miles or hundredths of a mile)
     
-    :param: pickerView The UIPickerView requesting the number of components.
-    :param: component An integer identifying the component the number of rows should be returned for.
-    :returns: The number of rows in the component.
-    */
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 2 {
             return 2
         } else {
             return 100
         }
     }
-    
+
     /**
     This method is called by the system in order to set up the picker view. It returns the title for a row in a component.
     1. IF the component is the first component
@@ -65,7 +53,8 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
         if component == 0 { //1
             return "\(row)" //a //miles
         } else if component == 1 { //2

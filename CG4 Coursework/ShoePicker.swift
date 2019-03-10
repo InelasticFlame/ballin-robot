@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShoePicker: UIPickerView, UIPickerViewDelegate {
+class ShoePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
 
     //MARK: - Global Variables
     
@@ -25,6 +25,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
         super.init(coder: aDecoder)!
         
         self.delegate = self
+        self.dataSource = self
         self.shoes = Database().loadAllShoes() as! [Shoe]
     }
     
@@ -36,7 +37,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     :param: pickerView The UIPickerView requesting the number of components.
     :returns: The number of components.
     */
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
@@ -47,7 +48,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component the number of rows should be returned for.
     :returns: The number of rows in the component.
     */
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return shoes.count + 1
     }
     
