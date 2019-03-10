@@ -24,7 +24,7 @@ class AddRunTableViewController: UITableViewController {
     @IBOutlet weak var runShoeDetailLabel: UILabel!
     
     //MARK: - Global Variables
-    private var indexPathToShow: NSIndexPath? //A global NSIndexPath variable that stores the index path of the cell with a picker view that is currently to be displayed
+    private var indexPathToShow: IndexPath? //A global IndexPath variable that stores the index path of the cell with a picker view that is currently to be displayed
     private var lastPicker = "" //A global string variable that stores the last picker used, this is used to know which pickers to use in calculations
     private var currentPicker = "" //A global string variable that stores the picker currently being used, this is used to know which pickers to use in calculations
     
@@ -38,8 +38,8 @@ class AddRunTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateDetailLabels(nil) //1
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels:", name: "UpdateDetailLabel", object: nil) //2
+        updateDetailLabels(notification: nil) //1
+        NotificationCenter.default.addObserver(self, selector: Selector("updateDetailLabels:"), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //2
     }
 
     // MARK: - Table View Data Source
@@ -57,7 +57,7 @@ class AddRunTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row % 2 == 0 { //1
             return Constants.TableView.DefaultRowHeight //a
         } else { //2
@@ -82,17 +82,17 @@ class AddRunTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        if indexPathToShow == NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section) { //1
+        if indexPathToShow == IndexPath(row: indexPath.row + 1, section: indexPath.section) { //1
             indexPathToShow = nil //a
         } else { //2
             indexPathToShow = nil //b
             tableView.reloadTableViewCells() //c
-            indexPathToShow = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section) //d
+            indexPathToShow = IndexPath(row: indexPath.row + 1, section: indexPath.section) //d
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true) //3
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true) //3
         tableView.reloadTableViewCells() //4
     }
     
@@ -114,9 +114,9 @@ class AddRunTableViewController: UITableViewController {
     */
     func updateDetailLabels(notification: NSNotification?) {
         if let notification = notification { //1
-            checkRunValues(notification) //a
+            checkRunValues(notification: notification) //a
         }
-        runDateDetailLabel.text = runDatePicker.date.shortDateString() //2
+        runDateDetailLabel.text = (runDatePicker.date as NSDate).shortDateString()
         runDistanceDetailLabel.text = runDistancePicker.selectedDistance().distanceStr //3
         runPaceDetailLabel.text = runPacePicker.selectedPace().paceStr //4
         runDurationDetailLabel.text = runDurationPicker.selectedDuration().durationStr //5
@@ -163,7 +163,7 @@ class AddRunTableViewController: UITableViewController {
         let userInfo = notification.userInfo as NSDictionary?
         
         if let userInfo = userInfo { //2
-            let pickerValueChanged = userInfo.objectForKey("valueChanged") as String //a
+            let pickerValueChanged = userInfo.object(forKey: "valueChanged") as! String //a
             
             if pickerValueChanged != currentPicker { //b
                 lastPicker = currentPicker //i
@@ -173,17 +173,17 @@ class AddRunTableViewController: UITableViewController {
             if (currentPicker == "DISTANCE" || currentPicker == "PACE") && (lastPicker == "DISTANCE" || lastPicker == "PACE") { //c
                 if runPace != 0 && runDistance != 0  { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newDuration = Int(runDistance * Double(runPace)) //iii
-                    runDurationPicker.setDuration(newDuration) //iv
+                    runDurationPicker.setDuration(duration: newDuration) //iv
                 }
             } else if (currentPicker == "DISTANCE" || currentPicker == "DURATION") && (lastPicker == "DISTANCE" || lastPicker == "DURATION") { //d
                 if runDuration != 0 && runDistance != 0  { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newPace = Int(Double(runDuration) / runDistance) //v
-                    runPacePicker.setPace(newPace) //vi
+                    runPacePicker.setPace(pace: newPace) //vi
                 }
             } else if (currentPicker == "PACE" || currentPicker == "DURATION") && (lastPicker == "PACE" || lastPicker == "DURATION") {
                 if runDuration != 0 && runPace != 0  { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newDistance = Double(runDuration) / Double(runPace) //vii
-                    runDistancePicker.setDistance(newDistance) //viii
+                    runDistancePicker.setDistance(distance: newDistance) //viii
                 }
             }
         }
@@ -221,16 +221,16 @@ class AddRunTableViewController: UITableViewController {
         let selectedShoe: Shoe? = runShoePicker.selectedShoe()
         
         if runDistance > 0 && runPace > 0 && runDuration > 0 { //2
-            let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker.date, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
+            let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker!.date as NSDate, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
             run.calculateRunScore() //b
             Database().saveRun(run) //c
             Database().increaseShoeMiles(selectedShoe, byAmount: runDistance) //d
-            self.navigationController?.popViewControllerAnimated(true) //e
+            self.navigationController?.popViewController(animated: true) //e
         } else { //3
             let error = "At least 2 from distance, pace and duration must have been input." //f
-            let alert = UIAlertController(title: "Invalid Run", message: error, preferredStyle: .Alert) //g
-            alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil)) //h
-            self.presentViewController(alert, animated: true, completion: nil) //i
+            let alert = UIAlertController(title: "Invalid Run", message: error, preferredStyle: .alert) //g
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil)) //h
+            self.present(alert, animated: true, completion: nil) //i
         }
     }
 }

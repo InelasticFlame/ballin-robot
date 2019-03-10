@@ -22,10 +22,10 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         
         self.delegate = self
-        self.shoes = Database().loadAllShoes() as [Shoe]
+        self.shoes = Database().loadAllShoes() as! [Shoe]
     }
     
     //MARK: - Picker View Data Source
@@ -63,7 +63,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         if row == 0 { //1
             return "None" //a
         } else { //2
@@ -78,8 +78,8 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     :param: row An integer identifying the row which was selected.
     :param: component An integer identifying the component that the row is in.
     */
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "SHOE", forKey: "valueChanged"))
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "SHOE", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any]))
     }
     
     /**
@@ -96,7 +96,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate {
     :returns: The selected shoe in the picker as a Shoe object.
     */
     func selectedShoe() -> Shoe? {
-        let selectedRow = self.selectedRowInComponent(0) //1
+        let selectedRow = self.selectedRow(inComponent: 0) //1
         
         if selectedRow == 0 { //2
             return nil //a

@@ -41,7 +41,7 @@ class CaloriesAndWeightViewController: UIViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         setDateLabel() //1
         requestAuthorisationForHealthKitAccess() //2
     }
@@ -69,7 +69,7 @@ class CaloriesAndWeightViewController: UIViewController {
         
         let frame = CGRect(x: 0, y: 0, width: self.weightProgressBarView.frame.width, height: self.weightProgressBarView.frame.height) //2
         
-        let goalWeight = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Weight.GoalKey) //3
+        let goalWeight = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Weight.GoalKey) //3
         
         let progressBar = WeightProgressBar(currentWeight: CGFloat(currentWeight), goalWeight: CGFloat(goalWeight), frame: frame) //4
         self.weightProgressBarView.addSubview(progressBar) //5
@@ -84,8 +84,8 @@ class CaloriesAndWeightViewController: UIViewController {
     :param: message The string to display as the reason weight progress could not be displayed.
     */
     func hideWeightProgress(message: String) {
-        self.weightHistoryButton.hidden = true //1
-        weightErrorLabel.hidden = false //2
+        self.weightHistoryButton.isHidden = true //1
+        weightErrorLabel.isHidden = false //2
         weightErrorLabel.text = message //3
     }
     
@@ -121,16 +121,16 @@ class CaloriesAndWeightViewController: UIViewController {
             let frame = CGRect(x: 0, y: 0, width: caloriesProgressBarView.frame.width, height: caloriesProgressBarView.frame.height) //a
             
             let netCalories = caloriesConsumed - caloriesBurnt //b
-            let calorieGoal = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Calories.GoalKey) //c
+            let calorieGoal = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Calories.GoalKey) //c
             
             let progress: Double = netCalories / calorieGoal //d
             
             let progressBar = ProgressBar(progress: CGFloat(progress), frame: frame) //e
             self.caloriesProgressBarView.addSubview(progressBar) //f
             
-            calorieSummaryLabel.text = NSString(format: "%1.0f calories used of %1.0f", netCalories, calorieGoal) //g
-            burntCaloriesLabel.text = NSString(format: "%1.0f calories burnt", caloriesBurnt) //h
-            eatenCaloriesLabel.text = NSString(format: "%1.0f calories consumed", caloriesConsumed) //i
+            calorieSummaryLabel.text = NSString(format: "%1.0f calories used of %1.0f", netCalories, calorieGoal) as String //g
+            burntCaloriesLabel.text = NSString(format: "%1.0f calories burnt", caloriesBurnt) as String //h
+            eatenCaloriesLabel.text = NSString(format: "%1.0f calories consumed", caloriesConsumed) as String //i
         } else { //3
             calorieSummaryLabel.text = "No calorie data." //j
         }
@@ -185,36 +185,36 @@ class CaloriesAndWeightViewController: UIViewController {
         doubleWeight - This is used by the block; it is a double constant that stores the user's weight as a double (converted from a HKQuantitySample)
     */
     func loadWeightDataFromHealthKit() {
-        let weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram) //1
+        let weightUnit = HKUnit(from: .kilogram) //1
         
-        let weightQuantity = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass) //2
+        let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
         
-        let startDate = NSDate.distantPast() as NSDate //3
-        let endDate = NSDate(timeInterval: secondsInDay - 1, sinceDate: NSDate(shortDateString: self.currentDate.shortDateString())) //4
+        let startDate = NSDate.distantPast as NSDate //3
+        let endDate = NSDate(timeInterval: secondsInDay - 1, since: NSDate(shortDateString: self.currentDate.shortDateString()) as Date) //4
         //The 'end date' that is the very end of the day of the start date
         
-        let predicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: nil) //5
+        let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //5
         
-        self.healthStore.retrieveMostRecentSample(weightQuantity, predicate: predicate) { (currentWeight, error) -> Void in //6
+        self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (currentWeight, error) -> Void in //6
             /* BLOCK A START */ //7
             if error != nil { //a
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //i
-                    self.hideWeightProgress("Unable to get weight data.")
-                    println("Error Reading From HealthKit Datastore: \(error.localizedDescription)")
-                })
+                DispatchQueue.main.async {  //i
+                    self.hideWeightProgress(message: "Unable to get weight data.")
+                    print("Error Reading From HealthKit Datastore: \(error!.localizedDescription)")
+                }
             }
             
             if let weight = currentWeight as? HKQuantitySample { //b
-                let doubleWeight = weight.quantity.doubleValueForUnit(weightUnit) //ii
+                let doubleWeight = weight.quantity.doubleValue(for: weightUnit) //ii
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //iii
+                DispatchQueue.main.async {
                     self.currentWeight = doubleWeight
                     self.addWeightProgressBar()
-                })
+                }
             } else { //c
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //iv
-                    self.hideWeightProgress("No weight data.")
-                })
+                DispatchQueue.main.async {
+                    self.hideWeightProgress(message: "No weight data.")
+                }
             }
             /* BLOCK A END */
         }
@@ -246,43 +246,44 @@ class CaloriesAndWeightViewController: UIViewController {
         predicate - A constant NSPredicate used to filter the results of the query
     */
     func loadCalorieDataFromHealthKit() {
-        let unit = HKUnit(fromEnergyFormatterUnit: .Kilocalorie) //1
-        let caloriesBurnt = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned) //2
-        let caloriesConsumed = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed) //3
-        let predicate = HKQuery.predicateForSamplesWithStartDate(NSDate(shortDateString: self.currentDate.shortDateString()), endDate: NSDate(timeInterval: secondsInDay - 1, sinceDate: NSDate(shortDateString: self.currentDate.shortDateString())), options: nil) //4
+        let unit = HKUnit(from: .kilocalorie) //1
+        let caloriesBurnt = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned) //2
+        let caloriesConsumed = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed) //3
+        let predicate = HKQuery.predicateForSamples(withStart: NSDate(shortDateString: self.currentDate.shortDateString()) as Date, end: NSDate(timeInterval: secondsInDay - 1, since: NSDate(shortDateString: self.currentDate.shortDateString()) as Date) as Date, options: []) //4
         
-        self.healthStore.retrieveSumOfSample(caloriesConsumed, unit: unit, predicate: predicate) { (sum, error) -> Void in //5
+        self.healthStore.retrieveSumOfSample(quantityType: caloriesConsumed!, unit: unit, predicate: predicate) { (sum, error) -> Void in //5
             /* BLOCK A START */ //6
             if error != nil { //a
-                print("Error retrieving calorie consumed sum: " + error.localizedDescription) //i
+                print("Error retrieving calorie consumed sum: " + error!.localizedDescription) //i
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //ii
+                DispatchQueue.main.async {
                     self.calorieSummaryLabel.text = "Unable to get calorie data."
-                    self.burntCaloriesLabel.hidden = true
-                    self.eatenCaloriesLabel.hidden = true
-                })
+                    self.burntCaloriesLabel.isHidden = true
+                    self.eatenCaloriesLabel.isHidden = true
+                }
                 
                 return //iii
             }
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in //b
+            
+            DispatchQueue.main.async {
                 /* BLOCK B START */
-                self.caloriesConsumed = sum //iv
+                self.caloriesConsumed = sum! //iv
                 
-                self.healthStore.retrieveSumOfSample(caloriesBurnt, unit: unit, predicate: predicate) { (sum, error) -> Void in //v
+                self.healthStore.retrieveSumOfSample(quantityType: caloriesBurnt!, unit: unit, predicate: predicate) { (sum, error) -> Void in //v
                     /* BLOCK C START */ //vi
                     if error != nil { //Z
-                        print("Error retrieving calorie burnt sum: " + error.localizedDescription)
+                        print("Error retrieving calorie burnt sum: " + error!.localizedDescription)
                     }
                     
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in //Y
-                        self.caloriesBurnt = sum
+                    DispatchQueue.main.async { //Y
+                        self.caloriesBurnt = sum!
                         self.addCalorieProgressBar()
-                    })
+                    }
                     /* BLOCK C END */
                 }
                 
                 /* BLOCK B END */
-            })
+            }
             /* BLOCK A END */
         }
     }
@@ -305,30 +306,32 @@ class CaloriesAndWeightViewController: UIViewController {
         weight - A constant HKQuantityType that is to be requested permission to read
     */
     func requestAuthorisationForHealthKitAccess() {
-        let caloriesConsumed = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed) //1
-        let caloriesBurnt = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned)
-        let weight = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)
+        let caloriesConsumed = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed) //1
+        let caloriesBurnt = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)
+        let weight = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass)
         
-        self.healthStore.requestAuthorizationToShareTypes(NSSet(), readTypes: NSSet(array: [caloriesConsumed, caloriesBurnt, weight])) { (success: Bool, error: NSError!) -> Void in //2 //3
-            /* BLOCK START */
-            
+        var readTypes = Set<HKObjectType>()
+        readTypes.insert(caloriesBurnt!)
+        readTypes.insert(caloriesConsumed!)
+        readTypes.insert(weight!)
+        
+        self.healthStore.requestAuthorization(toShare: Set<HKSampleType>(), read: readTypes) { (success, error) in
             if !success { //a
-                println("Authorising HealthKit access unsuccessful. Error: " + error.description) //i
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //ii
+                print("Authorising HealthKit access unsuccessful. Error: " + error.debugDescription) //i
+                DispatchQueue.main.async {
                     /* BLOCK D START */
                     self.hideUIForNoAccess()
                     /* BLOCK D END */
-                })
+                }
             } else { //b
-                println("Success: HealthKit access is authorised.") //iii
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //iv
+                print("Success: HealthKit access is authorised.") //iii
+                DispatchQueue.main.async {
                     /* BLOCK D START */
                     self.loadWeightDataFromHealthKit()
                     self.loadCalorieDataFromHealthKit()
                     /* BLOCK D END */
-                })
+                }
             }
-            /* BLOCK END */
         }
     }
     
@@ -344,14 +347,14 @@ class CaloriesAndWeightViewController: UIViewController {
     func hideUIForNoAccess() {
         let noAccessLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.window!.frame.width, height: self.view.window!.frame.height)) //1
         noAccessLabel.text = "HealthKit access must be enabled to use this feature."
-        noAccessLabel.textColor = UIColor.blackColor()
-        noAccessLabel.backgroundColor = UIColor.whiteColor()
+        noAccessLabel.textColor = UIColor.black
+        noAccessLabel.backgroundColor = UIColor.white
         noAccessLabel.numberOfLines = 0
         noAccessLabel.font = UIFont(name: "System", size: 16)
-        noAccessLabel.textAlignment = .Center
+        noAccessLabel.textAlignment = .center
         noAccessLabel.sizeToFit()
         
-        self.navigationItem.leftBarButtonItem = .None //2
+        self.navigationItem.leftBarButtonItem = .none //2
         self.navigationItem.prompt = nil
         
         self.view = noAccessLabel //3
@@ -369,7 +372,7 @@ class CaloriesAndWeightViewController: UIViewController {
     :param: sender The object that called the action (in this case the Next button).
     */
     @IBAction func nextButtonPress(sender: AnyObject) {
-        currentDate = NSDate(timeInterval: secondsInDay, sinceDate: currentDate) //1
+        currentDate = NSDate(timeInterval: secondsInDay, since: currentDate as Date) //1
         setDateLabel() //2
         loadWeightDataFromHealthKit() //3
         loadCalorieDataFromHealthKit() //4
@@ -387,7 +390,7 @@ class CaloriesAndWeightViewController: UIViewController {
     */
     @IBAction func previousDayPress(sender: AnyObject) {
         nextDayButton.title = "Next Day" //1
-        currentDate = NSDate(timeInterval: -secondsInDay, sinceDate: currentDate) //2
+        currentDate = NSDate(timeInterval: -secondsInDay, since: currentDate as Date) //2
         setDateLabel() //3
         loadWeightDataFromHealthKit() //4
         loadCalorieDataFromHealthKit() //5

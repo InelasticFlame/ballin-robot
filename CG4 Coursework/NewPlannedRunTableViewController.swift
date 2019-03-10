@@ -42,13 +42,13 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         super.viewDidLoad()
         
         //1
-        plannedRunDatePicker.minimumDate = plan?.startDate //Prevents a user from planning a run before the plan begins
-        plannedRunDatePicker.maximumDate = plan?.endDate //Prevents a user from planning a run after the plan ends
+        plannedRunDatePicker.minimumDate = plan?.startDate as! Date //Prevents a user from planning a run before the plan begins
+        plannedRunDatePicker.maximumDate = plan?.endDate as! Date //Prevents a user from planning a run after the plan ends
         
         updateDetailLabels() //2
         
-        plannedRunDatePicker.addTarget(self, action: "updateDetailLabels", forControlEvents: .ValueChanged) //3
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabels", name: "UpdateDetailLabel", object: nil) //4
+        plannedRunDatePicker.addTarget(self, action: #selector(NewPlannedRunTableViewController.updateDetailLabels), for: .valueChanged) //3
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPlannedRunTableViewController.updateDetailLabels), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //4
     }
 
     //MARK: - Interface Updates
@@ -74,7 +74,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         b. Sets the runDistanceDuration label text to the plannedDurationPicker selected duration as a string
     */
     func updateDetailLabels() {
-        runDateDetailLabel.text = plannedRunDatePicker.date.shortDateString() //1
+        runDateDetailLabel.text = (plannedRunDatePicker.date as NSDate).shortDateString() //1
         if distanceDurationSegement.selectedSegmentIndex == 0 { //2
             runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr //a
         } else if distanceDurationSegement.selectedSegmentIndex == 1 { //3
@@ -92,7 +92,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     :param: textField The UITextField whose return button was pressed.
     :returns: A boolean value indicating whether the text field's default behaviour should be perform (true) or not (false)
     */
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
         
         return false //2
@@ -122,7 +122,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 5 || indexPath.row == 7 { //1
             return Constants.TableView.DefaultRowHeight //a
         } else if indexPath.row == 8 && showRepeat { //2
@@ -161,7 +161,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 { //1
             editingRunDate = !editingRunDate //a
             editingRunDistanceDuration = false //b
@@ -247,7 +247,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             error += "A run must have a distance or duration greater than 0. \n" //c
         }
         
-        let stringValidation = runDetailsTextField.text.validateString("Plan details", maxLength: 40, minLength: 0) //6
+        let stringValidation = runDetailsTextField.text!.validateString(stringName: "Plan details", maxLength: 40, minLength: 0) //6
         if !stringValidation.valid { //7
             error += stringValidation.error + "\n" //d
         }
@@ -260,7 +260,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             tableView.reloadTableViewCells() //g
             
             if showRepeat { //h
-                if let repeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0)) { //i
+                if let repeatCell = tableView.cellForRow(at: NSIndexPath(row: 7, section: 0) as IndexPath) { //i
                     if let text = repeatCell.detailTextLabel?.text as String? { //ii
                         switch text { //iii
                         case "Every Day": //iv
@@ -274,34 +274,34 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
                         case "Every 4 Weeks":
                             timeInterval = secondsInDay * 28
                         default: //vii
-                            println("Every Identifying Repeat Option")
+                            print("Every Identifying Repeat Option")
                         }
                     }
                 }
                 
-                if let endRepeatCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0)) { //viii
+                if let endRepeatCell = tableView.cellForRow(at: NSIndexPath(row: 8, section: 0) as IndexPath) { //viii
                     if endRepeatCell.detailTextLabel?.text == "Until Plan End" { //ix
-                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: plan!.endDate) //x
+                        repeatEndDate = NSDate(timeInterval: secondsInDay, since: plan!.endDate as Date) //x
                     } else { //xi
-                        repeatEndDate = NSDate(timeInterval: secondsInDay, sinceDate: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!)) //xii
+                        repeatEndDate = NSDate(timeInterval: secondsInDay, since: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!) as Date) //xii
                     }
                 }
                 
                 var plannedRunDate = plannedRunDatePicker.date //xiii
                 
-                while plannedRunDate.compare(repeatEndDate) == .OrderedAscending { //xiv
-                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
+                while plannedRunDate.compare(repeatEndDate as Date) == .orderedAscending { //xiv
+                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDate as NSDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
                     Database().savePlannedRun(plannedRun, forPlan: plan)
-                    plannedRunDate = NSDate(timeInterval: timeInterval, sinceDate: plannedRunDate) //xvi
+                    plannedRunDate = NSDate(timeInterval: timeInterval, since: plannedRunDate) as Date //xvi
                 }
             } else { //i
-                let plannedRun = PlannedRun(ID: 0, date: plannedRunDatePicker.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //j
+                let plannedRun = PlannedRun(ID: 0, date: plannedRunDatePicker!.date as NSDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //j
                 
                 Database().savePlannedRun(plannedRun, forPlan: plan)
             }
-            self.navigationController!.popViewControllerAnimated(true) //k
+            self.navigationController!.popViewController(animated: true) //k
         } else { //9
-            self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 6, inSection: 0))?.textLabel?.text? = error //l
+            self.tableView.cellForRow(at: NSIndexPath(row: 6, section: 0) as IndexPath)?.textLabel?.text? = error //l
             showError = true //m
             self.tableView.reloadTableViewCells() //n
         }
@@ -322,15 +322,15 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "repeatPress" { //1
-            if let destinationVC = segue.destinationViewController as? RepeatsTableViewController { //a
-                destinationVC.repeatOption = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text? //i
+            if let destinationVC = segue.destination as? RepeatsTableViewController { //a
+                destinationVC.repeatOption = tableView.cellForRow(at: NSIndexPath(row: 7, section: 0) as IndexPath)?.detailTextLabel?.text //i
             }
         } else if segue.identifier == "repeatEndDatePress" { //2
-            if let destinationVC = segue.destinationViewController as? RepeatSettingsTableViewController { //b
-                destinationVC.repeatEnd = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text? //ii
-                destinationVC.plannedRunDate = plannedRunDatePicker.date //iii
+            if let destinationVC = segue.destination as? RepeatSettingsTableViewController { //b
+                destinationVC.repeatEnd = tableView.cellForRow(at: NSIndexPath(row: 8, section: 0) as IndexPath)?.detailTextLabel?.text //ii
+                destinationVC.plannedRunDate = plannedRunDatePicker.date as NSDate //iii
             }
         }
         
@@ -356,7 +356,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             showRepeat = false //c
             tableView.reloadTableViewCells() //d
         }
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 7, inSection: 0))?.detailTextLabel?.text = repeatText //3
+        tableView.cellForRow(at: NSIndexPath(row: 7, section: 0) as IndexPath)?.detailTextLabel?.text = repeatText //3
     }
     
     /**
@@ -366,6 +366,6 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     :param: repeatEndOption The string of the selected end option for the repeat.
     */
     func setRepeatEndDetailLabelText(repeatEndOption: String) {
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 8, inSection: 0))?.detailTextLabel?.text = repeatEndOption
+        tableView.cellForRow(at: NSIndexPath(row: 8, section: 0) as IndexPath)?.detailTextLabel?.text = repeatEndOption
     }
 }

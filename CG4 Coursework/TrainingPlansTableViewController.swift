@@ -21,7 +21,7 @@ class TrainingPlansTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = editButtonItem() //1
+        self.navigationItem.rightBarButtonItem = editButtonItem //1
     }
     
     /**
@@ -40,11 +40,11 @@ class TrainingPlansTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
-        plans[0].removeAll(keepCapacity: false) //1
-        plans[1].removeAll(keepCapacity: false)
+    override func viewWillAppear(_ animated: Bool) {
+        plans[0].removeAll(keepingCapacity: false) //1
+        plans[1].removeAll(keepingCapacity: false)
         
-        let unsortedPlans: [Plan] = Database().loadAllTrainingPlans() as [Plan] //1
+        let unsortedPlans: [Plan] = Database().loadAllTrainingPlans() as! [Plan] //1
         
         for plan: Plan in unsortedPlans { //3
             if plan.active { //3a
@@ -65,7 +65,7 @@ class TrainingPlansTableViewController: UITableViewController {
     :param: tableView The UITableView that is requesting the information from the delegate.
     :returns: An integer value that is the number of sections in the table view.
     */
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
@@ -77,7 +77,7 @@ class TrainingPlansTableViewController: UITableViewController {
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return plans[section].count
     }
 
@@ -100,15 +100,15 @@ class TrainingPlansTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 { //1
-            let cell = tableView.dequeueReusableCellWithIdentifier("activePlan", forIndexPath: indexPath) as UITableViewCell //1a
+            let cell = tableView.dequeueReusableCell(withIdentifier: "activePlan", for: indexPath as IndexPath) as UITableViewCell //1a
             cell.textLabel?.text = plans[0][indexPath.row].name //1b
             cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.shortDateString() //1c
             
             return cell //1d
         } else { //2
-            let cell = tableView.dequeueReusableCellWithIdentifier("inactivePlan", forIndexPath: indexPath) as UITableViewCell //2a
+            let cell = tableView.dequeueReusableCell(withIdentifier: "inactivePlan", for: indexPath as IndexPath) as UITableViewCell //2a
             cell.textLabel?.text = plans[1][indexPath.row].name //2b
             
             return cell //2c
@@ -120,7 +120,7 @@ class TrainingPlansTableViewController: UITableViewController {
     1. IF the section is 0, return "Active Plans"
     2. ELSE return "In-active Plans"
     */
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 { //1
             return "Active Plans"
         } else { //2
@@ -139,11 +139,11 @@ class TrainingPlansTableViewController: UITableViewController {
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete { //1
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete { //1
             if Database().deletePlan(plans[indexPath.section][indexPath.row]) { //a
-                plans[indexPath.section].removeAtIndex(indexPath.row) //i
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+                plans[indexPath.section].remove(at: indexPath.row) //i
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .fade) //ii
             }
         }
     }
@@ -159,9 +159,9 @@ class TrainingPlansTableViewController: UITableViewController {
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationVC = segue.destinationViewController as? PlanDetailsViewController { //1
-            if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) { //1a
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? PlanDetailsViewController { //1
+            if let selectedIndex = self.tableView.indexPath(for: sender as! UITableViewCell) { //1a
                 destinationVC.plan = plans[selectedIndex.section][selectedIndex.row] //1ai
             }
         }

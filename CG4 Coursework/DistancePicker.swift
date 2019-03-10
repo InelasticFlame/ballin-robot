@@ -16,7 +16,7 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         
         self.delegate = self
     }
@@ -65,11 +65,11 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 { //1
             return "\(row)" //a //miles
         } else if component == 1 { //2
-            return NSString(format: ".%02i", row) //b //hundredths of a mile
+            return NSString(format: ".%02i", row) as String //b //hundredths of a mile
         } else { //3
             //units
             if row == 0 { //c
@@ -87,8 +87,8 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
     :param: row An integer identifying the row which was selected.
     :param: component An integer identifying the component that the row is in.
     */
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "DISTANCE", forKey: "valueChanged"))
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: NSDictionary(object: "DISTANCE", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any])
     }
     
     /**
@@ -122,17 +122,17 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate {
         var distance = 0.00
         var distanceStr = ""
         
-        if self.selectedRowInComponent(2) == 0 {
+        if self.selectedRow(inComponent: 2) == 0 {
             //The picker is in MILES
-            let miles = Double(self.selectedRowInComponent(0))
-            let hundredthsMiles = Double(self.selectedRowInComponent(1))
+            let miles = Double(self.selectedRow(inComponent: 0))
+            let hundredthsMiles = Double(self.selectedRow(inComponent: 1))
             
             distance = miles + (hundredthsMiles/100)
             distanceStr = "\(distance) mi"
         } else {
             //The picker is in KILOMETRES
-            let kilometres = Double(self.selectedRowInComponent(0))
-            let hundredthsKilometres = Double(self.selectedRowInComponent(1))
+            let kilometres = Double(self.selectedRow(inComponent: 0))
+            let hundredthsKilometres = Double(self.selectedRow(inComponent: 1))
             
             let totalKmDistance = kilometres + (hundredthsKilometres/100)
             

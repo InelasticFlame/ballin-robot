@@ -63,8 +63,8 @@ struct Constants {
 }
 
 /* Expose Personal Best Keys to Obj-C */
-@objc class ObjConstants {
-    private init() {}
+@objc class ObjConstants : NSObject {
+    private override init() {}
     
     class func longestDistanceKey() -> String { return Constants.DefaultsKeys.PersonalBests.LongestDistanceKey }
     class func longestDurationKey() -> String { return Constants.DefaultsKeys.PersonalBests.LongestDurationKey }

@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     :param: url The URL the app was opened with.
     :returns: Returns a boolean value indicating if the delegate successfully handle the URL request.
     */
-    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         
-        StravaAuth().checkReturnURL(url) //1
+        StravaAuth().checkReturn(url as URL) //1
         
         return true
     }

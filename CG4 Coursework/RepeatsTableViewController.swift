@@ -21,7 +21,7 @@ class RepeatsTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         setSelectedRepeatOption()
     }
 
@@ -41,22 +41,22 @@ class RepeatsTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clearCheckmarks() //1
         
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark //2
-        tableView.deselectRowAtIndexPath(indexPath, animated: true) //3
+        tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark //2
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true) //3
 
         if let viewControllersCount = self.navigationController?.viewControllers.count { //4
             
             if let previousVC = self.navigationController?.viewControllers[viewControllersCount - 2] as? NewPlannedRunTableViewController { //a
-                if let selectedRepeatOption = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text { //i
-                    previousVC.setRepeatDetailLabelText(selectedRepeatOption) //ii
+                if let selectedRepeatOption = tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text { //i
+                    previousVC.setRepeatDetailLabelText(repeatText: selectedRepeatOption) //ii
                 }
             }
         }
         
-        navigationController?.popViewControllerAnimated(true) //5
+        navigationController?.popViewController(animated: true) //5
     }
     
     /**
@@ -74,14 +74,14 @@ class RepeatsTableViewController: UITableViewController {
         rowNo - An integer variable that is the current row in a section
     */
     func clearCheckmarks() {
-        let sectionCount = tableView.numberOfSections()
+        let sectionCount = tableView.numberOfSections
         
-        for var sectionNo = 0; sectionNo < sectionCount; sectionNo++ {
+        for sectionNo in 0 ..< sectionCount {
             
-            let rowCount = tableView.numberOfRowsInSection(sectionNo)
+            let rowCount = tableView.numberOfRows(inSection: sectionNo)
             
-            for var rowNo = 0; rowNo < rowCount; rowNo++ {
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNo, inSection: sectionNo))?.accessoryType = .None
+            for rowNo in 0 ..< rowCount {
+                tableView.cellForRow(at: IndexPath(row: rowNo, section: sectionNo))?.accessoryType = .none
             }
         }
     }
@@ -102,11 +102,11 @@ class RepeatsTableViewController: UITableViewController {
     */
     func setSelectedRepeatOption() {
         
-        let rowCount = tableView.numberOfRowsInSection(0) //1
-        for var rowNumber = 0; rowNumber < rowCount; rowNumber++ { //2
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNumber, inSection: 0)) { //a
+        let rowCount = tableView.numberOfRows(inSection: 0) //1
+        for rowNumber in 0 ..< rowCount { //2
+            if let cell = tableView.cellForRow(at: IndexPath(row: rowNumber, section: 0)) { //a
                 if cell.textLabel?.text == repeatOption { //i
-                    cell.accessoryType = .Checkmark //ii
+                    cell.accessoryType = .checkmark //ii
                 }
             }
         }

@@ -42,12 +42,12 @@ class HomeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        distanceHeaderView.addBorder(2)
-        distanceMainView.addBorder(2)
-        shoesHeaderView.addBorder(2)
-        shoesMainView.addBorder(2)
-        personalBestsHeaderView.addBorder(2)
-        personalBestMainView.addBorder(2)
+        distanceHeaderView.addBorder(borderWidth: 2)
+        distanceMainView.addBorder(borderWidth: 2)
+        shoesHeaderView.addBorder(borderWidth: 2)
+        shoesMainView.addBorder(borderWidth: 2)
+        personalBestsHeaderView.addBorder(borderWidth: 2)
+        personalBestMainView.addBorder(borderWidth: 2)
     }
     
     /** 
@@ -67,17 +67,17 @@ class HomeTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
-        if !NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
+        if !UserDefaults.standard.bool(forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
             let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil) //a
-            let setupVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController //b
-            self.presentViewController(setupVC, animated: true, completion: nil) //c
+            let setupVC = storyboard.instantiateViewController(withIdentifier: "setupStoryboard") as UIViewController //b
+            self.present(setupVC, animated: true, completion: nil) //c
         }
         
         loadPersonalBests() //2
         loadDistanceProgress() //3
-        loadShoes(NSTimer(timeInterval: 0, target: self, selector: "loadShoes:", userInfo: NSDictionary(object: NSNumber(integer: 0), forKey: "currentShoe"), repeats: false)) //4
+        loadShoes(timer: Timer(timeInterval: 0, target: self, selector: Selector("loadShoes:"), userInfo: NSDictionary(object: NSNumber(value: 0), forKey: "currentShoe" as NSCopying), repeats: false)) //4
     }
     
     /**
@@ -87,7 +87,7 @@ class HomeTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 320
     }
     
@@ -116,25 +116,24 @@ class HomeTableViewController: UITableViewController {
     
     :param: timer The NSTimer object that calls the function.
     */
-    func loadShoes(timer: NSTimer) {
-        shoes = Database().loadAllShoes() as [Shoe] //1
+    func loadShoes(timer: Timer) {
+        shoes = Database().loadAllShoes() as! [Shoe] //1
         if shoes.count > 0 { //2
-            let userInfo = timer.userInfo as NSDictionary //a
-            var currentShoe = userInfo.objectForKey("currentShoe")?.integerValue //b
+            let userInfo = timer.userInfo as! NSDictionary //a
+            var currentShoe = (userInfo.object(forKey: "currentShoe") as AnyObject).integerValue //b
             if currentShoe == shoes.count { //c
                 currentShoe = 0
             }
             
             shoeNameLabel.text = shoes[currentShoe!].name //d
-            shoeDistanceLabel.text = Conversions().distanceForInterface(shoes[currentShoe!].miles) //e
+            shoeDistanceLabel.text = Conversions().distanceForInterface(distance: shoes[currentShoe!].miles) //e
             let shoeImage = shoes[currentShoe!].loadImage() //f
             if shoeImage != nil { //g
                 shoeImageView.image = shoeImage //i
             } else { //h
                 shoeImageView.image = UIImage(named: "ShoeTab30") //ii
             }
-            
-            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("loadShoes:"), userInfo: NSDictionary(object: NSNumber(integer: currentShoe! + 1), forKey: "currentShoe"), repeats: false) //i
+            Timer.scheduledTimer(timeInterval: 3, target: self, selector: Selector("loadShoes:"), userInfo: NSDictionary(object: NSNumber(value: currentShoe! + 1), forKey: "currentShoe" as NSCopying), repeats: false)
         } else { //3
             shoeNameLabel.text = "No Shoes" //j
         }
@@ -168,17 +167,17 @@ class HomeTableViewController: UITableViewController {
             view.removeFromSuperview()
         }
         
-        let goalMiles = NSUserDefaults.standardUserDefaults().doubleForKey(Constants.DefaultsKeys.Distance.GoalKey) //2
+        let goalMiles = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Distance.GoalKey) //2
         let currentMonth = NSDate().monthYearString() //3
-        let runs = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '___\(currentMonth)%'") as [Run] //4
-        let totalMiles = Conversions().totalUpRunMiles(runs) //5
+        let runs = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '___\(currentMonth)%'") as! [Run] //4
+        let totalMiles = Conversions().totalUpRunMiles(runs: runs) //5
         let progress = CGFloat(totalMiles/goalMiles) //6
         
         let progressFrame = CGRect(x: 0, y: 0, width: distanceProgressView.frame.width, height: distanceProgressView.frame.height) //7
         let progressBar = ProgressBar(progress: progress, frame: progressFrame) //8
         self.distanceProgressView.addSubview(progressBar) //9
         
-        distanceProgressLabel.text = Conversions().distanceForInterface(totalMiles) + " of " + Conversions().distanceForInterface(goalMiles) + " ran this month." //10
+        distanceProgressLabel.text = Conversions().distanceForInterface(distance: totalMiles) + " of " + Conversions().distanceForInterface(distance: goalMiles) + " ran this month." //10
     }
     
     /**
@@ -197,28 +196,28 @@ class HomeTableViewController: UITableViewController {
         fastestAveragePace - A constant integer that is the fastest pace from the user defaults
     */
     func loadPersonalBests() {
-        let userDefaults = NSUserDefaults.standardUserDefaults() //1
-        let longestDistance = userDefaults.doubleForKey(Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //2
-        let longestDuration = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
-        let fastestMile = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.FastestMileKey)
-        let fastestAveragePace = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
+        let userDefaults = UserDefaults.standard //1
+        let longestDistance = userDefaults.double(forKey: Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //2
+        let longestDuration = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
+        let fastestMile = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestMileKey)
+        let fastestAveragePace = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
         
         if longestDistance > 0 { //4
-            longestDistanceLabel.text = "Longest Distance: " + Conversions().distanceForInterface(longestDistance) //a
+            longestDistanceLabel.text = "Longest Distance: " + Conversions().distanceForInterface(distance: longestDistance) //a
         }
         
         //4
         
         if longestDuration > 0 {
-            longestDurationLabel.text = "Longest Duration: " + Conversions().runDurationForInterface(longestDuration)
+            longestDurationLabel.text = "Longest Duration: " + Conversions().runDurationForInterface(duration: longestDuration)
         }
         
         if fastestMile > 0 {
-            fastestMileLabel.text = "Fastest Mile: " + Conversions().averagePaceForInterface(fastestMile)
+            fastestMileLabel.text = "Fastest Mile: " + Conversions().averagePaceForInterface(pace: fastestMile)
         }
         
         if fastestAveragePace > 0 {
-            bestAveragePaceLabel.text = "Best Avg. Pace: " + Conversions().averagePaceForInterface(fastestAveragePace)
+            bestAveragePaceLabel.text = "Best Avg. Pace: " + Conversions().averagePaceForInterface(pace: fastestAveragePace)
         }
     }
 }

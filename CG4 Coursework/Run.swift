@@ -118,11 +118,11 @@ class Run: NSObject {
     */
     func scoreColour() -> UIColor {
         if self.score < 400 { //1
-            return UIColor.redColor() //a
+            return UIColor.red //a
         } else if self.score < 700 { //2
-            return UIColor.orangeColor() //b
+            return UIColor.orange //b
         } else { //3
-            return UIColor.greenColor() //c
+            return UIColor.green //c
         }
     }
     
@@ -153,10 +153,10 @@ class Run: NSObject {
         let halfMarathon = Int(Double(self.pace) * 13.1)
         let fullMarathon = Int(Double(self.pace) * 26.2)
         
-        let fiveKStr = Conversions().runDurationForInterface(fiveK) //2
-        let tenKStr = Conversions().runDurationForInterface(tenK)
-        let halfMarathonStr = Conversions().runDurationForInterface(halfMarathon)
-        let fullMarathonStr = Conversions().runDurationForInterface(fullMarathon)
+        let fiveKStr = Conversions().runDurationForInterface(duration: fiveK) //2
+        let tenKStr = Conversions().runDurationForInterface(duration: tenK)
+        let halfMarathonStr = Conversions().runDurationForInterface(duration: halfMarathon)
+        let fullMarathonStr = Conversions().runDurationForInterface(duration: fullMarathon)
         
         return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr) //3
     }
@@ -182,7 +182,7 @@ class Run: NSObject {
     
     :returns: The run's description as a string.
     */
-    func description() -> String {
+    override var description: String {
         return "ID = '\(self.ID)', DateTime = '\(self.dateTime.description)', Pace = '\(self.pace)', Duration = '\(self.duration)', Score = '\(self.score)', Number of locations = '\(self.locations.count)', Number of splits = '\(self.splits.count)'"
     }
 }

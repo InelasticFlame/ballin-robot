@@ -73,16 +73,16 @@ class SetupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if NSUserDefaults.standardUserDefaults().boolForKey(Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
-            let userDefaults = NSUserDefaults.standardUserDefaults() //2
+        if UserDefaults.standard.bool(forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
+            let userDefaults = UserDefaults.standard //2
             
-            if userDefaults.stringForKey("ACCESS_TOKEN")?.utf16Count > 0 { //3
+            if (userDefaults.string(forKey: "ACCESS_TOKEN")?.count)! > 0 { //3
                 updateStravaLabel() //a
             }
             
             /* DISTANCE */
-            let distanceUnit = userDefaults.stringForKey(Constants.DefaultsKeys.Distance.UnitKey) //4
-            let distanceGoal = userDefaults.doubleForKey(Constants.DefaultsKeys.Distance.GoalKey) //5
+            let distanceUnit = userDefaults.string(forKey: Constants.DefaultsKeys.Distance.UnitKey) //4
+            let distanceGoal = userDefaults.double(forKey: Constants.DefaultsKeys.Distance.GoalKey) //5
             if distanceUnit == Constants.DefaultsKeys.Distance.KmUnit { //6
                 distanceSegment.selectedSegmentIndex = 1 //b
                 goalDistanceStepper.value = distanceGoal * Conversions().milesToKm //c
@@ -91,14 +91,14 @@ class SetupViewController: UIViewController {
             }
             
             /* PACE */
-            let paceUnit = userDefaults.stringForKey(Constants.DefaultsKeys.Pace.UnitKey) //8
+            let paceUnit = userDefaults.string(forKey: Constants.DefaultsKeys.Pace.UnitKey) //8
             if paceUnit == Constants.DefaultsKeys.Pace.KMPerH { //9
                 paceSegment.selectedSegmentIndex = 1 //e
             }
             
             /* WEIGHT */
-            let weightUnit = userDefaults.stringForKey(Constants.DefaultsKeys.Weight.UnitKey) //10
-            let weightGoal = userDefaults.doubleForKey(Constants.DefaultsKeys.Weight.GoalKey) //11
+            let weightUnit = userDefaults.string(forKey: Constants.DefaultsKeys.Weight.UnitKey) //10
+            let weightGoal = userDefaults.double(forKey: Constants.DefaultsKeys.Weight.GoalKey) //11
             if weightUnit == Constants.DefaultsKeys.Weight.PoundUnit { //12
                 weightSegment.selectedSegmentIndex = 1 //f
                 weightStepper.value = weightGoal * Conversions().kgToPounds //g
@@ -106,13 +106,13 @@ class SetupViewController: UIViewController {
                 weightStepper.value = weightGoal //h
             }
             
-            let calorieGoal = userDefaults.integerForKey(Constants.DefaultsKeys.Calories.GoalKey) //14
+            let calorieGoal = userDefaults.integer(forKey: Constants.DefaultsKeys.Calories.GoalKey) //14
             calorieStepper.value = Double(calorieGoal) //15
             
             changesMade = false //16
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateStravaLabel", name: "AuthorisedSuccessfully", object: nil) //17
+        NotificationCenter.default.addObserver(self, selector: "updateStravaLabel", name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //17
         
         updateWeightGoalLabel() //18
         updateCalorieGoalLabel() //19
@@ -147,40 +147,40 @@ class SetupViewController: UIViewController {
         userDefaults - A constant reference to the standard user defaults
     */
     func saveSettings() {
-        let userDefaults = NSUserDefaults.standardUserDefaults() //1
+        let userDefaults = UserDefaults.standard //1
         
         if distanceSegment.selectedSegmentIndex == 0 { //2
             //Miles
-            userDefaults.setObject(Constants.DefaultsKeys.Distance.MilesUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //a
-            userDefaults.setDouble(goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //b
+            userDefaults.set(Constants.DefaultsKeys.Distance.MilesUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //a
+            userDefaults.set(goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //b
         } else { //3
             //Kilometres
-            userDefaults.setObject(Constants.DefaultsKeys.Distance.KmUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //c
-            userDefaults.setDouble(Conversions().kmToMiles * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //d
+            userDefaults.set(Constants.DefaultsKeys.Distance.KmUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //c
+            userDefaults.set(Conversions().kmToMiles * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //d
         }
         
         if paceSegment.selectedSegmentIndex == 0 { //4
             //min/mile
-            userDefaults.setObject(Constants.DefaultsKeys.Pace.MinMileUnit, forKey: Constants.DefaultsKeys.Pace.UnitKey) //e
+            userDefaults.set(Constants.DefaultsKeys.Pace.MinMileUnit, forKey: Constants.DefaultsKeys.Pace.UnitKey) //e
         } else { //5
             //km/h
-            userDefaults.setObject(Constants.DefaultsKeys.Pace.KMPerH, forKey: Constants.DefaultsKeys.Pace.UnitKey) //f
+            userDefaults.set(Constants.DefaultsKeys.Pace.KMPerH, forKey: Constants.DefaultsKeys.Pace.UnitKey) //f
         }
         
         if weightSegment.selectedSegmentIndex == 0 { //6
             //Kg
-            userDefaults.setObject(Constants.DefaultsKeys.Weight.KgUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //g
-            userDefaults.setDouble(weightStepper.value, forKey: Constants.DefaultsKeys.Weight.GoalKey) //h
+            userDefaults.set(Constants.DefaultsKeys.Weight.KgUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //g
+            userDefaults.set(weightStepper.value, forKey: Constants.DefaultsKeys.Weight.GoalKey) //h
         } else { //7
             //Pounds
-            userDefaults.setObject(Constants.DefaultsKeys.Weight.PoundUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //i
-            userDefaults.setDouble(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey) //j
+            userDefaults.set(Constants.DefaultsKeys.Weight.PoundUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //i
+            userDefaults.set(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey) //j
         }
         
-        userDefaults.setInteger(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.GoalKey) //8
+        userDefaults.set(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.GoalKey) //8
         
-        userDefaults.setBool(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) //9
-        self.dismissViewControllerAnimated(true, completion: nil) //10
+        userDefaults.set(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) //9
+        self.dismiss(animated: true, completion: nil) //10
     }
     
     //MARK: - Interface Actions
@@ -201,15 +201,15 @@ class SetupViewController: UIViewController {
     */
     @IBAction func donePressed(sender: AnyObject) {
         if changesMade { //1
-            let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertControllerStyle.Alert) //a
-            alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
+            let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertControllerStyle.alert) //a
+            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
                 self.saveSettings()
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil) //b
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil) //b
         } else { //2
-            self.dismissViewControllerAnimated(true, completion: nil) //a
+            self.dismiss(animated: true, completion: nil) //a
         }
     }
     
@@ -315,7 +315,7 @@ class SetupViewController: UIViewController {
     This method updates the StravaLabel when a user's account has been authorised. It sets the text colour to green and sets the text of the label to "Authorised"
     */
     func updateStravaLabel() {
-        stravaAuthorisedLabel.textColor = UIColor.greenColor()
+        stravaAuthorisedLabel.textColor = UIColor.green
         stravaAuthorisedLabel.text = "Authorised"
     }
 }

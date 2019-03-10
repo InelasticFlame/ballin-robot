@@ -38,7 +38,7 @@ class RunShoesTableViewController: UITableViewController {
         pageControl.currentPage = 2
         pageControl.pageIndicatorTintColor = UIColor(red: 122/255, green: 195/255, blue: 252/255, alpha: 1)
         pageControl.currentPageIndicatorTintColor = UIColor(red: 87/255, green: 142/255, blue: 185/255, alpha: 1)
-        pageControl.center = CGPointMake(self.view.frame.width / 2, self.view.frame.height - self.tabBarController!.tabBar.frame.height - 28)
+        pageControl.center = CGPoint.init(x: self.view.frame.width / 2, y: self.view.frame.height - self.tabBarController!.tabBar.frame.height - 28)
         
         self.view.addSubview(pageControl)
     }
@@ -60,20 +60,20 @@ class RunShoesTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if let run = run { //1
             //(String - 5k, String - 10k, String - Half, String - Full)
             let finishTimes = run.calculateRunFinishTimes() //a
             
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.detailTextLabel?.text = finishTimes.fiveK //b
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))?.detailTextLabel?.text = finishTimes.tenK //c
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1))?.detailTextLabel?.text = finishTimes.halfMarathon //d
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1))?.detailTextLabel?.text = finishTimes.fullMarathon //e
+            tableView.cellForRow(at: NSIndexPath(row: 0, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.fiveK //b
+            tableView.cellForRow(at: NSIndexPath(row: 1, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.tenK //c
+            tableView.cellForRow(at: NSIndexPath(row: 2, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.halfMarathon //d
+            tableView.cellForRow(at: NSIndexPath(row: 3, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.fullMarathon //e
             
             if let shoe = run.shoe { //f
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))?.detailTextLabel?.text = shoe.name //i
+                tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath)?.detailTextLabel?.text = shoe.name //i
             } else { //g
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))?.detailTextLabel?.text = "None"
+                tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath)?.detailTextLabel?.text = "None"
             }
         }
     }
@@ -84,8 +84,8 @@ class RunShoesTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath as IndexPath)?.setSelected(false, animated: true)
     }
     
     /**
@@ -96,8 +96,8 @@ class RunShoesTableViewController: UITableViewController {
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationVC = segue.destinationViewController as? RunShoeSelectorTableViewController { //1
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? RunShoeSelectorTableViewController { //1
             destinationVC.run = run //a
         }
     }

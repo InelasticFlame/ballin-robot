@@ -22,7 +22,7 @@ extension UIView {
     */
     func addBorder(borderWidth: CGFloat) {
         self.layer.borderWidth = borderWidth //1
-        self.layer.borderColor = UIColor.darkGrayColor().CGColor //2
+        self.layer.borderColor = UIColor.darkGray.cgColor //2
     }
     
 }
@@ -46,12 +46,12 @@ extension NSDate {
     :param: shortDateString the date as a string to create the NSDate with.
     */
     convenience init (shortDateString: String) {
-        let dateFormatter = NSDateFormatter() //1
+        let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyy" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
         
-        let newDate = dateFormatter.dateFromString(shortDateString) //4
-        self.init(timeInterval: 0, sinceDate: newDate!) //5
+        let newDate = dateFormatter.date(from: shortDateString) //4
+        self.init(timeInterval: 0, since: newDate!) //5
     }
     
     /**
@@ -69,12 +69,12 @@ extension NSDate {
     :param: databaseString A string of the date to create the NSDate with.
     */
     convenience init (databaseString: String) {
-        let dateFormatter = NSDateFormatter() //1
+        let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
         
-        let newDate = dateFormatter.dateFromString(databaseString) //4
-        self.init(timeInterval: 0, sinceDate: newDate!) //5
+        let newDate = dateFormatter.date(from: databaseString) //4
+        self.init(timeInterval: 0, since: newDate!) //5
     }
 
     //MARK: Methods
@@ -92,11 +92,11 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yyyyHH:mm:ss" as a string
     */
     func databaseString() -> String {
-        let dateFormatter = NSDateFormatter() //1
+        let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
         
-        return dateFormatter.stringFromDate(self) //4
+        return dateFormatter.string(from: self as Date) //4
     }
     
     /**
@@ -112,11 +112,11 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yyyy" as a string
     */
     func shortDateString() -> String {
-        let dateFormatter = NSDateFormatter() //1
+        let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyy" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
         
-        return dateFormatter.stringFromDate(self) //4
+        return dateFormatter.string(from: self as Date) //4
     }
     
     /**
@@ -132,11 +132,11 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yy" as a string
     */
     func shortestDateString() -> String {
-        let dateFormatter = NSDateFormatter() //1
+        let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/YY" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB")
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
         
-        return dateFormatter.stringFromDate(self) //3
+        return dateFormatter.string(from: self as Date) //3
     }
     
     /**
@@ -156,13 +156,13 @@ extension NSDate {
     :returns: The date in the form "/MM/yyyy" as a string
     */
     func monthYearString() -> String {
-        let dateFormatter = NSDateFormatter() //1
-        let month = dateFormatter.calendar.component(.MonthCalendarUnit, fromDate: self) //2
-        let year = dateFormatter.calendar.component(.YearCalendarUnit, fromDate: self) //3
+        let dateFormatter = DateFormatter() //1
+        let month = dateFormatter.calendar.component(.month, from: self as Date)
+        let year = dateFormatter.calendar.component(.year, from: self as Date)
         
         let monthYearString = NSString(format: "%02i/%04i", month, year) //4
         
-        return monthYearString //5
+        return monthYearString as String //5
     }
 
     /**
@@ -178,11 +178,11 @@ extension NSDate {
     :returns: The time portion of the date in the form "HH:mm a" as a string
     */
     func timeString12Hour() -> String {
-        let dateFormatter = NSDateFormatter() //1
+        let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "hh:mm a" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") //3
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
         
-        return dateFormatter.stringFromDate(self) //4
+        return dateFormatter.string(from: self as Date) //4
     }
     
     /**
@@ -196,9 +196,9 @@ extension NSDate {
     :returns: A boolean that indicates if the date is in today or not.
     */
     func isToday() -> Bool {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) //1
+        let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) //1
         
-        return calendar!.isDateInToday(self) //2
+        return calendar!.isDateInToday(self as Date) //2
     }
     
     /**
@@ -212,9 +212,9 @@ extension NSDate {
     :returns: A boolean that indicates if the date is in yesterday or not.
     */
     func isYesterday() -> Bool {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) //1
+        let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) //1
         
-        return calendar!.isDateInYesterday(self) //2
+        return calendar!.isDateInYesterday(self as Date) //2
     }
 }
 
@@ -235,8 +235,8 @@ extension CLLocation {
     :param: location A string of the location to create the CLLocation object with.
     */
     convenience init (locationString: String) {
-        let latString = locationString.componentsSeparatedByString(", ").first! as NSString //1
-        let longString = locationString.componentsSeparatedByString(", ").last! as NSString //2
+        let latString = locationString.components(separatedBy: ", ").first! as NSString //1
+        let longString = locationString.components(separatedBy: ", ").last! as NSString //2
         
         self.init(latitude: latString.doubleValue, longitude: longString.doubleValue) //3
     }
@@ -274,17 +274,18 @@ extension String {
     func validateString(stringName: String, maxLength: Int, minLength: Int) -> (valid: Bool, error: String) {
         var error = "Error testing string." //1
         let regEx = "[A-Z0-9a-z?!.]*" //2
-        let testString = self.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil) //3
+        let testString = self.replacingOccurrences(of: " ", with: "")
         
-        if countElements(self) < minLength { //4
+        if self.count < minLength { //4
             error = "\(stringName) must contain at least \(minLength) letters or numbers." //4a
             return (false, error) //4b
-        } else if countElements(self) > maxLength { //5
+        } else if self.count > maxLength { //5
             error = "\(stringName) must be no longer than \(maxLength) characters." //5
             return (false, error) //5b
-        } else if let stringTester = NSPredicate(format: "SELF MATCHES %@", regEx) { //6
+        } else { //6
+            let stringTester = NSPredicate(format: "SELF MATCHES %@", regEx)
             error = "\(stringName) must only contain letters, numbers or ?!." //6a
-            return (stringTester.evaluateWithObject(testString), error) //6b
+            return (stringTester.evaluate(with: testString), error) //6b
         }
         
         return (false, error) //7
@@ -316,26 +317,26 @@ extension HKHealthStore {
     :param: predicate An NSPredicate to filter the data with.
     :param: completion The block to perform on completion of the request. (The completion block has parameters of a HKSample object and an NSError object and returns nothing)
     */
-    func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: ((HKSample!, NSError!) -> Void)!) {
+    func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: @escaping (HKSample?, NSError?) -> (Void)) {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false) //1
 
         let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in //2, 3
             /* BLOCK START */
             
             if let error = error { //B1
-                completion(nil, error) //Ba
+                completion(nil, error as NSError) //Ba
                 return
             }
             
-            if results.first != nil { //B2
-                completion(results.first as HKSample, nil) //Bb
+            if let firstResult = results?.first { //B2
+                completion(firstResult, nil) //Bb
             } else { //B3
                 completion(nil, nil) //Bc
             }
             /* BLOCK END */
         }
         
-        self.executeQuery(query) //4
+        self.execute(query) //4
     }
     
     /**
@@ -360,25 +361,25 @@ extension HKHealthStore {
     :param: predicate An NSPredicate to filter the data with.
     :param: completion The block to perform on completion of the request. (The completion block has parameters of a Double and an NSError object and returns nothing)
     */
-    func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: ((Double!, NSError!) -> Void)!) {
+    func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: @escaping (Double?, NSError?) -> (Void)) {
         
-        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: predicate, options: .CumulativeSum) { (query, result, error) in //1, 2
+        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (query, result, error) in //1, 2
             
-            let sum = result.sumQuantity() //B1
+            let sum = result!.sumQuantity() //B1
             
             if error != nil { //B2
-                completion(nil, error) //Ba
+                completion(nil, error as! NSError) //Ba
                 return
             }
             
             if let sum = sum { //B3
-                completion(sum.doubleValueForUnit(unit), nil) //Bb
+                completion(sum.doubleValue(for: unit), nil) //Bb
             } else { //B4
                 completion(0, nil)
             }
         }
         
-        self.executeQuery(query) //3
+        self.execute(query) //3
     }
     
 }

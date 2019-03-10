@@ -44,10 +44,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         planDetailsTableView.delegate = self //1
         planDetailsTableView.dataSource = self
         
-        runsMetView.addBorder(1) //2
-        runsMissedView.addBorder(1)
-        runsAlmostMetView.addBorder(1)
-        runsTotalView.addBorder(1)
+        runsMetView.addBorder(borderWidth: 1) //2
+        runsMissedView.addBorder(borderWidth: 1)
+        runsAlmostMetView.addBorder(borderWidth: 1)
+        runsTotalView.addBorder(borderWidth: 1)
     }
     
     /**
@@ -70,7 +70,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         plan?.loadPlannedRuns() //1
         planDetailsTableView.reloadData() //2
         if let plan = plan { //3
@@ -112,7 +112,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let plan = plan {
             return plan.plannedRuns.count
         }
@@ -147,33 +147,33 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("PlanDetails", forIndexPath: indexPath) as PlanDetailsTableViewCell //1
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlanDetails", for: indexPath as IndexPath) as! PlanDetailsTableViewCell //1
         if let plannedRun = plan?.plannedRuns[indexPath.row] { //2
             
             cell.dateLabel.text = plannedRun.date.shortestDateString() //a
             cell.detailLabel.text = plannedRun.details //b
             
             if plannedRun.distance > 0 { //c
-                cell.distanceDurationLabel.text = Conversions().distanceForInterface(plannedRun.distance) //i
+                cell.distanceDurationLabel.text = Conversions().distanceForInterface(distance: plannedRun.distance) //i
             } else { //d
-                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(plannedRun.duration) //i
+                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun.duration) //i
             }
             
             if plannedRun.matchRank == 0 { //e
                 cell.progressImage.image = UIImage(named: "Cross37px") //i
-                cell.accessoryType = .None //ii
-                cell.selectionStyle = .None
+                cell.accessoryType = .none //ii
+                cell.selectionStyle = .none
             } else if plannedRun.matchRank == 1 { //f
                 cell.progressImage.image = UIImage(named: "Almost37px") //i
-                cell.accessoryType = .DisclosureIndicator //ii
+                cell.accessoryType = .disclosureIndicator //ii
             } else if plannedRun.matchRank == 2 { //g
                 cell.progressImage.image = UIImage(named: "Tick37px") //i
-                cell.accessoryType = .DisclosureIndicator //ii
+                cell.accessoryType = .disclosureIndicator //ii
             } else if plannedRun.matchRank == -1 { //h
-                cell.accessoryType = .None //i
-                cell.selectionStyle = .None
+                cell.accessoryType = .none //i
+                cell.selectionStyle = .none
                 cell.progressImage.image = UIImage(named: "FutureRun37px") //ii
             }
         }
@@ -196,10 +196,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     :param: sender The object that initiated the segue.
     :returns: A boolean value indicating whether the segue should be performed.
     */
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         if let cell = sender as? PlanDetailsTableViewCell { //1
-            if let indexPath = planDetailsTableView.indexPathForCell(cell) { //a
-                if let matchingRun = plan?.plannedRuns[indexPath.row].matchingRun { //i
+            if let indexPath = planDetailsTableView.indexPath(for: cell) { //a
+                if (plan?.plannedRuns[indexPath.row].matchingRun) != nil { //i
                     return true //ii
                 }
             }
@@ -225,19 +225,19 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationVC = segue.destinationViewController as? CreatePlanViewController { //1
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? CreatePlanViewController { //1
             if let plan = plan { //a
                 destinationVC.plan = plan //b
             }
         }
         
-        if let destinationVC = segue.destinationViewController as? RunPageViewController { //2
+        if let destinationVC = segue.destination as? RunPageViewController { //2
             if let cell = sender as? PlanDetailsTableViewCell { //a
-                if let indexPath = planDetailsTableView.indexPathForCell(cell) { //i
+                if let indexPath = planDetailsTableView.indexPath(for: cell) { //i
                     if let matchingRun = plan?.plannedRuns[indexPath.row].matchingRun { //ii
                         destinationVC.run = matchingRun //iii
-                        cell.selected = false //iv
+                        cell.isSelected = false //iv
                     }
                 }
             }

@@ -24,9 +24,9 @@ class MyShoesTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
-        self.navigationItem.rightBarButtonItem = self.editButtonItem() //1
-        shoes = Database().loadAllShoes() as [Shoe] //2
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem //1
+        shoes = Database().loadAllShoes() as! [Shoe] //2
         
         tableView.reloadData() //3
     }
@@ -38,7 +38,7 @@ class MyShoesTableViewController: UITableViewController {
     
     :param: tableView The UITableView that is requesting the information from the delegate.
     */
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -49,7 +49,7 @@ class MyShoesTableViewController: UITableViewController {
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shoes.count + 1
     }
 
@@ -76,18 +76,18 @@ class MyShoesTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if shoes.count == 0 || indexPath.row == shoes.count { //1
-            let cell = tableView.dequeueReusableCellWithIdentifier("addNewShoeCell", forIndexPath: indexPath) as UITableViewCell //a
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addNewShoeCell", for: indexPath) as UITableViewCell //a
             
             return cell //b
         } else { //2
-            let cell = tableView.dequeueReusableCellWithIdentifier("shoeCell", forIndexPath: indexPath) as ShoeTableViewCell //c
+            let cell = tableView.dequeueReusableCell(withIdentifier: "shoeCell", for: indexPath) as! ShoeTableViewCell //c
             
             let shoe = shoes[indexPath.row] //d
             
             cell.shoeNameLabel.text = shoe.name //e
-            cell.shoeMilesLabel.text = Conversions().distanceForInterface(shoe.miles) //f
+            cell.shoeMilesLabel.text = Conversions().distanceForInterface(distance: shoe.miles) //f
             
             let shoeImage = shoe.loadImage() //g
             
@@ -109,8 +109,8 @@ class MyShoesTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the row to be edited.
     :returns: A boolean indicating whether the cell at the specified indexPath can be edited.
     */
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if tableView.cellForRowAtIndexPath(indexPath)?.reuseIdentifier == "addNewShoeCell" { //1
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView.cellForRow(at: indexPath)?.reuseIdentifier == "addNewShoeCell" { //1
             return false //a
         } else { //2
             return true
@@ -124,7 +124,7 @@ class MyShoesTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
     
@@ -134,8 +134,8 @@ class MyShoesTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.setSelected(false, animated: true)
     }
 
     /**
@@ -150,11 +150,11 @@ class MyShoesTableViewController: UITableViewController {
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete { //1
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete { //1
             if Database().deleteShoe(shoes[indexPath.row]) { //a
-                shoes.removeAtIndex(indexPath.row) //i
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+                shoes.remove(at: indexPath.row) //i
+                tableView.deleteRows(at: [indexPath], with: .fade) //ii
                 tableView.reloadData() //iii
             }
         }

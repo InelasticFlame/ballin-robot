@@ -16,7 +16,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         
         self.delegate = self
     }
@@ -65,11 +65,11 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 { //1
-            return NSString(format: "%im", row) //a //minutes
+            return NSString(format: "%im", row) as String //a //minutes
         } else if component == 1 { //2
-            return NSString(format: "%02is", row) //b //seconds
+            return NSString(format: "%02is", row) as String //b //seconds
         } else { //3
             //unit
             if row == 0 { //c
@@ -87,8 +87,8 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
     :param: row An integer identifying the row which was selected.
     :param: component An integer identifying the component that the row is in.
     */
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "PACE", forKey: "valueChanged"))
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "PACE", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any]))
     }
     
     /**
@@ -124,21 +124,21 @@ class PacePicker: UIPickerView, UIPickerViewDelegate {
         var pace = 0 //1
         var paceStr = "" //2
         
-        if self.selectedRowInComponent(2) == 0 { //3
-            let minutesPerMile = self.selectedRowInComponent(0) //a
-            let secondsPerMile = self.selectedRowInComponent(1) //b
+        if self.selectedRow(inComponent: 2) == 0 { //3
+            let minutesPerMile = self.selectedRow(inComponent: 0) //a
+            let secondsPerMile = self.selectedRow(inComponent: 1) //b
             
             pace = (60 * minutesPerMile) + secondsPerMile //c
-            paceStr = NSString(format: "%02i:%02i /mi", minutesPerMile, secondsPerMile) //d
+            paceStr = NSString(format: "%02i:%02i /mi", minutesPerMile, secondsPerMile) as String //d
             
         } else { //4
-            let minutesPerKm = self.selectedRowInComponent(0) //a
-            let secondsPerKm = self.selectedRowInComponent(1) //b
+            let minutesPerKm = self.selectedRow(inComponent: 0) //a
+            let secondsPerKm = self.selectedRow(inComponent: 1) //b
             
             let doublePace = (60.0 * (Double(minutesPerKm)) * (1/Conversions().kmToMiles)) + ((Double(secondsPerKm)) * (1/Conversions().kmToMiles)) //d
             
             pace = Int(doublePace) //e
-            paceStr = NSString(format: "%02i:%02i /km", minutesPerKm, secondsPerKm) //f
+            paceStr = NSString(format: "%02i:%02i /km", minutesPerKm, secondsPerKm) as String //f
         }
         
         return (pace, paceStr) //5

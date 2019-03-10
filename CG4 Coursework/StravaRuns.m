@@ -97,9 +97,9 @@ This method is used to retrieve a user's runs from their Strava account. In the 
         
         for (StravaActivity *activity in activities) { //2
             Conversions *converter = [[Conversions alloc] init]; //a
-            double distance = [converter metresToMiles:activity.distance]; //b
+            double distance = [converter metresToMilesWithMeters:activity.distance]; //b
             NSDate *dateTime = activity.startDate; //c
-            NSInteger pace = [converter metresPerSecondToSecondsPerMile:activity.averageSpeed]; //d
+            NSInteger pace = [converter metresPerSecondToSecondsPerMileWithMetresPerSec:activity.averageSpeed]; //d
             NSInteger duration = activity.movingTime; //e
             
             NSMutableArray *CLCoords = [[NSMutableArray alloc] init]; //f
@@ -124,7 +124,7 @@ This method is used to retrieve a user's runs from their Strava account. In the 
                 /* BLOCK B START */ //m
                 for (StravaActivityLap *lap in laps) { //1
                     if (lap.distance == 1609.35) { //a
-                        [run addSplit:lap.movingTime]; //i
+                        [run addSplitWithSplit:lap.movingTime]; //i
                     }
                 }
                 [[Database init] saveRun:run]; //b

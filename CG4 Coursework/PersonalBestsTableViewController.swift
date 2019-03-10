@@ -44,33 +44,33 @@ class PersonalBestsTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
-        let userDefaults = NSUserDefaults.standardUserDefaults() //1
+    override func viewWillAppear(_ animated: Bool) {
+        let userDefaults = UserDefaults.standard //1
         let achievedImage = UIImage(named: "trophyImage90px") //2
-        let longestDistance = userDefaults.doubleForKey(Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //3
-        let longestDuration = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
-        let fastestMile = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.FastestMileKey)
-        let fastestAveragePace = userDefaults.integerForKey(Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
+        let longestDistance = userDefaults.double(forKey: Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //3
+        let longestDuration = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
+        let fastestMile = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestMileKey)
+        let fastestAveragePace = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
         
         if longestDistance > 0 { //4
-            longestDistanceLabel.text = Conversions().distanceForInterface(longestDistance) //a
+            longestDistanceLabel.text = Conversions().distanceForInterface(distance: longestDistance) //a
             longestDistanceImageView.image = achievedImage //b
         }
         
         //5
         
         if longestDuration > 0 {
-            longestDurationLabel.text = Conversions().runDurationForInterface(longestDuration)
+            longestDurationLabel.text = Conversions().runDurationForInterface(duration: longestDuration)
             longestDurationImageView.image = achievedImage
         }
             
         if fastestMile > 0 {
-            fastestMileLabel.text = Conversions().averagePaceForInterface(fastestMile)
+            fastestMileLabel.text = Conversions().averagePaceForInterface(pace: fastestMile)
             fastestMileImageView.image = achievedImage
         }
         
         if fastestAveragePace > 0 {
-            bestAveragePaceLabel.text = Conversions().averagePaceForInterface(fastestAveragePace)
+            bestAveragePaceLabel.text = Conversions().averagePaceForInterface(pace: fastestAveragePace)
             bestAveragePaceImageview.image = achievedImage
         }
     }

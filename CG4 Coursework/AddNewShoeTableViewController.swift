@@ -33,7 +33,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         super.viewDidLoad()
 
         self.shoeNameTextField.delegate = self //1
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDetailLabel", name: "UpdateDetailLabel", object: nil) //2
+        NotificationCenter.default.addObserver(self, selector: #selector(AddNewShoeTableViewController.updateDetailLabel), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //2
     }
     
     /**
@@ -41,7 +41,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         updateDetailLabel()
     }
 
@@ -55,7 +55,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     :param: textField The UITextField whose return button was pressed.
     :returns: A boolean value indicating whether the text field's default behaviour should be perform (true) or not (false)
     */
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
         
         return false //2
@@ -92,31 +92,31 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 4 { //1
             
             let imagePicker = UIImagePickerController() //a
             imagePicker.delegate = self //b
             imagePicker.allowsEditing = true //c
             
-            let actionMenu = UIAlertController(title: "Image", message: "", preferredStyle: .ActionSheet) //d
-            actionMenu.addAction(UIAlertAction(title: "Take Photo", style: .Default, handler: { (action) -> Void in //e
-                imagePicker.sourceType = .Camera //i
-                imagePicker.cameraCaptureMode = .Photo //ii
-                self.presentViewController(imagePicker, animated: true, completion: nil) ///iii
+            let actionMenu = UIAlertController(title: "Image", message: "", preferredStyle: .actionSheet) //d
+            actionMenu.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (action) -> Void in //e
+                imagePicker.sourceType = .camera //i
+                imagePicker.cameraCaptureMode = .photo //ii
+                self.present(imagePicker, animated: true, completion: nil) ///iii
             }))
-            actionMenu.addAction(UIAlertAction(title: "Choose Existing", style: .Default, handler: { (action) -> Void in //f
-                imagePicker.sourceType = .PhotoLibrary //i
-                self.presentViewController(imagePicker, animated: true, completion: nil) //ii
+            actionMenu.addAction(UIAlertAction(title: "Choose Existing", style: .default, handler: { (action) -> Void in //f
+                imagePicker.sourceType = .photoLibrary //i
+                self.present(imagePicker, animated: true, completion: nil) //ii
             }))
-            actionMenu.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)) //g //i
+            actionMenu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil)) //g //i
             
-            self.presentViewController(actionMenu, animated: true, completion: nil) //h
+            self.present(actionMenu, animated: true, completion: nil) //h
         } else if indexPath.row == 2 { //2
             showDistancePicker = !showDistancePicker //i
             tableView.reloadTableViewCells() //j
         }
-        tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true) //3
+        tableView.cellForRow(at: indexPath)?.setSelected(false, animated: true) //3
     }
     
     /**
@@ -136,7 +136,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 1 && showError { //1
             return Constants.TableView.DefaultRowHeight //a
         } else if indexPath.row == 3 && showDistancePicker { //2
@@ -154,7 +154,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     This method updates the text of the distance detail label in the current distance cell.
     */
     func updateDetailLabel() {
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0))?.detailTextLabel?.text = shoeDistancePicker.selectedDistance().distanceStr
+        tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.detailTextLabel?.text = shoeDistancePicker.selectedDistance().distanceStr
     }
 
     // MARK: - Image Picker
@@ -177,7 +177,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         
         tableView.reloadTableViewCells() //3
         
-        picker.dismissViewControllerAnimated(true, completion: nil) //4
+        picker.dismiss(animated: true, completion: nil) //4
     }
     
     // MARK: - Navigation
@@ -211,23 +211,24 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     :param: sender The object that called the action (in this case the Save button).
     */
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        let errorCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) //1
+        let errorCell = tableView.cellForRow(at: NSIndexPath(row: 1, section: 0) as IndexPath) //1
         
-        let shoeNameValidation = shoeNameTextField.text.validateString("Shoe Name", maxLength: 30, minLength: 3) //2
+        let shoeNameValidation = shoeNameTextField.text!.validateString(stringName: "Shoe Name", maxLength: 30, minLength: 3) //2
         if shoeNameValidation.valid { //3
             
-            if Database().shoeNameExists(shoeNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale())) { //a
+            let shoeName = shoeNameTextField.text ?? ""
+            if Database().shoeNameExists(shoeName.capitalized) { //a
                 errorCell?.textLabel?.text = "A shoe name must be unique." //i
                 showError = true //ii
                 tableView.reloadTableViewCells() //iii
             } else if selectedImage == nil { //b
-                let actionMenu = UIAlertController(title: "No Image", message: "No image has been selected for this shoe. Continue?", preferredStyle: .Alert) //iv
-                actionMenu.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil)) //v
-                actionMenu.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in //vi
+                let actionMenu = UIAlertController(title: "No Image", message: "No image has been selected for this shoe. Continue?", preferredStyle: .alert) //iv
+                actionMenu.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil)) //v
+                actionMenu.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in //vi
                     self.saveShoe()
-                    actionMenu.dismissViewControllerAnimated(true, completion: nil)
+                    actionMenu.dismiss(animated: true, completion: nil)
                 }))
-                self.presentViewController(actionMenu, animated: true, completion: nil) //vii
+                self.present(actionMenu, animated: true, completion: nil) //vii
             } else { //c
                 saveShoe() //viii
             }
@@ -270,24 +271,30 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         
         /* Save Image */
         if selectedImage != nil {
-            let imageData = UIImagePNGRepresentation(selectedImage)
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            shoeNamePath = shoeNameTextField.text.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
-            let imagePath = documentsPath.stringByAppendingPathComponent("\(shoeNamePath).png")
+            let imageData = UIImagePNGRepresentation(selectedImage!)
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            shoeNamePath = (shoeNameTextField.text?.replacingOccurrences(of: " ", with: ""))!
+            let imagePath = NSURL(fileURLWithPath: documentsPath).appendingPathComponent("\(shoeNamePath).png")
+
             
-            if !imageData.writeToFile(imagePath, atomically: false) {
-                shoeNamePath = "NO_IMAGE"
-                println("Image not saved.")
-            } else {
-                println("Image saved successfully.")
+            do {
+                try imageData?.write(to: imagePath!)
+                print("Image saved successfully.")
             }
+            catch {
+                shoeNamePath = "NO_IMAGE"
+                print("Image not saved.")
+            }
+
         } else {
             shoeNamePath = "NO_IMAGE"
         }
         
-        let shoe = Shoe(ID: 0, name: shoeNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale()), miles: shoeDistancePicker.selectedDistance().distance, imageName: shoeNamePath)
+        let shoeName = shoeNameTextField.text ?? ""
+        
+        let shoe = Shoe(ID: 0, name: shoeName.capitalized, miles: shoeDistancePicker.selectedDistance().distance, imageName: shoeNamePath)
         Database().saveShoe(shoe)
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
 }

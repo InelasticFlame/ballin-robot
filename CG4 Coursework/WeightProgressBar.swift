@@ -28,14 +28,14 @@ class WeightProgressBar: UIView {
         self.currentWeight = currentWeight
         self.goalWeight = goalWeight
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
     
     /**
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
     
     //MARK: - Bar Drawing
@@ -88,7 +88,7 @@ class WeightProgressBar: UIView {
     
     :param: rect The portion of the view’s bounds that needs to be updated.
     */
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let barWidth = rect.size.width - 40 //1
         let barHeight = rect.size.height - 20 //2
         let pxPerKg = (barWidth/2) / goalWeight //3
@@ -97,61 +97,61 @@ class WeightProgressBar: UIView {
         //Round to an integer value (this ensures no pixel bluring to make it look like half a pixel filled) but the function accepts only CGFloats so cast the int back to a CGFloat
         
         let fullBarLayer = CAShapeLayer() //6
-        fullBarLayer.path = fullBarRectPath.CGPath //7
-        fullBarLayer.strokeColor = UIColor.blackColor().CGColor
-        fullBarLayer.fillColor = UIColor.lightGrayColor().CGColor
+        fullBarLayer.path = fullBarRectPath.cgPath //7
+        fullBarLayer.strokeColor = UIColor.black.cgColor
+        fullBarLayer.fillColor = UIColor.lightGray.cgColor
         fullBarLayer.lineWidth = 2
         self.layer.addSublayer(fullBarLayer) //8
         
         let progressBarLayer = CAShapeLayer() //9
-        progressBarLayer.path = progressBarRectPath.CGPath //10
-        progressBarLayer.strokeColor = UIColor.blackColor().CGColor
-        progressBarLayer.fillColor = UIColor.redColor().CGColor
+        progressBarLayer.path = progressBarRectPath.cgPath //10
+        progressBarLayer.strokeColor = UIColor.black.cgColor
+        progressBarLayer.fillColor = UIColor.red.cgColor
         progressBarLayer.lineWidth = 2
         self.layer.addSublayer(progressBarLayer) //11
         
         let goalMarkerLayer = CAShapeLayer() //12
-        goalMarkerLayer.path = CGPathCreateWithRect(CGRect(x: rect.size.width/2, y: 10, width: 1, height: barHeight), nil) //13
+        goalMarkerLayer.path = CGPath(rect: CGRect(x: rect.size.width/2, y: 10, width: 1, height: barHeight), transform: nil) //13
         goalMarkerLayer.lineWidth = 1 //14
-        goalMarkerLayer.strokeColor = UIColor.blackColor().CGColor
+        goalMarkerLayer.strokeColor = UIColor.black.cgColor
         self.layer.addSublayer(goalMarkerLayer) //15
         
         
         var goalString = ""
         var weightTextString = ""
         
-        if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Weight.UnitKey) == Constants.DefaultsKeys.Weight.KgUnit { //16
-            goalString = NSString(format: "Goal: %1.2f kg", Double(goalWeight)) //a
-            weightTextString = NSString(format: "Weight: %1.2f kg", Double(currentWeight)) //b
+        if UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Weight.UnitKey) == Constants.DefaultsKeys.Weight.KgUnit { //16
+            goalString = NSString(format: "Goal: %1.2f kg", Double(goalWeight)) as String //a
+            weightTextString = NSString(format: "Weight: %1.2f kg", Double(currentWeight)) as String //b
         } else { //17
-            goalString = NSString(format: "Goal: %1.2f lb", Double(goalWeight) * Conversions().kgToPounds) //c
-            weightTextString = NSString(format: "Weight: %1.2f lb", Double(currentWeight) * Conversions().kgToPounds) //d
+            goalString = NSString(format: "Goal: %1.2f lb", Double(goalWeight) * Conversions().kgToPounds) as String //c
+            weightTextString = NSString(format: "Weight: %1.2f lb", Double(currentWeight) * Conversions().kgToPounds) as String //d
         }
         
-        let goalStringSize = goalString.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(12.0)]) //18
+        let goalStringSize = goalString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]) //18
         
         let goalTextLayer = CATextLayer() //19
         goalTextLayer.string = goalString //20
         goalTextLayer.fontSize = 12
-        goalTextLayer.font = UIFont.systemFontOfSize(12)
-        goalTextLayer.foregroundColor = UIColor.blackColor().CGColor
-        goalTextLayer.frame = CGRectMake(0, 0, goalStringSize.width, goalStringSize.height);
+        goalTextLayer.font = UIFont.systemFont(ofSize: 12)
+        goalTextLayer.foregroundColor = UIColor.black.cgColor
+        goalTextLayer.frame = CGRect.init(x: 0, y: 0, width: goalStringSize.width, height: goalStringSize.height)
         goalTextLayer.position.x = (rect.size.width / 2)
         goalTextLayer.position.y = (rect.size.height)
-        goalTextLayer.contentsScale = UIScreen.mainScreen().scale //21
+        goalTextLayer.contentsScale = UIScreen.main.scale //21
         self.layer.addSublayer(goalTextLayer) //22
         
         
-        let weightTextSize = weightTextString.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)]) //23
+        let weightTextSize = weightTextString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17.0)]) //23
         
         let weightTextLayer = CATextLayer()
         weightTextLayer.string = weightTextString
         weightTextLayer.fontSize = 17
-        weightTextLayer.font = UIFont.systemFontOfSize(17)
-        weightTextLayer.foregroundColor = UIColor.whiteColor().CGColor
-        weightTextLayer.frame = CGRectMake(40, 0, weightTextSize.width, weightTextSize.height);
+        weightTextLayer.font = UIFont.systemFont(ofSize: 17)
+        weightTextLayer.foregroundColor = UIColor.white.cgColor
+        weightTextLayer.frame = CGRect.init(x: 40, y: 0, width: weightTextSize.width, height: weightTextSize.height)
         weightTextLayer.position.y = (rect.size.height / 2)
-        weightTextLayer.contentsScale = UIScreen.mainScreen().scale
+        weightTextLayer.contentsScale = UIScreen.main.scale
         self.layer.addSublayer(weightTextLayer)
     }
 }

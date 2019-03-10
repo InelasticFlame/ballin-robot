@@ -28,20 +28,20 @@ class RunShoeSelectorTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
-        shoes = Database().loadAllShoes() as [Shoe] //1
+    override func viewWillAppear(_ animated: Bool) {
+        shoes = Database().loadAllShoes() as! [Shoe] //1
         
         tableView.reloadData() //2
         
-        if let selectedShoe = run?.shoe? { //3
+        if let selectedShoe = run?.shoe { //3
             
-            for var shoeNo = 0; shoeNo < shoes.count; shoeNo++ { //a
+            for shoeNo in 0 ..< shoes.count { //a
                 if selectedShoe.ID == shoes[shoeNo].ID { //b
-                    tableView.cellForRowAtIndexPath(NSIndexPath(forRow: shoeNo + 1, inSection: 0))?.accessoryType = .Checkmark //i
+                    tableView.cellForRow(at:IndexPath(row: shoeNo + 1, section: 0))?.accessoryType = .checkmark //i
                 }
             }
         } else { //4
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))?.accessoryType = .Checkmark
+            tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath)?.accessoryType = .checkmark
         }
     }
 
@@ -53,7 +53,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
     :param: tableView The UITableView that is requesting the information from the delegate.
     :returns: An integer value that is the number of sections in the table view.
     */
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -65,7 +65,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shoes.count + 1
     }
 
@@ -85,8 +85,8 @@ class RunShoeSelectorTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("shoeCell", forIndexPath: indexPath) as UITableViewCell //1
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "shoeCell", for: indexPath as IndexPath) as UITableViewCell //1
         
         if indexPath.row == 0 { //2
             cell.textLabel?.text = "None" //2a
@@ -122,10 +122,10 @@ class RunShoeSelectorTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clearCheckmarks() //1
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark //2
-        tableView.deselectRowAtIndexPath(indexPath, animated: true) //3
+        tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark //2
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true) //3
         
         
         if let viewControllerCount = self.navigationController?.viewControllers.count { //4
@@ -155,7 +155,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
                         }
 
                         shoesVC.run?.shoe = selectedShoe //x
-                        navigationController?.popViewControllerAnimated(true) //xi
+                        navigationController?.popViewController(animated: true) //xi
                     }
                 }
             }
@@ -177,14 +177,14 @@ class RunShoeSelectorTableViewController: UITableViewController {
         rowNo - An integer variable that is the current row in a section
     */
     func clearCheckmarks() {
-        let sectionCount = tableView.numberOfSections()
+        let sectionCount = tableView.numberOfSections
         
-        for var sectionNo = 0; sectionNo < sectionCount; sectionNo++ {
+        for sectionNo in 0 ..< sectionCount {
             
-            let rowCount = tableView.numberOfRowsInSection(sectionNo)
+            let rowCount = tableView.numberOfRows(inSection: sectionNo)
             
-            for var rowNo = 0; rowNo < rowCount; rowNo++ {
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNo, inSection: sectionNo))?.accessoryType = .None
+            for rowNo in 0 ..< rowCount {
+                tableView.cellForRow(at: IndexPath(row: rowNo, section: sectionNo))?.accessoryType = .none
             }
         }
     }

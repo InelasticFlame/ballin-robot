@@ -91,16 +91,16 @@ class Conversions: NSObject {
     */
     func averagePaceForInterface(pace: Int) -> String {
         var paceString = ""
-        let paceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Pace.UnitKey)
+        let paceUnit = UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Pace.UnitKey)
         
         if paceUnit == Constants.DefaultsKeys.Pace.MinMileUnit || paceUnit == "" {
             let minutes = pace/60
             let seconds = pace % 60
-            paceString = NSString(format: "%02i:%02i", minutes, seconds) + " min/mile"
+            paceString = (NSString(format: "%02i:%02i", minutes, seconds) as String) + " min/mile"
         } else if paceUnit == Constants.DefaultsKeys.Pace.KMPerH {
             let mph = 3600.0/Double(pace)
             let kmh = Double(mph) * milesToKm
-            paceString = NSString(format: "%1.2f", kmh) + " km/h"
+            paceString = (NSString(format: "%1.2f", kmh) as String) + " km/h"
         }
         
         return paceString
@@ -137,9 +137,9 @@ class Conversions: NSObject {
         let seconds = duration % 60 //5
         
         if hours > 0 { //6
-            duratonString = NSString(format: "%ih %02im %02is", hours, minutes, seconds) //a
+            duratonString = NSString(format: "%ih %02im %02is", hours, minutes, seconds) as String //a
         } else { //7
-            duratonString = NSString(format: "%02im %02is", minutes, seconds) //b
+            duratonString = NSString(format: "%02im %02is", minutes, seconds) as String //b
         }
         
         return duratonString //8
@@ -166,13 +166,13 @@ class Conversions: NSObject {
     */
     func distanceForInterface(distance: Double) -> String {
         var distanceString = "" //1
-        let distanceUnit = NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Distance.UnitKey) //2
+        let distanceUnit = UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Distance.UnitKey) //2
         
         if distanceUnit == Constants.DefaultsKeys.Distance.MilesUnit || distanceUnit == "" { //3
-            distanceString = NSString(format: "%1.2f", distance) + " miles" //a
+            distanceString = (NSString(format: "%1.2f", distance) as String) + " miles" //a
         } else if distanceUnit == Constants.DefaultsKeys.Distance.KmUnit { //4
             let kilometres = distance * milesToKm //b
-            distanceString = NSString(format: "%1.2f", kilometres) + " km" //c
+            distanceString = (NSString(format: "%1.2f", kilometres) as String) + " km" //c
         }
         
         return distanceString //5
@@ -218,7 +218,7 @@ class Conversions: NSObject {
         
         var runs = array //Create a mutable version of the array
         
-        runs.sort({$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow}) //1
+        runs.sort(by: {$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow}) //1
         
         return runs //2
     }
@@ -237,7 +237,7 @@ class Conversions: NSObject {
     func sortPlansIntoDateOrder(plannedRuns array: Array<PlannedRun>) -> Array<PlannedRun> {
         var plannedRuns = array //Create a mutable copy of the array
         
-        plannedRuns.sort({$0.date.timeIntervalSinceNow < $1.date.timeIntervalSinceNow}) //1
+        plannedRuns.sort(by: {$0.date.timeIntervalSinceNow < $1.date.timeIntervalSinceNow}) //1
         
         return plannedRuns //2
     }

@@ -54,15 +54,15 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapKitView.delegate = self //1
         
-        if run?.locations.count > 0 { //2
+        if (run?.locations.count)! > 0 { //2
             drawRouteLineOnMap() //a
         } else { //3
-            self.mapKitView.hidden = true //b
+            self.mapKitView.isHidden = true //b
         }
         
         if let run = run { //4
-            overlayView.distanceLabel.text = Conversions().distanceForInterface(run.distance) //c
-            overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) //d
+            overlayView.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance) //c
+            overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) as String //d
             overlayView.timeLabel.text = run.dateTime.timeString12Hour() //e
             overlayView.dateLabel.text = run.dateTime.shortDateString() //f
 
@@ -70,16 +70,16 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             progressBackground.backgroundColor = run.scoreColour() //h
             progressBackground.alpha = 0.4 //i
             overlayView.headerOverlay.addSubview(progressBackground) //j
-            overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //k
-            overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //l
+            overlayView.headerOverlay.bringSubview(toFront: overlayView.dateLabel) //k
+            overlayView.headerOverlay.bringSubview(toFront: overlayView.timeLabel) //l
             
-            overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(run.pace) //m
-            overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(run.duration) //n
+            overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(pace: run.pace) //m
+            overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(duration: run.duration) //n
             
-            overlayView.averagePaceDurationView.addBorder(2) //o
-            mapKitView.addBorder(2) //p
-            overlayView.headerOverlay.addBorder(2) //q
-            overlayView.addBorder(2) //r
+            overlayView.averagePaceDurationView.addBorder(borderWidth: 2) //o
+            mapKitView.addBorder(borderWidth: 2) //p
+            overlayView.headerOverlay.addBorder(borderWidth: 2) //q
+            overlayView.addBorder(borderWidth: 2) //r
         }
     }
     
@@ -106,7 +106,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                 coords.append(location.coordinate)
             }
             let polyLine = MKPolyline(coordinates: &coords, count: coords.count) //c
-            mapKitView.addOverlay(polyLine) //d
+            mapKitView.add(polyLine) //d
             centreMapOnRunArea() //e
         }
     }
@@ -158,7 +158,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                 minLong = firstLocation.coordinate.longitude //c
                 maxLong = firstLocation.coordinate.longitude
                 
-                for var currentCoordNo = 1; currentCoordNo < run.locations.count; currentCoordNo++ { //d
+                for currentCoordNo in 1 ..< run.locations.count
+                { //d
                     let currentCoordinate = run.locations[currentCoordNo].coordinate //i
         
                     if currentCoordinate.latitude < minLat { //ii
@@ -212,8 +213,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         
         if overlay is MKPolyline { //1
-            var polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
-            polylineRenderer.strokeColor = UIColor.greenColor() //b
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
+            polylineRenderer.strokeColor = UIColor.green //b
             polylineRenderer.lineWidth = 4 //c
             return polylineRenderer //d
         }

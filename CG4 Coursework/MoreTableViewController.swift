@@ -26,11 +26,11 @@ class MoreTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 { //1
             let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil) //a
-            let newVC = storyboard.instantiateViewControllerWithIdentifier("setupStoryboard") as UIViewController //b
-            self.presentViewController(newVC, animated: true, completion: nil) //c
+            let newVC = storyboard.instantiateViewController(withIdentifier: "setupStoryboard") as UIViewController //b
+            self.present(newVC, animated: true, completion: nil) //c
         }
     }
 }

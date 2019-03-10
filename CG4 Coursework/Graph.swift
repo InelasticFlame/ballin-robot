@@ -29,7 +29,7 @@ class Graph: UIView {
     private var xScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the x axis
     private var maxYValue: CGFloat = 0 //A global variable CGFloat that stores the maximum y of the axis
     
-    private let values = [GraphCoordinate]() //A global array of GraphCoordinate objects
+    private var values = [GraphCoordinate]() //A global array of GraphCoordinate objects
 
     //MARK: - Initialisation
     
@@ -48,7 +48,7 @@ class Graph: UIView {
     Uses the following parameters:
         coder: an NSCoder that is used to unarchive the class.
     */
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -100,7 +100,7 @@ class Graph: UIView {
     
     :param: rect A CGRect that is the portion of the view’s bounds that needs to be updated.
     */
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         if values.count > 0 {
             originX = axesIndent //1
             originY = rect.height - axesIndent //2
@@ -114,42 +114,42 @@ class Graph: UIView {
             plotLineGraph() //9
             
             let currentContext = UIGraphicsGetCurrentContext() //10
-            CGContextSetStrokeColorWithColor(currentContext, UIColor.blackColor().CGColor) //11
-            CGContextSetLineWidth(currentContext, 2) //12
+            currentContext!.setStrokeColor(UIColor.black.cgColor) //11
+            currentContext!.setLineWidth(2)
             
             //Draw Axes
             //Y
-            CGContextMoveToPoint(currentContext, originX, originY) //13
-            CGContextAddLineToPoint(currentContext, originX, yAxisMax) //14
+            currentContext!.move(to: CGPoint.init(x: originX, y: originY))
+            currentContext!.addLine(to: CGPoint.init(x: originX, y: originY))
             
             for markerNo in 0...Int(maxYValue/majorStep) { //15  -  MAJOR MARKERS
                 let yMarkerY = yScale * majorStep * CGFloat(markerNo) //a
-                CGContextMoveToPoint(currentContext, originX, originY - yMarkerY) //b
-                CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY) //c
-                self.addTextToGraph(self.yAxisLabel(markerNo), xCoord: originX - 20, yCoord: originY - yMarkerY - 5) //d
+                currentContext!.move(to: CGPoint.init(x: originX, y: originY - yMarkerY))
+                currentContext!.addLine(to: CGPoint.init(x: originX - markerHeight, y: originY - yMarkerY))
+                self.addTextToGraph(text: self.yAxisLabel(markerNo: markerNo), xCoord: originX - 20, yCoord: originY - yMarkerY - 5) //d
             }
-            CGContextStrokePath(currentContext) //16
-            CGContextSetLineWidth(currentContext, 0.4) //17
+            currentContext!.strokePath() //16
+            currentContext!.setLineWidth(0.4) //17
             for markerNo in 0...Int(maxYValue/minorStep) { //18  -  2 MARKERS
                 let yMarkerY = yScale * minorStep * CGFloat(markerNo) //e
-                CGContextMoveToPoint(currentContext, originX, originY - yMarkerY) //f
-                CGContextAddLineToPoint(currentContext, originX - markerHeight, originY - yMarkerY) //g
+                currentContext!.move(to: CGPoint.init(x: originX, y: originY - yMarkerY))
+                currentContext!.addLine(to: CGPoint.init(x: originX - markerHeight, y: originY - yMarkerY))
             }
-            CGContextStrokePath(currentContext) //19
-            CGContextSetLineWidth(currentContext, 2) //20
+            currentContext!.strokePath() //19
+            currentContext!.setLineWidth(2) //20
             
             //X
-            CGContextMoveToPoint(currentContext, originX, originY) //21
-            CGContextAddLineToPoint(currentContext, xAxisMax, originY) //22
+            currentContext!.move(to: CGPoint.init(x: originX, y: originY))
+            currentContext!.addLine(to: CGPoint.init(x: xAxisMax, y: originY))
             
             for markerNo in 0...values.count - 1 { //23
                 let xMarkerX = xScale * CGFloat(markerNo) //h
-                CGContextMoveToPoint(currentContext, originX + xMarkerX, originY) //i
-                CGContextAddLineToPoint(currentContext, originX + xMarkerX, originY + markerHeight) //j
-                self.addXAxisTextToGraph(self.values[markerNo].x, xCoord: originX + xMarkerX, yCoord: originY + 60) //k
+                currentContext!.move(to: CGPoint.init(x: originX + xMarkerX, y: originY))
+                currentContext!.addLine(to: CGPoint.init(x: originX + xMarkerX, y: originY + markerHeight))
+                self.addXAxisTextToGraph(text: self.values[markerNo].x, xCoord: originX + xMarkerX, yCoord: originY + 60) //k
             }
             
-            CGContextStrokePath(currentContext) //24
+            currentContext!.strokePath() //24
         }
     }
     
@@ -169,14 +169,14 @@ class Graph: UIView {
     */
     func plotLineGraph() {
         let currentContext = UIGraphicsGetCurrentContext() //1
-        CGContextSetLineWidth(currentContext, 2) //2
-        CGContextSetStrokeColorWithColor(currentContext, UIColor.redColor().CGColor) //3
+        currentContext!.setLineWidth(2) //2
+        currentContext!.setStrokeColor(UIColor.red.cgColor) //3
         
-        CGContextMoveToPoint(currentContext, originX, originY - (values[0].y * yScale)) //4
+        currentContext!.move(to: CGPoint(x: originX, y: originY - (values[0].y * yScale)))
         for pointNo in 1...values.count - 1 { //5
-            CGContextAddLineToPoint(currentContext, (CGFloat(pointNo) * xScale) + originX, originY - (values[pointNo].y * yScale)) //a
+            currentContext!.addLine(to: CGPoint(x: (CGFloat(pointNo) * xScale) + originX, y: originY - (values[pointNo].y * yScale)))
         }
-        CGContextStrokePath(currentContext) //6
+        currentContext!.strokePath() //6
     }
     
     /**
@@ -213,8 +213,8 @@ class Graph: UIView {
         
         var maxYValue:CGFloat = 0.0 //4
 
-        if maxYCoord % majorStep != 0 { //5
-            maxYValue = (majorStep - (maxYCoord % majorStep)) + maxYCoord //b
+        if maxYCoord.truncatingRemainder(dividingBy: majorStep) != 0 { //5
+            maxYValue = (majorStep - (maxYCoord.truncatingRemainder(dividingBy: majorStep))) + maxYCoord //b
         } else { //6
             maxYValue = maxYCoord //c
         }
@@ -241,10 +241,10 @@ class Graph: UIView {
         let textLayer = CATextLayer()
         textLayer.string = text
         textLayer.fontSize = 10
-        textLayer.font = UIFont.systemFontOfSize(10)
-        textLayer.foregroundColor = UIColor.blackColor().CGColor
-        textLayer.frame = CGRectMake(xCoord, yCoord, 100, 12);
-        textLayer.contentsScale = UIScreen.mainScreen().scale
+        textLayer.font = UIFont.systemFont(ofSize: 10)
+        textLayer.foregroundColor = UIColor.black.cgColor
+        textLayer.frame = CGRect.init(x: xCoord, y: yCoord, width: 100, height: 12)
+        textLayer.contentsScale = UIScreen.main.scale
         self.layer.addSublayer(textLayer)
     }
     
@@ -263,12 +263,12 @@ class Graph: UIView {
         let textLayer = CATextLayer()
         textLayer.string = text
         textLayer.fontSize = 10
-        textLayer.font = UIFont.systemFontOfSize(10)
-        textLayer.foregroundColor = UIColor.blackColor().CGColor
-        textLayer.frame = CGRectMake(xCoord, yCoord, 100, 12);
-        textLayer.contentsScale = UIScreen.mainScreen().scale
-        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(M_PI/2)))
-        textLayer.position = CGPointMake(xCoord, yCoord)
+        textLayer.font = UIFont.systemFont(ofSize: 10)
+        textLayer.foregroundColor = UIColor.black.cgColor
+        textLayer.frame = CGRect.init(x: xCoord, y: yCoord, width: 100, height: 12)
+        textLayer.contentsScale = UIScreen.main.scale
+        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI/2)))
+        textLayer.position = CGPoint.init(x: xCoord, y: yCoord)
         self.layer.addSublayer(textLayer)
     }
     

@@ -82,7 +82,7 @@ class PlannedRun: NSObject {
         now - A constant NSDate that represents now
     */
     func checkForCompletedRun(){
-        let matchingRuns = Database().loadRunsWithQuery("WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as [Run] //1
+        let matchingRuns = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as! [Run] //1
         var rank = 0 //2
         var matchingRun: Run? //3
         
@@ -109,7 +109,7 @@ class PlannedRun: NSObject {
         
         let now = NSDate() //5
         
-        if rank == 0 && now.compare(self.date) == .OrderedAscending { //6
+        if rank == 0 && now.compare(self.date as Date) == .orderedAscending { //6
             rank = -1 //a
         }
         

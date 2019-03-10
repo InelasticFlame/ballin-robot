@@ -27,15 +27,15 @@ class RunsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = self.editButtonItem() //1
+        self.navigationItem.rightBarButtonItem = self.editButtonItem //1
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishLoad", name: "RunLoadComplete", object: nil) //2
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadRuns", name: "AuthorisedSuccessfully", object: nil) //3
+        NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.finishLoad), name: NSNotification.Name(rawValue: "RunLoadComplete"), object: nil) //2
+        NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.loadRuns), name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //3
         
-        if NSUserDefaults.standardUserDefaults().stringForKey(Constants.DefaultsKeys.Strava.AccessTokenKey)?.utf16Count > 0 { //4
+        if (UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Strava.AccessTokenKey)?.count)! > 0 { //4
             self.refreshControl = UIRefreshControl() //a
-            self.refreshControl?.addTarget(self, action: "authorise", forControlEvents: .ValueChanged) //b
+            self.refreshControl?.addTarget(self, action: #selector(RunsTableViewController.authorise), for: .valueChanged) //b
         }
     }
     
@@ -47,10 +47,10 @@ class RunsTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.backgroundView = nil
         
-        self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
+        self.runs = Database().loadRuns(withQuery: "") as! Array<Run> //1
         tableView.reloadData() //2
         
         checkNoRunsLabel() //3
@@ -77,17 +77,17 @@ class RunsTableViewController: UITableViewController {
         if runs.count == 0 { //1
             let noRunsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)) //a
             noRunsLabel.text = "No runs available. Either add a run manually or pull down the table to refresh if a Strava Account is linked." //b
-            noRunsLabel.textColor = UIColor.darkGrayColor() //c
+            noRunsLabel.textColor = UIColor.darkGray //c
             noRunsLabel.numberOfLines = 0 //d
-            noRunsLabel.textAlignment = .Center //e
+            noRunsLabel.textAlignment = .center //e
             noRunsLabel.font = UIFont(name: "System", size: 16) //f
             noRunsLabel.sizeToFit() //g
-            self.tableView.separatorStyle = .None //h
+            self.tableView.separatorStyle = .none //h
             
             self.tableView.backgroundView = noRunsLabel //i
         } else { //2
             self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .SingleLine
+            self.tableView.separatorStyle = .singleLine
         }
     }
     
@@ -105,7 +105,7 @@ class RunsTableViewController: UITableViewController {
     This method calls the function loadRunsFromStrava from the StravaRuns classs. It is called after the authorise function has finished (runs cannot be pulled from the Strava server unless the user is authorised first).
     */
     func loadRuns() {
-        StravaRuns().loadRunsFromStrava()
+        StravaRuns().loadFromStrava()
     }
     
     /**
@@ -115,7 +115,7 @@ class RunsTableViewController: UITableViewController {
     3. Tells the refresh control to end refreshing
     */
     func finishLoad() {
-        self.runs = Database().loadRunsWithQuery("") as Array<Run> //1
+        self.runs = Database().loadRuns(withQuery: "") as! Array<Run> //1
         self.tableView.reloadData() //2
         self.refreshControl?.endRefreshing() //3
     }
@@ -128,8 +128,7 @@ class RunsTableViewController: UITableViewController {
     :param: tableView The UITableView that is requesting the information from the delegate.
     :returns: An integer value that is the number of sections in the table view.
     */
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -140,7 +139,7 @@ class RunsTableViewController: UITableViewController {
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return runs.count
     }
@@ -162,14 +161,14 @@ class RunsTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("runCell", forIndexPath: indexPath) as RunTableViewCell //1
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "runCell", for: indexPath as IndexPath) as! RunTableViewCell //1
         let run = runs[indexPath.row] //2
         
-        cell.distanceLabel.text = Conversions().distanceForInterface(run.distance) //3
+        cell.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance) //3
         cell.dateLabel.text = run.dateTime.shortDateString()
-        cell.paceLabel.text = Conversions().averagePaceForInterface(run.pace)
-        cell.durationLabel.text = Conversions().runDurationForInterface(run.duration)
+        cell.paceLabel.text = Conversions().averagePaceForInterface(pace: run.pace)
+        cell.durationLabel.text = Conversions().runDurationForInterface(duration: run.duration)
         
         cell.progressView.backgroundColor = run.scoreColour() //4
         cell.progressView.alpha = 0.4; //5
@@ -193,12 +192,12 @@ class RunsTableViewController: UITableViewController {
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete { //1
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete { //1
             let run = self.runs[indexPath.row] //a
             if Database().deleteRun(run) { //b
-                self.runs.removeAtIndex(indexPath.row) //i
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+                self.runs.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .fade) //ii
                 checkNoRunsLabel() //iii
             }
         }
@@ -215,10 +214,10 @@ class RunsTableViewController: UITableViewController {
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "runDetails" {
-            if let selectedIndex = self.tableView.indexPathForCell(sender as UITableViewCell) {
-                if let destinationVC = segue.destinationViewController as? RunPageViewController {
+            if let selectedIndex = self.tableView.indexPath(for: sender as! UITableViewCell) {
+                if let destinationVC = segue.destination as? RunPageViewController {
                     destinationVC.run = runs[selectedIndex.row]
                 }
             }

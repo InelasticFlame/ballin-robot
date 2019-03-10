@@ -42,13 +42,13 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         super.viewDidLoad()
         
         planNameTextField.delegate = self //1
-        startDatePicker.addTarget(self, action: "updateStartDate:", forControlEvents: .ValueChanged) //2
-        endDatePicker.addTarget(self, action: "updateEndDate:", forControlEvents: .ValueChanged)
+        startDatePicker.addTarget(self, action: Selector("updateStartDate:"), for: .valueChanged)
+        endDatePicker.addTarget(self, action: Selector("updateEndDate:"), for: .valueChanged)
         
-        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, sinceDate: startDatePicker.date) //3
-        startDatePicker.minimumDate = NSDate()
-        startDateDetailLabel.text = startDatePicker.date.shortDateString() //5
-        endDateDetailLabel.text = endDatePicker.date.shortDateString()
+        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date //3
+        startDatePicker.minimumDate = NSDate() as Date
+        startDateDetailLabel.text = (startDatePicker.date as NSDate).shortDateString() //5
+        endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
     
     //MARK: - Text Field
@@ -61,7 +61,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: textField The UITextField whose return button was pressed.
     :returns: A boolean value indicating whether the text field's default behaviour should be perform (true) or not (false)
     */
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
         
         return false //2
@@ -78,9 +78,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that called the action (in this case the startDatePicker).
     */
     func updateStartDate(sender: AnyObject) {
-        startDateDetailLabel.text = startDatePicker.date.shortDateString()
-        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, sinceDate: startDatePicker.date)
-        endDateDetailLabel.text = endDatePicker.date.shortDateString()
+        startDateDetailLabel.text = (startDatePicker.date as NSDate).shortDateString()
+        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date
+        endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
     
     /**
@@ -90,7 +90,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that called the action (in this case the endDatePicker).
     */
     func updateEndDate(sender: AnyObject) {
-        endDateDetailLabel.text = endDatePicker.date.shortDateString()
+        endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
     
     //MARK: - Table View Data Source
@@ -113,7 +113,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1 {
             if indexPath.row == 1 {
                 if editingStartDate {
@@ -158,7 +158,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 { //1
             if indexPath.row == 0 { //a
                 if !editingStartDate { //b
@@ -194,11 +194,11 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createPress" { //1
-            if let plan = Database().createNewPlanWithName(planNameTextField.text.capitalizedStringWithLocale(NSLocale.currentLocale()), startDate: startDatePicker.date, andEndDate:endDatePicker.date) as? Plan { //a
+            if let plan = Database().createNewPlan(withName: planNameTextField.text!.capitalized, start: startDatePicker.date, andEnd:endDatePicker.date) as? Plan { //a
                 
-                if let destinationVC = segue.destinationViewController as? CreatePlanViewController { //i
+                if let destinationVC = segue.destination as? CreatePlanViewController { //i
                     destinationVC.plan = plan //ii
                 }
             }
@@ -224,9 +224,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that initiated the segue.
     :returns: A boolean value indicating whether the segue should be performed.
     */
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         if identifier == "createPress" { //1
-            let stringValidation = planNameTextField.text.validateString("A plan name", maxLength: 20, minLength: 3)
+            let stringValidation = planNameTextField.text!.validateString(stringName: "A plan name", maxLength: 20, minLength: 3)
             if  stringValidation.valid { //a
                 return true //i
             } else { //b

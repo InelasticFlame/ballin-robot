@@ -42,15 +42,15 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
         
         let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil) //2
         
-        let detailsVC = storyboard.instantiateViewControllerWithIdentifier(pages[1]) as RunDetailsViewController //3
+        let detailsVC = storyboard.instantiateViewController(withIdentifier: pages[1]) as! RunDetailsViewController //3
         detailsVC.run = self.run //4
-        let splitsVC = storyboard.instantiateViewControllerWithIdentifier(pages[2]) as RunSplitsTableViewController //5
+        let splitsVC = storyboard.instantiateViewController(withIdentifier: pages[2]) as! RunSplitsTableViewController //5
         splitsVC.run = self.run
-        let shoesVC = storyboard.instantiateViewControllerWithIdentifier(pages[0]) as RunShoesTableViewController
+        let shoesVC = storyboard.instantiateViewController(withIdentifier: pages[0]) as! RunShoesTableViewController
         shoesVC.run = self.run
         pagesViewControllers = [shoesVC, detailsVC, splitsVC] //6
         
-        self.setViewControllers([detailsVC], direction: .Forward, animated: false, completion: nil) //7
+        self.setViewControllers([detailsVC], direction: .forward, animated: false, completion: nil) //7
         
     }
     
@@ -68,11 +68,11 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     :param: viewController The view controller that the user navigated away from.
     :returns: The next UIViewController to be displayed by the pageViewController after the current viewController.
     */
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let currentVC = viewController as? RunDetailsViewController { //1
+        if viewController is RunDetailsViewController { //1
             return pagesViewControllers[2] //1a
-        } else if let currentVC = viewController as? RunShoesTableViewController { //2
+        } else if viewController is RunShoesTableViewController { //2
             return pagesViewControllers[1] //2a
         } else { //3
             return nil
@@ -92,11 +92,11 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     :param: viewController The view controller that the user navigated away from.
     :returns: The next UIViewController to be displayed by the pageViewController before the current viewController.
     */
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        if let currentVC = viewController as? RunDetailsViewController {
+        if viewController is RunDetailsViewController {
             return pagesViewControllers[0]
-        } else if let currentVC = viewController as? RunSplitsTableViewController {
+        } else if viewController is RunSplitsTableViewController {
             return pagesViewControllers[1]
         } else {
             return nil

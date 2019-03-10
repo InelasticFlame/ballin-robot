@@ -16,7 +16,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         
         self.delegate = self
     }
@@ -62,13 +62,13 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 { //1
-            return NSString(format: "%ih", row) //a //hours
+            return NSString(format: "%ih", row) as String //a //hours
         } else if component == 1 { //2
-            return NSString(format: "%02im", row) //b //minutes
+            return NSString(format: "%02im", row) as String //b //minutes
         } else { //3
-            return NSString(format: "%02is", row) //c //seconds
+            return NSString(format: "%02is", row) as String //c //seconds
         }
     }
     
@@ -79,8 +79,8 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
     :param: row An integer identifying the row which was selected.
     :param: component An integer identifying the component that the row is in.
     */
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName("UpdateDetailLabel", object: nil, userInfo: NSDictionary(object: "DURATION", forKey: "valueChanged"))
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "DURATION", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any]))
     }
     
     /**
@@ -108,12 +108,12 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate {
         var duration = 0 //1
         var durationStr = "" //2
         
-        let hours = self.selectedRowInComponent(0) //3
-        let minutes = self.selectedRowInComponent(1) //4
-        let seconds = self.selectedRowInComponent(2) //5
+        let hours = self.selectedRow(inComponent: 0) //3
+        let minutes = self.selectedRow(inComponent: 1) //4
+        let seconds = self.selectedRow(inComponent: 2) //5
         
         duration = (hours * 3600) + (minutes * 60) + seconds //6
-        durationStr = NSString(format: "%ih %02im %02is", hours, minutes, seconds) //7
+        durationStr = NSString(format: "%ih %02im %02is", hours, minutes, seconds) as String //7
         
         return (duration, durationStr) //8
     }

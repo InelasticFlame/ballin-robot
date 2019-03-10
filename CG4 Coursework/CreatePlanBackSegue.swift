@@ -27,12 +27,12 @@ class CreatePlanBackSegue: UIStoryboardSegue {
         navigationController - The main navigation controller of the system
     */
     override func perform() {
-        let sourceViewController = self.sourceViewController as UIViewController
-        let destinationViewController = self.destinationViewController as UIViewController
+        let sourceViewController = self.source as UIViewController
+        let destinationViewController = self.destination as UIViewController
         let navigationController = sourceViewController.navigationController as UINavigationController?
         
         if let navigationController = navigationController {
-            navigationController.popToRootViewControllerAnimated(false)
+            navigationController.popToRootViewController(animated: false)
             navigationController.pushViewController(destinationViewController, animated: true)
         }
     }

@@ -34,7 +34,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         plannedRunsTableView.dataSource = self //2
         plannedRunsTableView.delegate = self
         
-        secondNavigationItem.rightBarButtonItem = self.editButtonItem() //3
+        secondNavigationItem.rightBarButtonItem = self.editButtonItem //3
     }
     
     /**
@@ -44,7 +44,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         plan?.loadPlannedRuns()
         plannedRunsTableView.reloadData()
     }
@@ -55,7 +55,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     This method is called by the system when the edit button is pressed. It sets the table view into edit mode.
     1. Sets the plannedTableView to the editing option passed and the animation option passed
     */
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
         plannedRunsTableView.setEditing(editing, animated: animated) //1
@@ -80,7 +80,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let plan = plan {
             return plan.plannedRuns.count
         }
@@ -108,16 +108,16 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PlannedRun", forIndexPath: indexPath) as PlannedRunTableViewCell //1
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlannedRun", for: indexPath as IndexPath) as! PlannedRunTableViewCell //1
         let plannedRun = plan?.plannedRuns[indexPath.row] //2
         
         cell.dateLabel.text = plannedRun?.date.shortestDateString() //3
         cell.detailsLabel.text = plannedRun?.details //4
-        if plannedRun?.distance > 0 { //5
-            cell.distanceDurationLabel.text = Conversions().distanceForInterface(plannedRun!.distance) //a
+        if plannedRun!.distance > 0 { //5
+            cell.distanceDurationLabel.text = Conversions().distanceForInterface(distance: plannedRun!.distance) //a
         } else { //6
-            cell.distanceDurationLabel.text = Conversions().runDurationForInterface(plannedRun!.duration) //b
+            cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun!.duration) //b
         }
         
         return cell //7
@@ -130,7 +130,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
@@ -147,11 +147,11 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete { //1
+        if editingStyle == .delete { //1
             if let plan = plan { //a
                 if Database().deletePlannedRun(plan.plannedRuns[indexPath.row]) { //b
-                    plan.plannedRuns.removeAtIndex(indexPath.row) //i
-                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) //ii
+                    plan.plannedRuns.remove(at: indexPath.row) //i
+                    tableView.deleteRows(at: [indexPath as IndexPath], with: .fade) //ii
                 }
             }
         }
@@ -169,8 +169,8 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: segue The UIStoryboardSegue containing the information about the view controllers involved in the segue.
     :param: sender The object that caused the segue.
     */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationVC = segue.destinationViewController as? NewPlannedRunTableViewController { //1
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? NewPlannedRunTableViewController { //1
             if let plan = plan { //a
                 destinationVC.plan = plan //i
             }
@@ -184,6 +184,6 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: sender The object that called the action (in this case the Done button).
     */
     @IBAction func doneButtonPressed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true) //1
+        self.navigationController?.popViewController(animated: true) //1
     }
 }

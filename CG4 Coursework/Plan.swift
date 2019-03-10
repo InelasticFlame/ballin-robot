@@ -56,9 +56,9 @@ class Plan: NSObject {
     */
     func checkIfActive() {
         let today = NSDate()
-        let endDate = self.endDate.dateByAddingTimeInterval(86399)
+        let endDate = self.endDate.addingTimeInterval(86399)
         
-        if today.earlierDate(startDate) == startDate && today.laterDate(endDate) == endDate {
+        if today.earlierDate(startDate as Date) == startDate as Date && today.laterDate(endDate as Date) == endDate as Date {
             self.active = true
         } else {
             self.active = false
@@ -71,7 +71,7 @@ class Plan: NSObject {
     2. Sorts the plannedRuns into date order (newest plans at the lowest index)
     */
     func loadPlannedRuns() {
-        plannedRuns = Database().loadPlannedRunsForPlan(self) as [PlannedRun] //1
+        plannedRuns = Database().loadPlannedRuns(forPlan: self) as! [PlannedRun] //1
         self.plannedRuns = Conversions().sortPlansIntoDateOrder(plannedRuns: self.plannedRuns) //2
     }
 }

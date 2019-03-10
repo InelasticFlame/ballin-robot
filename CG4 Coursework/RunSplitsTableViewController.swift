@@ -40,7 +40,7 @@ class RunSplitsTableViewController: UITableViewController {
         pageControl.currentPage = 2 //4
         pageControl.pageIndicatorTintColor = UIColor(red: 122/255, green: 195/255, blue: 252/255, alpha: 1) //5
         pageControl.currentPageIndicatorTintColor = UIColor(red: 87/255, green: 142/255, blue: 185/255, alpha: 1) //6
-        pageControl.center = CGPointMake(self.view.frame.width / 2, self.view.frame.height - self.tabBarController!.tabBar.frame.height - 28) //7
+        pageControl.center = CGPoint.init(x: self.view.frame.width / 2, y: self.view.frame.height - self.tabBarController!.tabBar.frame.height - 28)
         
         self.view.addSubview(pageControl) //8
     }
@@ -62,13 +62,13 @@ class RunSplitsTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if run?.splits.count == 0 {
             let noSplitsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)) //a
             noSplitsLabel.text = "There are no splits stored for this run." //b
-            noSplitsLabel.textColor = UIColor.blackColor() //c
+            noSplitsLabel.textColor = UIColor.black //c
             noSplitsLabel.numberOfLines = 0 //d
-            noSplitsLabel.textAlignment = .Center //e
+            noSplitsLabel.textAlignment = .center //e
             noSplitsLabel.font = UIFont(name: "System", size: 16) //f
             noSplitsLabel.sizeToFit() //g
             
@@ -84,7 +84,7 @@ class RunSplitsTableViewController: UITableViewController {
     :param: tableView The UITableView that is requesting the information from the delegate.
     :returns: An integer value that is the number of sections in the table view.
     */
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -95,7 +95,7 @@ class RunSplitsTableViewController: UITableViewController {
     :param: section The section that's number of rows needs returning as an integer.
     :returns: An integer value that is the number of rows in the section.
     */
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let run = run {
             return run.splits.count
         } else {
@@ -119,11 +119,11 @@ class RunSplitsTableViewController: UITableViewController {
     :param: indexPath The NSIndexPath of the cell requested.
     :returns: The UITableViewCell for the indexPath.
     */
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("splitsCell", forIndexPath: indexPath) as UITableViewCell //1
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "splitsCell", for: indexPath as IndexPath) as UITableViewCell //1
 
         cell.textLabel?.text = "Mile: \(indexPath.row + 1)" //2
-        cell.detailTextLabel?.text = Conversions().averagePaceForInterface(run!.splits[indexPath.row]) //3
+        cell.detailTextLabel?.text = Conversions().averagePaceForInterface(pace: run!.splits[indexPath.row]) //3
 
         return cell //4
     }

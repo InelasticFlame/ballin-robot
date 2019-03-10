@@ -41,8 +41,8 @@ class WeightHistoryViewController: UIViewController {
         super.viewDidLoad()
         
         let startDate = NSDate(shortDateString: NSDate().shortDateString()) //1
-        let endDate = NSDate(timeInterval: secondsInDay, sinceDate: startDate) //2
-        loadWeightForLast7Days(startDate, endDate: endDate) //3
+        let endDate = NSDate(timeInterval: secondsInDay, since: startDate as Date) //2
+        loadWeightForLast7Days(startDate: startDate, endDate: endDate) //3
     }
 
     //MARK: - Graph Data Loading
@@ -92,55 +92,55 @@ class WeightHistoryViewController: UIViewController {
     :param: endDate The end of the first day to retrieve the weight data from.
     */
     func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
-        var weightUnit = HKUnit(fromMassFormatterUnit: .Kilogram) //1
+        var weightUnit = HKUnit(from: .kilogram) //1
         
-        let weightQuantity = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass) //2
+        let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
         
-        var predicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: nil) //3
+        var predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //3
         
-        self.healthStore.retrieveMostRecentSample(weightQuantity, predicate: predicate) { (result, error) -> Void in //4
+        self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (result, error) -> Void in //4
             /* BLOCK A START */
             //5
             if error != nil { //a
-                println("Error Reading From HealthKit Datastore: \(error.localizedDescription)") //i
+                print("Error Reading From HealthKit Datastore: \(error!.localizedDescription)") //i
             }
             
             if let weight = result as? HKQuantitySample { //b
-                let doubleWeight = weight.quantity.doubleValueForUnit(weightUnit) //ii
+                let doubleWeight = weight.quantity.doubleValue(for: weightUnit) //ii
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //iii
+                DispatchQueue.main.async {
                     /* BLOCK B START */
                     let dateStr = startDate.shortestDateString() //Z
-                    let charsToRemoveTo = countElements(dateStr) - 3 //Y
-                    let xStr = dateStr.substringToIndex(advance(dateStr.startIndex, charsToRemoveTo)) //X
+                    let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
+                    let xStr = dateStr.substring(to: charsToRemoveTo) //X
                     
                     self.graphCoords.append(GraphCoordinate(x: xStr, y: CGFloat(doubleWeight))) //W
                     if self.graphCoords.count == 7 { //V
                         self.drawWeightGraph()
                     }
                     /* BLOCK B END */
-                })
+                }
             }
             
             if result == nil { //c
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in //iv
+                DispatchQueue.main.async {
                     /* BLOCK C START */
                     let dateStr = startDate.shortestDateString() //U
-                    let charsToRemoveTo = countElements(dateStr) - 3 //T
-                    let xStr = dateStr.substringToIndex(advance(dateStr.startIndex, charsToRemoveTo)) //S
+                    let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
+                    let xStr = dateStr.substring(to: charsToRemoveTo) //X
                     
                     self.graphCoords.append(GraphCoordinate(x: xStr, y: CGFloat(0))) //R
                     if self.graphCoords.count == 7 { //Q
                         self.drawWeightGraph()
                     }
                     /* BLOCK C END */
-                })
+                }
             }
             
             if self.graphCoords.count != 7 { //d
                 let endDate = startDate //v
-                let startDate = NSDate(timeInterval: -self.secondsInDay, sinceDate: endDate) //vi
-                self.loadWeightForLast7Days(startDate, endDate: endDate) //vii
+                let startDate = NSDate(timeInterval: -self.secondsInDay, since: endDate as Date) //vi
+                self.loadWeightForLast7Days(startDate: startDate, endDate: endDate) //vii
             }
             
             /* BLOCK A END */
@@ -186,13 +186,13 @@ class WeightHistoryViewController: UIViewController {
         
         let weightDelta = greatestWeight - lowestWeight //3
         
-        greatestWeightLabel.text = NSString(format: "Greatest Weight: %1.2f kg", Double(greatestWeight)) //4
-        lowestWeightLabel.text = NSString(format: "Lowest Weight: %1.2f kg", Double(lowestWeight))
-        weightVariationLabel.text = NSString(format: "Weight Variation: %1.2f kg", Double(weightDelta))
+        greatestWeightLabel.text = NSString(format: "Greatest Weight: %1.2f kg", Double(greatestWeight)) as String //4
+        lowestWeightLabel.text = NSString(format: "Lowest Weight: %1.2f kg", Double(lowestWeight)) as String
+        weightVariationLabel.text = NSString(format: "Weight Variation: %1.2f kg", Double(weightDelta)) as String
         
         let frame = CGRect(x: 0, y: 0, width: graphView.frame.width, height: graphView.frame.height) //5
-        let graph = Graph(frame: frame, coordinates: graphCoords.reverse()) //6
-        graph.backgroundColor = UIColor.clearColor() //7
+        let graph = Graph(frame: frame, coordinates: graphCoords.reversed()) //6
+        graph.backgroundColor = UIColor.clear //7
         
         self.graphView.addSubview(graph) //8
     }

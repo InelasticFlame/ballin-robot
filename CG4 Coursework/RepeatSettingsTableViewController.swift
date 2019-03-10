@@ -28,9 +28,9 @@ class RepeatSettingsTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewWillAppear(animated: Bool) {
-        repeatEndDatePicker.minimumDate = plannedRunDate //1
-        dateDetailLabel.text = repeatEndDatePicker.date.shortDateString() //2
+    override func viewWillAppear(_ animated: Bool) {
+        repeatEndDatePicker.minimumDate = plannedRunDate as! Date //1
+        dateDetailLabel.text = (repeatEndDatePicker.date as NSDate).shortDateString() //2
     }
     
     /**
@@ -39,7 +39,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         setPreviousRepeatEnd() //1
     }
     
@@ -60,28 +60,28 @@ class RepeatSettingsTableViewController: UITableViewController {
     :param: tableView The UITableView object informing the delegate about the new row selection.
     :param: indexPath The NSIndexPath of the row selected.
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clearCheckmarks() //1
         
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark //2
-        tableView.deselectRowAtIndexPath(indexPath, animated: true) //3
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark //2
+        tableView.deselectRow(at: indexPath, animated: true) //3
         
         
         if let viewControllers = self.navigationController?.viewControllers.count { //4
         
             if let previousVC = self.navigationController?.viewControllers[viewControllers - 2] as? NewPlannedRunTableViewController { //a
-                if tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text == "Date" { //b
-                    let selectedEndDate = repeatEndDatePicker.date.shortDateString()
-                    previousVC.setRepeatEndDetailLabelText(selectedEndDate) //i
+                if tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text == "Date" { //b
+                    let selectedEndDate = (repeatEndDatePicker.date as NSDate).shortDateString()
+                    previousVC.setRepeatEndDetailLabelText(repeatEndOption: selectedEndDate) //i
                 } else { //c
-                    if let selectedRepeatEndOption = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text {
-                        previousVC.setRepeatEndDetailLabelText(selectedRepeatEndOption)
+                    if let selectedRepeatEndOption = tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text {
+                        previousVC.setRepeatEndDetailLabelText(repeatEndOption: selectedRepeatEndOption)
                     }
                 }
             }
         }
     
-        navigationController?.popViewControllerAnimated(true) //5
+        navigationController?.popViewController(animated: true) //5
     }
     
     /**
@@ -99,11 +99,11 @@ class RepeatSettingsTableViewController: UITableViewController {
     */
     func setPreviousRepeatEnd() {
         if repeatEnd == "Until Plan End" { //1
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))?.accessoryType = .Checkmark //a
+            tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.accessoryType = .checkmark //a
         } else if let repeatEnd = repeatEnd { //2
             let repeatEndDate = NSDate(shortDateString: repeatEnd) //a
-            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark //b
-            repeatEndDatePicker.date = repeatEndDate //c
+            tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //b
+            repeatEndDatePicker.date = repeatEndDate as Date //c
             dateDetailLabel.text = repeatEnd //d
         }
     }
@@ -123,14 +123,14 @@ class RepeatSettingsTableViewController: UITableViewController {
         rowNo - An integer variable that is the current row in a section
     */
     func clearCheckmarks() {
-        let sectionCount = tableView.numberOfSections() //1
+        let sectionCount = tableView.numberOfSections //1
         
-        for var sectionNo = 0; sectionNo < sectionCount; sectionNo++ { //2
+        for sectionNo in 0 ..< sectionCount { //2
             
-            let rowCount = tableView.numberOfRowsInSection(sectionNo) //a
+            let rowCount = tableView.numberOfRows(inSection: sectionNo) //a
             
-            for var rowNo = 0; rowNo < rowCount; rowNo++ { //b
-                tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowNo, inSection: sectionNo))?.accessoryType = .None //i
+            for rowNo in 0 ..< rowCount { //b
+                tableView.cellForRow(at: IndexPath(row: rowNo, section: sectionNo))?.accessoryType = .none //i
             }
         }
     }
@@ -146,9 +146,9 @@ class RepeatSettingsTableViewController: UITableViewController {
     :param: sender The UIDatePicker that triggered the method to be called.
     */
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
-        dateDetailLabel.text = repeatEndDatePicker.date.shortDateString() //1
+        dateDetailLabel.text = (repeatEndDatePicker.date as NSDate).shortDateString() //1
         clearCheckmarks() //2
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))?.accessoryType = .Checkmark //3
+        tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //3
     }
     
 }

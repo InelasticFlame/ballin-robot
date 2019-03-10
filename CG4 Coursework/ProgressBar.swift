@@ -35,7 +35,7 @@ class ProgressBar: UIView {
             self.progress = progress
         }
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
 
     /**
@@ -44,7 +44,7 @@ class ProgressBar: UIView {
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
     
     //MARK: - Bar Drawing
@@ -84,7 +84,7 @@ class ProgressBar: UIView {
     
     :param: The portion of the view’s bounds that needs to be updated.
     */
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let arcRadius = (rect.size.height*11) / 16 //1
         let arcCentrePoint = CGPoint(x: (rect.size.width/2), y: (rect.size.height)  - (arcRadius / 8)) //2
         let fullArc = UIBezierPath(arcCenter: arcCentrePoint, radius: arcRadius, startAngle: startAngle, endAngle: endAngle, clockwise: true) //3
@@ -92,31 +92,31 @@ class ProgressBar: UIView {
         let progressArc = UIBezierPath(arcCenter: arcCentrePoint, radius: arcRadius, startAngle: startAngle, endAngle: progressAngle, clockwise: true) //5
         
         let fullArcLayer = CAShapeLayer() //6
-        fullArcLayer.path = fullArc.CGPath //7
-        fullArcLayer.fillColor = UIColor.clearColor().CGColor
-        fullArcLayer.strokeColor = UIColor.lightGrayColor().CGColor
+        fullArcLayer.path = fullArc.cgPath //7
+        fullArcLayer.fillColor = UIColor.clear.cgColor
+        fullArcLayer.strokeColor = UIColor.lightGray.cgColor
         fullArcLayer.lineWidth = 27
         self.layer.addSublayer(fullArcLayer) //8
         
         let progressArcLayer = CAShapeLayer() //9
-        progressArcLayer.path = progressArc.CGPath //10
-        progressArcLayer.fillColor = UIColor.clearColor().CGColor
-        progressArcLayer.strokeColor = UIColor.redColor().CGColor
+        progressArcLayer.path = progressArc.cgPath //10
+        progressArcLayer.fillColor = UIColor.clear.cgColor
+        progressArcLayer.strokeColor = UIColor.red.cgColor
         progressArcLayer.lineWidth = 27
         self.layer.addSublayer(progressArcLayer) //11
         
         let progressTextString = NSString(format: "%1.2f%%", Double(progress * 100)) //12
-        let progressTextSize = progressTextString.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(20.0)]) //13
+        let progressTextSize = progressTextString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20.0)]) //13
         
         let progressTextLayer = CATextLayer() //14
         progressTextLayer.string = progressTextString //15
         progressTextLayer.fontSize = 20
-        progressTextLayer.font = UIFont.systemFontOfSize(20)
-        progressTextLayer.foregroundColor = UIColor.blackColor().CGColor
-        progressTextLayer.frame = CGRectMake(0, 0, progressTextSize.width, progressTextSize.height);
+        progressTextLayer.font = UIFont.systemFont(ofSize: 20)
+        progressTextLayer.foregroundColor = UIColor.black.cgColor
+        progressTextLayer.frame = CGRect.init(x: 0, y: 0, width: progressTextSize.width, height: progressTextSize.height);
         progressTextLayer.position.y = arcRadius
         progressTextLayer.position.x = arcCentrePoint.x
-        progressTextLayer.contentsScale = UIScreen.mainScreen().scale //16
+        progressTextLayer.contentsScale = UIScreen.main.scale //16
         self.layer.addSublayer(progressTextLayer) //17
     }
 }
