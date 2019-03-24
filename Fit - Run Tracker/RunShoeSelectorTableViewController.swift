@@ -145,11 +145,11 @@ class RunShoeSelectorTableViewController: UITableViewController {
                             if selectedShoe?.ID != run.shoe?.ID { //vi
                                 if let selectedShoe = selectedShoe { //viii
                                     Database().increaseShoeMiles(selectedShoe, byAmount: run.distance)
-                                    selectedShoe.miles = selectedShoe.miles + run.distance
+                                    selectedShoe.miles += run.distance
                                 }
                                 if let oldShoe = run.shoe { //ix
                                     Database().decreaseShoeMiles(oldShoe, byAmount: run.distance)
-                                    oldShoe.miles = oldShoe.miles - run.distance
+                                    oldShoe.miles -= run.distance
                                 }
                             }
                         }

@@ -95,12 +95,14 @@ class Run: NSObject {
             self.score = totalPoints
         }
     }
-    
+
+    // swiftlint:disable line_length
     /**
     This method adds a split to the array of stored splits for the run. This method is necessary as runs are created in an Objective-C environment (where arrays are just arrays of objects). In this case the split would have to be converted to an NSNumber object and then added to the array, so it is easy to pass the integer value for the split to the class and add it to the array in Swift.
     
     :param: split The pace of the split in seconds per mile as an integer.
     */
+    // swiftlint:enable line_length
     func addSplit(split: Int) {
         self.splits.append(split)
     }
@@ -147,6 +149,7 @@ class Run: NSObject {
     :returns: halfMarathon - The Half Marathon finish time as a String.
     :returns: fullMarathon - The Full Marathon finish time as a String.
     */
+    // swiftlint:disable large_tuple
     func calculateRunFinishTimes() -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
         let fiveK = Int(Double(self.pace) * 3.1) //1
         let tenK = Int(Double(self.pace) * 6.2)
@@ -160,6 +163,7 @@ class Run: NSObject {
         
         return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr) //3
     }
+    // swiftlint:enable large_tuple
 
     /**
     This method determines whether a created run object is valid. It returns a boolean value based on the result of the test.

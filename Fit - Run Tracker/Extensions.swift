@@ -294,7 +294,8 @@ extension String {
 }
 
 extension HKHealthStore {
-    
+
+    // swiftlint:disable line_length
     /**
     This extension retrieves the most recent sample of a given type. By retrieving the most recent sample, if there have been multiple weight updates in one day (e.g. 10am; 72.3 kg and then 5pm; 72.2 kg) the final update for the day will be returned (72.2 kg) ensure that the data is as up to date as it can be for that day
     1. Declares the local constant sortDescriptor as a NSSortDescripter by the sample end date descending
@@ -317,6 +318,7 @@ extension HKHealthStore {
     :param: predicate An NSPredicate to filter the data with.
     :param: completion The block to perform on completion of the request. (The completion block has parameters of a HKSample object and an NSError object and returns nothing)
     */
+    // swiftlint:enable line_length
     func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: @escaping (HKSample?, NSError?) -> (Void)) {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false) //1
 
