@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C9EF87FA95EE29E916D1818 /* libPods-CG4 Coursework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */; };
+		423DC6D6269AD2B7DAA4D44D /* libPods-Fit - Run Tracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D9FEBD796C1809B0D98039 /* libPods-Fit - Run Tracker.a */; };
 		B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
@@ -20,7 +20,6 @@
 		B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7441A48C65100A4A49C /* AppDelegate.swift */; };
 		B621B74E1A48C65100A4A49C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B621B74D1A48C65100A4A49C /* Images.xcassets */; };
 		B621B7511A48C65100A4A49C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B621B74F1A48C65100A4A49C /* LaunchScreen.xib */; };
-		B621B75D1A48C65100A4A49C /* CG4_CourseworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B75C1A48C65100A4A49C /* CG4_CourseworkTests.swift */; };
 		B621B7691A48C66E00A4A49C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B621B7681A48C66E00A4A49C /* Database.m */; };
 		B621B76B1A48C67F00A4A49C /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B76A1A48C67F00A4A49C /* Run.swift */; };
 		B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B76C1A48C68900A4A49C /* Shoe.swift */; };
@@ -64,21 +63,12 @@
 		B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B621B7571A48C65100A4A49C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B621B7371A48C65100A4A49C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B621B73E1A48C65100A4A49C;
-			remoteInfo = "CG4 Coursework";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CG4 Coursework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3584E6B474B032369155AAC1 /* Pods-CG4 Coursework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CG4 Coursework.release.xcconfig"; path = "Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework.release.xcconfig"; sourceTree = "<group>"; };
-		404B3079BACA5930E7B1519D /* Pods-CG4 Coursework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CG4 Coursework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework.debug.xcconfig"; sourceTree = "<group>"; };
+		13D9FEBD796C1809B0D98039 /* libPods-Fit - Run Tracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fit - Run Tracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		509932BB050179BAA03A2EF6 /* Pods-Fit - Run Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fit - Run Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fit - Run Tracker/Pods-Fit - Run Tracker.debug.xcconfig"; sourceTree = "<group>"; };
+		902FF39FCDB6CA8D8FD5B4A6 /* Pods-Fit - Run Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fit - Run Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fit - Run Tracker/Pods-Fit - Run Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
+		B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Fit - Run Tracker.entitlements"; sourceTree = "<group>"; };
 		B609B82A1A49B47A006664D5 /* StravaAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAuth.h; sourceTree = "<group>"; };
 		B609B82B1A49B47A006664D5 /* StravaAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAuth.m; sourceTree = "<group>"; };
 		B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatsTableViewController.swift; sourceTree = "<group>"; };
@@ -93,10 +83,7 @@
 		B621B7441A48C65100A4A49C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B621B74D1A48C65100A4A49C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B621B7501A48C65100A4A49C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B621B7561A48C65100A4A49C /* Fit - Run TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B621B75B1A48C65100A4A49C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B621B75C1A48C65100A4A49C /* CG4_CourseworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CG4_CourseworkTests.swift; sourceTree = "<group>"; };
-		B621B7661A48C66D00A4A49C /* CG4 Coursework-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CG4 Coursework-Bridging-Header.h"; sourceTree = "<group>"; };
+		B621B7661A48C66D00A4A49C /* Fit - Run Tracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fit - Run Tracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		B621B7671A48C66E00A4A49C /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		B621B7681A48C66E00A4A49C /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		B621B76A1A48C67F00A4A49C /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
@@ -151,25 +138,18 @@
 				B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */,
 				B676093A1A49D256005270ED /* MapKit.framework in Frameworks */,
 				B621B76F1A48C74800A4A49C /* libsqlite3.dylib in Frameworks */,
-				4C9EF87FA95EE29E916D1818 /* libPods-CG4 Coursework.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B621B7531A48C65100A4A49C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				423DC6D6269AD2B7DAA4D44D /* libPods-Fit - Run Tracker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4D89ED23FC9891C1D2BFECA2 /* Pods */ = {
+		B10211C403AD345B6462DF06 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				404B3079BACA5930E7B1519D /* Pods-CG4 Coursework.debug.xcconfig */,
-				3584E6B474B032369155AAC1 /* Pods-CG4 Coursework.release.xcconfig */,
+				509932BB050179BAA03A2EF6 /* Pods-Fit - Run Tracker.debug.xcconfig */,
+				902FF39FCDB6CA8D8FD5B4A6 /* Pods-Fit - Run Tracker.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -189,11 +169,10 @@
 		B621B7361A48C65100A4A49C = {
 			isa = PBXGroup;
 			children = (
-				B621B7411A48C65100A4A49C /* CG4 Coursework */,
-				B621B7591A48C65100A4A49C /* CG4 CourseworkTests */,
+				B621B7411A48C65100A4A49C /* Fit - Run Tracker */,
 				B621B7401A48C65100A4A49C /* Products */,
 				B621B77E1A48E49900A4A49C /* Frameworks */,
-				4D89ED23FC9891C1D2BFECA2 /* Pods */,
+				B10211C403AD345B6462DF06 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,14 +180,14 @@
 			isa = PBXGroup;
 			children = (
 				B621B73F1A48C65100A4A49C /* Fit - Run Tracker.app */,
-				B621B7561A48C65100A4A49C /* Fit - Run TrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B621B7411A48C65100A4A49C /* CG4 Coursework */ = {
+		B621B7411A48C65100A4A49C /* Fit - Run Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
 				B636014F1A9A0ACA0020FB80 /* Extensions.swift */,
@@ -231,9 +210,9 @@
 				B621B74F1A48C65100A4A49C /* LaunchScreen.xib */,
 				B668DB041A4C782100DC7CE6 /* MainStoryboard.storyboard */,
 				B621B7421A48C65100A4A49C /* Supporting Files */,
-				B621B7661A48C66D00A4A49C /* CG4 Coursework-Bridging-Header.h */,
+				B621B7661A48C66D00A4A49C /* Fit - Run Tracker-Bridging-Header.h */,
 			);
-			path = "CG4 Coursework";
+			path = "Fit - Run Tracker";
 			sourceTree = "<group>";
 		};
 		B621B7421A48C65100A4A49C /* Supporting Files */ = {
@@ -241,23 +220,6 @@
 			children = (
 				B649540F1AA36D4A00A00C1B /* CG4 Coursework.entitlements */,
 				B621B7431A48C65100A4A49C /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B621B7591A48C65100A4A49C /* CG4 CourseworkTests */ = {
-			isa = PBXGroup;
-			children = (
-				B621B75C1A48C65100A4A49C /* CG4_CourseworkTests.swift */,
-				B621B75A1A48C65100A4A49C /* Supporting Files */,
-			);
-			path = "CG4 CourseworkTests";
-			sourceTree = "<group>";
-		};
-		B621B75A1A48C65100A4A49C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B621B75B1A48C65100A4A49C /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -293,7 +255,7 @@
 				B649540D1AA3627800A00C1B /* HealthKit.framework */,
 				B67609391A49D256005270ED /* MapKit.framework */,
 				B621B76E1A48C74800A4A49C /* libsqlite3.dylib */,
-				1B9643965B16056C63CC55A1 /* libPods-CG4 Coursework.a */,
+				13D9FEBD796C1809B0D98039 /* libPods-Fit - Run Tracker.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -396,11 +358,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B621B7601A48C65100A4A49C /* Build configuration list for PBXNativeTarget "Fit - Run Tracker" */;
 			buildPhases = (
-				5BD3255492C1D4C336A16D5F /* Check Pods Manifest.lock */,
+				94B31CB192F865F8109203DB /* [CP] Check Pods Manifest.lock */,
 				B621B73B1A48C65100A4A49C /* Sources */,
 				B621B73C1A48C65100A4A49C /* Frameworks */,
 				B621B73D1A48C65100A4A49C /* Resources */,
-				8ABFE7321051B50E052AC0CB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -411,45 +372,25 @@
 			productReference = B621B73F1A48C65100A4A49C /* Fit - Run Tracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B621B7551A48C65100A4A49C /* Fit - Run TrackerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B621B7631A48C65100A4A49C /* Build configuration list for PBXNativeTarget "Fit - Run TrackerTests" */;
-			buildPhases = (
-				B621B7521A48C65100A4A49C /* Sources */,
-				B621B7531A48C65100A4A49C /* Frameworks */,
-				B621B7541A48C65100A4A49C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B621B7581A48C65100A4A49C /* PBXTargetDependency */,
-			);
-			name = "Fit - Run TrackerTests";
-			productName = "CG4 CourseworkTests";
-			productReference = B621B7561A48C65100A4A49C /* Fit - Run TrackerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B621B7371A48C65100A4A49C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "William Ray";
 				TargetAttributes = {
 					B621B73E1A48C65100A4A49C = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 65B7RMWPL4;
+						DevelopmentTeam = 3G8JD7RB8D;
+						LastSwiftMigration = 1010;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
 						};
-					};
-					B621B7551A48C65100A4A49C = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = B621B73E1A48C65100A4A49C;
 					};
 				};
 			};
@@ -467,7 +408,6 @@
 			projectRoot = "";
 			targets = (
 				B621B73E1A48C65100A4A49C /* Fit - Run Tracker */,
-				B621B7551A48C65100A4A49C /* Fit - Run TrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -483,44 +423,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B621B7541A48C65100A4A49C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5BD3255492C1D4C336A16D5F /* Check Pods Manifest.lock */ = {
+		94B31CB192F865F8109203DB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fit - Run Tracker-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		8ABFE7321051B50E052AC0CB /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CG4 Coursework/Pods-CG4 Coursework-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -580,23 +505,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B621B7521A48C65100A4A49C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B621B75D1A48C65100A4A49C /* CG4_CourseworkTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B621B7581A48C65100A4A49C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B621B73E1A48C65100A4A49C /* Fit - Run Tracker */;
-			targetProxy = B621B7571A48C65100A4A49C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B621B74F1A48C65100A4A49C /* LaunchScreen.xib */ = {
@@ -618,20 +527,32 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -644,11 +565,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -660,13 +582,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -674,91 +606,72 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		B621B7611A48C65100A4A49C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 404B3079BACA5930E7B1519D /* Pods-CG4 Coursework.debug.xcconfig */;
+			baseConfigurationReference = 509932BB050179BAA03A2EF6 /* Pods-Fit - Run Tracker.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "CG4 Coursework/CG4 Coursework.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Fit - Run Tracker/Fit - Run Tracker.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
+				INFOPLIST_FILE = "Fit - Run Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.William-Ray.Fit---Run-Tracker";
 				PRODUCT_NAME = "Fit - Run Tracker";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Fit - Run Tracker/Fit - Run Tracker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		B621B7621A48C65100A4A49C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3584E6B474B032369155AAC1 /* Pods-CG4 Coursework.release.xcconfig */;
+			baseConfigurationReference = 902FF39FCDB6CA8D8FD5B4A6 /* Pods-Fit - Run Tracker.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "CG4 Coursework/CG4 Coursework.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Fit - Run Tracker/Fit - Run Tracker.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				INFOPLIST_FILE = "CG4 Coursework/Info.plist";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
+				INFOPLIST_FILE = "Fit - Run Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.William-Ray.Fit---Run-Tracker";
 				PRODUCT_NAME = "Fit - Run Tracker";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "CG4 Coursework/CG4 Coursework-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Fit - Run Tracker/Fit - Run Tracker-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		B621B7641A48C65100A4A49C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CG4 CourseworkTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Fit - Run TrackerTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CG4 Coursework.app/CG4 Coursework";
-			};
-			name = Debug;
-		};
-		B621B7651A48C65100A4A49C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CG4 CourseworkTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Fit - Run TrackerTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CG4 Coursework.app/CG4 Coursework";
 			};
 			name = Release;
 		};
@@ -779,15 +692,6 @@
 			buildConfigurations = (
 				B621B7611A48C65100A4A49C /* Debug */,
 				B621B7621A48C65100A4A49C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B621B7631A48C65100A4A49C /* Build configuration list for PBXNativeTarget "Fit - Run TrackerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B621B7641A48C65100A4A49C /* Debug */,
-				B621B7651A48C65100A4A49C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -4,57 +4,28 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-CG4 Coursework-AFNetworking.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
-		<key>Pods-CG4 Coursework-FRDStravaClient.xcscheme</key>
+		<key>FRDStravaClient.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
-		<key>Pods-CG4 Coursework-Mantle.xcscheme</key>
+		<key>Mantle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
-		<key>Pods-CG4 Coursework.xcscheme</key>
+		<key>Pods-Fit - Run Tracker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>543931C36CB6D8775803671F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5562F06DA924167504E5E243</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>569DCFB1CC47FF36A4B7B122</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6CCA6013C21813DD5B01D667</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>
