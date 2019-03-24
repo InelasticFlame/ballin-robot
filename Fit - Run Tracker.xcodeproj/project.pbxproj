@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		423DC6D6269AD2B7DAA4D44D /* libPods-Fit - Run Tracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D9FEBD796C1809B0D98039 /* libPods-Fit - Run Tracker.a */; };
 		B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */; };
+		B6098E87224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6098E86224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift */; };
+		B6098E952248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
 		B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */; };
@@ -63,12 +65,35 @@
 		B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FB78111A86AA4400667897 /* PlanDetailsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B6098E89224822EE00D6DDA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B621B7371A48C65100A4A49C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B621B73E1A48C65100A4A49C;
+			remoteInfo = "Fit - Run Tracker";
+		};
+		B6098E972248231100D6DDA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B621B7371A48C65100A4A49C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B621B73E1A48C65100A4A49C;
+			remoteInfo = "Fit - Run Tracker";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		13D9FEBD796C1809B0D98039 /* libPods-Fit - Run Tracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fit - Run Tracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		509932BB050179BAA03A2EF6 /* Pods-Fit - Run Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fit - Run Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fit - Run Tracker/Pods-Fit - Run Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		902FF39FCDB6CA8D8FD5B4A6 /* Pods-Fit - Run Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fit - Run Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fit - Run Tracker/Pods-Fit - Run Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Fit - Run Tracker.entitlements"; sourceTree = "<group>"; };
+		B6098E84224822EE00D6DDA7 /* Fit - Run Tracker Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run Tracker Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6098E86224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fit___Run_Tracker_Tests.swift"; sourceTree = "<group>"; };
+		B6098E88224822EE00D6DDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6098E922248231100D6DDA7 /* Fit - Run Tracker UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run Tracker UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fit___Run_Tracker_UITests.swift"; sourceTree = "<group>"; };
+		B6098E962248231100D6DDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B609B82A1A49B47A006664D5 /* StravaAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAuth.h; sourceTree = "<group>"; };
 		B609B82B1A49B47A006664D5 /* StravaAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAuth.m; sourceTree = "<group>"; };
 		B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatsTableViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +156,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B6098E81224822EE00D6DDA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6098E8F2248231100D6DDA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B621B73C1A48C65100A4A49C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,6 +193,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B6098E85224822EE00D6DDA7 /* Fit - Run Tracker Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B6098E86224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift */,
+				B6098E88224822EE00D6DDA7 /* Info.plist */,
+			);
+			path = "Fit - Run Tracker Tests";
+			sourceTree = "<group>";
+		};
+		B6098E932248231100D6DDA7 /* Fit - Run Tracker UITests */ = {
+			isa = PBXGroup;
+			children = (
+				B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */,
+				B6098E962248231100D6DDA7 /* Info.plist */,
+			);
+			path = "Fit - Run Tracker UITests";
+			sourceTree = "<group>";
+		};
 		B618ABF41A51FC4D0050EFF0 /* Runs View */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +227,8 @@
 			isa = PBXGroup;
 			children = (
 				B621B7411A48C65100A4A49C /* Fit - Run Tracker */,
+				B6098E85224822EE00D6DDA7 /* Fit - Run Tracker Tests */,
+				B6098E932248231100D6DDA7 /* Fit - Run Tracker UITests */,
 				B621B7401A48C65100A4A49C /* Products */,
 				B621B77E1A48E49900A4A49C /* Frameworks */,
 				B10211C403AD345B6462DF06 /* Pods */,
@@ -180,6 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				B621B73F1A48C65100A4A49C /* Fit - Run Tracker.app */,
+				B6098E84224822EE00D6DDA7 /* Fit - Run Tracker Tests.xctest */,
+				B6098E922248231100D6DDA7 /* Fit - Run Tracker UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -354,6 +415,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B6098E83224822EE00D6DDA7 /* Fit - Run Tracker Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6098E8D224822EE00D6DDA7 /* Build configuration list for PBXNativeTarget "Fit - Run Tracker Tests" */;
+			buildPhases = (
+				B6098E80224822EE00D6DDA7 /* Sources */,
+				B6098E81224822EE00D6DDA7 /* Frameworks */,
+				B6098E82224822EE00D6DDA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6098E8A224822EE00D6DDA7 /* PBXTargetDependency */,
+			);
+			name = "Fit - Run Tracker Tests";
+			productName = "Fit - Run Tracker Tests";
+			productReference = B6098E84224822EE00D6DDA7 /* Fit - Run Tracker Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B6098E912248231100D6DDA7 /* Fit - Run Tracker UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6098E992248231100D6DDA7 /* Build configuration list for PBXNativeTarget "Fit - Run Tracker UITests" */;
+			buildPhases = (
+				B6098E8E2248231100D6DDA7 /* Sources */,
+				B6098E8F2248231100D6DDA7 /* Frameworks */,
+				B6098E902248231100D6DDA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6098E982248231100D6DDA7 /* PBXTargetDependency */,
+			);
+			name = "Fit - Run Tracker UITests";
+			productName = "Fit - Run Tracker UITests";
+			productReference = B6098E922248231100D6DDA7 /* Fit - Run Tracker UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		B621B73E1A48C65100A4A49C /* Fit - Run Tracker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B621B7601A48C65100A4A49C /* Build configuration list for PBXNativeTarget "Fit - Run Tracker" */;
@@ -378,9 +475,22 @@
 		B621B7371A48C65100A4A49C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "William Ray";
 				TargetAttributes = {
+					B6098E83224822EE00D6DDA7 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = 3G8JD7RB8D;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B621B73E1A48C65100A4A49C;
+					};
+					B6098E912248231100D6DDA7 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = 3G8JD7RB8D;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B621B73E1A48C65100A4A49C;
+					};
 					B621B73E1A48C65100A4A49C = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 3G8JD7RB8D;
@@ -408,11 +518,27 @@
 			projectRoot = "";
 			targets = (
 				B621B73E1A48C65100A4A49C /* Fit - Run Tracker */,
+				B6098E83224822EE00D6DDA7 /* Fit - Run Tracker Tests */,
+				B6098E912248231100D6DDA7 /* Fit - Run Tracker UITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B6098E82224822EE00D6DDA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6098E902248231100D6DDA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B621B73D1A48C65100A4A49C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -451,6 +577,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B6098E80224822EE00D6DDA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6098E87224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6098E8E2248231100D6DDA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6098E952248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B621B73B1A48C65100A4A49C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -507,6 +649,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B6098E8A224822EE00D6DDA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B621B73E1A48C65100A4A49C /* Fit - Run Tracker */;
+			targetProxy = B6098E89224822EE00D6DDA7 /* PBXContainerItemProxy */;
+		};
+		B6098E982248231100D6DDA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B621B73E1A48C65100A4A49C /* Fit - Run Tracker */;
+			targetProxy = B6098E972248231100D6DDA7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		B621B74F1A48C65100A4A49C /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
@@ -519,6 +674,118 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B6098E8B224822EE00D6DDA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Fit - Run Tracker Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamray.Fit---Run-Tracker-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fit - Run Tracker.app/Fit - Run Tracker";
+			};
+			name = Debug;
+		};
+		B6098E8C224822EE00D6DDA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Fit - Run Tracker Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamray.Fit---Run-Tracker-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fit - Run Tracker.app/Fit - Run Tracker";
+			};
+			name = Release;
+		};
+		B6098E9A2248231100D6DDA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Fit - Run Tracker UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamray.Fit---Run-Tracker-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Fit - Run Tracker";
+			};
+			name = Debug;
+		};
+		B6098E9B2248231100D6DDA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3G8JD7RB8D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Fit - Run Tracker UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamray.Fit---Run-Tracker-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Fit - Run Tracker";
+			};
+			name = Release;
+		};
 		B621B75E1A48C65100A4A49C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -678,6 +945,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B6098E8D224822EE00D6DDA7 /* Build configuration list for PBXNativeTarget "Fit - Run Tracker Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6098E8B224822EE00D6DDA7 /* Debug */,
+				B6098E8C224822EE00D6DDA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6098E992248231100D6DDA7 /* Build configuration list for PBXNativeTarget "Fit - Run Tracker UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6098E9A2248231100D6DDA7 /* Debug */,
+				B6098E9B2248231100D6DDA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B621B73A1A48C65100A4A49C /* Build configuration list for PBXProject "Fit - Run Tracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

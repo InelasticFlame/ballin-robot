@@ -52,6 +52,26 @@
                ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B6098E83224822EE00D6DDA7"
+               BuildableName = "Fit - Run Tracker Tests.xctest"
+               BlueprintName = "Fit - Run Tracker Tests"
+               ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B6098E912248231100D6DDA7"
+               BuildableName = "Fit - Run Tracker UITests.xctest"
+               BlueprintName = "Fit - Run Tracker UITests"
+               ReferencedContainer = "container:Fit - Run Tracker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
