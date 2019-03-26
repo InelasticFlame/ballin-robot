@@ -9,25 +9,24 @@
 import UIKit
 
 class PlannedRun: NSObject {
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     private(set) var ID: Int //A property that stores the ID of the Plan; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
     var date: NSDate //An NSDate property that stores the date of the planned run
     var distance: Double //A double property that stores the distance of the planned run (if 0 => planned run is for a duration instead)
     var duration: Int //An integer property that stores the duration of the planned run (if 0 => planned run is for a distance instead)
     var details: String? //A string property that store any details of the planned run
-    
+
     var matchingRun: Run? //An optional Run property that stores the matching run (if there is one)
     var matchRank: Int? //An option Integer property that stores the rank of the match
     //0 = failed
     //1 = kind of
     //2 = success
     //-1 = not happened yet
-    
 
-    //MARK: - Initialisation
-    
+    // MARK: - Initialisation
+
     /**
     Called to initialise the class, sets the properties of the Shoe to the passed values.
     1. Calls the local function checkForCompletedRun to see if the plannedRun has a matching actual run
@@ -44,11 +43,11 @@ class PlannedRun: NSObject {
         self.distance = distance
         self.duration = duration
         self.details = details
-        
+
         super.init()
         self.checkForCompletedRun() //1
     }
-    
+
     /**
     This method is called to determine if there is a matching actual run to the planned run, and whether the planned criteria were met.
     1. Loads the matchingRuns as an array of Run objects using the loadRunsWithQuery method form the database class; passing the query "WHERE RunDateTime LIKE 'the planned run date'"
@@ -81,11 +80,11 @@ class PlannedRun: NSObject {
         matchingRun - A Run variable that is the run which most closely matches the planned run
         now - A constant NSDate that represents now
     */
-    func checkForCompletedRun(){
+    func checkForCompletedRun() {
         let matchingRuns = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as! [Run] //1
         var rank = 0 //2
         var matchingRun: Run? //3
-        
+
         for run: Run in matchingRuns { //4
             if rank < 2 { //a
                 if run.distance >= self.distance && self.distance != 0 { //i
@@ -106,13 +105,13 @@ class PlannedRun: NSObject {
                 }
             }
         }
-        
+
         let now = NSDate() //5
-        
+
         if rank == 0 && now.compare(self.date as Date) == .orderedAscending { //6
             rank = -1 //a
         }
-        
+
         self.matchRank = rank //7
         self.matchingRun = matchingRun //8
     }

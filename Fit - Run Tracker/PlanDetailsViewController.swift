@@ -10,8 +10,8 @@ import UIKit
 
 class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    //MARK: - Storyboard Links
-    
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var planDetailsTableView: UITableView!
@@ -23,16 +23,15 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var runsAlmostMetLabel: UILabel!
     @IBOutlet weak var runsMissedLabel: UILabel!
     @IBOutlet weak var runsPlannedLabel: UILabel!
-    
-    
-    //MARK: - Global Variables
+
+    // MARK: - Global Variables
     var plan: Plan? //A global plan object variable that stores the plan being shown on the view
     var metRuns = 0 //A global integer variable that stores the number of runs met in the plan
     var almostMetRuns = 0 //A global integer variable that stores the number of runs almost met in the plan
     var missedRuns = 0 //A global integer variable that stores the number of runs missed in the plan
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is initially loaded.
     1. Sets the delegate (controller) and the datasource of the planDetailsTableView to this view controller
@@ -40,16 +39,16 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         planDetailsTableView.delegate = self //1
         planDetailsTableView.dataSource = self
-        
+
         runsMetView.addBorder(borderWidth: 1) //2
         runsMissedView.addBorder(borderWidth: 1)
         runsAlmostMetView.addBorder(borderWidth: 1)
         runsTotalView.addBorder(borderWidth: 1)
     }
-    
+
     /**
     This method is called by the system whenever the view is about appear on screen.
     1. Calls the function loadPlannedRuns on the current plan
@@ -77,7 +76,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             missedRuns = 0 //a
             almostMetRuns = 0
             metRuns = 0
-            
+
             for plannedRun in plan.plannedRuns { //b
                 if plannedRun.matchRank == 0 { //i
                     missedRuns += 1 //Z
@@ -87,14 +86,14 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                     metRuns += 1 //X
                 }
             }
-            
+
             runsPlannedLabel.text = "\(plan.plannedRuns.count)" //c
             runsMissedLabel.text = "\(missedRuns)" //d
             runsAlmostMetLabel.text = "\(almostMetRuns)" //e
             runsMetLabel.text = "\(metRuns)" //f
         }
     }
-    
+
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of sections in the table, which in this case is fixed as 1.
     
@@ -104,7 +103,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     /**
     This method is called by the system whenever the tableView loads its data. It returns the number of rows in a section, which is the number of runs in the array of plannedRuns. IF there is no plan then it is 0
     
@@ -118,7 +117,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         }
         return 0
     }
-    
+
     /**
     This method is called by the system when the data is loaded in the table, it creates a new cell and populates it with the data for a particular planned run.
     1. Creates a new cell with the identifier PlanDetails, that is of type PlanDetailsTableViewCell
@@ -148,19 +147,19 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     :returns: The UITableViewCell for the indexPath.
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlanDetails", for: indexPath as IndexPath) as! PlanDetailsTableViewCell //1
         if let plannedRun = plan?.plannedRuns[indexPath.row] { //2
-            
+
             cell.dateLabel.text = plannedRun.date.shortestDateString() //a
             cell.detailLabel.text = plannedRun.details //b
-            
+
             if plannedRun.distance > 0 { //c
                 cell.distanceDurationLabel.text = Conversions().distanceForInterface(distance: plannedRun.distance) //i
             } else { //d
                 cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun.duration) //i
             }
-            
+
             if plannedRun.matchRank == 0 { //e
                 cell.progressImage.image = UIImage(named: "Cross37px") //i
                 cell.accessoryType = .none //ii
@@ -179,7 +178,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         }
         return cell //3
     }
-    
+
     // MARK: - Navigation
 
     /**
@@ -206,10 +205,10 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         } else if identifier == "edit" { //2
             return true //b
         }
-        
+
         return false //3
     }
-    
+
     /**
     This method is called by the system when a segue is about to be performed. It is used to prepare the new view.
     1. IF the destination view controller is a CreatePlanViewController
@@ -231,7 +230,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 destinationVC.plan = plan //b
             }
         }
-        
+
         if let destinationVC = segue.destination as? RunPageViewController { //2
             if let cell = sender as? PlanDetailsTableViewCell { //a
                 if let indexPath = planDetailsTableView.indexPath(for: cell) { //i

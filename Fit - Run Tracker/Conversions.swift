@@ -30,7 +30,7 @@ class Conversions: NSObject {
 
     func metresToMiles(meters: Double) -> (Double) {
         let miles = (meters/1000)*kmToMiles
-    
+
         return miles
     }
     
@@ -39,7 +39,7 @@ class Conversions: NSObject {
     func averagePaceForInterface(pace: Int) -> String {
         var paceString = ""
         let paceUnit = UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Pace.UnitKey)
-        
+
         if paceUnit == Constants.DefaultsKeys.Pace.MinMileUnit || paceUnit == "" {
             let minutes = pace/60
             let seconds = pace % 60
@@ -49,7 +49,7 @@ class Conversions: NSObject {
             let kmh = Double(mph) * milesToKm
             paceString = (NSString(format: "%1.2f", kmh) as String) + " km/h"
         }
-        
+
         return paceString
     }
 
@@ -95,7 +95,7 @@ class Conversions: NSObject {
     }
 
     func sortRunsIntoDateOrder(runs array: Array<Run>) -> Array<Run> {
-        
+
         var runs = array //Create a mutable version of the array
         
         runs.sort(by: {$0.dateTime.timeIntervalSinceNow > $1.dateTime.timeIntervalSinceNow})

@@ -10,16 +10,16 @@ import UIKit
 
 class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    //MARK: - Storyboard Links
+    // MARK: - Storyboard Links
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var secondNavigationItem: UINavigationItem!
     @IBOutlet weak var plannedRunsTableView: UITableView!
-    
-    //MARK: - Global Variables
+
+    // MARK: - Global Variables
     var plan: Plan? //A global optional variable that stores a Plan object. This is used to track the plan being edited currently.
-    
+
     // MARK: - View Life Cycle
-    
+
     /**
     This method is called by the system when the view is first loaded. It configures the view to its initial state.
     1. Hides the back button of the navigation bar
@@ -28,15 +28,15 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationItem.hidesBackButton = true //1
-        
+
         plannedRunsTableView.dataSource = self //2
         plannedRunsTableView.delegate = self
-        
+
         secondNavigationItem.rightBarButtonItem = self.editButtonItem //3
     }
-    
+
     /**
     This method is called by the system whenever the view is about to appear on screen. It loads the planned runs and reloads the table view to display the planned runs on the interface.
     1. Loads the plannedRuns for the current plan
@@ -48,21 +48,21 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         plan?.loadPlannedRuns()
         plannedRunsTableView.reloadData()
     }
-    
-    //MARK: - Editing
-    
+
+    // MARK: - Editing
+
     /**
     This method is called by the system when the edit button is pressed. It sets the table view into edit mode.
     1. Sets the plannedTableView to the editing option passed and the animation option passed
     */
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        
+
         plannedRunsTableView.setEditing(editing, animated: animated) //1
     }
-    
+
     // MARK: - TableView Data Source
-    
+
     /**
     This method is called by the system whenever the data in the table view is loaded, it returns the number of sections in the table view which in this case is fixed 1.
     
@@ -72,7 +72,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     /**
     This method is called by the system whenever the data in the table view is loaded, it returns the number of rows in the table view. In this case, IF there is a plan it returns the number of plannedRuns; otherwise it returns 0
     
@@ -84,10 +84,10 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         if let plan = plan {
             return plan.plannedRuns.count
         }
-        
+
         return 0
     }
-    
+
     /**
     This method is called by the system whenever the data in the table view is loaded. It creates a new cell and populates it with the appropriate data.
     1. Creates a new cell with the identifier "PlannedRun"
@@ -111,7 +111,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlannedRun", for: indexPath as IndexPath) as! PlannedRunTableViewCell //1
         let plannedRun = plan?.plannedRuns[indexPath.row] //2
-        
+
         cell.dateLabel.text = plannedRun?.date.shortestDateString() //3
         cell.detailsLabel.text = plannedRun?.details //4
         if plannedRun!.distance > 0 { //5
@@ -119,10 +119,10 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         } else { //6
             cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun!.duration) //b
         }
-        
+
         return cell //7
     }
-    
+
     /**
     This method is called by the system whenever the data in the table view is loaded. It returns the height for a cell at a certain indexPath, in this case all cells have a fixed height of 60
     
@@ -133,7 +133,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
+
     /**
     This method is called when a user presses the delete button whilst the table is in edit mode. It deletes a planned run from the database and from the tableview.
     1. IF the edit being performed is a delete
@@ -156,8 +156,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
-    
+
     // MARK: - Navigation
 
     /**
@@ -176,7 +175,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
+
     /**
     This method is called by the system when the 'Done' button is pressed. It is used to dismiss the current view.
     1. Dismiss the current view controller

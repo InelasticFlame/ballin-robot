@@ -9,15 +9,15 @@
 import UIKit
 
 class RunPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     private let pages = ["RunShoeTableViewController", "RunMapViewController", "RunSplitsTableViewController"] //A global constant array of string objects that contain the views to be shown by the PageViewController
     var pagesViewControllers = [UIViewController]() //A global array of UIViewControllers that stores the 3 pages being shown by the PageViewController
     var run: Run? //An optional global variable that stores the run being viewed as a Run object
 
-    //MARK: - View Life Cycle
-    
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view controller is first loaded. It configures the page controller and the views that it displays.
     1. Sets the delegate and dataSource of the PageViewController to this view controller
@@ -39,9 +39,9 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
 
         self.delegate = self //1
         self.dataSource = self
-        
+
         let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil) //2
-        
+
         let detailsVC = storyboard.instantiateViewController(withIdentifier: pages[1]) as! RunDetailsViewController //3
         detailsVC.run = self.run //4
         let splitsVC = storyboard.instantiateViewController(withIdentifier: pages[2]) as! RunSplitsTableViewController //5
@@ -49,13 +49,13 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
         let shoesVC = storyboard.instantiateViewController(withIdentifier: pages[0]) as! RunShoesTableViewController
         shoesVC.run = self.run
         pagesViewControllers = [shoesVC, detailsVC, splitsVC] //6
-        
+
         self.setViewControllers([detailsVC], direction: .forward, animated: false, completion: nil) //7
-        
+
     }
-    
-    //MARK: - Page View Delegate
-    
+
+    // MARK: - Page View Delegate
+
     /**
     This method is called by the system when a user swipes to the left. It returns the next view controller to be shown after this one
     1. IF the current displayed view controller is a RunDetailsViewController
@@ -69,7 +69,7 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     :returns: The next UIViewController to be displayed by the pageViewController after the current viewController.
     */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
+
         if viewController is RunDetailsViewController { //1
             return pagesViewControllers[2] //1a
         } else if viewController is RunShoesTableViewController { //2
@@ -78,8 +78,7 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
             return nil
         }
     }
-    
-    
+
     /**
     This method is called by the system when a user swipes to the right. It returns the next view controller to be shown after this one
     1. IF the current displayed view controller is a RunDetailsViewController
@@ -93,7 +92,7 @@ class RunPageViewController: UIPageViewController, UIPageViewControllerDataSourc
     :returns: The next UIViewController to be displayed by the pageViewController before the current viewController.
     */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
+
         if viewController is RunDetailsViewController {
             return pagesViewControllers[0]
         } else if viewController is RunSplitsTableViewController {

@@ -11,7 +11,7 @@ import UIKit
 class CreatePlanBackSegue: UIStoryboardSegue {
     /* This class implements a custom segue to perform when the Create button is pressed on the InitialCreatePlanView */
     /* It removes the InitialCreatePlanViewController from the system and then presents the destinationViewController, this is so that a user cannot go back to this screen once they progress to the next view */
-    
+
     /**
     This method is called by the system to perform the segue. It defines what the system should do in order to perform it.
     1. Declares the local constant sourceViewController
@@ -30,11 +30,11 @@ class CreatePlanBackSegue: UIStoryboardSegue {
         let sourceViewController = self.source as UIViewController
         let destinationViewController = self.destination as UIViewController
         let navigationController = sourceViewController.navigationController as UINavigationController?
-        
+
         if let navigationController = navigationController {
             navigationController.popToRootViewController(animated: false)
             navigationController.pushViewController(destinationViewController, animated: true)
         }
     }
-    
+
 }

@@ -9,11 +9,11 @@
 import UIKit
 
 class RunShoesTableViewController: UITableViewController {
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     var run: Run? //A global optional variable to store the run being displayed as a Run object
-    
+
     /**
     This method is called by the system when the view is first loaded. It configures the view to its initial state ready to display on the screen.
     1. Adds padding to the top of the table view so that it doesn't display under the navigation bar
@@ -30,19 +30,19 @@ class RunShoesTableViewController: UITableViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.contentInset = UIEdgeInsets.init(top: navigationController!.navigationBar.frame.size.height, left: 0,bottom: 0,right: 0);
-        
+
+        self.tableView.contentInset = UIEdgeInsets.init(top: navigationController!.navigationBar.frame.size.height, left: 0, bottom: 0, right: 0)
+
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 3
         pageControl.currentPage = 2
         pageControl.pageIndicatorTintColor = UIColor(red: 122/255, green: 195/255, blue: 252/255, alpha: 1)
         pageControl.currentPageIndicatorTintColor = UIColor(red: 87/255, green: 142/255, blue: 185/255, alpha: 1)
         pageControl.center = CGPoint.init(x: self.view.frame.width / 2, y: self.view.frame.height - self.tabBarController!.tabBar.frame.height - 28)
-        
+
         self.view.addSubview(pageControl)
     }
-    
+
     /**
     This method is called by the system when the view appears on screen. It loads the table view with the appropriate data in the static cells.
     1. IF there is a run
@@ -64,12 +64,12 @@ class RunShoesTableViewController: UITableViewController {
         if let run = run { //1
             //(String - 5k, String - 10k, String - Half, String - Full)
             let finishTimes = run.calculateRunFinishTimes() //a
-            
+
             tableView.cellForRow(at: NSIndexPath(row: 0, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.fiveK //b
             tableView.cellForRow(at: NSIndexPath(row: 1, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.tenK //c
             tableView.cellForRow(at: NSIndexPath(row: 2, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.halfMarathon //d
             tableView.cellForRow(at: NSIndexPath(row: 3, section: 1) as IndexPath)?.detailTextLabel?.text = finishTimes.fullMarathon //e
-            
+
             if let shoe = run.shoe { //f
                 tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath)?.detailTextLabel?.text = shoe.name //i
             } else { //g
@@ -77,7 +77,7 @@ class RunShoesTableViewController: UITableViewController {
             }
         }
     }
-    
+
     /**
     This method is called by the system whenever a user selects a row in the table view. It deselects the row and animates the process.
     
@@ -87,7 +87,7 @@ class RunShoesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath as IndexPath)?.setSelected(false, animated: true)
     }
-    
+
     /**
     This method is called by the system whenever a segue is about to be performed. It prepares the new view ready for display.
     1. IF the destination view controller is a RunShoeSelectorTableViewController

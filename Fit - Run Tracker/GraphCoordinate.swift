@@ -9,14 +9,14 @@
 import UIKit
 
 class GraphCoordinate: NSObject {
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     var x: String //The string to write on the x-axis
     var y: CGFloat //The y value
-    
-    //MARK: - Initialisation
-    
+
+    // MARK: - Initialisation
+
     /**
     Called to initialise a GraphCoordinate object, sets the properties to the passed values.
     

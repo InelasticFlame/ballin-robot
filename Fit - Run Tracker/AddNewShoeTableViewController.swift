@@ -15,15 +15,15 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     @IBOutlet weak var shoeNameTextField: UITextField!
     @IBOutlet weak var shoeDistancePicker: DistancePicker!
     @IBOutlet weak var shoeImageView: UIImageView!
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     private weak var selectedImage: UIImage? //A global optional UIImage variable that stores the image a user has selected (if they have selected one)
     private var showError = false //A global boolean variable that stores whether or not to show the error cell
     private var showDistancePicker = false //A global boolean variable that stores whether or not the distance picker should be shown
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is initially loaded.
     1. Sets the delegate (controller) of the shoeNameTextField to this view controller
@@ -35,7 +35,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         self.shoeNameTextField.delegate = self //1
         NotificationCenter.default.addObserver(self, selector: #selector(AddNewShoeTableViewController.updateDetailLabel), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //2
     }
-    
+
     /**
     This method is called by the system whenever the view appears on screen. It calls the function updateDetailLabel (this needs to be called once the view has appeared so that the table view is fully loaded)
     
@@ -45,8 +45,8 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         updateDetailLabel()
     }
 
-    //MARK: - Text Field
-    
+    // MARK: - Text Field
+
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
@@ -57,12 +57,12 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
-        
+
         return false //2
     }
-    
+
     // MARK: - Table View Data Source
-    
+
     /**
     This method is called by the system whenever a user selects a cell in the table view. If the user presses the Shoe Image cell it display as impage picker on the screen.
     1. IF the fifth cell is selected
@@ -94,23 +94,23 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 4 { //1
-            
+
             let imagePicker = UIImagePickerController() //a
             imagePicker.delegate = self //b
             imagePicker.allowsEditing = true //c
-            
+
             let actionMenu = UIAlertController(title: "Image", message: "", preferredStyle: .actionSheet) //d
-            actionMenu.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (action) -> Void in //e
+            actionMenu.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (_) -> Void in //e
                 imagePicker.sourceType = .camera //i
                 imagePicker.cameraCaptureMode = .photo //ii
                 self.present(imagePicker, animated: true, completion: nil) ///iii
             }))
-            actionMenu.addAction(UIAlertAction(title: "Choose Existing", style: .default, handler: { (action) -> Void in //f
+            actionMenu.addAction(UIAlertAction(title: "Choose Existing", style: .default, handler: { (_) -> Void in //f
                 imagePicker.sourceType = .photoLibrary //i
                 self.present(imagePicker, animated: true, completion: nil) //ii
             }))
             actionMenu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil)) //g //i
-            
+
             self.present(actionMenu, animated: true, completion: nil) //h
         } else if indexPath.row == 2 { //2
             showDistancePicker = !showDistancePicker //i
@@ -118,7 +118,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         }
         tableView.cellForRow(at: indexPath)?.setSelected(false, animated: true) //3
     }
-    
+
     /**
     This method is called by the system whenever the data is loaded in the table view. It returns the height for a row at a specified index path.
     1. IF the current row is the second row and the error should be shown (the error message cell for a validation error)
@@ -149,7 +149,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
             return Constants.TableView.DefaultRowHeight //e
         }
     }
-    
+
     /**
     This method updates the text of the distance detail label in the current distance cell.
     */
@@ -170,18 +170,18 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     :param: image The UIImage selected by the user.
     :param: editingInfo An NSDictionary containing any relevant editing information.
     */
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject: AnyObject]!) {
+
         selectedImage = image //1
         shoeImageView.image = selectedImage //2
-        
+
         tableView.reloadTableViewCells() //3
-        
+
         picker.dismiss(animated: true, completion: nil) //4
     }
-    
+
     // MARK: - Navigation
-    
+
     /**
     This method is called by the system when a user presses the Save button. If a shoe passes all the validation checks the saveShoe function will be called.
     1. Declares the local constant UITableViewCell; errorCell that stores a reference to the cell that displays the error message
@@ -212,10 +212,10 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     */
     @IBAction func saveButtonPressed(sender: AnyObject) {
         let errorCell = tableView.cellForRow(at: NSIndexPath(row: 1, section: 0) as IndexPath) //1
-        
+
         let shoeNameValidation = shoeNameTextField.text!.validateString(stringName: "Shoe Name", maxLength: 30, minLength: 3) //2
         if shoeNameValidation.valid { //3
-            
+
             let shoeName = shoeNameTextField.text ?? ""
             if Database().shoeNameExists(shoeName.capitalized) { //a
                 errorCell?.textLabel?.text = "A shoe name must be unique." //i
@@ -224,7 +224,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
             } else if selectedImage == nil { //b
                 let actionMenu = UIAlertController(title: "No Image", message: "No image has been selected for this shoe. Continue?", preferredStyle: .alert) //iv
                 actionMenu.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil)) //v
-                actionMenu.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in //vi
+                actionMenu.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) -> Void in //vi
                     self.saveShoe()
                     actionMenu.dismiss(animated: true, completion: nil)
                 }))
@@ -238,9 +238,9 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
             tableView.reloadTableViewCells() //f
         }
     }
-    
-    //MARK: - Shoe Saving
-    
+
+    // MARK: - Shoe Saving
+
     /**
     This method is used to save a shoe if all validation checks have been passed successfully. It then dismisses the view.
     1. Declares the local string variable shoeNamePath
@@ -268,7 +268,7 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
     */
     func saveShoe() {
         var shoeNamePath = ""
-        
+
         /* Save Image */
         if selectedImage != nil {
             let imageData = selectedImage!.pngData()
@@ -276,12 +276,10 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
             shoeNamePath = (shoeNameTextField.text?.replacingOccurrences(of: " ", with: ""))!
             let imagePath = NSURL(fileURLWithPath: documentsPath).appendingPathComponent("\(shoeNamePath).png")
 
-            
             do {
                 try imageData?.write(to: imagePath!)
                 print("Image saved successfully.")
-            }
-            catch {
+            } catch {
                 shoeNamePath = "NO_IMAGE"
                 print("Image not saved.")
             }
@@ -289,12 +287,12 @@ class AddNewShoeTableViewController: UITableViewController, UIImagePickerControl
         } else {
             shoeNamePath = "NO_IMAGE"
         }
-        
+
         let shoeName = shoeNameTextField.text ?? ""
-        
+
         let shoe = Shoe(ID: 0, name: shoeName.capitalized, miles: shoeDistancePicker.selectedDistance().distance, imageName: shoeNamePath)
         Database().saveShoe(shoe)
         navigationController?.popViewController(animated: true)
     }
-    
+
 }

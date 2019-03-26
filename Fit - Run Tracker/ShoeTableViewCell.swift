@@ -10,9 +10,9 @@ import UIKit
 
 class ShoeTableViewCell: UITableViewCell {
     /* This class stores the links to the controls for a ShoeTableViewCell */
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var shoeNameLabel: UILabel! //Top label
     @IBOutlet weak var shoeMilesLabel: UILabel! //Bottom label

@@ -9,9 +9,9 @@
 import UIKit
 
 class Run: NSObject {
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     var ID: Int //A property that stores the ID of a run
     var distance: Double //The distance of the run, stored in miles
     var dateTime: NSDate //The date an time at which the run was ran
@@ -21,9 +21,9 @@ class Run: NSObject {
     var score: Double //The score of the run, with the maximum being 1000
     var locations = Array<CLLocation>() //The locations for the run, used to draw the run route
     var splits = Array<Int>() //The mile splits for the run, stored in seconds for each mile
-    
-    //MARK: - Initialisation
-    
+
+    // MARK: - Initialisation
+
     override init() { //Creates a new run object with default values
         self.ID = 0
         self.distance = 0
@@ -32,7 +32,7 @@ class Run: NSObject {
         self.duration = 0
         self.score = 0
     }
-    
+
     /**
     Called to initialise the class, sets the properties of the Run to the passed values.
     
@@ -61,7 +61,7 @@ class Run: NSObject {
             self.splits = _splits
         }
     }
-    
+
     /**
     This method calculates the score for a run in the following way:
     1. Creates the points from pace power as 1000 divide the pace
@@ -83,12 +83,12 @@ class Run: NSObject {
     func calculateRunScore() {
         let pointsFromPacePower = 1000.0/Float(self.pace) //1
         let pointsFromAveragePace = Double(pow(2.4, pointsFromPacePower) * 120) //2
-        
+
         let pointsFromDistancePower = Float(self.distance)/10 //3
         let pointsFromDistance = Double(pow(2.4, pointsFromDistancePower)) * 120 //4
-        
+
         let totalPoints = (pointsFromDistance + pointsFromAveragePace) //5
-        
+
         if totalPoints > 1000 { //6
             self.score = 1000 //a
         } else { //7
@@ -106,7 +106,7 @@ class Run: NSObject {
     func addSplit(split: Int) {
         self.splits.append(split)
     }
-    
+
     /**
     This method returns the appropriate colour for the run's score.
     1. IF the score is less than 400
@@ -127,7 +127,7 @@ class Run: NSObject {
             return UIColor.green //c
         }
     }
-    
+
     /**
     This method is used to calculate the different finish times for the run.
     1. Calculate the fiveK, tenK, halfMarathon and fullMarathon times as the pace times the approprite distance
@@ -150,17 +150,17 @@ class Run: NSObject {
     :returns: fullMarathon - The Full Marathon finish time as a String.
     */
     // swiftlint:disable large_tuple
-    func calculateRunFinishTimes() -> (fiveK : String, tenK: String, halfMarathon: String, fullMarathon: String) {
+    func calculateRunFinishTimes() -> (fiveK: String, tenK: String, halfMarathon: String, fullMarathon: String) {
         let fiveK = Int(Double(self.pace) * 3.1) //1
         let tenK = Int(Double(self.pace) * 6.2)
         let halfMarathon = Int(Double(self.pace) * 13.1)
         let fullMarathon = Int(Double(self.pace) * 26.2)
-        
+
         let fiveKStr = Conversions().runDurationForInterface(duration: fiveK) //2
         let tenKStr = Conversions().runDurationForInterface(duration: tenK)
         let halfMarathonStr = Conversions().runDurationForInterface(duration: halfMarathon)
         let fullMarathonStr = Conversions().runDurationForInterface(duration: fullMarathon)
-        
+
         return (fiveKStr, tenKStr, halfMarathonStr, fullMarathonStr) //3
     }
     // swiftlint:enable large_tuple
@@ -180,7 +180,7 @@ class Run: NSObject {
             return false
         }
     }
-    
+
     /**
     This method prints a description of the run object for use in testing.
     
