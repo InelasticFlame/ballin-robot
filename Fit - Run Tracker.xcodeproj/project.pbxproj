@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		423DC6D6269AD2B7DAA4D44D /* libPods-Fit - Run Tracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D9FEBD796C1809B0D98039 /* libPods-Fit - Run Tracker.a */; };
 		B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */; };
-		B6098E87224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6098E86224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift */; };
+		B603C160224AC9ED00B7A3A0 /* ConversionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */; };
 		B6098E952248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
@@ -87,9 +87,9 @@
 		509932BB050179BAA03A2EF6 /* Pods-Fit - Run Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fit - Run Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fit - Run Tracker/Pods-Fit - Run Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		902FF39FCDB6CA8D8FD5B4A6 /* Pods-Fit - Run Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fit - Run Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fit - Run Tracker/Pods-Fit - Run Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
+		B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionsTest.swift; sourceTree = "<group>"; };
 		B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Fit - Run Tracker.entitlements"; sourceTree = "<group>"; };
 		B6098E84224822EE00D6DDA7 /* Fit - Run Tracker Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run Tracker Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6098E86224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fit___Run_Tracker_Tests.swift"; sourceTree = "<group>"; };
 		B6098E88224822EE00D6DDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6098E922248231100D6DDA7 /* Fit - Run Tracker UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run Tracker UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fit___Run_Tracker_UITests.swift"; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		B6098E85224822EE00D6DDA7 /* Fit - Run Tracker Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B6098E86224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift */,
+				B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */,
 				B6098E88224822EE00D6DDA7 /* Info.plist */,
 			);
 			path = "Fit - Run Tracker Tests";
@@ -483,6 +483,7 @@
 					B6098E83224822EE00D6DDA7 = {
 						CreatedOnToolsVersion = 10.1;
 						DevelopmentTeam = 3G8JD7RB8D;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B621B73E1A48C65100A4A49C;
 					};
@@ -510,6 +511,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -599,7 +601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6098E87224822EE00D6DDA7 /* Fit___Run_Tracker_Tests.swift in Sources */,
+				B603C160224AC9ED00B7A3A0 /* ConversionsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +701,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -715,6 +718,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamray.Fit---Run-Tracker-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fit - Run Tracker.app/Fit - Run Tracker";
@@ -728,6 +732,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
