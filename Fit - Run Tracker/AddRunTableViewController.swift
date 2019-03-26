@@ -9,9 +9,9 @@
 import UIKit
 
 class AddRunTableViewController: UITableViewController {
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     @IBOutlet weak var runDatePicker: UIDatePicker!
     @IBOutlet weak var runDistancePicker: DistancePicker!
     @IBOutlet weak var runPacePicker: PacePicker!
@@ -22,14 +22,14 @@ class AddRunTableViewController: UITableViewController {
     @IBOutlet weak var runPaceDetailLabel: UILabel!
     @IBOutlet weak var runDurationDetailLabel: UILabel!
     @IBOutlet weak var runShoeDetailLabel: UILabel!
-    
-    //MARK: - Global Variables
+
+    // MARK: - Global Variables
     private var indexPathToShow: IndexPath? //A global IndexPath variable that stores the index path of the cell with a picker view that is currently to be displayed
     private var lastPicker = "" //A global string variable that stores the last picker used, this is used to know which pickers to use in calculations
     private var currentPicker = "" //A global string variable that stores the picker currently being used, this is used to know which pickers to use in calculations
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is initially loaded. It configures the view ready for display on the interface.
     1. Calls the function updateDetailLabels, passing nil (as there is no NSNotification)
@@ -37,7 +37,7 @@ class AddRunTableViewController: UITableViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         updateDetailLabels(notification: nil) //1
         NotificationCenter.default.addObserver(self, selector: #selector(AddRunTableViewController.updateDetailLabels), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //2
     }
@@ -68,7 +68,7 @@ class AddRunTableViewController: UITableViewController {
             }
         }
     }
-    
+
     /**
     This method is called by the system whenever a user selects a row in the table view. It works out which cells to hide and which cells to display on the interface based on which cell a user has clicked.
     1. IF the indexPath to show is one more than the current row (i.e. the picker being shown is the one below this cell -> user has clicked the same cell again -> so set indexPathToShow to nil to hide the picker)
@@ -91,13 +91,13 @@ class AddRunTableViewController: UITableViewController {
             tableView.reloadTableViewCells() //c
             indexPathToShow = IndexPath(row: indexPath.row + 1, section: indexPath.section) //d
         }
-        
+
         tableView.deselectRow(at: indexPath as IndexPath, animated: true) //3
         tableView.reloadTableViewCells() //4
     }
-    
-    //MARK: - Update Interface
-    
+
+    // MARK: - Update Interface
+
     /**
     This method is initially called when the view loads and then called whenever the view controller receives the notification UpdateDetailLabel. It updates the text of the detail labels in the table view.
     1. IF there is a notification (i.e. any time when the method is called other than when the view initially loads)
@@ -126,7 +126,7 @@ class AddRunTableViewController: UITableViewController {
             runShoeDetailLabel.text = "None"
         }
     }
-    
+
     /**
     This method is called by the updateDetailLabels methoed whenever the view recieves the notification "UpdateDetailLabel". It checks that the values selected in the pickers make sense (i.e. a run has the correct pace for a given distance and duration).
     1. Declares and initialises the local variables runDistance, runPace, runDuration, and userInfo
@@ -161,36 +161,36 @@ class AddRunTableViewController: UITableViewController {
         let runPace = runPacePicker.selectedPace().pace
         let runDuration = runDurationPicker.selectedDuration().duration
         let userInfo = notification.userInfo as NSDictionary?
-        
+
         if let userInfo = userInfo { //2
             let pickerValueChanged = userInfo.object(forKey: "valueChanged") as! String //a
-            
+
             if pickerValueChanged != currentPicker { //b
                 lastPicker = currentPicker //i
                 currentPicker = pickerValueChanged //ii
             }
-            
+
             if (currentPicker == "DISTANCE" || currentPicker == "PACE") && (lastPicker == "DISTANCE" || lastPicker == "PACE") { //c
-                if runPace != 0 && runDistance != 0  { //(Checks the values aren't 0 as a user may have set them to 0)
+                if runPace != 0 && runDistance != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newDuration = Int(runDistance * Double(runPace)) //iii
                     runDurationPicker.setDuration(duration: newDuration) //iv
                 }
             } else if (currentPicker == "DISTANCE" || currentPicker == "DURATION") && (lastPicker == "DISTANCE" || lastPicker == "DURATION") { //d
-                if runDuration != 0 && runDistance != 0  { //(Checks the values aren't 0 as a user may have set them to 0)
+                if runDuration != 0 && runDistance != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newPace = Int(Double(runDuration) / runDistance) //v
                     runPacePicker.setPace(pace: newPace) //vi
                 }
             } else if (currentPicker == "PACE" || currentPicker == "DURATION") && (lastPicker == "PACE" || lastPicker == "DURATION") {
-                if runDuration != 0 && runPace != 0  { //(Checks the values aren't 0 as a user may have set them to 0)
+                if runDuration != 0 && runPace != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newDistance = Double(runDuration) / Double(runPace) //vii
                     runDistancePicker.setDistance(distance: newDistance) //viii
                 }
             }
         }
     }
-    
-    //MARK: - Save Run
-    
+
+    // MARK: - Save Run
+
     /**
     This method is called by the system when the user presses the Done button. It validates the run and saves into the database.
     1. Declares and initialises the local variables runDistance, runPace, runDuration, and selectedShoe
@@ -219,7 +219,7 @@ class AddRunTableViewController: UITableViewController {
         let runPace = runPacePicker.selectedPace().pace
         let runDuration = runDurationPicker.selectedDuration().duration
         let selectedShoe: Shoe? = runShoePicker.selectedShoe()
-        
+
         if runDistance > 0 && runPace > 0 && runDuration > 0 { //2
             let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker!.date as NSDate, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
             run.calculateRunScore() //b

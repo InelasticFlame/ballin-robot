@@ -10,9 +10,9 @@ import UIKit
 import HealthKit
 
 class HomeTableViewController: UITableViewController {
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var distanceHeaderView: UIView!
     @IBOutlet weak var distanceMainView: UIView!
@@ -21,7 +21,7 @@ class HomeTableViewController: UITableViewController {
     @IBOutlet weak var personalBestsHeaderView: UIView!
     @IBOutlet weak var personalBestMainView: UIView!
     @IBOutlet weak var distanceProgressView: UIView!
-    
+
     @IBOutlet weak var distanceProgressLabel: UILabel!
     @IBOutlet weak var shoeNameLabel: UILabel!
     @IBOutlet weak var shoeDistanceLabel: UILabel!
@@ -30,18 +30,17 @@ class HomeTableViewController: UITableViewController {
     @IBOutlet weak var bestAveragePaceLabel: UILabel!
     @IBOutlet weak var longestDistanceLabel: UILabel!
     @IBOutlet weak var fastestMileLabel: UILabel!
-   
-    
+
     private var shoes = [Shoe]() //A global array of Shoe objects that stores the shoes in the database.
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is first loaded. It adds borders to the views on screen.
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         distanceHeaderView.addBorder(borderWidth: 2)
         distanceMainView.addBorder(borderWidth: 2)
         shoesHeaderView.addBorder(borderWidth: 2)
@@ -49,7 +48,7 @@ class HomeTableViewController: UITableViewController {
         personalBestsHeaderView.addBorder(borderWidth: 2)
         personalBestMainView.addBorder(borderWidth: 2)
     }
-    
+
     /** 
     This method is called by the system whenever the view will appear.
     1. IF initial setup has not been complete
@@ -68,18 +67,18 @@ class HomeTableViewController: UITableViewController {
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewDidAppear(_ animated: Bool) {
-        
+
         if !UserDefaults.standard.bool(forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
             let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil) //a
             let setupVC = storyboard.instantiateViewController(withIdentifier: "setupStoryboard") as UIViewController //b
             self.present(setupVC, animated: true, completion: nil) //c
         }
-        
+
         loadPersonalBests() //2
         loadDistanceProgress() //3
         loadShoes(timer: Timer(timeInterval: 0, target: self, selector: #selector(HomeTableViewController.loadShoes), userInfo: NSDictionary(object: NSNumber(value: 0), forKey: "currentShoe" as NSCopying), repeats: false)) //4
     }
-    
+
     /**
     This method is called by the system whenever the data is loaded in the table. It returns the height for a cell in the table which in this case is always 320
     
@@ -90,7 +89,7 @@ class HomeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 320
     }
-    
+
     /**
     This method is called to loads the shoes to the interface.
     1. Loads all the shoes from the database as an array of Shoe objects
@@ -124,7 +123,7 @@ class HomeTableViewController: UITableViewController {
             if currentShoe == shoes.count { //c
                 currentShoe = 0
             }
-            
+
             shoeNameLabel.text = shoes[currentShoe!].name //d
             shoeDistanceLabel.text = Conversions().distanceForInterface(distance: shoes[currentShoe!].miles) //e
             let shoeImage = shoes[currentShoe!].loadImage() //f
@@ -138,7 +137,7 @@ class HomeTableViewController: UITableViewController {
             shoeNameLabel.text = "No Shoes" //j
         }
     }
-    
+
     /**
     This method is called to load the distance progress to the interface.
     1. Clear any existing progress bars
@@ -166,20 +165,20 @@ class HomeTableViewController: UITableViewController {
         for view in distanceProgressView.subviews as [UIView] { //1
             view.removeFromSuperview()
         }
-        
+
         let goalMiles = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Distance.GoalKey) //2
         let currentMonth = NSDate().monthYearString() //3
         let runs = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '___\(currentMonth)%'") as! [Run] //4
         let totalMiles = Conversions().totalUpRunMiles(runs: runs) //5
         let progress = CGFloat(totalMiles/goalMiles) //6
-        
+
         let progressFrame = CGRect(x: 0, y: 0, width: distanceProgressView.frame.width, height: distanceProgressView.frame.height) //7
         let progressBar = ProgressBar(progress: progress, frame: progressFrame) //8
         self.distanceProgressView.addSubview(progressBar) //9
-        
+
         distanceProgressLabel.text = Conversions().distanceForInterface(distance: totalMiles) + " of " + Conversions().distanceForInterface(distance: goalMiles) + " ran this month." //10
     }
-    
+
     /**
     This method is called to fill the personal bests cell with the personal bests.
     1. Initialises and stores a reference to the standardUserDefaults
@@ -201,21 +200,21 @@ class HomeTableViewController: UITableViewController {
         let longestDuration = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
         let fastestMile = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestMileKey)
         let fastestAveragePace = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
-        
+
         if longestDistance > 0 { //4
             longestDistanceLabel.text = "Longest Distance: " + Conversions().distanceForInterface(distance: longestDistance) //a
         }
-        
+
         //4
-        
+
         if longestDuration > 0 {
             longestDurationLabel.text = "Longest Duration: " + Conversions().runDurationForInterface(duration: longestDuration)
         }
-        
+
         if fastestMile > 0 {
             fastestMileLabel.text = "Fastest Mile: " + Conversions().averagePaceForInterface(pace: fastestMile)
         }
-        
+
         if fastestAveragePace > 0 {
             bestAveragePaceLabel.text = "Best Avg. Pace: " + Conversions().averagePaceForInterface(pace: fastestAveragePace)
         }

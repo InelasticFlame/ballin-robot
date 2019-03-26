@@ -9,9 +9,9 @@
 import UIKit
 
 class SetupViewController: UIViewController {
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var distanceSegment: UISegmentedControl!
     @IBOutlet weak var paceSegment: UISegmentedControl!
@@ -23,13 +23,13 @@ class SetupViewController: UIViewController {
     @IBOutlet weak var goalDistanceStepper: UIStepper!
     @IBOutlet weak var goalDistanceStepperLabel: UILabel!
     @IBOutlet weak var stravaAuthorisedLabel: UILabel!
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     private var changesMade = true //A global boolean variable that tracks whether the user has made any changes to settings; used to know whether to prompt a save or not
 
-    //MARK: - View Life Cycle
-    
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is initially loaded. It sets up the view with any existing settings
     1. IF setup has already been performed
@@ -72,14 +72,14 @@ class SetupViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if UserDefaults.standard.bool(forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) { //1
             let userDefaults = UserDefaults.standard //2
-            
+
             if (userDefaults.string(forKey: "ACCESS_TOKEN") ?? "").count > 0 { //3
                 updateStravaLabel() //a
             }
-            
+
             /* DISTANCE */
             let distanceUnit = userDefaults.string(forKey: Constants.DefaultsKeys.Distance.UnitKey) //4
             let distanceGoal = userDefaults.double(forKey: Constants.DefaultsKeys.Distance.GoalKey) //5
@@ -89,13 +89,13 @@ class SetupViewController: UIViewController {
             } else { //7
                 goalDistanceStepper.value = distanceGoal //d
             }
-            
+
             /* PACE */
             let paceUnit = userDefaults.string(forKey: Constants.DefaultsKeys.Pace.UnitKey) //8
             if paceUnit == Constants.DefaultsKeys.Pace.KMPerH { //9
                 paceSegment.selectedSegmentIndex = 1 //e
             }
-            
+
             /* WEIGHT */
             let weightUnit = userDefaults.string(forKey: Constants.DefaultsKeys.Weight.UnitKey) //10
             let weightGoal = userDefaults.double(forKey: Constants.DefaultsKeys.Weight.GoalKey) //11
@@ -105,21 +105,21 @@ class SetupViewController: UIViewController {
             } else { //13
                 weightStepper.value = weightGoal //h
             }
-            
+
             let calorieGoal = userDefaults.integer(forKey: Constants.DefaultsKeys.Calories.GoalKey) //14
             calorieStepper.value = Double(calorieGoal) //15
-            
+
             changesMade = false //16
         }
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(SetupViewController.updateStravaLabel), name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //17
-        
+
         updateWeightGoalLabel() //18
         updateCalorieGoalLabel() //19
         updateGoalDistanceLabel() //20
     }
-    
-    //MARK: - Settings Saving
+
+    // MARK: - Settings Saving
     /**
     This method is used to save a user's settings.
     1. Declares the local constant userDefaults as a reference to the standardUserDefaults
@@ -148,7 +148,7 @@ class SetupViewController: UIViewController {
     */
     func saveSettings() {
         let userDefaults = UserDefaults.standard //1
-        
+
         if distanceSegment.selectedSegmentIndex == 0 { //2
             //Miles
             userDefaults.set(Constants.DefaultsKeys.Distance.MilesUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //a
@@ -158,7 +158,7 @@ class SetupViewController: UIViewController {
             userDefaults.set(Constants.DefaultsKeys.Distance.KmUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //c
             userDefaults.set(Conversions().kmToMiles * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //d
         }
-        
+
         if paceSegment.selectedSegmentIndex == 0 { //4
             //min/mile
             userDefaults.set(Constants.DefaultsKeys.Pace.MinMileUnit, forKey: Constants.DefaultsKeys.Pace.UnitKey) //e
@@ -166,7 +166,7 @@ class SetupViewController: UIViewController {
             //km/h
             userDefaults.set(Constants.DefaultsKeys.Pace.KMPerH, forKey: Constants.DefaultsKeys.Pace.UnitKey) //f
         }
-        
+
         if weightSegment.selectedSegmentIndex == 0 { //6
             //Kg
             userDefaults.set(Constants.DefaultsKeys.Weight.KgUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //g
@@ -176,15 +176,15 @@ class SetupViewController: UIViewController {
             userDefaults.set(Constants.DefaultsKeys.Weight.PoundUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //i
             userDefaults.set(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey) //j
         }
-        
+
         userDefaults.set(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.GoalKey) //8
-        
+
         userDefaults.set(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey) //9
         self.dismiss(animated: true, completion: nil) //10
     }
-    
-    //MARK: - Interface Actions
-    
+
+    // MARK: - Interface Actions
+
     /**
     This method is called when the user presses the done button. It saves the current settings.
     1. IF changes have been made
@@ -202,7 +202,7 @@ class SetupViewController: UIViewController {
     @IBAction func donePressed(sender: AnyObject) {
         if changesMade { //1
             let alert = UIAlertController(title: "Save Settings?", message: "", preferredStyle: UIAlertController.Style.alert) //a
-            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { _ in
                 self.saveSettings()
                 self.dismiss(animated: true, completion: nil)
             }))
@@ -212,7 +212,7 @@ class SetupViewController: UIViewController {
             self.dismiss(animated: true, completion: nil) //a
         }
     }
-    
+
     /**
     This method is called when the user presses the Connect With Strava button. It calls the function authoriseNewAccount from the StravaAuth class
     
@@ -231,7 +231,7 @@ class SetupViewController: UIViewController {
         changesMade = true
         updateGoalDistanceLabel()
     }
-    
+
     /**
     This method is called when the user changes the value of the weight segment. It sets the changesMade to true and calls the function updateWeightGoalLabel
     
@@ -241,7 +241,7 @@ class SetupViewController: UIViewController {
         changesMade = true
         updateWeightGoalLabel()
     }
-    
+
     /**
     This method is called when the user changes the value of the calorie stepper. It sets the changesMade to true and calls the function updateCalorieGoalLabel
     
@@ -251,7 +251,7 @@ class SetupViewController: UIViewController {
         changesMade = true
         updateCalorieGoalLabel()
     }
-    
+
     /**
     This method is called when the user changes the value of the weight stepper. It sets the changesMade to true and calls the function updateWeightGoalLabel
     
@@ -261,7 +261,7 @@ class SetupViewController: UIViewController {
         changesMade = true
         updateWeightGoalLabel()
     }
-    
+
     /** 
     This method is called when the user changes the value of the goal distance stepper. It sets the changesMade to true and calls the function updateGoalDistanceLabel
     
@@ -271,9 +271,9 @@ class SetupViewController: UIViewController {
         changesMade = true
         updateGoalDistanceLabel()
     }
-    
-    //MARK: - Label Updates
-    
+
+    // MARK: - Label Updates
+
     /**
     This method updates the text of the weight goal label.
     1. IF the weightSegment selected is the first segment
@@ -288,7 +288,7 @@ class SetupViewController: UIViewController {
             weightStepperLabel.text = "\(Int(weightStepper.value)) lb" //b
         }
     }
-    
+
     /**
     This method updates the text of the weight goal label.
     1. IF the distanceSegment selected is the first segment
@@ -303,14 +303,14 @@ class SetupViewController: UIViewController {
             goalDistanceStepperLabel.text = "\(Int(goalDistanceStepper.value)) km" //b
         }
     }
-    
+
     /**
     This method updates the text of the calorie goal label.
     */
     func updateCalorieGoalLabel() {
         calorieStepperLabel.text = "\(Int(calorieStepper.value))"
     }
-    
+
     /**
     This method updates the StravaLabel when a user's account has been authorised. It sets the text colour to green and sets the text of the label to "Authorised"
     */

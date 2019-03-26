@@ -9,7 +9,7 @@
 import UIKit
 
 class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelegate {
-    
+
     // MARK: - Storyboard Links
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var distanceDurationSegement: UISegmentedControl!
@@ -19,18 +19,18 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var runDateDetailLabel: UILabel!
     @IBOutlet weak var runDistanceDurationDetailLabel: UILabel!
     @IBOutlet weak var runDetailsTextField: UITextField!
-    
+
     // MARK: - Global Variables
     private let secondsInDay: Double = 86400 //A global double constant that stores the number of seconds in a day. Used to increase a date by 24 hours
-    
+
     private var editingRunDate = false //A global boolean variable that tracks whether a user is editing the run date (so the run date picker should be shown)
     private var editingRunDistanceDuration = false //A global boolean variable that tracks whether a user is editing the runDistance or duration (so the runDistance or runDuration picker should be shown)
     private var showRepeat = false //A global boolean variable that tracks whether the user has selected a repeat option other than 'Never' so the repeatOptions cell should be displayed
     private var showError = false //A global boolean variable that tracks whether the error message cell should be displayed (because the planned run has failed a validation check)
     var plan: Plan? //A global optional variable plan object that stores the plan the runs are being created for
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is first loaded. It configures the view to its initial state.
     1. Sets the minimum date and maximum date of the plannedRunDate picker to the plan start and end dates respectively
@@ -40,19 +40,19 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //1
         plannedRunDatePicker.minimumDate = plan?.startDate as! Date //Prevents a user from planning a run before the plan begins
         plannedRunDatePicker.maximumDate = plan?.endDate as! Date //Prevents a user from planning a run after the plan ends
-        
+
         updateDetailLabels() //2
-        
+
         plannedRunDatePicker.addTarget(self, action: #selector(NewPlannedRunTableViewController.updateDetailLabels), for: .valueChanged) //3
         NotificationCenter.default.addObserver(self, selector: #selector(NewPlannedRunTableViewController.updateDetailLabels), name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil) //4
     }
 
-    //MARK: - Interface Updates
-    
+    // MARK: - Interface Updates
+
     /**
     This method is called by the system when the value of the distanceDuration segment is changed. It shows the correct picker view in the table view.
     1. Calls the function reloadTableViewCells (to show the correct picker based on the selected segment)
@@ -64,7 +64,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         tableView.reloadTableViewCells() //1
         updateDetailLabels() //2
     }
-    
+
     /**
     This method is called when the view controller recieves the 'updateDetailLabels' notification. It is used to set the text of the detail labels to the values of the pickers.
     1. Sets the text of the runDateDetailLabel to the selected plannedRun date as a short date string
@@ -81,9 +81,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             runDistanceDurationDetailLabel.text = plannedDurationPicker.selectedDuration().durationStr //b
         }
     }
-    
-    //MARK: - Text Field
-    
+
+    // MARK: - Text Field
+
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
@@ -94,10 +94,10 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
-        
+
         return false //2
     }
-    
+
     // MARK: - Table View Data Source
 
     /**
@@ -133,21 +133,21 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             if indexPath.row == 1 && editingRunDate { //d
                 return Constants.TableView.PickerRowHeight //i
             }
-            
+
             if editingRunDistanceDuration { //e
                 if distanceDurationSegement.selectedSegmentIndex == 0 && indexPath.row == 3 { //ii
                     return Constants.TableView.PickerRowHeight //Z
                 }
-            
+
                 if distanceDurationSegement.selectedSegmentIndex == 1 && indexPath.row == 4 { //iii
                     return Constants.TableView.PickerRowHeight //Y
                 }
             }
         }
-        
+
         return  0 //5
     }
-    
+
     /**
     This method is called by the system whenever a user selects a row in the table view. It sets which picker views should be shown and which should be hidden.
     1. IF the selected cell is the first cell (DATE)
@@ -165,17 +165,17 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         if indexPath.row == 0 { //1
             editingRunDate = !editingRunDate //a
             editingRunDistanceDuration = false //b
-        
+
         } else if indexPath.row == 2 { //2
             editingRunDistanceDuration = !editingRunDistanceDuration //b
             editingRunDate = false //c
         }
-        
+
         tableView.reloadTableViewCells() //3
     }
 
-    //MARK: - Planned Run Saving
-    
+    // MARK: - Planned Run Saving
+
     /**
     This method is called by the system when the user presses the Done button. It validates the planned run and saves it to the database (if validation is successful) and then dismisses the view controller.
     1. Declares the local string variable error, the double variable planDistance and the integer variable planDuration
@@ -234,31 +234,31 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         var error = "" //1
         var planDistance = 0.0
         var planDuration = 0
-        
+
         self.runDetailsTextField.resignFirstResponder() //2
-        
+
         if distanceDurationSegement.selectedSegmentIndex == 0 { //3
             planDistance = plannedDistancePicker.selectedDistance().distance //a
         } else if distanceDurationSegement.selectedSegmentIndex == 1 { //4
             planDuration = plannedDurationPicker.selectedDuration().duration //b
         }
-        
+
         if planDistance == 0 && planDuration == 0 { //5
             error += "A run must have a distance or duration greater than 0. \n" //c
         }
-        
+
         let stringValidation = runDetailsTextField.text!.validateString(stringName: "Plan details", maxLength: 40, minLength: 0) //6
         if !stringValidation.valid { //7
             error += stringValidation.error + "\n" //d
         }
-        
+
         if error == "" { //8
             var timeInterval: Double = 0 //e
             var repeatEndDate = NSDate()
-            
+
             showError = false //f
             tableView.reloadTableViewCells() //g
-            
+
             if showRepeat { //h
                 if let repeatCell = tableView.cellForRow(at: NSIndexPath(row: 7, section: 0) as IndexPath) { //i
                     if let text = repeatCell.detailTextLabel?.text as String? { //ii
@@ -278,7 +278,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
                         }
                     }
                 }
-                
+
                 if let endRepeatCell = tableView.cellForRow(at: NSIndexPath(row: 8, section: 0) as IndexPath) { //viii
                     if endRepeatCell.detailTextLabel?.text == "Until Plan End" { //ix
                         repeatEndDate = NSDate(timeInterval: secondsInDay, since: plan!.endDate as Date) //x
@@ -286,9 +286,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
                         repeatEndDate = NSDate(timeInterval: secondsInDay, since: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!) as Date) //xii
                     }
                 }
-                
+
                 var plannedRunDate = plannedRunDatePicker.date //xiii
-                
+
                 while plannedRunDate.compare(repeatEndDate as Date) == .orderedAscending { //xiv
                     let plannedRun = PlannedRun(ID: 0, date: plannedRunDate as NSDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
                     Database().savePlannedRun(plannedRun, forPlan: plan)
@@ -296,7 +296,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
                 }
             } else { //i
                 let plannedRun = PlannedRun(ID: 0, date: plannedRunDatePicker!.date as NSDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //j
-                
+
                 Database().savePlannedRun(plannedRun, forPlan: plan)
             }
             self.navigationController!.popViewController(animated: true) //k
@@ -306,9 +306,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             self.tableView.reloadTableViewCells() //n
         }
     }
-    
+
     // MARK: - Navigation
-    
+
     /**
     This method is called by the system whenever a segue is about to be performed. It passes the relevant information to the destination view controller so that the view can be setup appropriately.
     1. IF the segue has the identifier "repeatPress"
@@ -333,9 +333,9 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
                 destinationVC.plannedRunDate = plannedRunDatePicker.date as NSDate //iii
             }
         }
-        
+
     }
-    
+
     /**
     This method is called by the RepeatsTableViewController when a user selects a repeat. It is used to display the selected repeat on this view.
     1. IF The repeatText isn't "Never"
@@ -358,7 +358,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         }
         tableView.cellForRow(at: NSIndexPath(row: 7, section: 0) as IndexPath)?.detailTextLabel?.text = repeatText //3
     }
-    
+
     /**
     This method is called by the RepeatSettingsTableViewController when a user selects a setting for their repeat option. It is used to display the selected repeat end option on this view.
     1. Sets the text of the repeat setting detail label to the repeatEndOption

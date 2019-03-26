@@ -10,13 +10,13 @@ import UIKit
 
 class WeightProgressBar: UIView {
 
-    //MARK: - Global Variables
-    
+    // MARK: - Global Variables
+
     private var currentWeight: CGFloat = 0.0 //A global CGFloat that stores the user's current weight to display
     private var goalWeight: CGFloat = 0.0 //A global CGFloat that stores the user's goal weight to display
 
-    //MARK: - Initialisation
-    
+    // MARK: - Initialisation
+
     /**
     This method is called when the class initialises. It sets the passed properties and the background colour to clear.
     
@@ -30,16 +30,16 @@ class WeightProgressBar: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
     }
-    
+
     /**
     :param: coder An NSCoder that is used to unarchive the class.
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
-    
-    //MARK: - Bar Drawing
-    
+
+    // MARK: - Bar Drawing
+
     /**
     This method is called to draw the progress bar.
     1. Declare the local CGFloat barWidth as the width of the rect - 40 (to add padding)
@@ -95,31 +95,30 @@ class WeightProgressBar: UIView {
         let fullBarRectPath = UIBezierPath(rect: CGRect(x: 20, y: 10, width: barWidth, height: barHeight)) //4
         let progressBarRectPath = UIBezierPath(rect: CGRect(x: 20, y: 10, width: CGFloat(Int(currentWeight * pxPerKg)), height: barHeight)) //5
         //Round to an integer value (this ensures no pixel bluring to make it look like half a pixel filled) but the function accepts only CGFloats so cast the int back to a CGFloat
-        
+
         let fullBarLayer = CAShapeLayer() //6
         fullBarLayer.path = fullBarRectPath.cgPath //7
         fullBarLayer.strokeColor = UIColor.black.cgColor
         fullBarLayer.fillColor = UIColor.lightGray.cgColor
         fullBarLayer.lineWidth = 2
         self.layer.addSublayer(fullBarLayer) //8
-        
+
         let progressBarLayer = CAShapeLayer() //9
         progressBarLayer.path = progressBarRectPath.cgPath //10
         progressBarLayer.strokeColor = UIColor.black.cgColor
         progressBarLayer.fillColor = UIColor.red.cgColor
         progressBarLayer.lineWidth = 2
         self.layer.addSublayer(progressBarLayer) //11
-        
+
         let goalMarkerLayer = CAShapeLayer() //12
         goalMarkerLayer.path = CGPath(rect: CGRect(x: rect.size.width/2, y: 10, width: 1, height: barHeight), transform: nil) //13
         goalMarkerLayer.lineWidth = 1 //14
         goalMarkerLayer.strokeColor = UIColor.black.cgColor
         self.layer.addSublayer(goalMarkerLayer) //15
-        
-        
+
         var goalString = ""
         var weightTextString = ""
-        
+
         if UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Weight.UnitKey) == Constants.DefaultsKeys.Weight.KgUnit { //16
             goalString = NSString(format: "Goal: %1.2f kg", Double(goalWeight)) as String //a
             weightTextString = NSString(format: "Weight: %1.2f kg", Double(currentWeight)) as String //b
@@ -127,9 +126,9 @@ class WeightProgressBar: UIView {
             goalString = NSString(format: "Goal: %1.2f lb", Double(goalWeight) * Conversions().kgToPounds) as String //c
             weightTextString = NSString(format: "Weight: %1.2f lb", Double(currentWeight) * Conversions().kgToPounds) as String //d
         }
-        
+
         let goalStringSize = goalString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 12.0)])) //18
-        
+
         let goalTextLayer = CATextLayer() //19
         goalTextLayer.string = goalString //20
         goalTextLayer.fontSize = 12
@@ -140,10 +139,9 @@ class WeightProgressBar: UIView {
         goalTextLayer.position.y = (rect.size.height)
         goalTextLayer.contentsScale = UIScreen.main.scale //21
         self.layer.addSublayer(goalTextLayer) //22
-        
-        
+
         let weightTextSize = weightTextString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 17.0)])) //23
-        
+
         let weightTextLayer = CATextLayer()
         weightTextLayer.string = weightTextString
         weightTextLayer.fontSize = 17
@@ -157,12 +155,12 @@ class WeightProgressBar: UIView {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+private func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
 	guard let input = input else { return nil }
 	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+private func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
 	return input.rawValue
 }

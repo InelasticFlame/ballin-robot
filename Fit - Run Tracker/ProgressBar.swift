@@ -9,16 +9,16 @@
 import UIKit
 
 class ProgressBar: UIView {
-    
-    //MARK: - Global Variables
-    
-    private let startAngle = CGFloat(M_PI) //A global constant GFloat that stores the start angle for the bar (PI)
+
+    // MARK: - Global Variables
+
+    private let startAngle = CGFloat.pi //A global constant GFloat that stores the start angle for the bar (PI)
     private let endAngle = CGFloat(M_PI * 2) //A global constant CGFloat that stores the end angle for the bar (2PI)
-    
+
     private var progress: CGFloat = 0.0 //A global variable CGFloat that stores the progress amount
-    
-    //MARK: - Initialisation
-    
+
+    // MARK: - Initialisation
+
     /**
     This method is called when the class initialises. It sets the passed properties and the background colour to clear.
     1. IF the progress is more than 1
@@ -46,9 +46,9 @@ class ProgressBar: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
-    
-    //MARK: - Bar Drawing
-    
+
+    // MARK: - Bar Drawing
+
     /**
     This method is called to draw the progress bar.
     1. Calculates the radius to use for the arc
@@ -90,30 +90,30 @@ class ProgressBar: UIView {
         let fullArc = UIBezierPath(arcCenter: arcCentrePoint, radius: arcRadius, startAngle: startAngle, endAngle: endAngle, clockwise: true) //3
         let progressAngle = CGFloat(startAngle) * CGFloat(progress) + startAngle //4
         let progressArc = UIBezierPath(arcCenter: arcCentrePoint, radius: arcRadius, startAngle: startAngle, endAngle: progressAngle, clockwise: true) //5
-        
+
         let fullArcLayer = CAShapeLayer() //6
         fullArcLayer.path = fullArc.cgPath //7
         fullArcLayer.fillColor = UIColor.clear.cgColor
         fullArcLayer.strokeColor = UIColor.lightGray.cgColor
         fullArcLayer.lineWidth = 27
         self.layer.addSublayer(fullArcLayer) //8
-        
+
         let progressArcLayer = CAShapeLayer() //9
         progressArcLayer.path = progressArc.cgPath //10
         progressArcLayer.fillColor = UIColor.clear.cgColor
         progressArcLayer.strokeColor = UIColor.red.cgColor
         progressArcLayer.lineWidth = 27
         self.layer.addSublayer(progressArcLayer) //11
-        
+
         let progressTextString = NSString(format: "%1.2f%%", Double(progress * 100)) //12
         let progressTextSize = progressTextString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 20.0)])) //13
-        
+
         let progressTextLayer = CATextLayer() //14
         progressTextLayer.string = progressTextString //15
         progressTextLayer.fontSize = 20
         progressTextLayer.font = UIFont.systemFont(ofSize: 20)
         progressTextLayer.foregroundColor = UIColor.black.cgColor
-        progressTextLayer.frame = CGRect.init(x: 0, y: 0, width: progressTextSize.width, height: progressTextSize.height);
+        progressTextLayer.frame = CGRect.init(x: 0, y: 0, width: progressTextSize.width, height: progressTextSize.height)
         progressTextLayer.position.y = arcRadius
         progressTextLayer.position.x = arcCentrePoint.x
         progressTextLayer.contentsScale = UIScreen.main.scale //16
@@ -122,12 +122,12 @@ class ProgressBar: UIView {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+private func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
 	guard let input = input else { return nil }
 	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+private func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
 	return input.rawValue
 }
