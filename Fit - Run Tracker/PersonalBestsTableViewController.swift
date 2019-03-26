@@ -9,9 +9,9 @@
 import UIKit
 
 class PersonalBestsTableViewController: UITableViewController {
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var longestDistanceLabel: UILabel!
     @IBOutlet weak var longestDurationLabel: UILabel!
@@ -21,9 +21,9 @@ class PersonalBestsTableViewController: UITableViewController {
     @IBOutlet weak var longestDurationImageView: UIImageView!
     @IBOutlet weak var fastestMileImageView: UIImageView!
     @IBOutlet weak var bestAveragePaceImageview: UIImageView!
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system whenever the view appears on screen. It is used to configure the interface with the personal bests of a user.
     1. Initialises and stores a reference to the standardUserDefaults
@@ -51,24 +51,24 @@ class PersonalBestsTableViewController: UITableViewController {
         let longestDuration = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
         let fastestMile = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestMileKey)
         let fastestAveragePace = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
-        
+
         if longestDistance > 0 { //4
             longestDistanceLabel.text = Conversions().distanceForInterface(distance: longestDistance) //a
             longestDistanceImageView.image = achievedImage //b
         }
-        
+
         //5
-        
+
         if longestDuration > 0 {
             longestDurationLabel.text = Conversions().runDurationForInterface(duration: longestDuration)
             longestDurationImageView.image = achievedImage
         }
-            
+
         if fastestMile > 0 {
             fastestMileLabel.text = Conversions().averagePaceForInterface(pace: fastestMile)
             fastestMileImageView.image = achievedImage
         }
-        
+
         if fastestAveragePace > 0 {
             bestAveragePaceLabel.text = Conversions().averagePaceForInterface(pace: fastestAveragePace)
             bestAveragePaceImageview.image = achievedImage

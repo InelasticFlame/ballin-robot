@@ -10,9 +10,9 @@ import UIKit
 
 class PlanDetailsTableViewCell: UITableViewCell {
     /* This class stores the links to the controls for a PlanDetailsTableViewCell */
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* Links to user interface controls */
     @IBOutlet weak var distanceDurationLabel: UILabel! // Middle top label
     @IBOutlet weak var progressImage: UIImageView! //Left image

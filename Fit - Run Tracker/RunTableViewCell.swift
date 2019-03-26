@@ -10,9 +10,9 @@ import UIKit
 
 class RunTableViewCell: UITableViewCell {
     /* This class stores the links to the controls for a RunTableViewCell */
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var paceLabel: UILabel! //Bottom left label
     @IBOutlet weak var distanceLabel: UILabel! //Top right label

@@ -17,13 +17,13 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        
+
         self.delegate = self
         self.dataSource = self
     }
 
-    //MARK: - Picker View Data Source
-    
+    // MARK: - Picker View Data Source
+
     /**
     This method is called by the system in order to set up the picker view. It returns the number of components (columns) in the picker, which is this case is fixed as 3.
     
@@ -33,7 +33,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
-    
+
     /**
     This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; IF the component is the first component return 24 (for 0 to 23 hours), otherwise it returns 60 (for 0 to 59 minutes or seconds)
     
@@ -48,7 +48,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
             return 60
         }
     }
-    
+
     /**
     This method is called by the system in order to set up the picker view. It returns the title for a row in a component.
     1. IF the component is the first component
@@ -72,7 +72,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
             return NSString(format: "%02is", row) as String //c //seconds
         }
     }
-    
+
     /**
     This method is called by the system when a user selects a row in a component. It posts a notification called UpdateDateDetailLabel passing the user info of a dictionary with the value 'DURATION' stored for the key 'valueChanged'.
     
@@ -81,9 +81,9 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     :param: component An integer identifying the component that the row is in.
     */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "DURATION", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any]))
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "DURATION", forKey: "valueChanged" as NSCopying) as! [AnyHashable: Any]))
     }
-    
+
     /**
     This method is called to return the selected duration. It returns the duration as an integer (in seconds) and the duration as a string (in the form h:mm:ss)
     1. Declares the local integer variable duration
@@ -108,17 +108,17 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func selectedDuration() -> (duration: Int, durationStr: String) {
         var duration = 0 //1
         var durationStr = "" //2
-        
+
         let hours = self.selectedRow(inComponent: 0) //3
         let minutes = self.selectedRow(inComponent: 1) //4
         let seconds = self.selectedRow(inComponent: 2) //5
-        
+
         duration = (hours * 3600) + (minutes * 60) + seconds //6
         durationStr = NSString(format: "%ih %02im %02is", hours, minutes, seconds) as String //7
-        
+
         return (duration, durationStr) //8
     }
-    
+
     /**
     This method is called to set the picker to a certain duration (used in the Add New Run View Controller)
     1. Declares the local integer constant hours setting its value to the duration divided by 3600 (the number of hours)
@@ -142,7 +142,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         let remainingSeconds = duration % 3600
         let minutes = remainingSeconds/60
         let seconds = duration % 60
-        
+
         self.selectRow(hours, inComponent: 0, animated: false)
         self.selectRow(minutes, inComponent: 1, animated: false)
         self.selectRow(seconds, inComponent: 2, animated: false)

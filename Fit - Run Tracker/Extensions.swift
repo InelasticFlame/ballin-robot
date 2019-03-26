@@ -10,8 +10,8 @@ import UIKit
 import HealthKit
 
 extension UIView {
-   
-    //MARK: Methods
+
+    // MARK: Methods
 
     /**
     This extension is used to add a dark gray border to a view.
@@ -24,13 +24,13 @@ extension UIView {
         self.layer.borderWidth = borderWidth //1
         self.layer.borderColor = UIColor.darkGray.cgColor //2
     }
-    
+
 }
 
 extension NSDate {
-    
-    //MARK: Convenience Initialisers
-    
+
+    // MARK: Convenience Initialisers
+
     /**
     This initialiser takes a date string in the form "dd/MM/yyyy" and creates a new NSDate object with this date.
     1. Creates the date formatter
@@ -49,11 +49,11 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyy" //2
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
-        
+
         let newDate = dateFormatter.date(from: shortDateString) //4
         self.init(timeInterval: 0, since: newDate!) //5
     }
-    
+
     /**
     This initialiser takes a date string in the form "dd/MM/yyyyHH:mm:ss" and creates a new NSDate object with this date, this is used when a run is loaded from the database.
     1. Creates the date formatter
@@ -72,13 +72,13 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
-        
+
         let newDate = dateFormatter.date(from: databaseString) //4
         self.init(timeInterval: 0, since: newDate!) //5
     }
 
-    //MARK: Methods
-    
+    // MARK: Methods
+
     /**
     This method returns the date in the form "dd/MM/yyyyHH:mm:ss" as string for saving to the database.
     1. Creates a date formatter
@@ -95,10 +95,10 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
-        
+
         return dateFormatter.string(from: self as Date) //4
     }
-    
+
     /**
     This method returns the date in the form "dd/MM/yyyy" as string for display on the interface.
     1. Creates a date formatter
@@ -115,10 +115,10 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/yyyy" //2
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
-        
+
         return dateFormatter.string(from: self as Date) //4
     }
-    
+
     /**
     Returns the date in the form "dd/MM/YY" (e.g. 23/10/14) as string for display on the interface.
     1. Creates a date formatter
@@ -135,10 +135,10 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "dd/MM/YY" //2
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
-        
+
         return dateFormatter.string(from: self as Date) //3
     }
-    
+
     /**
     Returns the date in the form "MM/yyyy"; this is used to search the database for runs in a specific month.
     1. Creates a date formatter
@@ -159,9 +159,9 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         let month = dateFormatter.calendar.component(.month, from: self as Date)
         let year = dateFormatter.calendar.component(.year, from: self as Date)
-        
+
         let monthYearString = NSString(format: "%02i/%04i", month, year) //4
-        
+
         return monthYearString as String //5
     }
 
@@ -181,10 +181,10 @@ extension NSDate {
         let dateFormatter = DateFormatter() //1
         dateFormatter.dateFormat = "hh:mm a" //2
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
-        
+
         return dateFormatter.string(from: self as Date) //4
     }
-    
+
     /**
     Returns true if a date is in today.
     1. Creates a gregorian calendar
@@ -197,10 +197,10 @@ extension NSDate {
     */
     func isToday() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) //1
-        
+
         return calendar!.isDateInToday(self as Date) //2
     }
-    
+
     /**
     Returns true if a date was yesterday.
     1. Creates a gregorian calendar
@@ -213,15 +213,15 @@ extension NSDate {
     */
     func isYesterday() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) //1
-        
+
         return calendar!.isDateInYesterday(self as Date) //2
     }
 }
 
 extension CLLocation {
-    
-    //MARK: Convenience Initialisers
-    
+
+    // MARK: Convenience Initialisers
+
     /**
     Initialises a new CLLocation object using a string in the form "lat, long"
     1. Splits the location string on the ', ' and stores the first half as the latitude string
@@ -237,13 +237,13 @@ extension CLLocation {
     convenience init (locationString: String) {
         let latString = locationString.components(separatedBy: ", ").first! as NSString //1
         let longString = locationString.components(separatedBy: ", ").last! as NSString //2
-        
+
         self.init(latitude: latString.doubleValue, longitude: longString.doubleValue) //3
     }
 }
 
 extension String {
-    
+
     /**
     This function checks that a string is valid.
     1. Declares the local variable error as a string
@@ -275,7 +275,7 @@ extension String {
         var error = "Error testing string." //1
         let regEx = "[A-Z0-9a-z?!.]*" //2
         let testString = self.replacingOccurrences(of: " ", with: "")
-        
+
         if self.count < minLength { //4
             error = "\(stringName) must contain at least \(minLength) letters or numbers." //4a
             return (false, error) //4b
@@ -287,7 +287,7 @@ extension String {
             error = "\(stringName) must only contain letters, numbers or ?!." //6a
             return (stringTester.evaluate(with: testString), error) //6b
         }
-        
+
         return (false, error) //7
 
     }
@@ -319,17 +319,17 @@ extension HKHealthStore {
     :param: completion The block to perform on completion of the request. (The completion block has parameters of a HKSample object and an NSError object and returns nothing)
     */
     // swiftlint:enable line_length
-    func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: @escaping (HKSample?, NSError?) -> (Void)) {
+    func retrieveMostRecentSample(sampleType: HKSampleType, predicate: NSPredicate?, completion: @escaping (HKSample?, NSError?) -> Void) {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false) //1
 
-        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in //2, 3
+        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (_, results, error) -> Void in //2, 3
             /* BLOCK START */
-            
+
             if let error = error { //B1
                 completion(nil, error as NSError) //Ba
                 return
             }
-            
+
             if let firstResult = results?.first { //B2
                 completion(firstResult, nil) //Bb
             } else { //B3
@@ -337,10 +337,10 @@ extension HKHealthStore {
             }
             /* BLOCK END */
         }
-        
+
         self.execute(query) //4
     }
-    
+
     /**
     This extension retrieves the sum of a group of samples (i.e. all the individual calorie inputs for a particular day)
     1. Declares constant HKSampleQuery, query, with the following settings
@@ -363,31 +363,31 @@ extension HKHealthStore {
     :param: predicate An NSPredicate to filter the data with.
     :param: completion The block to perform on completion of the request. (The completion block has parameters of a Double and an NSError object and returns nothing)
     */
-    func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: @escaping (Double?, NSError?) -> (Void)) {
-        
-        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (query, result, error) in //1, 2
-            
+    func retrieveSumOfSample(quantityType: HKQuantityType, unit: HKUnit, predicate: NSPredicate?, completion: @escaping (Double?, NSError?) -> Void) {
+
+        let query = HKStatisticsQuery(quantityType: quantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in //1, 2
+
             let sum = result!.sumQuantity() //B1
-            
+
             if error != nil { //B2
                 completion(nil, error as! NSError) //Ba
                 return
             }
-            
+
             if let sum = sum { //B3
                 completion(sum.doubleValue(for: unit), nil) //Bb
             } else { //B4
                 completion(0, nil)
             }
         }
-        
+
         self.execute(query) //3
     }
-    
+
 }
 
 extension UITableView {
-    
+
     /**
     This function is called whenever a new row is shown/hidden in the table view. It reloads the data in the table view and animates the process.
     1. Calls the beginUpdates function of the table view, this tells the system that the following lines should be animated and performed

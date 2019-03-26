@@ -10,8 +10,8 @@ import UIKit
 
 class MoreTableViewController: UITableViewController {
 
-    //MARK: - Table View Data Source
-    
+    // MARK: - Table View Data Source
+
     /**
     This method is called when a user selects a row in the table view. It is used to load the setup view if the user presses the third cell.
     1. IF the selected cell has a row of 2

@@ -9,12 +9,12 @@
 import UIKit
 
 class RunsTableViewController: UITableViewController {
-    //MARK: - Global Variables
-    
+    // MARK: - Global Variables
+
     var runs = [Run]() //Creates and initialises a global array of Run objects
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is first loaded. It is used to initially configure the view.
     1. Sets the right button on the navigation bar as an Edit button
@@ -28,19 +28,16 @@ class RunsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem //1
-        
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.finishLoad), name: NSNotification.Name(rawValue: "RunLoadComplete"), object: nil) //2
         NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.loadRuns), name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //3
-        
-        
-        
+
         if (UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Strava.AccessTokenKey) ?? "").count > 0 { //4
             self.refreshControl = UIRefreshControl() //a
             self.refreshControl?.addTarget(self, action: #selector(RunsTableViewController.authorise), for: .valueChanged) //b
         }
     }
-    
+
     /**
     This method is called by the system whenever the view will appear on screen. It reloads the data in the table when the view is about to appear, this ensures that the table is always up to date after further navigation through the app (the view is not reloaded fully each time).
     1. Loads all the runs from the database, storing them in the global array of Run objects, runs
@@ -51,13 +48,13 @@ class RunsTableViewController: UITableViewController {
     */
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.backgroundView = nil
-        
+
         self.runs = Database().loadRuns(withQuery: "") as! Array<Run> //1
         tableView.reloadData() //2
-        
+
         checkNoRunsLabel() //3
     }
-    
+
     /**
     This method is called to check to see if there are any runs stored. If there aren't any, it hides the table view and adds a message telling users how they can add runs.
     1. IF there are no runs
@@ -85,31 +82,30 @@ class RunsTableViewController: UITableViewController {
             noRunsLabel.font = UIFont(name: "System", size: 16) //f
             noRunsLabel.sizeToFit() //g
             self.tableView.separatorStyle = .none //h
-            
+
             self.tableView.backgroundView = noRunsLabel //i
         } else { //2
             self.tableView.backgroundView = nil
             self.tableView.separatorStyle = .singleLine
         }
     }
-    
-    
-    //MARK: - Run Loading
-    
+
+    // MARK: - Run Loading
+
     /**
     This method calls the function authorise from the StravaAuth class. It is called by the refresh control when a user pulls the table down before the runs are loaded from Strava.
     */
     @objc func authorise() {
         StravaAuth().authorise()
     }
-    
+
     /**
     This method calls the function loadRunsFromStrava from the StravaRuns classs. It is called after the authorise function has finished (runs cannot be pulled from the Strava server unless the user is authorised first).
     */
     @objc func loadRuns() {
         StravaRuns().loadFromStrava()
     }
-    
+
     /**
     This method is called once the runs have been loaded from Strava and stored in the database. It updates the table view with the new runs.
     1. Loads all the runs from the database and stores them in the global array 'runs'
@@ -142,7 +138,7 @@ class RunsTableViewController: UITableViewController {
     :returns: An integer value that is the number of rows in the section.
     */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         return runs.count
     }
 
@@ -166,15 +162,15 @@ class RunsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "runCell", for: indexPath as IndexPath) as! RunTableViewCell //1
         let run = runs[indexPath.row] //2
-        
+
         cell.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance) //3
         cell.dateLabel.text = run.dateTime.shortDateString()
         cell.paceLabel.text = Conversions().averagePaceForInterface(pace: run.pace)
         cell.durationLabel.text = Conversions().runDurationForInterface(duration: run.duration)
-        
+
         cell.progressView.backgroundColor = run.scoreColour() //4
         cell.progressView.alpha = 0.4; //5
-        
+
         return cell //6
     }
 
@@ -204,8 +200,8 @@ class RunsTableViewController: UITableViewController {
             }
         }
     }
-    
-    //MARK: - Navigation
+
+    // MARK: - Navigation
 
     /**
     This method prepares the new view. It is called by the system whenever is a segue is to be performed.

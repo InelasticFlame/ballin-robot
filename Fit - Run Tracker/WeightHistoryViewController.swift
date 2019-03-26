@@ -13,20 +13,20 @@ class WeightHistoryViewController: UIViewController {
 
     // MARK: - Storyboard Links
     /* These variables store links to controls on the interface, connected via the Storyboard. */
-    @IBOutlet weak var graphView: UIView!    
+    @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var greatestWeightLabel: UILabel!
     @IBOutlet weak var lowestWeightLabel: UILabel!
     @IBOutlet weak var weightVariationLabel: UILabel!
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     private let secondsInDay: Double = 86400 //A global constant that stores the number of seconds in a day
     private let healthStore = HKHealthStore() //A global HKHealthStore that is used to access the HealthKit data store
-    
+
     private var graphCoords = [GraphCoordinate]() //A global mutable array of GraphCoordiantes that stores the graphCoords
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is initially loaded. It sets the view to its initial state.
     1. Set the startDate as today (by converting the current date (and time) to a date string and back the date becomes the very start of the day)
@@ -39,14 +39,14 @@ class WeightHistoryViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let startDate = NSDate(shortDateString: NSDate().shortDateString()) //1
         let endDate = NSDate(timeInterval: secondsInDay, since: startDate as Date) //2
         loadWeightForLast7Days(startDate: startDate, endDate: endDate) //3
     }
 
-    //MARK: - Graph Data Loading
-    
+    // MARK: - Graph Data Loading
+
     /**
     This method is called to load the data for the graph.
     1. Declare the unit to retrieve the weight in
@@ -93,27 +93,27 @@ class WeightHistoryViewController: UIViewController {
     */
     func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
         var weightUnit = HKUnit(from: .kilogram) //1
-        
+
         let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
-        
+
         var predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //3
-        
+
         self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (result, error) -> Void in //4
             /* BLOCK A START */
             //5
             if error != nil { //a
                 print("Error Reading From HealthKit Datastore: \(error!.localizedDescription)") //i
             }
-            
+
             if let weight = result as? HKQuantitySample { //b
                 let doubleWeight = weight.quantity.doubleValue(for: weightUnit) //ii
-                
+
                 DispatchQueue.main.async {
                     /* BLOCK B START */
                     let dateStr = startDate.shortestDateString() //Z
                     let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
                     let xStr = dateStr.substring(to: charsToRemoveTo) //X
-                    
+
                     self.graphCoords.append(GraphCoordinate(x: xStr, y: CGFloat(doubleWeight))) //W
                     if self.graphCoords.count == 7 { //V
                         self.drawWeightGraph()
@@ -121,14 +121,14 @@ class WeightHistoryViewController: UIViewController {
                     /* BLOCK B END */
                 }
             }
-            
+
             if result == nil { //c
                 DispatchQueue.main.async {
                     /* BLOCK C START */
                     let dateStr = startDate.shortestDateString() //U
                     let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
                     let xStr = dateStr.substring(to: charsToRemoveTo) //X
-                    
+
                     self.graphCoords.append(GraphCoordinate(x: xStr, y: CGFloat(0))) //R
                     if self.graphCoords.count == 7 { //Q
                         self.drawWeightGraph()
@@ -136,19 +136,19 @@ class WeightHistoryViewController: UIViewController {
                     /* BLOCK C END */
                 }
             }
-            
+
             if self.graphCoords.count != 7 { //d
                 let endDate = startDate //v
                 let startDate = NSDate(timeInterval: -self.secondsInDay, since: endDate as Date) //vi
                 self.loadWeightForLast7Days(startDate: startDate, endDate: endDate) //vii
             }
-            
+
             /* BLOCK A END */
         }
     }
-    
-    //MARK: - Graph Drawing
-    
+
+    // MARK: - Graph Drawing
+
     /**
     This method is called if the weight data is successfully loaded from the HealthKit datastore. It draws the weight against time graph for the data loaded.
     1. Declare the local CGFloats greatestWeight and lowestWeight setting their values to the first coordinate in the array of graphCoords
@@ -174,7 +174,7 @@ class WeightHistoryViewController: UIViewController {
     func drawWeightGraph() {
         var greatestWeight: CGFloat = graphCoords[0].y //1
         var lowestWeight: CGFloat = graphCoords[0].y
-        
+
         for i in 1...graphCoords.count - 1 { //2
             if graphCoords[i].y > greatestWeight { //a
                 greatestWeight = graphCoords[i].y //i
@@ -183,17 +183,17 @@ class WeightHistoryViewController: UIViewController {
                 lowestWeight = graphCoords[i].y //ii
             }
         }
-        
+
         let weightDelta = greatestWeight - lowestWeight //3
-        
+
         greatestWeightLabel.text = NSString(format: "Greatest Weight: %1.2f kg", Double(greatestWeight)) as String //4
         lowestWeightLabel.text = NSString(format: "Lowest Weight: %1.2f kg", Double(lowestWeight)) as String
         weightVariationLabel.text = NSString(format: "Weight Variation: %1.2f kg", Double(weightDelta)) as String
-        
+
         let frame = CGRect(x: 0, y: 0, width: graphView.frame.width, height: graphView.frame.height) //5
         let graph = Graph(frame: frame, coordinates: graphCoords.reversed()) //6
         graph.backgroundColor = UIColor.clear //7
-        
+
         self.graphView.addSubview(graph) //8
     }
 }

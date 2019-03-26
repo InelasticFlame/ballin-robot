@@ -9,7 +9,7 @@
 import UIKit
 
 class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
-    
+
     /**
     This method is called when the class initialises. It sets the delegate of the picker view to this class.
     
@@ -17,17 +17,17 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        
+
         self.delegate = self
         self.dataSource = self
     }
 
-    //MARK: - Picker View Data Source
-    
+    // MARK: - Picker View Data Source
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 2 {
             return 2
@@ -53,8 +53,7 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-    {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 { //1
             return "\(row)" //a //miles
         } else if component == 1 { //2
@@ -68,7 +67,7 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
             }
         }
     }
-    
+
     /**
     This method is called by the system when a user selects a row in a component. It posts a notification called UpdateDateDetailLabel passing the user info of a dictionary with the value 'DISTANCE' stored for the key 'valueChanged'.
     
@@ -77,9 +76,9 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     :param: component An integer identifying the component that the row is in.
     */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: NSDictionary(object: "DISTANCE", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: NSDictionary(object: "DISTANCE", forKey: "valueChanged" as NSCopying) as! [AnyHashable: Any])
     }
-    
+
     /**
     This method is called to return the selected distance. It returns the distance as a double (in miles) and the distance as a string (in the form DISTANCE unit).
     1. Declares the local double variable distance
@@ -110,28 +109,28 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func selectedDistance() -> (distance: Double, distanceStr: String) {
         var distance = 0.00
         var distanceStr = ""
-        
+
         if self.selectedRow(inComponent: 2) == 0 {
             //The picker is in MILES
             let miles = Double(self.selectedRow(inComponent: 0))
             let hundredthsMiles = Double(self.selectedRow(inComponent: 1))
-            
+
             distance = miles + (hundredthsMiles/100)
             distanceStr = "\(distance) mi"
         } else {
             //The picker is in KILOMETRES
             let kilometres = Double(self.selectedRow(inComponent: 0))
             let hundredthsKilometres = Double(self.selectedRow(inComponent: 1))
-            
+
             let totalKmDistance = kilometres + (hundredthsKilometres/100)
-            
+
             distance = Conversions().kmToMiles * totalKmDistance
             distanceStr = "\(totalKmDistance) km"
         }
-        
+
         return (distance, distanceStr)
     }
-    
+
     /**
     This method is called to set the picker to a certain distance (used in the Add New Run View Controller)
     1. Declares the local integer constant miles as the integer value of the distance
@@ -149,7 +148,7 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func setDistance(distance: Double) {
         let miles = Int(distance) //1
         let hundredthsMiles = Int((distance - Double(miles)) * 100) //2
-        
+
         self.selectRow(miles, inComponent: 0, animated: false) //3
         self.selectRow(hundredthsMiles, inComponent: 1, animated: false) //4
         self.selectRow(0, inComponent: 2, animated: false) //5

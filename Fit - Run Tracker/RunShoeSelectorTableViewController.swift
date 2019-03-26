@@ -12,7 +12,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
 
     private var shoes = [Shoe]() //A private, global array of Shoe objects that stores the shoes available to select and is used to populate the table view
     var run: Run? //A global optional variable to store the run being displayed as a Run object
-    
+
     /**
     This method is called by the system whenever the view is about to appear. It configures the view to its initially state ready to display on the screen.
     1. Sets the global array shoes as the array return from the loadAllShoes method from the Database class, stating that the returned object is an array of Shoe objects
@@ -30,14 +30,14 @@ class RunShoeSelectorTableViewController: UITableViewController {
     */
     override func viewWillAppear(_ animated: Bool) {
         shoes = Database().loadAllShoes() as! [Shoe] //1
-        
+
         tableView.reloadData() //2
-        
+
         if let selectedShoe = run?.shoe { //3
-            
+
             for shoeNo in 0 ..< shoes.count { //a
                 if selectedShoe.ID == shoes[shoeNo].ID { //b
-                    tableView.cellForRow(at:IndexPath(row: shoeNo + 1, section: 0))?.accessoryType = .checkmark //i
+                    tableView.cellForRow(at: IndexPath(row: shoeNo + 1, section: 0))?.accessoryType = .checkmark //i
                 }
             }
         } else { //4
@@ -57,7 +57,6 @@ class RunShoeSelectorTableViewController: UITableViewController {
         return 1
     }
 
-    
     /**
     This method is called by the system whenever the table view data is loaded. It returns the number of rows in the table view. In this case it returns 1 more than the total number of shoes (this is because there is one row to be used for a "None" option)
     
@@ -87,13 +86,13 @@ class RunShoeSelectorTableViewController: UITableViewController {
     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shoeCell", for: indexPath as IndexPath) as UITableViewCell //1
-        
+
         if indexPath.row == 0 { //2
             cell.textLabel?.text = "None" //2a
         } else { //3
             cell.textLabel?.text = shoes[indexPath.row - 1].name //3a
         }
-        
+
         return cell //4
     }
 
@@ -126,20 +125,19 @@ class RunShoeSelectorTableViewController: UITableViewController {
         clearCheckmarks() //1
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark //2
         tableView.deselectRow(at: indexPath as IndexPath, animated: true) //3
-        
-        
+
         if let viewControllerCount = self.navigationController?.viewControllers.count { //4
-            
+
             if let previousVC = self.navigationController?.viewControllers[viewControllerCount - 2] as? RunPageViewController { //a
                 if let shoesVC = previousVC.pagesViewControllers[0] as? RunShoesTableViewController { //b
                     var selectedShoe: Shoe? //i
-                    
+
                     if indexPath.row == 0 { //ii
                         selectedShoe = nil
                     } else { //iii
                         selectedShoe = shoes[indexPath.row - 1]
                     }
-                    
+
                     if Database().saveShoe(selectedShoe, toRun: run) { //iv
                         if let run = run { //v
                             if selectedShoe?.ID != run.shoe?.ID { //vi
@@ -161,7 +159,7 @@ class RunShoeSelectorTableViewController: UITableViewController {
             }
         }
     }
-    
+
     /**
     This method is used to remove the accessory from all cells. This is so that if a new shoe is selected two checkmarks are not shown on the interface (such that it appears as if 2 rows have been selected)
     1. Declares the local constant sectionCount and sets its value to the number of sections in the table view
@@ -178,11 +176,11 @@ class RunShoeSelectorTableViewController: UITableViewController {
     */
     func clearCheckmarks() {
         let sectionCount = tableView.numberOfSections
-        
+
         for sectionNo in 0 ..< sectionCount {
-            
+
             let rowCount = tableView.numberOfRows(inSection: sectionNo)
-            
+
             for rowNo in 0 ..< rowCount {
                 tableView.cellForRow(at: IndexPath(row: rowNo, section: sectionNo))?.accessoryType = .none
             }
