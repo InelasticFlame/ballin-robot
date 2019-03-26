@@ -22,18 +22,18 @@ class CaloriesAndWeightViewController: UIViewController {
     @IBOutlet weak var eatenCaloriesLabel: UILabel!
     @IBOutlet weak var burntCaloriesLabel: UILabel!
     @IBOutlet weak var weightErrorLabel: UILabel!
-    
-    //MARK: - Global Variables
+
+    // MARK: - Global Variables
     private let secondsInDay: Double = 86400 //A global double constant that stores the number of seconds in a day
     private let healthStore = HKHealthStore() //A global HKHealthStore that is used to access the HealthKit data store
-    
+
     private var currentDate = NSDate() //A global NSDate variable that stores the current date of the view
     private var currentWeight: Double = 0.0 //A global double variable that is used to store the current weight
     var caloriesBurnt: Double = 0.0 //A global double variable that is used to store the calories burnt
     var caloriesConsumed: Double = 0.0 //A global double variable that is used to store the calories consumed
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system whenever the view will appear on screen. It configures the view to its initial state.
     1. Calls the function setDateLabel
@@ -45,9 +45,9 @@ class CaloriesAndWeightViewController: UIViewController {
         setDateLabel() //1
         requestAuthorisationForHealthKitAccess() //2
     }
-    
-    //MARK: - Interface Updates
-    
+
+    // MARK: - Interface Updates
+
     /**
     This method is called if weight data is retrieved successfully. It adds a weight progress bar to the interface.
     1. Clear any existing weight progress bar
@@ -66,11 +66,11 @@ class CaloriesAndWeightViewController: UIViewController {
         for view in weightProgressBarView.subviews as [UIView] { //1
             view.removeFromSuperview()
         }
-        
+
         let frame = CGRect(x: 0, y: 0, width: self.weightProgressBarView.frame.width, height: self.weightProgressBarView.frame.height) //2
-        
+
         let goalWeight = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Weight.GoalKey) //3
-        
+
         let progressBar = WeightProgressBar(currentWeight: CGFloat(currentWeight), goalWeight: CGFloat(goalWeight), frame: frame) //4
         self.weightProgressBarView.addSubview(progressBar) //5
     }
@@ -88,7 +88,7 @@ class CaloriesAndWeightViewController: UIViewController {
         weightErrorLabel.isHidden = false //2
         weightErrorLabel.text = message //3
     }
-    
+
     /**
     This method is called if the calorie data is retrieved successfully. It adds a calorie progress bar to the UI.
     1. Clear any existing calorie progress bars
@@ -119,15 +119,15 @@ class CaloriesAndWeightViewController: UIViewController {
         }
         if caloriesBurnt > 0 || caloriesConsumed > 0 { //2
             let frame = CGRect(x: 0, y: 0, width: caloriesProgressBarView.frame.width, height: caloriesProgressBarView.frame.height) //a
-            
+
             let netCalories = caloriesConsumed - caloriesBurnt //b
             let calorieGoal = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Calories.GoalKey) //c
-            
+
             let progress: Double = netCalories / calorieGoal //d
-            
+
             let progressBar = ProgressBar(progress: CGFloat(progress), frame: frame) //e
             self.caloriesProgressBarView.addSubview(progressBar) //f
-            
+
             calorieSummaryLabel.text = NSString(format: "%1.0f calories used of %1.0f", netCalories, calorieGoal) as String //g
             burntCaloriesLabel.text = NSString(format: "%1.0f calories burnt", caloriesBurnt) as String //h
             eatenCaloriesLabel.text = NSString(format: "%1.0f calories consumed", caloriesConsumed) as String //i
@@ -135,7 +135,7 @@ class CaloriesAndWeightViewController: UIViewController {
             calorieSummaryLabel.text = "No calorie data." //j
         }
     }
-    
+
     /**
     This method is called to set the date label in the navigation bar
     1. IF the currentDate is today
@@ -155,9 +155,9 @@ class CaloriesAndWeightViewController: UIViewController {
             self.navigationItem.prompt = currentDate.shortDateString()
         }
     }
-    
-    //MARK: - HealthKit Data Loading
-    
+
+    // MARK: - HealthKit Data Loading
+
     /**
     This method is called once HealthKit access is authorised. It loads the weight data from healthkit.
     1. Declare the unit to retrieve the weight in
@@ -186,15 +186,15 @@ class CaloriesAndWeightViewController: UIViewController {
     */
     func loadWeightDataFromHealthKit() {
         let weightUnit = HKUnit(from: .kilogram) //1
-        
+
         let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
-        
+
         let startDate = NSDate.distantPast as NSDate //3
         let endDate = NSDate(timeInterval: secondsInDay - 1, since: NSDate(shortDateString: self.currentDate.shortDateString()) as Date) //4
         //The 'end date' that is the very end of the day of the start date
-        
+
         let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //5
-        
+
         self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (currentWeight, error) -> Void in //6
             /* BLOCK A START */ //7
             if error != nil { //a
@@ -203,10 +203,10 @@ class CaloriesAndWeightViewController: UIViewController {
                     print("Error Reading From HealthKit Datastore: \(error!.localizedDescription)")
                 }
             }
-            
+
             if let weight = currentWeight as? HKQuantitySample { //b
                 let doubleWeight = weight.quantity.doubleValue(for: weightUnit) //ii
-                
+
                 DispatchQueue.main.async {
                     self.currentWeight = doubleWeight
                     self.addWeightProgressBar()
@@ -219,7 +219,7 @@ class CaloriesAndWeightViewController: UIViewController {
             /* BLOCK A END */
         }
     }
-    
+
     /**
     This method is called once HealthKit access has been authorised. It loads the calorie data from HealthKit.
     1. Declare the unit to retrieve calories from the HealthKit datastore in
@@ -250,44 +250,44 @@ class CaloriesAndWeightViewController: UIViewController {
         let caloriesBurnt = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned) //2
         let caloriesConsumed = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed) //3
         let predicate = HKQuery.predicateForSamples(withStart: NSDate(shortDateString: self.currentDate.shortDateString()) as Date, end: NSDate(timeInterval: secondsInDay - 1, since: NSDate(shortDateString: self.currentDate.shortDateString()) as Date) as Date, options: []) //4
-        
+
         self.healthStore.retrieveSumOfSample(quantityType: caloriesConsumed!, unit: unit, predicate: predicate) { (sum, error) -> Void in //5
             /* BLOCK A START */ //6
             if error != nil { //a
                 print("Error retrieving calorie consumed sum: " + error!.localizedDescription) //i
-                
+
                 DispatchQueue.main.async {
                     self.calorieSummaryLabel.text = "Unable to get calorie data."
                     self.burntCaloriesLabel.isHidden = true
                     self.eatenCaloriesLabel.isHidden = true
                 }
-                
+
                 return //iii
             }
-            
+
             DispatchQueue.main.async {
                 /* BLOCK B START */
                 self.caloriesConsumed = sum! //iv
-                
+
                 self.healthStore.retrieveSumOfSample(quantityType: caloriesBurnt!, unit: unit, predicate: predicate) { (sum, error) -> Void in //v
                     /* BLOCK C START */ //vi
                     if error != nil { //Z
                         print("Error retrieving calorie burnt sum: " + error!.localizedDescription)
                     }
-                    
+
                     DispatchQueue.main.async { //Y
                         self.caloriesBurnt = sum!
                         self.addCalorieProgressBar()
                     }
                     /* BLOCK C END */
                 }
-                
+
                 /* BLOCK B END */
             }
             /* BLOCK A END */
         }
     }
-    
+
     /**
     This method is called to requestAuthorisation to access a user's HealthKit datastore. IF a user has not already stated a preference a view controlled by the system will appear prompting a user to respond.
     1. Delcares the data types to READ from the HealthKit datastore
@@ -309,12 +309,12 @@ class CaloriesAndWeightViewController: UIViewController {
         let caloriesConsumed = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed) //1
         let caloriesBurnt = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)
         let weight = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass)
-        
+
         var readTypes = Set<HKObjectType>()
         readTypes.insert(caloriesBurnt!)
         readTypes.insert(caloriesConsumed!)
         readTypes.insert(weight!)
-        
+
         self.healthStore.requestAuthorization(toShare: Set<HKSampleType>(), read: readTypes) { (success, error) in
             if !success { //a
                 print("Authorising HealthKit access unsuccessful. Error: " + error.debugDescription) //i
@@ -334,7 +334,7 @@ class CaloriesAndWeightViewController: UIViewController {
             }
         }
     }
-    
+
     /**
     This method is used to hide the user interface elements if HealthKit access is not authorised.
     1. Create and configure a label to display the error "HealthKit access must be enabled to use this feature."
@@ -353,15 +353,15 @@ class CaloriesAndWeightViewController: UIViewController {
         noAccessLabel.font = UIFont(name: "System", size: 16)
         noAccessLabel.textAlignment = .center
         noAccessLabel.sizeToFit()
-        
+
         self.navigationItem.leftBarButtonItem = .none //2
         self.navigationItem.prompt = nil
-        
+
         self.view = noAccessLabel //3
     }
 
-    //MARK: - Interface Actions
-    
+    // MARK: - Interface Actions
+
     /**
     This method is called by the system when the user presses the Next Day button on the interface. It moves the view forward one day.
     1. Sets the current date to be the old currentDate increased by 1 day
@@ -377,7 +377,7 @@ class CaloriesAndWeightViewController: UIViewController {
         loadWeightDataFromHealthKit() //3
         loadCalorieDataFromHealthKit() //4
     }
-    
+
     /**
     This method is called by the system when the user presses the Previous Day button on the interface. It moves the view backwards 1 day.
     1. Sets the text of the nextDayButton to "Next Day" (this shows the button)

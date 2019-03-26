@@ -10,19 +10,19 @@ import UIKit
 import MapKit
 
 class RunDetailsViewController: UIViewController, MKMapViewDelegate {
-    
-    //MARK: - Storyboard Links
-    
+
+    // MARK: - Storyboard Links
+
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var overlayView: MapOverlay!
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     var run: Run? //A global optional variable to store the run being displayed as a Run object
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is initially loaded. It configures the view ready for display on the interface.
     1. Sets the delegate of the mapKitView to this view controller
@@ -53,13 +53,13 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapKitView.delegate = self //1
-        
+
         if (run?.locations.count)! > 0 { //2
             drawRouteLineOnMap() //a
         } else { //3
             self.mapKitView.isHidden = true //b
         }
-        
+
         if let run = run { //4
             overlayView.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance) //c
             overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) as String //d
@@ -72,19 +72,19 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             overlayView.headerOverlay.addSubview(progressBackground) //j
             overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //k
             overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //l
-            
+
             overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(pace: run.pace) //m
             overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(duration: run.duration) //n
-            
+
             overlayView.averagePaceDurationView.addBorder(borderWidth: 2) //o
             mapKitView.addBorder(borderWidth: 2) //p
             overlayView.headerOverlay.addBorder(borderWidth: 2) //q
             overlayView.addBorder(borderWidth: 2) //r
         }
     }
-    
-    //MARK: - Map Drawing Methods
-    
+
+    // MARK: - Map Drawing Methods
+
     /**
     This method is used to draw the run route onto the map.
     1. IF there is a run
@@ -99,7 +99,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         location - The current CLLocation object from the array run.locations
     */
     func drawRouteLineOnMap() {
-        
+
         if let run = run { //1
             var coords = Array<CLLocationCoordinate2D>() //a
             for location in run.locations { //b
@@ -110,8 +110,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             centreMapOnRunArea() //e
         }
     }
-    
-    
+
     /**
     This method is used to centre the map on the run area.
     1. Declares the local variables minLat, minLong, maxLat and maxLong of type Double
@@ -150,25 +149,24 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     */
     func centreMapOnRunArea() {
         var minLat, minLong, maxLat, maxLong: Double //1
-        
+
         if let run = run { //2
             if let firstLocation = run.locations.first { //a
                 minLat = firstLocation.coordinate.latitude //b
                 maxLat = firstLocation.coordinate.latitude
                 minLong = firstLocation.coordinate.longitude //c
                 maxLong = firstLocation.coordinate.longitude
-                
-                for currentCoordNo in 1 ..< run.locations.count
-                { //d
+
+                for currentCoordNo in 1 ..< run.locations.count { //d
                     let currentCoordinate = run.locations[currentCoordNo].coordinate //i
-        
+
                     if currentCoordinate.latitude < minLat { //ii
                         minLat = currentCoordinate.latitude
                     }
                     if currentCoordinate.latitude > maxLat { //iii
                         maxLat = currentCoordinate.latitude
                     }
-                    
+
                     if currentCoordinate.longitude < minLong { //iv
                         minLong = currentCoordinate.longitude
                     }
@@ -176,24 +174,23 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
                         maxLong = currentCoordinate.longitude
                     }
                 }
-                
+
                 let centreLat = (minLat + maxLat) / 2.0 //e
                 let centreLong = (minLong + maxLong) / 2.0 //f
                 let centreCoord = CLLocationCoordinate2D(latitude: centreLat, longitude: centreLong) //g
-                
+
                 let latDelta = (maxLat - minLat) * 1.1 //h
                 let longDelta = (maxLong - minLong) * 1.1 //i
                 let coordinateSpan = MKCoordinateSpan.init(latitudeDelta: latDelta, longitudeDelta: longDelta) //j
-                
+
                 let region = MKCoordinateRegion(center: centreCoord, span: coordinateSpan) //k
-                
+
                 self.mapKitView.setRegion(region, animated: true) //l
             }
         }
-        
+
     }
 
-    
     /**
     This method is called by the system whenever there is a request to add an overlay to the MapKit View. It creates a renderer to draw the polyline.
     1. IF the overlay to be added is a MKPolyline
@@ -211,7 +208,7 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     :returns: The MKOverlayRenderer to use to present the overlay on the map.
     */
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-        
+
         if overlay is MKPolyline { //1
             let polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
             polylineRenderer.strokeColor = UIColor.green //b

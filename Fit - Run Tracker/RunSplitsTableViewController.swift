@@ -10,12 +10,12 @@ import UIKit
 
 class RunSplitsTableViewController: UITableViewController {
 
-    //MARK: - Global Variables
-    
+    // MARK: - Global Variables
+
     var run: Run? //A global optional variable to store the run being displayed as a Run object
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is first loaded. It configures the view ready for display.
     1. Adds padding to the top of the table view so that it doesn't display under the navigation bar
@@ -33,15 +33,15 @@ class RunSplitsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.contentInset = UIEdgeInsets.init(top: navigationController!.navigationBar.frame.size.height, left: 0,bottom: 0,right: 0); //1
-        
+        self.tableView.contentInset = UIEdgeInsets.init(top: navigationController!.navigationBar.frame.size.height, left: 0, bottom: 0, right: 0); //1
+
         let pageControl = UIPageControl() //2
         pageControl.numberOfPages = 3 //3
         pageControl.currentPage = 2 //4
         pageControl.pageIndicatorTintColor = UIColor(red: 122/255, green: 195/255, blue: 252/255, alpha: 1) //5
         pageControl.currentPageIndicatorTintColor = UIColor(red: 87/255, green: 142/255, blue: 185/255, alpha: 1) //6
         pageControl.center = CGPoint.init(x: self.view.frame.width / 2, y: self.view.frame.height - self.tabBarController!.tabBar.frame.height - 28)
-        
+
         self.view.addSubview(pageControl) //8
     }
 
@@ -71,11 +71,11 @@ class RunSplitsTableViewController: UITableViewController {
             noSplitsLabel.textAlignment = .center //e
             noSplitsLabel.font = UIFont(name: "System", size: 16) //f
             noSplitsLabel.sizeToFit() //g
-            
+
             self.tableView.backgroundView = noSplitsLabel //h
         }
     }
-    
+
     // MARK: - Table View Data Source
 
     /**
@@ -103,7 +103,6 @@ class RunSplitsTableViewController: UITableViewController {
         }
     }
 
-    
     /**
     This method is called by the system when the data is loaded in the table, it creates a new cell and populates it with the data for a particular split.
     1. Creates the cell as a cell with the identifier "splitsCell"

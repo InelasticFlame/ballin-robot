@@ -10,17 +10,17 @@ import UIKit
 
 class RepeatSettingsTableViewController: UITableViewController {
 
-    //MARK: - Storyboard Links
+    // MARK: - Storyboard Links
     @IBOutlet weak var repeatEndDatePicker: UIDatePicker! //Date picker that is used to set the end date of the repeat
     @IBOutlet weak var dateDetailLabel: UILabel! //The detail label of the date picker's cell
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     var repeatEnd: String? //A global string variable that stores the selected repeat end option (if one has been previously set). This value is set by the NewPlannedRunTableView controller when the segue to this view is called.
     var plannedRunDate: NSDate? //A global optional NSDate variable that stores the date of the planned run. This is so that the repeat end cannot be set to before the planned run date.
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system whenever the view is about to appear on screen. It configures the view to its initial state.
     1. Sets the minimum date of the repeatEndDatePicker to the plannedRunDate (repetition cannot end before the planned run has even started!)
@@ -32,7 +32,7 @@ class RepeatSettingsTableViewController: UITableViewController {
         repeatEndDatePicker.minimumDate = plannedRunDate as! Date //1
         dateDetailLabel.text = (repeatEndDatePicker.date as NSDate).shortDateString() //2
     }
-    
+
     /**
     This method is called by the system when the view appears on screen. It is used to set the previous selected repeat end option (if there is one).
     1. Calls the function setPreviousRepeatEnd
@@ -42,9 +42,9 @@ class RepeatSettingsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         setPreviousRepeatEnd() //1
     }
-    
-    //MARK: Table View Data Source
-    
+
+    // MARK: Table View Data Source
+
     /**
     This method is called by the system whenever a user selects a row in the table view. It sets the new repeat end option and dismisses the view.
     1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the selected option)
@@ -62,13 +62,12 @@ class RepeatSettingsTableViewController: UITableViewController {
     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clearCheckmarks() //1
-        
+
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark //2
         tableView.deselectRow(at: indexPath, animated: true) //3
-        
-        
+
         if let viewControllers = self.navigationController?.viewControllers.count { //4
-        
+
             if let previousVC = self.navigationController?.viewControllers[viewControllers - 2] as? NewPlannedRunTableViewController { //a
                 if tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text == "Date" { //b
                     let selectedEndDate = (repeatEndDatePicker.date as NSDate).shortDateString()
@@ -80,10 +79,10 @@ class RepeatSettingsTableViewController: UITableViewController {
                 }
             }
         }
-    
+
         navigationController?.popViewController(animated: true) //5
     }
-    
+
     /**
     This method is called when the view is about to appear on screen. It sets a checkmark on the cell that was previously by the user (if one has been selected).
     1. IF the repeatEnd is Until Plan End
@@ -107,7 +106,7 @@ class RepeatSettingsTableViewController: UITableViewController {
             dateDetailLabel.text = repeatEnd //d
         }
     }
-    
+
     /**
     This method is used to remove the accessory from all cells. This is so that if a new shoe is selected two checkmarks are not shown on the interface (such that it appears as if 2 rows have been selected)
     1. Declares the local constant sectionCount and sets its value to the number of sections in the table view
@@ -124,19 +123,19 @@ class RepeatSettingsTableViewController: UITableViewController {
     */
     func clearCheckmarks() {
         let sectionCount = tableView.numberOfSections //1
-        
+
         for sectionNo in 0 ..< sectionCount { //2
-            
+
             let rowCount = tableView.numberOfRows(inSection: sectionNo) //a
-            
+
             for rowNo in 0 ..< rowCount { //b
                 tableView.cellForRow(at: IndexPath(row: rowNo, section: sectionNo))?.accessoryType = .none //i
             }
         }
     }
-    
-    //MARK: - Interface Actions
-    
+
+    // MARK: - Interface Actions
+
     /**
     This method is called by the system when the endDatePicker has its selected date changed. It updates the interface with this new value.
     1. Sets the text of the dateDetailLabel to the selected date as a short date string
@@ -150,5 +149,5 @@ class RepeatSettingsTableViewController: UITableViewController {
         clearCheckmarks() //2
         tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //3
     }
-    
+
 }

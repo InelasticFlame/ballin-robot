@@ -17,17 +17,17 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     */
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        
+
         self.delegate = self
         self.dataSource = self
     }
-    
-    //MARK: - Picker View Data Source
-    
+
+    // MARK: - Picker View Data Source
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
-    
+
     /**
     This method is called by the system in order to set up the picker view. It returns the number of rows in a specific component; IF the component is the last component return 2 (for per miles or per km), otherwise it returns 60 (for 0 to 59 minutes or seconds)
     
@@ -42,7 +42,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
             return 60
         }
     }
-    
+
     /**
     This method is called by the system in order to set up the picker view. It returns the title for a row in a component.
     1. IF the component is the first component
@@ -74,7 +74,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
             }
         }
     }
-    
+
     /**
     This method is called by the system when a user selects a row in a component. It posts a notification called UpdateDateDetailLabel passing the user info of a dictionary with the value 'PACE' stored for the key 'valueChanged'.
     
@@ -83,9 +83,9 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     :param: component An integer identifying the component that the row is in.
     */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "PACE", forKey: "valueChanged" as NSCopying) as! [AnyHashable : Any]))
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateDetailLabel"), object: nil, userInfo: (NSDictionary(object: "PACE", forKey: "valueChanged" as NSCopying) as! [AnyHashable: Any]))
     }
-    
+
     /**
     This method is called to return the selected pace. It returns the pace as an integer (in secs/mile) and the distance as a string (in the form MM:ss /unit)
     1. Declares the local integer variable pace
@@ -118,27 +118,27 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     func selectedPace() -> (pace: Int, paceStr: String) {
         var pace = 0 //1
         var paceStr = "" //2
-        
+
         if self.selectedRow(inComponent: 2) == 0 { //3
             let minutesPerMile = self.selectedRow(inComponent: 0) //a
             let secondsPerMile = self.selectedRow(inComponent: 1) //b
-            
+
             pace = (60 * minutesPerMile) + secondsPerMile //c
             paceStr = NSString(format: "%02i:%02i /mi", minutesPerMile, secondsPerMile) as String //d
-            
+
         } else { //4
             let minutesPerKm = self.selectedRow(inComponent: 0) //a
             let secondsPerKm = self.selectedRow(inComponent: 1) //b
-            
+
             let doublePace = (60.0 * (Double(minutesPerKm)) * (1/Conversions().kmToMiles)) + ((Double(secondsPerKm)) * (1/Conversions().kmToMiles)) //d
-            
+
             pace = Int(doublePace) //e
             paceStr = NSString(format: "%02i:%02i /km", minutesPerKm, secondsPerKm) as String //f
         }
-        
+
         return (pace, paceStr) //5
     }
-    
+
     /**
     This method is called to set the picker to a certain pace (used in the Add New Run View Controller)
     1. Declares the local integer constant minutes as the pace divided by 60
@@ -156,7 +156,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     func setPace(pace: Int) {
         let minutes = pace / 60
         let seconds = pace % 60
-        
+
         self.selectRow(minutes, inComponent: 0, animated: false)
         self.selectRow(seconds, inComponent: 1, animated: false)
         self.selectRow(0, inComponent: 2, animated: false)

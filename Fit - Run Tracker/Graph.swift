@@ -7,18 +7,17 @@
 //
 
 import UIKit
-    
+
 class Graph: UIView {
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     private let indent: CGFloat = 10 //A global constant CGFloat that stores the indent (the gap between the edge of the view and the axes)
     private let axesIndent: CGFloat = 30 //A global constant CGFloat that stores the axesIndent (the gap between the edge of the view and the axes)
     private let markerHeight: CGFloat = 5 //A global constant CGFloat that stores the size of the marks on the axes
     private let majorStep: CGFloat = 10 //A global constant CGFloat that stores the spacing of the majorSteps
     private let minorStep: CGFloat = 2 //A global constant CGFloat that stores the spacing of the minor steps
-    
-    
+
     private var originX: CGFloat = 0 //A global variable CGFloat that stores the position of the x coord of the origin
     private var originY: CGFloat = 0 //A global variable CGFloat that stores the position of the y coord of the origin
     private var yAxisMax: CGFloat = 0 //A global variable CGFloat that stores the maximum y coord of the y axis
@@ -28,11 +27,11 @@ class Graph: UIView {
     private var yScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the y axis
     private var xScale: CGFloat = 0 //A global variable CGFloat that stores the scale of the x axis
     private var maxYValue: CGFloat = 0 //A global variable CGFloat that stores the maximum y of the axis
-    
+
     private var values = [GraphCoordinate]() //A global array of GraphCoordinate objects
 
-    //MARK: - Initialisation
-    
+    // MARK: - Initialisation
+
     /**
     Called to initialise the class, sets the properties of the Graph to the passed values.
     
@@ -43,7 +42,7 @@ class Graph: UIView {
         values = coordinates
         super.init(frame: frame)
     }
-    
+
     /**
     Uses the following parameters:
         coder: an NSCoder that is used to unarchive the class.
@@ -51,7 +50,7 @@ class Graph: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     /**
     This method is called to draw the graph.
     (Note: (0, 0) is the TOP left corner)
@@ -109,19 +108,19 @@ class Graph: UIView {
             yAxisLength = originY - yAxisMax //5
             xAxisLength = rect.width - axesIndent - indent //6
             xScale = xAxisLength/CGFloat(values.count - 1) //7
-            
+
             getYScale() //8
             plotLineGraph() //9
-            
+
             let currentContext = UIGraphicsGetCurrentContext() //10
             currentContext!.setStrokeColor(UIColor.black.cgColor) //11
             currentContext!.setLineWidth(2)
-            
+
             //Draw Axes
             //Y
             currentContext!.move(to: CGPoint.init(x: originX, y: originY))
             currentContext!.addLine(to: CGPoint.init(x: originX, y: originY))
-            
+
             for markerNo in 0...Int(maxYValue/majorStep) { //15  -  MAJOR MARKERS
                 let yMarkerY = yScale * majorStep * CGFloat(markerNo) //a
                 currentContext!.move(to: CGPoint.init(x: originX, y: originY - yMarkerY))
@@ -137,22 +136,22 @@ class Graph: UIView {
             }
             currentContext!.strokePath() //19
             currentContext!.setLineWidth(2) //20
-            
+
             //X
             currentContext!.move(to: CGPoint.init(x: originX, y: originY))
             currentContext!.addLine(to: CGPoint.init(x: xAxisMax, y: originY))
-            
+
             for markerNo in 0...values.count - 1 { //23
                 let xMarkerX = xScale * CGFloat(markerNo) //h
                 currentContext!.move(to: CGPoint.init(x: originX + xMarkerX, y: originY))
                 currentContext!.addLine(to: CGPoint.init(x: originX + xMarkerX, y: originY + markerHeight))
                 self.addXAxisTextToGraph(text: self.values[markerNo].x, xCoord: originX + xMarkerX, yCoord: originY + 60) //k
             }
-            
+
             currentContext!.strokePath() //24
         }
     }
-    
+
     /**
     This method draws the line for the graph
     1. Retrieve the current graphics context and stores a reference to it (this is used to draw)
@@ -171,14 +170,14 @@ class Graph: UIView {
         let currentContext = UIGraphicsGetCurrentContext() //1
         currentContext!.setLineWidth(2) //2
         currentContext!.setStrokeColor(UIColor.red.cgColor) //3
-        
+
         currentContext!.move(to: CGPoint(x: originX, y: originY - (values[0].y * yScale)))
         for pointNo in 1...values.count - 1 { //5
             currentContext!.addLine(to: CGPoint(x: (CGFloat(pointNo) * xScale) + originX, y: originY - (values[pointNo].y * yScale)))
         }
         currentContext!.strokePath() //6
     }
-    
+
     /**
     This method calculates the scale to use for the yAxis
     1. Declares the local CGFloat yInterval which stores the yScale (the default is 10)
@@ -210,23 +209,23 @@ class Graph: UIView {
                 maxYCoord = coordinate.y //i
             }
         }
-        
-        var maxYValue:CGFloat = 0.0 //4
+
+        var maxYValue: CGFloat = 0.0 //4
 
         if maxYCoord.truncatingRemainder(dividingBy: majorStep) != 0 { //5
             maxYValue = (majorStep - (maxYCoord.truncatingRemainder(dividingBy: majorStep))) + maxYCoord //b
         } else { //6
             maxYValue = maxYCoord //c
         }
-        
+
         if maxYValue != 0 { //7
             yScale = CGFloat(yAxisLength / (maxYValue)) //d
         }
-        
+
         self.yScale = yScale //8
         self.maxYValue = maxYValue //9
     }
-    
+
     /**
     Creates a CATextLayer and configures its properties, then adds the layer as a sublayer to the view
     
@@ -247,7 +246,7 @@ class Graph: UIView {
         textLayer.contentsScale = UIScreen.main.scale
         self.layer.addSublayer(textLayer)
     }
-    
+
     /**
     Creates a CATextLayer and configures its properties, then adds the layer as a sublayer to the view.
     Unlike the addTextToGraph method this method rotates the text pi/2 radians so that it is vertical.
@@ -271,7 +270,7 @@ class Graph: UIView {
         textLayer.position = CGPoint.init(x: xCoord, y: yCoord)
         self.layer.addSublayer(textLayer)
     }
-    
+
     /**
     Creates the label for the yAxis as the markerNo * majorStep converted to a string
 
@@ -282,8 +281,7 @@ class Graph: UIView {
     */
     func yAxisLabel(markerNo: Int) -> String {
         let label = "\(markerNo * Int(majorStep))"
-        
+
         return label
     }
 }
-

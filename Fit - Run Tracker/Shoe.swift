@@ -9,16 +9,16 @@
 import UIKit
 
 class Shoe: NSObject {
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     private(set) var ID: Int //A property that stores the ID of the Shoe; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
     var name: String //A string property that stores the name of the shoe
     var miles: Double //A double property that stores the current miles of the shoe
     var imageName: String? //A string property that stores the imageName (this is used to construct the imagePath)
-    
-    //MARK: - Initialisation
-    
+
+    // MARK: - Initialisation
+
     /**
     Called to initialise the class, sets the properties of the Shoe to the passed values.
     
@@ -33,7 +33,7 @@ class Shoe: NSObject {
         self.miles = miles
         self.imageName = imageName
     }
-    
+
     /**
     This method is called it load the image for the shoe; return a UIImage
     1. IF there is an imageName
@@ -54,12 +54,12 @@ class Shoe: NSObject {
         if let imageName = self.imageName { //1
             let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String //a
             let imagePath = NSURL(fileURLWithPath: path).appendingPathComponent("\(imageName).png")
-            
+
             let shoeImage = UIImage(contentsOfFile: imagePath!.absoluteString) //c
-            
+
             return shoeImage //d
         }
-        
+
         return nil //2
     }
 }

@@ -9,12 +9,12 @@
 import UIKit
 
 class MyShoesTableViewController: UITableViewController {
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     private var shoes = [Shoe]() //A global array of shoe objects that stores the shoes being displayed in the table view
-    
-    //MARK: - View Life Cycle
+
+    // MARK: - View Life Cycle
 
     /**
     This method is called by the system whenever the view is about to appear on screen. It loads the shoes from the database and reloads the table view.
@@ -27,10 +27,10 @@ class MyShoesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.rightBarButtonItem = self.editButtonItem //1
         shoes = Database().loadAllShoes() as! [Shoe] //2
-        
+
         tableView.reloadData() //3
     }
-    
+
     // MARK: - Table View Data Source
 
     /**
@@ -79,26 +79,26 @@ class MyShoesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if shoes.count == 0 || indexPath.row == shoes.count { //1
             let cell = tableView.dequeueReusableCell(withIdentifier: "addNewShoeCell", for: indexPath) as UITableViewCell //a
-            
+
             return cell //b
         } else { //2
             let cell = tableView.dequeueReusableCell(withIdentifier: "shoeCell", for: indexPath) as! ShoeTableViewCell //c
-            
+
             let shoe = shoes[indexPath.row] //d
-            
+
             cell.shoeNameLabel.text = shoe.name //e
             cell.shoeMilesLabel.text = Conversions().distanceForInterface(distance: shoe.miles) //f
-            
+
             let shoeImage = shoe.loadImage() //g
-            
+
             if shoeImage != nil { //h
                 cell.shoeImageView.image = shoeImage //i
             }
-            
+
             return cell //j
         }
     }
-    
+
     /**
     This method is called by the system when a user presses the edit button. It checks to see if a cell can be edited.
     1. IF the cell is an addNewShoeCell
@@ -116,7 +116,7 @@ class MyShoesTableViewController: UITableViewController {
             return true
         }
     }
-    
+
     /**
     This method is called by the system whenever the data is loaded in the table view. It returns the height for a particular cell, which in this case is 90 for all cells.
     
@@ -127,7 +127,7 @@ class MyShoesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
-    
+
     /**
     This method is called by the system when a user selects a row in the table view. It deselects the cell and animates the process.
     

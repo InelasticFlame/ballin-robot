@@ -10,17 +10,17 @@ import UIKit
 
 class Plan: NSObject {
 
-    //MARK: - Properties
-    
+    // MARK: - Properties
+
     private(set) var ID: Int //A property that stores the ID of the Plan; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
     var name: String //A string property that stores the name of the plan
     var startDate: NSDate //An NSDate property that stores the startDate of the plan
     var endDate: NSDate //An NSDate property that stores the endDate of the plan
     var active = false //A boolean property that stores whether the plan is active or not
     var plannedRuns = [PlannedRun]() //An array of PlannedRun objects that stores the planned runs for the plan
-    
-    //MARK: - Initialisation
-    
+
+    // MARK: - Initialisation
+
     /**
     Called to initialise the class, sets the properties of the Shoe to the passed values.
     1. Calls the local function checkIfActive
@@ -36,12 +36,12 @@ class Plan: NSObject {
         self.name = name
         self.startDate = startDate
         self.endDate = endDate
-        
+
         super.init()
         self.checkIfActive() //1
         self.loadPlannedRuns() //2
     }
-    
+
     /**
     This method is used to check if a plan is currently active.
     1. Declares the local variable today an NSDate object, which is the current date and time
@@ -57,14 +57,14 @@ class Plan: NSObject {
     func checkIfActive() {
         let today = NSDate()
         let endDate = self.endDate.addingTimeInterval(86399)
-        
+
         if today.earlierDate(startDate as Date) == startDate as Date && today.laterDate(endDate as Date) == endDate as Date {
             self.active = true
         } else {
             self.active = false
         }
     }
-    
+
     /**
     This method loads the planned runs for the plan.
     1. Loads the plannedRuns using the loadPlannedRunsForPlan method from the Database, setting the return as an array of PlannedRun objects

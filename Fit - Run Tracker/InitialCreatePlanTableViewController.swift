@@ -9,9 +9,8 @@
 import UIKit
 
 class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDelegate {
-    
-    
-    //MARK: - Storyboard Links
+
+    // MARK: - Storyboard Links
     /* These variables store links to controls on the interface, connected via the Storyboard. */
     @IBOutlet weak var startDateDetailLabel: UILabel!
     @IBOutlet weak var endDateDetailLabel: UILabel!
@@ -19,17 +18,17 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var warningLabel: UILabel!
-    
-    //MARK: - Global Variables
+
+    // MARK: - Global Variables
     private let secondsInDay: Double = 86400 //A global constant that stores the number of seconds in a day
-    
+
     /* Boolean values that track whether the date picker cells are currently being shown */
     private var editingStartDate = false
     private var editingEndDate = false
     private var showNameWarning = false
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view initially loads. It configures the view to the initial state.
     1. Sets the delegate of the planNameTextField to this viewController
@@ -40,19 +39,19 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         planNameTextField.delegate = self //1
         startDatePicker.addTarget(self, action: #selector(InitialCreatePlanTableViewController.updateStartDate), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(InitialCreatePlanTableViewController.updateEndDate), for: .valueChanged)
-        
+
         endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date //3
         startDatePicker.minimumDate = NSDate() as Date
         startDateDetailLabel.text = (startDatePicker.date as NSDate).shortDateString() //5
         endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
-    
-    //MARK: - Text Field
-    
+
+    // MARK: - Text Field
+
     /**
     This method is called by the system when a user presses the return button on the keyboard whilst inputting into the text field.
     1. Dismisses the keyboard by removing the textField as the first responder for the view (the focus)
@@ -63,12 +62,12 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() //1
-        
+
         return false //2
     }
-    
-    //MARK: - Date Picker Control
-    
+
+    // MARK: - Date Picker Control
+
     /**
     This method is called whenever the value of the start date picker is changed. It updates the start date label and updates the minimum date of the end date picker.
     1. Sets the text of the startDateDetailLabel to the selected date as a shortDateString
@@ -82,7 +81,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date
         endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
-    
+
     /**
     This method is called whenever the value of the end date picker is changed. It updates the end date label.
     1. Sets the text of the endDateDetailLabel to the selected date in the endDatePicker
@@ -92,9 +91,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     func updateEndDate(sender: AnyObject) {
         endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
-    
-    //MARK: - Table View Data Source
-    
+
+    // MARK: - Table View Data Source
+
     /**
     This method is called by the system to return the height for a specific row in the table view.
     1. IF the current section is the second section
@@ -135,10 +134,10 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
                 return 0
             }
         }
-        
+
         return Constants.TableView.DefaultRowHeight
     }
-    
+
     /**
     This method is called whenever a user selects a row in the table. It updates which cells should be displayed and which cells should be hidden in the table view.
     1. IF the selected row is in the second section
@@ -178,7 +177,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
                 }
             }
         }
-        
+
         tableView.reloadTableViewCells()
     }
 
@@ -196,15 +195,15 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createPress" { //1
-            if let plan = Database().createNewPlan(withName: planNameTextField.text!.capitalized, start: startDatePicker.date, andEnd:endDatePicker.date) as? Plan { //a
-                
+            if let plan = Database().createNewPlan(withName: planNameTextField.text!.capitalized, start: startDatePicker.date, andEnd: endDatePicker.date) as? Plan { //a
+
                 if let destinationVC = segue.destination as? CreatePlanViewController { //i
                     destinationVC.plan = plan //ii
                 }
             }
         }
     }
-    
+
     /**
     This method is called by the system when the create button is pressed, it checks to see whether it should perform the transition to the next view.
     1. IF the segue to be performed is called "createPress"
@@ -236,7 +235,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
                 return false //iv
             }
         }
-        
+
         return true //2
     }
 }

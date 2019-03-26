@@ -11,19 +11,19 @@ import UIKit
 class TrainingPlansTableViewController: UITableViewController {
 
     private var plans = [[Plan](), [Plan]()] //A global array that contains 2 arrays of Plan objects, [[ActivePlans], [InactivePlans]]
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system when the view is first loaded
     1. Sets the right button on the navigation bar as an Edit button
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationItem.rightBarButtonItem = editButtonItem //1
     }
-    
+
     /**
     This method is called each time the view will appear on screen. It is used to load the plans and sort them into active and in active to then display them in the table view.
     1. Clears the arrays of any existing plans, without keeping its current size
@@ -43,9 +43,9 @@ class TrainingPlansTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         plans[0].removeAll(keepingCapacity: false) //1
         plans[1].removeAll(keepingCapacity: false)
-        
+
         let unsortedPlans: [Plan] = Database().loadAllTrainingPlans() as! [Plan] //1
-        
+
         for plan: Plan in unsortedPlans { //3
             if plan.active { //3a
                 plans[0].append(plan) //3ai
@@ -53,7 +53,7 @@ class TrainingPlansTableViewController: UITableViewController {
                 plans[1].append(plan) //3bi
             }
         }
-        
+
         tableView.reloadData() //4
     }
 
@@ -105,16 +105,16 @@ class TrainingPlansTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "activePlan", for: indexPath as IndexPath) as UITableViewCell //1a
             cell.textLabel?.text = plans[0][indexPath.row].name //1b
             cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.shortDateString() //1c
-            
+
             return cell //1d
         } else { //2
             let cell = tableView.dequeueReusableCell(withIdentifier: "inactivePlan", for: indexPath as IndexPath) as UITableViewCell //2a
             cell.textLabel?.text = plans[1][indexPath.row].name //2b
-            
+
             return cell //2c
         }
     }
-    
+
     /**
     This method is called by the system whenever the tableView loads it data. It returns the title for the header of a section.
     1. IF the section is 0, return "Active Plans"
@@ -147,7 +147,7 @@ class TrainingPlansTableViewController: UITableViewController {
             }
         }
     }
-    
+
     // MARK: - Navigation
 
     /**

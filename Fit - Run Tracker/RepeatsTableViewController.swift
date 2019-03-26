@@ -9,13 +9,13 @@
 import UIKit
 
 class RepeatsTableViewController: UITableViewController {
-    
-    //MARK: - Global Variables
-    
+
+    // MARK: - Global Variables
+
     var repeatOption: String? //A global string variable that stores the selected repeat option (if one has been previously set). This value is set by the NewPlannedRunTableView controller when the segue to this view is called.
-    
-    //MARK: - View Life Cycle
-    
+
+    // MARK: - View Life Cycle
+
     /**
     This method is called by the system whenever the view is about to appear on screen. It calls the function setSelectedRepeatOption (this is used to set up the view if a user has previously set a repeat option).
     
@@ -25,8 +25,8 @@ class RepeatsTableViewController: UITableViewController {
         setSelectedRepeatOption()
     }
 
-    //MARK: - Table View Data Source
-    
+    // MARK: - Table View Data Source
+
     /**
     This method is called by the system whenever a user selects a row in the table view. It sets the selection indicator and then dismisses the view to return to the previous view.
     1. Calls the function clearCheckmarks (so that only one row at a time can be chosen as the selected option)
@@ -43,22 +43,22 @@ class RepeatsTableViewController: UITableViewController {
     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clearCheckmarks() //1
-        
+
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark //2
         tableView.deselectRow(at: indexPath as IndexPath, animated: true) //3
 
         if let viewControllersCount = self.navigationController?.viewControllers.count { //4
-            
+
             if let previousVC = self.navigationController?.viewControllers[viewControllersCount - 2] as? NewPlannedRunTableViewController { //a
                 if let selectedRepeatOption = tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text { //i
                     previousVC.setRepeatDetailLabelText(repeatText: selectedRepeatOption) //ii
                 }
             }
         }
-        
+
         navigationController?.popViewController(animated: true) //5
     }
-    
+
     /**
     This method is used to remove the accessory from all cells. This is so that if a new shoe is selected two checkmarks are not shown on the interface (such that it appears as if 2 rows have been selected)
     1. Declares the local constant sectionCount and sets its value to the number of sections in the table view
@@ -75,19 +75,19 @@ class RepeatsTableViewController: UITableViewController {
     */
     func clearCheckmarks() {
         let sectionCount = tableView.numberOfSections
-        
+
         for sectionNo in 0 ..< sectionCount {
-            
+
             let rowCount = tableView.numberOfRows(inSection: sectionNo)
-            
+
             for rowNo in 0 ..< rowCount {
                 tableView.cellForRow(at: IndexPath(row: rowNo, section: sectionNo))?.accessoryType = .none
             }
         }
     }
-    
+
     // MARK: - Navigation
-    
+
     /**
     This method is called when the view loads. It sets up the view with the last selected repeatOption.
     1. Retrieve the number of rows in the fist section
@@ -101,7 +101,7 @@ class RepeatsTableViewController: UITableViewController {
         rowNumber - An integer variable that is the current row
     */
     func setSelectedRepeatOption() {
-        
+
         let rowCount = tableView.numberOfRows(inSection: 0) //1
         for rowNumber in 0 ..< rowCount { //2
             if let cell = tableView.cellForRow(at: IndexPath(row: rowNumber, section: 0)) { //a
