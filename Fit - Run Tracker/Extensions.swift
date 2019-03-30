@@ -13,16 +13,9 @@ extension UIView {
 
     // MARK: Methods
 
-    /**
-    This extension is used to add a dark gray border to a view.
-    1. Sets the borderWidth the the border width passed when the function was called
-    2. Sets the border colour to dark gray
-    
-    :param: borderWidth A CGFloat value of the width of border to add.
-    */
     func addBorder(borderWidth: CGFloat) {
-        self.layer.borderWidth = borderWidth //1
-        self.layer.borderColor = UIColor.darkGray.cgColor //2
+        self.layer.borderWidth = borderWidth
+        self.layer.borderColor = UIColor.darkGray.cgColor
     }
 
 }
@@ -33,70 +26,45 @@ extension NSDate {
 
     /**
     This initialiser takes a date string in the form "dd/MM/yyyy" and creates a new NSDate object with this date.
-    1. Creates the date formatter
-    2. Sets the date format to "dd/MM/yyyy"
-    3. Sets the locale to the en_GB (for consistency)
-    4. Creates the new date using the date formatter
-    5. Calls the init with timeInterval sinceDate initialiser passing the created date and a time interval of 0
-    
-    Uses the following local variables:
-        dateFormatter - A constant NSDateFormatter used to create the date.
-        newDate - A constant NSDate that is the created date.
     
     :param: shortDateString the date as a string to create the NSDate with.
     */
     convenience init (shortDateString: String) {
-        let dateFormatter = DateFormatter() //1
-        dateFormatter.dateFormat = "dd/MM/yyyy" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
 
-        let newDate = dateFormatter.date(from: shortDateString) //4
-        self.init(timeInterval: 0, since: newDate!) //5
+        let newDate = dateFormatter.date(from: shortDateString)
+        self.init(timeInterval: 0, since: newDate!)
     }
 
     /**
     This initialiser takes a date string in the form "dd/MM/yyyyHH:mm:ss" and creates a new NSDate object with this date, this is used when a run is loaded from the database.
-    1. Creates the date formatter
-    2. Sets the date format to "dd/MM/yyyyHH:mm:ss"
-    3. Sets the locale to the en_GB (for consistency)
-    4. Creates the new date using the date formatter
-    5. Calls the init with timeInterval sinceDate initialiser passing the created date and a time interval of 0
-    
-    Uses the following local variables:
-        dateFormatter - A constant NSDateFormatter used to create the date.
-        newDate - A constant NSDate that is the created date.
     
     :param: databaseString A string of the date to create the NSDate with.
     */
     convenience init (databaseString: String) {
-        let dateFormatter = DateFormatter() //1
-        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
 
-        let newDate = dateFormatter.date(from: databaseString) //4
-        self.init(timeInterval: 0, since: newDate!) //5
+        let newDate = dateFormatter.date(from: databaseString)
+        self.init(timeInterval: 0, since: newDate!)
     }
 
     // MARK: Methods
 
     /**
     This method returns the date in the form "dd/MM/yyyyHH:mm:ss" as string for saving to the database.
-    1. Creates a date formatter
-    2. Sets the date format
-    3. Sets the locale to the en_GB (for consistency)
-    4. Returns the string created by the date formatter
-    
-    Uses the following local variables:
-        dateFormatter - A constant NSDateFormatter used to create the string.
-    
+
     :returns: The date in the form "dd/MM/yyyyHH:mm:ss" as a string
     */
     func databaseString() -> String {
-        let dateFormatter = DateFormatter() //1
-        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
 
-        return dateFormatter.string(from: self as Date) //4
+        return dateFormatter.string(from: self as Date)
     }
 
     /**
@@ -112,86 +80,56 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yyyy" as a string
     */
     func shortDateString() -> String {
-        let dateFormatter = DateFormatter() //1
-        dateFormatter.dateFormat = "dd/MM/yyyy" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
 
-        return dateFormatter.string(from: self as Date) //4
+        return dateFormatter.string(from: self as Date)
     }
 
     /**
     Returns the date in the form "dd/MM/YY" (e.g. 23/10/14) as string for display on the interface.
-    1. Creates a date formatter
-    2. Sets the date format
-    3. Sets the locale to the en_GB (for consistency)
-    4. Returns the string created by the date formatter
-    
-    Uses the following local variables:
-        dateFormatter - A constant NSDateFormatter used to create the string.
-    
+
     :returns: The date in the form "dd/MM/yy" as a string
     */
     func shortestDateString() -> String {
-        let dateFormatter = DateFormatter() //1
-        dateFormatter.dateFormat = "dd/MM/YY" //2
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
         dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
 
-        return dateFormatter.string(from: self as Date) //3
+        return dateFormatter.string(from: self as Date)
     }
 
     /**
     Returns the date in the form "MM/yyyy"; this is used to search the database for runs in a specific month.
-    1. Creates a date formatter
-    2. Retrieves the month as an integer using the calendar of the date formatter
-    3. Retrieves the year as an integer using the calendar of the date formatter
-    4. Creates the monthYear string 
-    5. Returns the monthYearString
-    
-    Uses the following local variables:
-        dateFormatter - A constant NSDateFormatter used to create the string
-        month - A constant integer value that stores the date's month
-        year - A constant integer value that stores the date's year
-        monthYearString - A constant string that stores the month year string
-    
+
     :returns: The date in the form "/MM/yyyy" as a string
     */
     func monthYearString() -> String {
-        let dateFormatter = DateFormatter() //1
+        let dateFormatter = DateFormatter()
         let month = dateFormatter.calendar.component(.month, from: self as Date)
         let year = dateFormatter.calendar.component(.year, from: self as Date)
 
-        let monthYearString = NSString(format: "%02i/%04i", month, year) //4
+        let monthYearString = NSString(format: "%02i/%04i", month, year)
 
-        return monthYearString as String //5
+        return monthYearString as String
     }
 
     /**
     Returns the date in the form 12 hour time format (e.g. 01:56 pm)
-    1. Creates the date formatter
-    2. Sets the date format
-    3. Sets the locale to the en_GB (for consistency)
-    4. Returns the string created by the date formatter
-    
-    Uses the following local variables:
-        dateFormatter - A constant NSDateFormatter used to create the string
-    
+
     :returns: The time portion of the date in the form "HH:mm a" as a string
     */
     func timeString12Hour() -> String {
-        let dateFormatter = DateFormatter() //1
-        dateFormatter.dateFormat = "hh:mm a" //2
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale //3
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
 
-        return dateFormatter.string(from: self as Date) //4
+        return dateFormatter.string(from: self as Date)
     }
 
     /**
     Returns true if a date is in today.
-    1. Creates a gregorian calendar
-    2. Returns the boolean created by the calendar.
-    
-    Uses the following local variables:
-        calendar - A constant NSCalendar used to test the date
     
     :returns: A boolean that indicates if the date is in today or not.
     */
@@ -203,11 +141,6 @@ extension NSDate {
 
     /**
     Returns true if a date was yesterday.
-    1. Creates a gregorian calendar
-    2. Returns the boolean created by the calendar.
-    
-    Uses the following local variables:
-        calendar - A constant NSCalendar used to test the date
     
     :returns: A boolean that indicates if the date is in yesterday or not.
     */
@@ -224,14 +157,7 @@ extension CLLocation {
 
     /**
     Initialises a new CLLocation object using a string in the form "lat, long"
-    1. Splits the location string on the ', ' and stores the first half as the latitude string
-    2. Splits the location string on the ', ' and stores the last half as the longitude string
-    3. Initialises the CLLocation object using the double values of the latitude and longitude strings
-    
-    Uses the following local variables:
-        latString - A constant string that stores the latitude as a string
-        longString - A constant string that stores the longitude as a string
-    
+
     :param: location A string of the location to create the CLLocation object with.
     */
     convenience init (locationString: String) {
