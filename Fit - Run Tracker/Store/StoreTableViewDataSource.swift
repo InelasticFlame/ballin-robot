@@ -9,11 +9,12 @@
 import UIKit
 
 class StoreTableViewDataSource<Source: Store, Factory: CellFactory>: NSObject, UITableViewDataSource
-    where Factory.CellContents == Source.StoreType {
+    where Factory.CellContents == Source.StoreType, Factory.CellType: UITableViewCell {
 
-    private var source: Source
     private let cellFactory: Factory
     private let reuseIdentifier: String
+
+    var source: Source
 
     init(source: Source, reuseIdentifier: String, cellFactory: Factory) {
         self.source = source
@@ -26,7 +27,7 @@ class StoreTableViewDataSource<Source: Store, Factory: CellFactory>: NSObject, U
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! Factory.CellType
         cellFactory.createCell(cell: cell, item: source.get(atIndex: indexPath.row))
         return cell
     }

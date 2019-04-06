@@ -8,6 +8,7 @@
 
 protocol CellFactory {
     associatedtype CellContents
+    associatedtype CellType
 
-    func createCell(cell: UITableViewCell, item: CellContents)
+    func createCell(cell: CellType, item: CellContents)
 }

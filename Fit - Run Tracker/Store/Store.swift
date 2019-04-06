@@ -12,4 +12,6 @@ protocol Store {
     var count: Int { get }
 
     func get(atIndex index: Int) -> StoreType
+    func refresh() // PH until larger changes are made
+    
 }
