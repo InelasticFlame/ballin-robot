@@ -46,6 +46,7 @@
 		B676093A1A49D256005270ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67609391A49D256005270ED /* MapKit.framework */; };
 		B68962F91A93D07600CCCFEA /* DistancePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68962F81A93D07600CCCFEA /* DistancePicker.swift */; };
 		B6995A4E1AB36F8700686327 /* ShoePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6995A4D1AB36F8700686327 /* ShoePicker.swift */; };
+		B69B80C12274F6CD000C05D2 /* RunCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */; };
 		B69E48031AA614DB00129A08 /* WeightProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69E48021AA614DB00129A08 /* WeightProgressBar.swift */; };
 		B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */; };
 		B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */; };
@@ -141,6 +142,7 @@
 		B67609391A49D256005270ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B68962F81A93D07600CCCFEA /* DistancePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistancePicker.swift; sourceTree = "<group>"; };
 		B6995A4D1AB36F8700686327 /* ShoePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoePicker.swift; sourceTree = "<group>"; };
+		B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCellFactory.swift; sourceTree = "<group>"; };
 		B69E48021AA614DB00129A08 /* WeightProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightProgressBar.swift; sourceTree = "<group>"; };
 		B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunsTableViewController.swift; sourceTree = "<group>"; };
 		B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				B6F2DCE92258FA7B00233179 /* RunStore.swift */,
 				B6F2DCF322590DA800233179 /* CellFactory.swift */,
 				B6F2DCED225900B200233179 /* StoreTableViewDataSource.swift */,
+				B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */,
 				B67609381A49BB76005270ED /* StravaRuns.m in Sources */,
 				B69E48031AA614DB00129A08 /* WeightProgressBar.swift in Sources */,
+				B69B80C12274F6CD000C05D2 /* RunCellFactory.swift in Sources */,
 				B6CFA95C1A9F6067000EDB00 /* Graph.swift in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
 				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
