@@ -47,6 +47,10 @@
 		B68962F91A93D07600CCCFEA /* DistancePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68962F81A93D07600CCCFEA /* DistancePicker.swift */; };
 		B6995A4E1AB36F8700686327 /* ShoePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6995A4D1AB36F8700686327 /* ShoePicker.swift */; };
 		B69B80C12274F6CD000C05D2 /* RunCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */; };
+		B69B80C52274F787000C05D2 /* PersonalBest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C42274F787000C05D2 /* PersonalBest.swift */; };
+		B69B80C72274F799000C05D2 /* PersonalBestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C62274F799000C05D2 /* PersonalBestStore.swift */; };
+		B69B80C92274F7AF000C05D2 /* PersonalBestCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C82274F7AF000C05D2 /* PersonalBestCellFactory.swift */; };
+		B69B80CB2274FA19000C05D2 /* PersonalBestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80CA2274FA19000C05D2 /* PersonalBestTableViewCell.swift */; };
 		B69E48031AA614DB00129A08 /* WeightProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69E48021AA614DB00129A08 /* WeightProgressBar.swift */; };
 		B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */; };
 		B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */; };
@@ -143,6 +147,10 @@
 		B68962F81A93D07600CCCFEA /* DistancePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistancePicker.swift; sourceTree = "<group>"; };
 		B6995A4D1AB36F8700686327 /* ShoePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoePicker.swift; sourceTree = "<group>"; };
 		B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCellFactory.swift; sourceTree = "<group>"; };
+		B69B80C42274F787000C05D2 /* PersonalBest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBest.swift; sourceTree = "<group>"; };
+		B69B80C62274F799000C05D2 /* PersonalBestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestStore.swift; sourceTree = "<group>"; };
+		B69B80C82274F7AF000C05D2 /* PersonalBestCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestCellFactory.swift; sourceTree = "<group>"; };
+		B69B80CA2274FA19000C05D2 /* PersonalBestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestTableViewCell.swift; sourceTree = "<group>"; };
 		B69E48021AA614DB00129A08 /* WeightProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightProgressBar.swift; sourceTree = "<group>"; };
 		B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunsTableViewController.swift; sourceTree = "<group>"; };
 		B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +269,7 @@
 		B621B7411A48C65100A4A49C /* Fit - Run Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B69B80C32274F762000C05D2 /* PersonalBests */,
 				B6F2DCE82258FA6C00233179 /* Store */,
 				B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
@@ -271,7 +280,6 @@
 				B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */,
 				B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */,
 				B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */,
-				B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */,
 				B68962F71A93D05800CCCFEA /* Picker Views */,
 				B6E0B66C1A4B1BF100D1CEC4 /* Home View */,
 				B618ABF41A51FC4D0050EFF0 /* Runs View */,
@@ -395,6 +403,18 @@
 				B6995A4D1AB36F8700686327 /* ShoePicker.swift */,
 			);
 			name = "Picker Views";
+			sourceTree = "<group>";
+		};
+		B69B80C32274F762000C05D2 /* PersonalBests */ = {
+			isa = PBXGroup;
+			children = (
+				B69B80C42274F787000C05D2 /* PersonalBest.swift */,
+				B69B80C62274F799000C05D2 /* PersonalBestStore.swift */,
+				B69B80C82274F7AF000C05D2 /* PersonalBestCellFactory.swift */,
+				B69B80CA2274FA19000C05D2 /* PersonalBestTableViewCell.swift */,
+				B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */,
+			);
+			path = PersonalBests;
 			sourceTree = "<group>";
 		};
 		B6DD2D181AA8C7AC0081BAE7 /* Shoes */ = {
@@ -652,18 +672,22 @@
 				B6F2DCF422590DA800233179 /* CellFactory.swift in Sources */,
 				B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */,
 				B6F2DCEA2258FA7B00233179 /* RunStore.swift in Sources */,
+				B69B80C52274F787000C05D2 /* PersonalBest.swift in Sources */,
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B6995A4E1AB36F8700686327 /* ShoePicker.swift in Sources */,
 				B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */,
 				B620780F1AB0FFEF00817EAD /* RunShoeSelectorTableViewController.swift in Sources */,
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
 				B6F664C71AB0A4060079AA18 /* RunShoesTableViewController.swift in Sources */,
+				B69B80CB2274FA19000C05D2 /* PersonalBestTableViewCell.swift in Sources */,
 				B6DD2D1A1AA8C7C10081BAE7 /* MyShoesTableViewController.swift in Sources */,
 				B6F2DCEE225900B200233179 /* StoreTableViewDataSource.swift in Sources */,
 				B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
 				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
+				B69B80C72274F799000C05D2 /* PersonalBestStore.swift in Sources */,
+				B69B80C92274F7AF000C05D2 /* PersonalBestCellFactory.swift in Sources */,
 				B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */,
 				B68962F91A93D07600CCCFEA /* DistancePicker.swift in Sources */,
 				B668DB0F1A4DE8F800DC7CE6 /* ProgressBar.swift in Sources */,

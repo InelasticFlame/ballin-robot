@@ -199,7 +199,7 @@ class HomeTableViewController: UITableViewController {
         let longestDistance = userDefaults.double(forKey: Constants.DefaultsKeys.PersonalBests.LongestDistanceKey) //2
         let longestDuration = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.LongestDurationKey)
         let fastestMile = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestMileKey)
-        let fastestAveragePace = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey)
+        let fastestAveragePace = userDefaults.integer(forKey: Constants.DefaultsKeys.PersonalBests.BestAvgPaceKey)
 
         if longestDistance > 0 { //4
             longestDistanceLabel.text = "Longest Distance: " + Conversions().distanceForInterface(distance: longestDistance) //a
