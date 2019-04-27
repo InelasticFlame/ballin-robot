@@ -58,6 +58,10 @@
 		B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */; };
 		B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC7381A93D776009FE6C0 /* PacePicker.swift */; };
 		B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */; };
+		B6F2DCEA2258FA7B00233179 /* RunStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F2DCE92258FA7B00233179 /* RunStore.swift */; };
+		B6F2DCEE225900B200233179 /* StoreTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F2DCED225900B200233179 /* StoreTableViewDataSource.swift */; };
+		B6F2DCF222590A4400233179 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F2DCF122590A4400233179 /* Store.swift */; };
+		B6F2DCF422590DA800233179 /* CellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F2DCF322590DA800233179 /* CellFactory.swift */; };
 		B6F664C31AB09F0C0079AA18 /* RunPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */; };
 		B6F664C71AB0A4060079AA18 /* RunShoesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F664C61AB0A4060079AA18 /* RunShoesTableViewController.swift */; };
 		B6F9A0DD1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */; };
@@ -149,6 +153,10 @@
 		B6ECC7361A93D6D4009FE6C0 /* DurationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		B6ECC7381A93D776009FE6C0 /* PacePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		B6ECC73A1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedRunTableViewController.swift; sourceTree = "<group>"; };
+		B6F2DCE92258FA7B00233179 /* RunStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunStore.swift; sourceTree = "<group>"; };
+		B6F2DCED225900B200233179 /* StoreTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTableViewDataSource.swift; sourceTree = "<group>"; };
+		B6F2DCF122590A4400233179 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		B6F2DCF322590DA800233179 /* CellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFactory.swift; sourceTree = "<group>"; };
 		B6F664C21AB09F0C0079AA18 /* RunPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPageViewController.swift; sourceTree = "<group>"; };
 		B6F664C61AB0A4060079AA18 /* RunShoesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunShoesTableViewController.swift; sourceTree = "<group>"; };
 		B6F9A0DC1A8A4B1600C5828F /* InitialCreatePlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCreatePlanTableViewController.swift; sourceTree = "<group>"; };
@@ -199,8 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */,
-				B6098E88224822EE00D6DDA7 /* Info.plist */,
 				B6001F8D224FB6F600477A1A /* ExtensionsTest.swift */,
+				B6098E88224822EE00D6DDA7 /* Info.plist */,
 			);
 			path = "Fit - Run Tracker Tests";
 			sourceTree = "<group>";
@@ -251,6 +259,7 @@
 		B621B7411A48C65100A4A49C /* Fit - Run Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B6F2DCE82258FA6C00233179 /* Store */,
 				B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
@@ -402,6 +411,17 @@
 				B668DB061A4DDF2700DC7CE6 /* HomeTableViewController.swift */,
 			);
 			name = "Home View";
+			sourceTree = "<group>";
+		};
+		B6F2DCE82258FA6C00233179 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B6F2DCF122590A4400233179 /* Store.swift */,
+				B6F2DCE92258FA7B00233179 /* RunStore.swift */,
+				B6F2DCF322590DA800233179 /* CellFactory.swift */,
+				B6F2DCED225900B200233179 /* StoreTableViewDataSource.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		B6FB78101A86A7CE00667897 /* Planned Runs */ = {
@@ -626,7 +646,9 @@
 				B6F9A0E11A9226AC00C5828F /* TrainingPlansTableViewController.swift in Sources */,
 				B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */,
 				B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */,
+				B6F2DCF422590DA800233179 /* CellFactory.swift in Sources */,
 				B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */,
+				B6F2DCEA2258FA7B00233179 /* RunStore.swift in Sources */,
 				B6C9CC1F1A7F935200EE8B5E /* AddRunTableViewController.swift in Sources */,
 				B6995A4E1AB36F8700686327 /* ShoePicker.swift in Sources */,
 				B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */,
@@ -634,6 +656,7 @@
 				B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */,
 				B6F664C71AB0A4060079AA18 /* RunShoesTableViewController.swift in Sources */,
 				B6DD2D1A1AA8C7C10081BAE7 /* MyShoesTableViewController.swift in Sources */,
+				B6F2DCEE225900B200233179 /* StoreTableViewDataSource.swift in Sources */,
 				B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
 				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
@@ -645,6 +668,7 @@
 				B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */,
 				B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */,
 				B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */,
+				B6F2DCF222590A4400233179 /* Store.swift in Sources */,
 				B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */,
 				B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */,
 				B621B7451A48C65100A4A49C /* AppDelegate.swift in Sources */,

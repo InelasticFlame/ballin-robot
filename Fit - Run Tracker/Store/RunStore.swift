@@ -15,11 +15,16 @@ class RunStore: Store {
     var runs: [Run] = []
 
     init() {
-        self.runs = Database().loadRuns(withQuery: "") as! [Run]
+        refresh()
     }
 
     func get(atIndex index: Int) -> Run {
         return runs[index]
+    }
+
+    func remove(atIndex index: Int) {
+        let run = runs.remove(at: index)
+        Database().deleteRun(run)
     }
 
     func refresh() {

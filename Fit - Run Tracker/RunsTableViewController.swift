@@ -11,7 +11,6 @@ import UIKit
 class RunsTableViewController: UITableViewController {
     // MARK: - Global Variables
 
-    var runs = [Run]() //Creates and initialises a global array of Run objects
     private let runStore: StoreTableViewDataSource<RunStore, RunCellFactory> =
         StoreTableViewDataSource(source: RunStore(), reuseIdentifier: "runCell", cellFactory: RunCellFactory())
 
@@ -108,7 +107,7 @@ class RunsTableViewController: UITableViewController {
     3. Tells the refresh control to end refreshing
     */
     @objc func finishLoad() {
-        self.runs = Database().loadRuns(withQuery: "") as! Array<Run> //1
+        self.runStore.source.refresh()
         self.tableView.reloadData() //2
         self.refreshControl?.endRefreshing() //3
     }
@@ -133,9 +132,9 @@ class RunsTableViewController: UITableViewController {
     */
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete { //1
-            let run = self.runs[indexPath.row] //a
+            let run = runStore.source.get(atIndex: indexPath.row)
             if Database().deleteRun(run) { //b
-                self.runs.remove(at: indexPath.row)
+                runStore.source.remove(atIndex: indexPath.row)
                 tableView.deleteRows(at: [indexPath as IndexPath], with: .fade) //ii
                 checkNoRunsLabel() //iii
             }
@@ -157,7 +156,7 @@ class RunsTableViewController: UITableViewController {
         if segue.identifier == "runDetails" {
             if let selectedIndex = self.tableView.indexPath(for: sender as! UITableViewCell) {
                 if let destinationVC = segue.destination as? RunPageViewController {
-                    destinationVC.run = runs[selectedIndex.row]
+                    destinationVC.run = runStore.source.get(atIndex: selectedIndex.row)
                 }
             }
         }
