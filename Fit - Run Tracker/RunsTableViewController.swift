@@ -112,35 +112,6 @@ class RunsTableViewController: UITableViewController {
         self.refreshControl?.endRefreshing() //3
     }
 
-    // MARK: - Table View Data Source
-
-    /**
-    This method is called when a user presses the delete button whilst the table is in edit mode. It removes a run from the table view and also from the database.
-    1. IF the edit being performed is a delete
-            a. Get the run for the row to be deleted
-            b. Calls the function deleteRunWithID from the Database class, IF it is successful
-                i. Remove the run from the array of runs
-               ii. Delete the row from the table view
-              iii. Calls the function checkNoRunsLabel
-    
-    Uses the following local variables:
-        run - The Run object for the current cell
-    
-    :param: tableView The UITableView that is requesting the insertion of the deletion.
-    :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
-    :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
-    */
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete { //1
-            let run = runStore.source.get(atIndex: indexPath.row)
-            if Database().deleteRun(run) { //b
-                runStore.source.remove(atIndex: indexPath.row)
-                tableView.deleteRows(at: [indexPath as IndexPath], with: .fade) //ii
-                checkNoRunsLabel() //iii
-            }
-        }
-    }
-
     // MARK: - Navigation
 
     /**

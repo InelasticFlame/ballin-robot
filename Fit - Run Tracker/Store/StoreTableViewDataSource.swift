@@ -32,4 +32,10 @@ class StoreTableViewDataSource<Source: Store, Factory: CellFactory>: NSObject, U
         return cell
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            source.remove(atIndex: indexPath.row)
+            tableView.deleteRows(at: [indexPath as IndexPath], with: .fade)
+        }
+    }
 }
