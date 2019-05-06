@@ -46,7 +46,7 @@ struct Constants {
         struct PersonalBests {
             static let LongestDistanceKey = "LONGEST_DISTANCE"
             static let LongestDurationKey = "LONGEST_DURATION"
-            static let FastestAvgPaceKey = "FASTEST_AVERAGE_PACE"
+            static let BestAvgPaceKey = "FASTEST_AVERAGE_PACE"
             static let FastestMileKey = "FASTEST_MILE"
         }
 
@@ -69,5 +69,5 @@ struct Constants {
     class func longestDistanceKey() -> String { return Constants.DefaultsKeys.PersonalBests.LongestDistanceKey }
     class func longestDurationKey() -> String { return Constants.DefaultsKeys.PersonalBests.LongestDurationKey }
     class func fastestMileKey() -> String { return Constants.DefaultsKeys.PersonalBests.FastestMileKey }
-    class func fastestAvgPaceKey() -> String { return Constants.DefaultsKeys.PersonalBests.FastestAvgPaceKey }
+    class func fastestAvgPaceKey() -> String { return Constants.DefaultsKeys.PersonalBests.BestAvgPaceKey }
 }
