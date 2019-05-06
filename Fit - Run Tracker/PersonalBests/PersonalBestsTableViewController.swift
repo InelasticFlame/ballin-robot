@@ -16,7 +16,7 @@ class PersonalBestsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.dataSource = self.pbStore
+        tableView.dataSource = self.pbStore
     }
 
     override func viewWillAppear(_ animated: Bool) {

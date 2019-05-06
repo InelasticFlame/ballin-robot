@@ -11,7 +11,6 @@
 		B6001F8E224FB6F600477A1A /* ExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6001F8D224FB6F600477A1A /* ExtensionsTest.swift */; };
 		B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602096D1AAF2D3D00559D2F /* MoreTableViewController.swift */; };
 		B603C160224AC9ED00B7A3A0 /* ConversionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */; };
-		B6098E952248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */; };
 		B609B82C1A49B47A006664D5 /* StravaAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = B609B82B1A49B47A006664D5 /* StravaAuth.m */; };
 		B60B10CA1A94B6A5003B30C9 /* RepeatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10C91A94B6A5003B30C9 /* RepeatsTableViewController.swift */; };
 		B60B10CC1A950E82003B30C9 /* RepeatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60B10CB1A950E82003B30C9 /* RepeatSettingsTableViewController.swift */; };
@@ -45,6 +44,8 @@
 		B67609381A49BB76005270ED /* StravaRuns.m in Sources */ = {isa = PBXBuildFile; fileRef = B67609371A49BB76005270ED /* StravaRuns.m */; };
 		B676093A1A49D256005270ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67609391A49D256005270ED /* MapKit.framework */; };
 		B68962F91A93D07600CCCFEA /* DistancePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68962F81A93D07600CCCFEA /* DistancePicker.swift */; };
+		B694FC3B2280831C0074A893 /* PersonalBestsStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694FC3A2280831C0074A893 /* PersonalBestsStoreTest.swift */; };
+		B694FC3E2280878C0074A893 /* PersonalBestsTableViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B694FC3D2280878C0074A893 /* PersonalBestsTableViewTest.swift */; };
 		B6995A4E1AB36F8700686327 /* ShoePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6995A4D1AB36F8700686327 /* ShoePicker.swift */; };
 		B69B80C12274F6CD000C05D2 /* RunCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */; };
 		B69B80C52274F787000C05D2 /* PersonalBest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C42274F787000C05D2 /* PersonalBest.swift */; };
@@ -103,7 +104,6 @@
 		B6098E84224822EE00D6DDA7 /* Fit - Run Tracker Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run Tracker Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6098E88224822EE00D6DDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6098E922248231100D6DDA7 /* Fit - Run Tracker UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fit - Run Tracker UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fit___Run_Tracker_UITests.swift"; sourceTree = "<group>"; };
 		B6098E962248231100D6DDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B609B82A1A49B47A006664D5 /* StravaAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAuth.h; sourceTree = "<group>"; };
 		B609B82B1A49B47A006664D5 /* StravaAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAuth.m; sourceTree = "<group>"; };
@@ -145,6 +145,8 @@
 		B67609371A49BB76005270ED /* StravaRuns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaRuns.m; sourceTree = "<group>"; };
 		B67609391A49D256005270ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B68962F81A93D07600CCCFEA /* DistancePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistancePicker.swift; sourceTree = "<group>"; };
+		B694FC3A2280831C0074A893 /* PersonalBestsStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestsStoreTest.swift; sourceTree = "<group>"; };
+		B694FC3D2280878C0074A893 /* PersonalBestsTableViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestsTableViewTest.swift; sourceTree = "<group>"; };
 		B6995A4D1AB36F8700686327 /* ShoePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoePicker.swift; sourceTree = "<group>"; };
 		B69B80C02274F6CD000C05D2 /* RunCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCellFactory.swift; sourceTree = "<group>"; };
 		B69B80C42274F787000C05D2 /* PersonalBest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBest.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		B6098E85224822EE00D6DDA7 /* Fit - Run Tracker Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B694FC39228083020074A893 /* PersonalBests */,
 				B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */,
 				B6001F8D224FB6F600477A1A /* ExtensionsTest.swift */,
 				B6098E88224822EE00D6DDA7 /* Info.plist */,
@@ -226,7 +229,7 @@
 		B6098E932248231100D6DDA7 /* Fit - Run Tracker UITests */ = {
 			isa = PBXGroup;
 			children = (
-				B6098E942248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift */,
+				B694FC3C228087770074A893 /* PersonalBests */,
 				B6098E962248231100D6DDA7 /* Info.plist */,
 			);
 			path = "Fit - Run Tracker UITests";
@@ -403,6 +406,22 @@
 				B6995A4D1AB36F8700686327 /* ShoePicker.swift */,
 			);
 			name = "Picker Views";
+			sourceTree = "<group>";
+		};
+		B694FC39228083020074A893 /* PersonalBests */ = {
+			isa = PBXGroup;
+			children = (
+				B694FC3A2280831C0074A893 /* PersonalBestsStoreTest.swift */,
+			);
+			path = PersonalBests;
+			sourceTree = "<group>";
+		};
+		B694FC3C228087770074A893 /* PersonalBests */ = {
+			isa = PBXGroup;
+			children = (
+				B694FC3D2280878C0074A893 /* PersonalBestsTableViewTest.swift */,
+			);
+			path = PersonalBests;
 			sourceTree = "<group>";
 		};
 		B69B80C32274F762000C05D2 /* PersonalBests */ = {
@@ -649,6 +668,7 @@
 			files = (
 				B603C160224AC9ED00B7A3A0 /* ConversionsTest.swift in Sources */,
 				B6001F8E224FB6F600477A1A /* ExtensionsTest.swift in Sources */,
+				B694FC3B2280831C0074A893 /* PersonalBestsStoreTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,7 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6098E952248231100D6DDA7 /* Fit___Run_Tracker_UITests.swift in Sources */,
+				B694FC3E2280878C0074A893 /* PersonalBestsTableViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
