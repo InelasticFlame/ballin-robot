@@ -3380,6 +3380,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--myShoes">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <connections>
                                             <segue destination="Ydv-jK-efp" kind="show" id="wyp-cT-3KK"/>
                                         </connections>
@@ -3403,6 +3406,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--personalBests">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <connections>
                                             <segue destination="P8A-no-vNf" kind="show" id="CVR-if-eDd"/>
                                         </connections>
@@ -3426,10 +3432,16 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--settings">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="table--more"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="P7n-T0-uSa" id="YJf-Kg-SHm"/>
                             <outlet property="delegate" destination="P7n-T0-uSa" id="ltI-MN-OCT"/>
@@ -3509,6 +3521,9 @@
                             </tableViewCell>
                         </prototypes>
                         <sections/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="table--personalBestsView"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="P8A-no-vNf" id="maa-h8-dKE"/>
                             <outlet property="delegate" destination="P8A-no-vNf" id="2TW-WV-7ha"/>
