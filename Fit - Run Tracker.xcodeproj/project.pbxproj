@@ -271,7 +271,6 @@
 			children = (
 				B69B80C32274F762000C05D2 /* PersonalBests */,
 				B6F2DCE82258FA6C00233179 /* Store */,
-				B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
 				B621B7781A48D2D100A4A49C /* Conversions.swift */,
 				B636014F1A9A0ACA0020FB80 /* Extensions.swift */,
@@ -301,6 +300,7 @@
 		B621B7421A48C65100A4A49C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B6098E7F2248150600D6DDA7 /* Fit - Run Tracker.entitlements */,
 				B649540F1AA36D4A00A00C1B /* CG4 Coursework.entitlements */,
 				B621B7431A48C65100A4A49C /* Info.plist */,
 			);
