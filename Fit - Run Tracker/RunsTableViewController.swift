@@ -13,6 +13,7 @@ class RunsTableViewController: UITableViewController {
 
     private let runStore: StoreTableViewDataSource<RunStore, RunCellFactory> =
         StoreTableViewDataSource(source: RunStore(), reuseIdentifier: "runCell", cellFactory: RunCellFactory())
+    private let stravaClient: StravaClient = DevStravaClient()
 
     // MARK: - View Life Cycle
 
@@ -21,14 +22,11 @@ class RunsTableViewController: UITableViewController {
 
         self.tableView.dataSource = self.runStore
 
-        self.navigationItem.rightBarButtonItem = self.editButtonItem //1
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
 
-        NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.finishLoad), name: NSNotification.Name(rawValue: "RunLoadComplete"), object: nil) //2
-        NotificationCenter.default.addObserver(self, selector: #selector(RunsTableViewController.loadRuns), name: NSNotification.Name(rawValue: "AuthorisedSuccessfully"), object: nil) //3
-
-        if (UserDefaults.standard.string(forKey: Constants.DefaultsKeys.Strava.AccessTokenKey) ?? "").count > 0 { //4
-            self.refreshControl = UIRefreshControl() //a
-            self.refreshControl?.addTarget(self, action: #selector(RunsTableViewController.authorise), for: .valueChanged) //b
+        if stravaClient.isAuthorised {
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl?.addTarget(self, action: #selector(self.loadFromStravaAndRefresh), for: .valueChanged)
         }
     }
 
@@ -85,19 +83,16 @@ class RunsTableViewController: UITableViewController {
     }
 
     // MARK: - Run Loading
+    @objc func loadFromStravaAndRefresh() {
+        let runs = stravaClient.loadRuns()
 
-    /**
-    This method calls the function authorise from the StravaAuth class. It is called by the refresh control when a user pulls the table down before the runs are loaded from Strava.
-    */
-    @objc func authorise() {
-        StravaAuth().authorise()
-    }
+        for run in runs {
+            Database().saveRun(run)
+        }
 
-    /**
-    This method calls the function loadRunsFromStrava from the StravaRuns classs. It is called after the authorise function has finished (runs cannot be pulled from the Strava server unless the user is authorised first).
-    */
-    @objc func loadRuns() {
-        StravaRuns().loadFromStrava()
+        checkNoRunsLabel()
+
+        finishLoad()
     }
 
     /**
@@ -106,7 +101,7 @@ class RunsTableViewController: UITableViewController {
     2. Reloeads the data in the table view
     3. Tells the refresh control to end refreshing
     */
-    @objc func finishLoad() {
+    func finishLoad() {
         self.runStore.source.refresh()
         self.tableView.reloadData() //2
         self.refreshControl?.endRefreshing() //3

@@ -30,8 +30,8 @@
 -(id)init {
     
     if (self = [super init]) { //1
-        NSInteger clientID = 2994; //a
-        NSString *clientSecret = @"6b17bcebb30c4292e11965f0629e5add52d2486b"; //b
+        NSInteger clientID = 0; //a
+        NSString *clientSecret = @""; //hurray for old secrets in git, that luckily are no longer valid
         
         [[FRDStravaClient sharedInstance] initializeWithClientId:clientID clientSecret:clientSecret]; //b
     }
@@ -77,9 +77,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthorisedSuccessfully" object:nil];
         
     } else {
-        NSString *url = @"CG4Coursework://authorization";
-        
-        [[FRDStravaClient sharedInstance] authorizeWithCallbackURL:[NSURL URLWithString:url] stateInfo:nil];
+        [self authoriseNewAccount];
     }
 }
 
