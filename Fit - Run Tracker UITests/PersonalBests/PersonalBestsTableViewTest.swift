@@ -31,9 +31,10 @@ class PersonalBestsTableViewTest: XCTestCase {
         let app = XCUIApplication()
         app.tabBars.buttons["More"].tap()
         app.tables["table--more"].cells["cell--personalBests"].tap()
-        let personalBestsView = app.tables["table--personalBestsView"]
+        let personalBestsTable = app.tables["table--personalBestsView"]
 
-        XCTAssertEqual(personalBestsView.cells.count, 4)
+        XCTAssertTrue(personalBestsTable.waitForExistence(timeout: 0.5))
+        XCTAssertEqual(personalBestsTable.cells.count, 4)
     }
 
 }
