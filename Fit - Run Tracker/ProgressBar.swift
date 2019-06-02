@@ -13,7 +13,7 @@ class ProgressBar: UIView {
     // MARK: - Global Variables
 
     private let startAngle = CGFloat.pi //A global constant GFloat that stores the start angle for the bar (PI)
-    private let endAngle = CGFloat(M_PI * 2) //A global constant CGFloat that stores the end angle for the bar (2PI)
+    private let endAngle = CGFloat(Double.pi * 2) //A global constant CGFloat that stores the end angle for the bar (2PI)
 
     private var progress: CGFloat = 0.0 //A global variable CGFloat that stores the progress amount
 

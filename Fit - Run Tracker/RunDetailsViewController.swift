@@ -207,15 +207,13 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
     :param: overlay The MKOverlay object that is to be rendered.
     :returns: The MKOverlayRenderer to use to present the overlay on the map.
     */
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        assert(overlay is MKPolyline)
 
-        if overlay is MKPolyline { //1
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
-            polylineRenderer.strokeColor = UIColor.green //b
-            polylineRenderer.lineWidth = 4 //c
-            return polylineRenderer //d
-        }
-        return nil //2
+        let polylineRenderer = MKPolylineRenderer(overlay: overlay) //a
+        polylineRenderer.strokeColor = UIColor.green //b
+        polylineRenderer.lineWidth = 4 //c
+        return polylineRenderer //d
     }
 
 }

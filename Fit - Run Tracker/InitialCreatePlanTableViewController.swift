@@ -76,7 +76,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     
     :param: sender The object that called the action (in this case the startDatePicker).
     */
-    func updateStartDate(sender: AnyObject) {
+    @objc func updateStartDate(sender: AnyObject) {
         startDateDetailLabel.text = (startDatePicker.date as NSDate).shortDateString()
         endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date
         endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
@@ -88,7 +88,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     
     :param: sender The object that called the action (in this case the endDatePicker).
     */
-    func updateEndDate(sender: AnyObject) {
+    @objc func updateEndDate(sender: AnyObject) {
         endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
     }
 
