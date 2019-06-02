@@ -34,6 +34,7 @@
 		B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B636014F1A9A0ACA0020FB80 /* Extensions.swift */; };
 		B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */; };
 		B647B1AA22A3D72100150530 /* RunsTableViewUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B647B1A922A3D72100150530 /* RunsTableViewUITest.swift */; };
+		B647B1AE22A40E4C00150530 /* StravaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B647B1AD22A40E4C00150530 /* StravaClient.swift */; };
 		B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */; };
 		B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */; };
 		B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B649540D1AA3627800A00C1B /* HealthKit.framework */; };
@@ -138,6 +139,7 @@
 		B636014F1A9A0ACA0020FB80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRunTableViewCell.swift; sourceTree = "<group>"; };
 		B647B1A922A3D72100150530 /* RunsTableViewUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunsTableViewUITest.swift; sourceTree = "<group>"; };
+		B647B1AD22A40E4C00150530 /* StravaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaClient.swift; sourceTree = "<group>"; };
 		B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalBestsTableViewController.swift; sourceTree = "<group>"; };
 		B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesAndWeightViewController.swift; sourceTree = "<group>"; };
 		B649540D1AA3627800A00C1B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -276,6 +278,7 @@
 		B621B7411A48C65100A4A49C /* Fit - Run Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B647B1AC22A40E2B00150530 /* Strava */,
 				B69B80C32274F762000C05D2 /* PersonalBests */,
 				B6F2DCE82258FA6C00233179 /* Store */,
 				B6CFA95B1A9F6067000EDB00 /* Graph.swift */,
@@ -377,6 +380,14 @@
 				B647B1A922A3D72100150530 /* RunsTableViewUITest.swift */,
 			);
 			path = Runs;
+			sourceTree = "<group>";
+		};
+		B647B1AC22A40E2B00150530 /* Strava */ = {
+			isa = PBXGroup;
+			children = (
+				B647B1AD22A40E4C00150530 /* StravaClient.swift */,
+			);
+			path = Strava;
 			sourceTree = "<group>";
 		};
 		B649540A1AA35BBA00A00C1B /* Calories and Weight */ = {
@@ -807,6 +818,7 @@
 				B6F2DCEE225900B200233179 /* StoreTableViewDataSource.swift in Sources */,
 				B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */,
 				B618ABF61A53255E0050EFF0 /* RunDetailsViewController.swift in Sources */,
+				B647B1AE22A40E4C00150530 /* StravaClient.swift in Sources */,
 				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
 				B69B80C72274F799000C05D2 /* PersonalBestStore.swift in Sources */,
