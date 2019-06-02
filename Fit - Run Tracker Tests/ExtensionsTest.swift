@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import DateToolsSwift
+
 @testable import Fit___Run_Tracker
 
 class ExtensionsTest: XCTestCase {
@@ -25,31 +27,22 @@ class ExtensionsTest: XCTestCase {
         let dateString = "07/06/2014"
 
         let dateRes = NSDate(shortDateString: dateString)
-        let expectDate = NSDate(timeIntervalSince1970: 1402099200)
+        let expectDate = Date.init(dateString: "07/06/2014", format: "dd/MM/yyyy")
 
-        XCTAssertEqual(dateRes, expectDate)
+        XCTAssertEqual(dateRes as Date, expectDate)
     }
 
     func test_givenDatabaseDateString_whenInitialisingDate_thenDateIsCorrect() {
         let dateString = "07/06/201417:54:23"
 
         let dateRes = NSDate(databaseString: dateString)
-        let expectDate = NSDate(timeIntervalSince1970: 1402163663)
+        let expectDate = Date.init(dateString: "07/06/201417:54:23", format: "dd/MM/yyyyHH:mm:ss")
 
-        XCTAssertEqual(dateRes, expectDate)
-    }
-
-    func test_givenDate_whenConvertingToShortString_thenStringIsCorrect() {
-        let date = NSDate(timeIntervalSince1970: 1402099200)
-
-        let stringRes = date.databaseString()
-        let expectString = "07/06/2014"
-
-        XCTAssertEqual(stringRes, expectString)
+        XCTAssertEqual(dateRes as Date, expectDate)
     }
 
     func test_givenDate_whenConvertingToDatabaseString_thenStringIsCorrect() {
-        let date = NSDate(timeIntervalSince1970: 1402163663)
+        let date = Date.init(dateString: "07/06/201417:54:23", format: "dd/MM/yyyyHH:mm:ss") as NSDate
 
         let stringRes = date.databaseString()
         let expectString = "07/06/201417:54:23"
@@ -57,28 +50,37 @@ class ExtensionsTest: XCTestCase {
         XCTAssertEqual(stringRes, expectString)
     }
 
-    func test_givenDate_whenConvertingToShortestString_thenStringIsCorrect() {
-        let date = NSDate(timeIntervalSince1970: 1402099200)
+    func test_givenDate_whenConvertingToShortString_thenStringIsCorrect() {
+        let date = Date.init(dateString: "07/06/2014", format: "dd/MM/yyyy") as NSDate
 
-        let stringRes = date.databaseString()
+        let stringRes = date.shortDateString()
+        let expectString = "07/06/2014"
+
+        XCTAssertEqual(stringRes, expectString)
+    }
+
+    func test_givenDate_whenConvertingToShortestString_thenStringIsCorrect() {
+        let date = Date.init(dateString: "07/06/2014", format: "dd/MM/yyyy") as NSDate
+
+        let stringRes = date.shortestDateString()
         let expectString = "07/06/14"
 
         XCTAssertEqual(stringRes, expectString)
     }
 
     func test_givenDate_whenConvertingToMonthYear_thenStringIsCorrect() {
-        let date = NSDate(timeIntervalSince1970: 1402099200)
+        let date = Date.init(dateString: "07/06/2014", format: "dd/MM/yyyy") as NSDate
 
-        let stringRes = date.databaseString()
+        let stringRes = date.monthYearString()
         let expectString = "06/2014"
 
         XCTAssertEqual(stringRes, expectString)
     }
 
     func test_givenDate_whenConvertingTo12HourTimeString_thenStringIsCorrect() {
-        let date = NSDate(timeIntervalSince1970: 1402163663)
+        let date = Date.init(dateString: "07/06/201417:54:23", format: "dd/MM/yyyyHH:mm:ss") as NSDate
 
-        let stringRes = date.databaseString()
+        let stringRes = date.timeString12Hour()
         let expectString = "05:54 pm"
 
         XCTAssertEqual(stringRes, expectString)
