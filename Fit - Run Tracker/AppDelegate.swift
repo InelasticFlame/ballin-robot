@@ -31,6 +31,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.set(65.0, forKey: Constants.DefaultsKeys.Weight.GoalKey)
         userDefaults.set(2000, forKey: Constants.DefaultsKeys.Calories.GoalKey)
         userDefaults.set(true, forKey: Constants.DefaultsKeys.InitialSetup.SetupKey)
+
+        let runs = Database().loadRuns(withQuery: "") as! [Run]
+        for run in runs {
+            Database().deleteRun(run)
+        }
+
+        if ProcessInfo.processInfo.arguments.contains("addRuns") {
+            let run1 = Run(runID: 1, distance: 15.4, dateTime: NSDate.init(timeIntervalSinceNow: 0), pace: 540, duration: 8316, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)
+            run1.calculateRunScore()
+            Database().saveRun(run1)
+            let run2 = Run(runID: 2, distance: 5.4, dateTime: NSDate.init(timeIntervalSinceNow: 0), pace: 500, duration: 2700, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)
+            run2.calculateRunScore()
+            Database().saveRun(run2)
+        }
     }
 
     /**
@@ -47,4 +61,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+
 }

@@ -40,7 +40,7 @@ class ConversionsTest: XCTestCase {
     }
 
     func test_givenDistanceUnitIsKmPerH_whenGettingPaceForInterface_thenKmPerHFormatIsUsed() {
-                UserDefaults.standard.set(Constants.DefaultsKeys.Pace.KMPerH, forKey: Constants.DefaultsKeys.Pace.UnitKey)
+        UserDefaults.standard.set(Constants.DefaultsKeys.Pace.KMPerH, forKey: Constants.DefaultsKeys.Pace.UnitKey)
 
         let res = Conversions().averagePaceForInterface(pace: 630)
 
