@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.7.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - DateToolsSwift (4.0.0)
   - FRDStravaClient (1.0.2):
     - AFNetworking (~> 2.0)
     - Mantle (= 1.5)
@@ -29,20 +30,23 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - DateToolsSwift
   - FRDStravaClient (~> 1.0.2)
   - Mantle (= 1.5)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - DateToolsSwift
     - FRDStravaClient
     - Mantle
 
 SPEC CHECKSUMS:
   AFNetworking: 8dd5f9b9691e09186393069a12cc3b5ed7c8b511
+  DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FRDStravaClient: ab35c439a42a1f5e657281a26d1c8387c14795c8
   Mantle: 3bf6db311c8b4a19b6be01f2483fa4590aa166f3
 
-PODFILE CHECKSUM: 35a64ba2a2b57337b9fca6c2e0d43955a816e849
+PODFILE CHECKSUM: df80816b6e2054e394788c279f01e2833ecbd67a
 
 COCOAPODS: 1.5.3
