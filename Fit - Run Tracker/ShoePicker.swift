@@ -64,7 +64,7 @@ class ShoePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     :param: component An integer identifying the component that the row is in.
     :returns: A string that is the title for the row.
     */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 { //1
             return "None" //a
         } else { //2

@@ -266,7 +266,7 @@ class Graph: UIView {
         textLayer.foregroundColor = UIColor.black.cgColor
         textLayer.frame = CGRect.init(x: xCoord, y: yCoord, width: 100, height: 12)
         textLayer.contentsScale = UIScreen.main.scale
-        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI/2)))
+        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(Double.pi/2)))
         textLayer.position = CGPoint.init(x: xCoord, y: yCoord)
         self.layer.addSublayer(textLayer)
     }

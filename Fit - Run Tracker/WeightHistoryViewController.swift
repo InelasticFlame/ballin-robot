@@ -92,11 +92,11 @@ class WeightHistoryViewController: UIViewController {
     :param: endDate The end of the first day to retrieve the weight data from.
     */
     func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
-        var weightUnit = HKUnit(from: .kilogram) //1
+        let weightUnit = HKUnit(from: .kilogram) //1
 
         let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
 
-        var predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //3
+        let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //3
 
         self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (result, error) -> Void in //4
             /* BLOCK A START */

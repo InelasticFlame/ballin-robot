@@ -130,7 +130,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: indexPath The NSIndexPath of the row that's height is being requested.
     :returns: A CGFloat value that is the rows height.
     */
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 
@@ -146,7 +146,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
     :param: editingStyle The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath.
     :param: indexPath The NSIndexPath of the cell that the deletion or insertion is to be performed on.
     */
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete { //1
             if let plan = plan { //a
                 if Database().deletePlannedRun(plan.plannedRuns[indexPath.row]) { //b

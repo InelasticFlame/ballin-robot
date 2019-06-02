@@ -213,9 +213,6 @@ extension String {
             error = "\(stringName) must only contain letters, numbers or ?!." //6a
             return (stringTester.evaluate(with: testString), error) //6b
         }
-
-        return (false, error) //7
-
     }
 }
 

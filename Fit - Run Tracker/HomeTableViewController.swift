@@ -115,7 +115,7 @@ class HomeTableViewController: UITableViewController {
     
     :param: timer The NSTimer object that calls the function.
     */
-    func loadShoes(timer: Timer) {
+    @objc func loadShoes(timer: Timer) {
         shoes = Database().loadAllShoes() as! [Shoe] //1
         if shoes.count > 0 { //2
             let userInfo = timer.userInfo as! NSDictionary //a
