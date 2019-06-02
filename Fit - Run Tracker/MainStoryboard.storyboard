@@ -545,6 +545,9 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="table--myruns"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="Ps4-eg-EVW" id="aj7-wp-ycI"/>
                             <outlet property="delegate" destination="Ps4-eg-EVW" id="EpM-KF-3NO"/>
@@ -4649,6 +4652,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--addRun--dateTime"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="CEq-ej-pDf">
                                         <rect key="frame" x="0.0" y="79" width="375" height="179"/>
@@ -4665,6 +4669,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="446494616.28639901">
                                                         <!--2015-02-24 18:16:56 +0000-->
                                                     </date>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="picker--addRun--dateTime"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="4fQ-kN-7OZ"/>
@@ -4739,6 +4746,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--addRun--distance">
+                                            <bool key="isElement" value="NO"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="Xae-rm-c1w">
                                         <rect key="frame" x="0.0" y="302" width="375" height="179"/>
@@ -4749,6 +4759,7 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRt-eF-aEs" customClass="DistancePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8.5" width="359" height="162"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="picker--addRun--distance"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="H7O-UC-YET"/>
                                                     </constraints>
@@ -4826,6 +4837,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--addRun--pace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="7NX-zM-OPa">
                                         <rect key="frame" x="0.0" y="525" width="375" height="179"/>
@@ -4836,6 +4848,7 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsV-az-Z7v" customClass="PacePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8.5" width="359" height="162"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="picker--addRun--pace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="UQO-tE-jhc"/>
                                                     </constraints>
@@ -4913,6 +4926,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--addRun--duration"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="l0d-FS-9El">
                                         <rect key="frame" x="0.0" y="748" width="375" height="179"/>
@@ -4923,6 +4937,7 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0b2-bL-cK3" customClass="DurationPicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8.5" width="375" height="162"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="picker--addRun--duration"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="ef5-cp-h3L"/>
                                                     </constraints>
@@ -5000,6 +5015,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="cell--addRun--shoe"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="CXb-eo-QH1">
                                         <rect key="frame" x="0.0" y="971" width="375" height="179"/>
@@ -5010,6 +5026,7 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuW-mF-DGP" customClass="ShoePicker" customModule="Fit___Run_Tracker" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8.5" width="375" height="162"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="picker--addRun--shoe"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="162" id="aIC-77-3fx"/>
                                                     </constraints>
@@ -5061,6 +5078,9 @@
                                 </cells>
                             </tableViewSection>
                         </sections>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="table--addRun"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="b5M-JG-DYN" id="SBN-J1-3HC"/>
                             <outlet property="delegate" destination="b5M-JG-DYN" id="BfQ-Cd-mn9"/>
@@ -5712,7 +5732,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="mLJ-aW-w2Z"/>
         <segue reference="gOP-y7-gl8"/>
-        <segue reference="DBo-6W-Tg1"/>
+        <segue reference="bsH-SD-FIg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

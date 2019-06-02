@@ -31,6 +31,7 @@
 		B621B77D1A48DB6B00A4A49C /* PlannedRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */; };
 		B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B636014F1A9A0ACA0020FB80 /* Extensions.swift */; };
 		B63601531A9A36630020FB80 /* PlannedRunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */; };
+		B647B1AA22A3D72100150530 /* RunsTableViewUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B647B1A922A3D72100150530 /* RunsTableViewUITest.swift */; };
 		B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */; };
 		B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */; };
 		B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B649540D1AA3627800A00C1B /* HealthKit.framework */; };
@@ -130,6 +131,7 @@
 		B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRun.swift; sourceTree = "<group>"; };
 		B636014F1A9A0ACA0020FB80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedRunTableViewCell.swift; sourceTree = "<group>"; };
+		B647B1A922A3D72100150530 /* RunsTableViewUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunsTableViewUITest.swift; sourceTree = "<group>"; };
 		B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalBestsTableViewController.swift; sourceTree = "<group>"; };
 		B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesAndWeightViewController.swift; sourceTree = "<group>"; };
 		B649540D1AA3627800A00C1B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -229,6 +231,7 @@
 		B6098E932248231100D6DDA7 /* Fit - Run Tracker UITests */ = {
 			isa = PBXGroup;
 			children = (
+				B647B1A822A3D6EF00150530 /* Runs */,
 				B694FC3C228087770074A893 /* PersonalBests */,
 				B6098E962248231100D6DDA7 /* Info.plist */,
 			);
@@ -363,6 +366,14 @@
 				B63601521A9A36630020FB80 /* PlannedRunTableViewCell.swift */,
 			);
 			name = "Create Plan";
+			sourceTree = "<group>";
+		};
+		B647B1A822A3D6EF00150530 /* Runs */ = {
+			isa = PBXGroup;
+			children = (
+				B647B1A922A3D72100150530 /* RunsTableViewUITest.swift */,
+			);
+			path = Runs;
 			sourceTree = "<group>";
 		};
 		B649540A1AA35BBA00A00C1B /* Calories and Weight */ = {
@@ -677,6 +688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B694FC3E2280878C0074A893 /* PersonalBestsTableViewTest.swift in Sources */,
+				B647B1AA22A3D72100150530 /* RunsTableViewUITest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
