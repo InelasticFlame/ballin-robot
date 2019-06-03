@@ -112,7 +112,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlannedRun", for: indexPath as IndexPath) as! PlannedRunTableViewCell //1
         let plannedRun = plan?.plannedRuns[indexPath.row] //2
 
-        cell.dateLabel.text = plannedRun?.date.shortestDateString() //3
+        cell.dateLabel.text = plannedRun?.date.asShortestDateString //3
         cell.detailsLabel.text = plannedRun?.details //4
         if plannedRun!.distance > 0 { //5
             cell.distanceDurationLabel.text = Conversions().distanceForInterface(distance: plannedRun!.distance) //a

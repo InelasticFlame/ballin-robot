@@ -74,7 +74,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         b. Sets the runDistanceDuration label text to the plannedDurationPicker selected duration as a string
     */
     @objc func updateDetailLabels() {
-        runDateDetailLabel.text = (plannedRunDatePicker.date as NSDate).shortDateString() //1
+        runDateDetailLabel.text = plannedRunDatePicker.date.asShortDateString
         if distanceDurationSegement.selectedSegmentIndex == 0 { //2
             runDistanceDurationDetailLabel.text = plannedDistancePicker.selectedDistance().distanceStr //a
         } else if distanceDurationSegement.selectedSegmentIndex == 1 { //3
@@ -254,7 +254,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
 
         if error == "" { //8
             var timeInterval: Double = 0 //e
-            var repeatEndDate = NSDate()
+            var repeatEndDate = Date()
 
             showError = false //f
             tableView.reloadTableViewCells() //g
@@ -281,21 +281,21 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
 
                 if let endRepeatCell = tableView.cellForRow(at: NSIndexPath(row: 8, section: 0) as IndexPath) { //viii
                     if endRepeatCell.detailTextLabel?.text == "Until Plan End" { //ix
-                        repeatEndDate = NSDate(timeInterval: secondsInDay, since: plan!.endDate as Date) //x
+                        repeatEndDate = plan!.endDate.add(1.days)
                     } else { //xi
-                        repeatEndDate = NSDate(timeInterval: secondsInDay, since: NSDate(shortDateString: endRepeatCell.detailTextLabel!.text!) as Date) //xii
+                        repeatEndDate = Date(shortDateString: endRepeatCell.detailTextLabel!.text!).add(1.days) //xii
                     }
                 }
 
                 var plannedRunDate = plannedRunDatePicker.date //xiii
 
                 while plannedRunDate.compare(repeatEndDate as Date) == .orderedAscending { //xiv
-                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDate as NSDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
+                    let plannedRun = PlannedRun(ID: 0, date: plannedRunDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
                     Database().savePlannedRun(plannedRun, forPlan: plan)
-                    plannedRunDate = NSDate(timeInterval: timeInterval, since: plannedRunDate) as Date //xvi
+                    plannedRunDate = plannedRunDate.addingTimeInterval(timeInterval) //xvi
                 }
             } else { //i
-                let plannedRun = PlannedRun(ID: 0, date: plannedRunDatePicker!.date as NSDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //j
+                let plannedRun = PlannedRun(ID: 0, date: plannedRunDatePicker!.date, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //j
 
                 Database().savePlannedRun(plannedRun, forPlan: plan)
             }
@@ -330,7 +330,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
         } else if segue.identifier == "repeatEndDatePress" { //2
             if let destinationVC = segue.destination as? RepeatSettingsTableViewController { //b
                 destinationVC.repeatEnd = tableView.cellForRow(at: NSIndexPath(row: 8, section: 0) as IndexPath)?.detailTextLabel?.text //ii
-                destinationVC.plannedRunDate = plannedRunDatePicker.date as NSDate //iii
+                destinationVC.plannedRunDate = plannedRunDatePicker.date //iii
             }
         }
 

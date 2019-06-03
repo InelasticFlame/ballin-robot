@@ -17,7 +17,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     // MARK: - Global Variables
 
     var repeatEnd: String? //A global string variable that stores the selected repeat end option (if one has been previously set). This value is set by the NewPlannedRunTableView controller when the segue to this view is called.
-    var plannedRunDate: NSDate? //A global optional NSDate variable that stores the date of the planned run. This is so that the repeat end cannot be set to before the planned run date.
+    var plannedRunDate: Date? //A global optional NSDate variable that stores the date of the planned run. This is so that the repeat end cannot be set to before the planned run date.
 
     // MARK: - View Life Cycle
 
@@ -29,8 +29,8 @@ class RepeatSettingsTableViewController: UITableViewController {
     :param: animated A boolean that indicates whether the view is being added to the window using an animation.
     */
     override func viewWillAppear(_ animated: Bool) {
-        repeatEndDatePicker.minimumDate = plannedRunDate as! Date //1
-        dateDetailLabel.text = (repeatEndDatePicker.date as NSDate).shortDateString() //2
+        repeatEndDatePicker.minimumDate = plannedRunDate //1
+        dateDetailLabel.text = repeatEndDatePicker.date.asShortDateString //2
     }
 
     /**
@@ -70,7 +70,7 @@ class RepeatSettingsTableViewController: UITableViewController {
 
             if let previousVC = self.navigationController?.viewControllers[viewControllers - 2] as? NewPlannedRunTableViewController { //a
                 if tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text == "Date" { //b
-                    let selectedEndDate = (repeatEndDatePicker.date as NSDate).shortDateString()
+                    let selectedEndDate = repeatEndDatePicker.date.asShortDateString
                     previousVC.setRepeatEndDetailLabelText(repeatEndOption: selectedEndDate) //i
                 } else { //c
                     if let selectedRepeatEndOption = tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text {
@@ -100,7 +100,7 @@ class RepeatSettingsTableViewController: UITableViewController {
         if repeatEnd == "Until Plan End" { //1
             tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.accessoryType = .checkmark //a
         } else if let repeatEnd = repeatEnd { //2
-            let repeatEndDate = NSDate(shortDateString: repeatEnd) //a
+            let repeatEndDate = Date(shortDateString: repeatEnd) //a
             tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //b
             repeatEndDatePicker.date = repeatEndDate as Date //c
             dateDetailLabel.text = repeatEnd //d
@@ -145,7 +145,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     :param: sender The UIDatePicker that triggered the method to be called.
     */
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
-        dateDetailLabel.text = (repeatEndDatePicker.date as NSDate).shortDateString() //1
+        dateDetailLabel.text = repeatEndDatePicker.date.asShortDateString //1
         clearCheckmarks() //2
         tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //3
     }

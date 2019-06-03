@@ -116,7 +116,7 @@ class AddRunTableViewController: UITableViewController {
         if let notification = notification { //1
             checkRunValues(notification: notification) //a
         }
-        runDateDetailLabel.text = (runDatePicker.date as NSDate).shortDateString()
+        runDateDetailLabel.text = runDatePicker.date.asShortDateString
         runDistanceDetailLabel.text = runDistancePicker.selectedDistance().distanceStr //3
         runPaceDetailLabel.text = runPacePicker.selectedPace().paceStr //4
         runDurationDetailLabel.text = runDurationPicker.selectedDuration().durationStr //5
@@ -221,7 +221,7 @@ class AddRunTableViewController: UITableViewController {
         let selectedShoe: Shoe? = runShoePicker.selectedShoe()
 
         if runDistance > 0 && runPace > 0 && runDuration > 0 { //2
-            let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker!.date as NSDate, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
+            let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker!.date, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
             run.calculateRunScore() //b
             Database().saveRun(run) //c
             Database().increaseShoeMiles(selectedShoe, byAmount: runDistance) //d

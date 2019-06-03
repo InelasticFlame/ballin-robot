@@ -40,8 +40,8 @@ class WeightHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let startDate = NSDate(shortDateString: NSDate().shortDateString()) //1
-        let endDate = NSDate(timeInterval: secondsInDay, since: startDate as Date) //2
+        let startDate = Date().startOfDay()
+        let endDate = startDate.endOfDay()
         loadWeightForLast7Days(startDate: startDate, endDate: endDate) //3
     }
 
@@ -91,12 +91,12 @@ class WeightHistoryViewController: UIViewController {
     :param: startDate The start of the first day to retrieve the weight data from.
     :param: endDate The end of the first day to retrieve the weight data from.
     */
-    func loadWeightForLast7Days(startDate: NSDate, endDate: NSDate) {
+    func loadWeightForLast7Days(startDate: Date, endDate: Date) {
         let weightUnit = HKUnit(from: .kilogram) //1
 
         let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
 
-        let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //3
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: []) //3
 
         self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (result, error) -> Void in //4
             /* BLOCK A START */
@@ -110,7 +110,7 @@ class WeightHistoryViewController: UIViewController {
 
                 DispatchQueue.main.async {
                     /* BLOCK B START */
-                    let dateStr = startDate.shortestDateString() //Z
+                    let dateStr = startDate.asShortestDateString //Z
                     let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
                     let xStr = dateStr.substring(to: charsToRemoveTo) //X
 
@@ -125,7 +125,7 @@ class WeightHistoryViewController: UIViewController {
             if result == nil { //c
                 DispatchQueue.main.async {
                     /* BLOCK C START */
-                    let dateStr = startDate.shortestDateString() //U
+                    let dateStr = startDate.asShortestDateString //U
                     let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
                     let xStr = dateStr.substring(to: charsToRemoveTo) //X
 
@@ -139,7 +139,7 @@ class WeightHistoryViewController: UIViewController {
 
             if self.graphCoords.count != 7 { //d
                 let endDate = startDate //v
-                let startDate = NSDate(timeInterval: -self.secondsInDay, since: endDate as Date) //vi
+                let startDate = endDate.subtract(1.days) //vi
                 self.loadWeightForLast7Days(startDate: startDate, endDate: endDate) //vii
             }
 

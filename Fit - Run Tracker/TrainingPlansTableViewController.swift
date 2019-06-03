@@ -104,7 +104,7 @@ class TrainingPlansTableViewController: UITableViewController {
         if indexPath.section == 0 { //1
             let cell = tableView.dequeueReusableCell(withIdentifier: "activePlan", for: indexPath as IndexPath) as UITableViewCell //1a
             cell.textLabel?.text = plans[0][indexPath.row].name //1b
-            cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.shortDateString() //1c
+            cell.detailTextLabel?.text = plans[0][indexPath.row].endDate.asShortDateString
 
             return cell //1d
         } else { //2

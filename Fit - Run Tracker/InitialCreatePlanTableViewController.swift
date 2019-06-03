@@ -44,10 +44,10 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
         startDatePicker.addTarget(self, action: #selector(InitialCreatePlanTableViewController.updateStartDate), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(InitialCreatePlanTableViewController.updateEndDate), for: .valueChanged)
 
-        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date //3
-        startDatePicker.minimumDate = NSDate() as Date
-        startDateDetailLabel.text = (startDatePicker.date as NSDate).shortDateString() //5
-        endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
+        endDatePicker.minimumDate = startDatePicker.date.add(1.days)
+        startDatePicker.minimumDate = Date()
+        startDateDetailLabel.text = startDatePicker.date.asShortDateString
+        endDateDetailLabel.text = endDatePicker.date.asShortDateString
     }
 
     // MARK: - Text Field
@@ -77,9 +77,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that called the action (in this case the startDatePicker).
     */
     @objc func updateStartDate(sender: AnyObject) {
-        startDateDetailLabel.text = (startDatePicker.date as NSDate).shortDateString()
-        endDatePicker.minimumDate = NSDate(timeInterval: secondsInDay, since: startDatePicker.date) as Date
-        endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
+        startDateDetailLabel.text = startDatePicker.date.asShortDateString
+        endDatePicker.minimumDate = startDatePicker.date.add(1.days)
+        endDateDetailLabel.text = endDatePicker.date.asShortDateString
     }
 
     /**

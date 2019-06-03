@@ -167,7 +167,8 @@ class HomeTableViewController: UITableViewController {
         }
 
         let goalMiles = UserDefaults.standard.double(forKey: Constants.DefaultsKeys.Distance.GoalKey) //2
-        let currentMonth = NSDate().monthYearString() //3
+        let currentMonth = Date().asMonthYearString
+        // HAHAHAHAHAHAHHAHAHAHAHHAHAHAHAH
         let runs = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '___\(currentMonth)%'") as! [Run] //4
         let totalMiles = Conversions().totalUpRunMiles(runs: runs) //5
         let progress = CGFloat(totalMiles/goalMiles) //6

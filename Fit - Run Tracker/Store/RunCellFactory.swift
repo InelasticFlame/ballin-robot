@@ -14,7 +14,7 @@ class RunCellFactory: CellFactory {
 
     func createCell(cell: RunTableViewCell, item run: Run) {
         cell.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance)
-        cell.dateLabel.text = run.dateTime.shortDateString()
+        cell.dateLabel.text = run.dateTime.asShortDateString
         cell.paceLabel.text = Conversions().averagePaceForInterface(pace: run.pace)
         cell.durationLabel.text = Conversions().runDurationForInterface(duration: run.duration)
 

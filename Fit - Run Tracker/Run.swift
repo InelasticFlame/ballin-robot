@@ -14,7 +14,7 @@ class Run: NSObject {
 
     var ID: Int //A property that stores the ID of a run
     var distance: Double //The distance of the run, stored in miles
-    var dateTime: NSDate //The date an time at which the run was ran
+    var dateTime: Date //The date an time at which the run was ran
     var pace: Int //The pace of the run, stored in secs per mile
     var duration: Int //The duration of the run, stored in seconds
     var shoe: Shoe? //The shoe for the run, if there is one
@@ -27,7 +27,7 @@ class Run: NSObject {
     override init() { //Creates a new run object with default values
         self.ID = 0
         self.distance = 0
-        self.dateTime = NSDate()
+        self.dateTime = Date()
         self.pace = 0
         self.duration = 0
         self.score = 0
@@ -38,7 +38,7 @@ class Run: NSObject {
     
     :param: runID The ID of the run.
     :param: distance The distance of the run in miles as a double.
-    :param: dateTime The time and date of the run as an NSDate object.
+    :param: dateTime The time and date of the run as an Date object.
     :param: pace The pace of the run in seconds per mile as an Integer.
     :param: duration The duration of the run in seconds as an Integer.
     :param: shoe The shoe that the run was ran in. This object is optional.
@@ -46,7 +46,7 @@ class Run: NSObject {
     :param: runLocations The array of CLLocation objects that map the route of the run.
     :param: splits The mile splits for the run as an Array of Integers in seconds per mile.
     */
-    init(runID: Int, distance: Double, dateTime: NSDate, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
+    init(runID: Int, distance: Double, dateTime: Date, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
         self.ID = runID
         self.distance = distance
         self.dateTime = dateTime
