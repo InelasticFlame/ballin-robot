@@ -38,10 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if ProcessInfo.processInfo.arguments.contains("addRuns") {
-            let run1 = Run(runID: 1, distance: 15.4, dateTime: NSDate.init(timeIntervalSinceNow: 0), pace: 540, duration: 8316, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)
+            let run1 = Run(runID: 1, distance: 15.4, dateTime: Date(), pace: 540, duration: 8316, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)
             run1.calculateRunScore()
             Database().saveRun(run1)
-            let run2 = Run(runID: 2, distance: 5.4, dateTime: NSDate.init(timeIntervalSinceNow: 0), pace: 500, duration: 2700, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)
+            let run2 = Run(runID: 2, distance: 5.4, dateTime: Date(), pace: 500, duration: 2700, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)
             run2.calculateRunScore()
             Database().saveRun(run2)
         }

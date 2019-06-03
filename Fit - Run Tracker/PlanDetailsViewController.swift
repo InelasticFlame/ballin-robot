@@ -151,7 +151,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlanDetails", for: indexPath as IndexPath) as! PlanDetailsTableViewCell //1
         if let plannedRun = plan?.plannedRuns[indexPath.row] { //2
 
-            cell.dateLabel.text = plannedRun.date.shortestDateString() //a
+            cell.dateLabel.text = plannedRun.date.toShortestDateString //a
             cell.detailLabel.text = plannedRun.details //b
 
             if plannedRun.distance > 0 { //c

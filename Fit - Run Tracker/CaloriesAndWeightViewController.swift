@@ -24,10 +24,9 @@ class CaloriesAndWeightViewController: UIViewController {
     @IBOutlet weak var weightErrorLabel: UILabel!
 
     // MARK: - Global Variables
-    private let secondsInDay: Double = 86400 //A global double constant that stores the number of seconds in a day
     private let healthStore = HKHealthStore() //A global HKHealthStore that is used to access the HealthKit data store
 
-    private var currentDate = NSDate() //A global NSDate variable that stores the current date of the view
+    private var currentDate = Date()
     private var currentWeight: Double = 0.0 //A global double variable that is used to store the current weight
     var caloriesBurnt: Double = 0.0 //A global double variable that is used to store the calories burnt
     var caloriesConsumed: Double = 0.0 //A global double variable that is used to store the calories consumed
@@ -146,13 +145,13 @@ class CaloriesAndWeightViewController: UIViewController {
     3. ELSE set the label to the current date as a short date string
     */
     func setDateLabel() {
-        if currentDate.isToday() { //1
+        if currentDate.isToday { //1
             self.navigationItem.prompt = "Today" //a
             nextDayButton.title = "" //b
-        } else if currentDate.isYesterday() { //2
+        } else if currentDate.isYesterday { //2
             self.navigationItem.prompt = "Yesterday" //c
         } else { //3
-            self.navigationItem.prompt = currentDate.shortDateString()
+            self.navigationItem.prompt = currentDate.toShortDateString
         }
     }
 
@@ -189,11 +188,10 @@ class CaloriesAndWeightViewController: UIViewController {
 
         let weightQuantity = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass) //2
 
-        let startDate = NSDate.distantPast as NSDate //3
-        let endDate = NSDate(timeInterval: secondsInDay - 1, since: NSDate(shortDateString: self.currentDate.shortDateString()) as Date) //4
-        //The 'end date' that is the very end of the day of the start date
+        let startDate = Date.distantPast
+        let endDate = currentDate.endOfDay()
 
-        let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: []) //5
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: []) //5
 
         self.healthStore.retrieveMostRecentSample(sampleType: weightQuantity!, predicate: predicate) { (currentWeight, error) -> Void in //6
             /* BLOCK A START */ //7
@@ -249,7 +247,8 @@ class CaloriesAndWeightViewController: UIViewController {
         let unit = HKUnit(from: .kilocalorie) //1
         let caloriesBurnt = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned) //2
         let caloriesConsumed = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed) //3
-        let predicate = HKQuery.predicateForSamples(withStart: NSDate(shortDateString: self.currentDate.shortDateString()) as Date, end: NSDate(timeInterval: secondsInDay - 1, since: NSDate(shortDateString: self.currentDate.shortDateString()) as Date) as Date, options: []) //4
+
+        let predicate = HKQuery.predicateForSamples(withStart: currentDate.startOfDay(), end: currentDate.endOfDay(), options: []) //4
 
         self.healthStore.retrieveSumOfSample(quantityType: caloriesConsumed!, unit: unit, predicate: predicate) { (sum, error) -> Void in //5
             /* BLOCK A START */ //6
@@ -372,7 +371,7 @@ class CaloriesAndWeightViewController: UIViewController {
     :param: sender The object that called the action (in this case the Next button).
     */
     @IBAction func nextButtonPress(sender: AnyObject) {
-        currentDate = NSDate(timeInterval: secondsInDay, since: currentDate as Date) //1
+        currentDate = currentDate.add(1.days)
         setDateLabel() //2
         loadWeightDataFromHealthKit() //3
         loadCalorieDataFromHealthKit() //4
@@ -390,7 +389,7 @@ class CaloriesAndWeightViewController: UIViewController {
     */
     @IBAction func previousDayPress(sender: AnyObject) {
         nextDayButton.title = "Next Day" //1
-        currentDate = NSDate(timeInterval: -secondsInDay, since: currentDate as Date) //2
+        currentDate = currentDate.subtract(1.days)
         setDateLabel() //3
         loadWeightDataFromHealthKit() //4
         loadCalorieDataFromHealthKit() //5

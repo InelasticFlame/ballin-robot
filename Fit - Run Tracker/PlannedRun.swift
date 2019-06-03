@@ -13,7 +13,7 @@ class PlannedRun: NSObject {
     // MARK: - Properties
 
     private(set) var ID: Int //A property that stores the ID of the Plan; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
-    var date: NSDate //An NSDate property that stores the date of the planned run
+    var date: Date //An NSDate property that stores the date of the planned run
     var distance: Double //A double property that stores the distance of the planned run (if 0 => planned run is for a duration instead)
     var duration: Int //An integer property that stores the duration of the planned run (if 0 => planned run is for a distance instead)
     var details: String? //A string property that store any details of the planned run
@@ -37,7 +37,7 @@ class PlannedRun: NSObject {
     :param: duration The duration to be ran in seconds as an integer (if the planned run is for a distance this value should be 0).
     :param: details The details for the Planned Run as a string. This value is optional.
     */
-    init(ID: Int, date: NSDate, distance: Double, duration: Int, details: String?) {
+    init(ID: Int, date: Date, distance: Double, duration: Int, details: String?) {
         self.ID = ID
         self.date = date
         self.distance = distance
@@ -81,7 +81,7 @@ class PlannedRun: NSObject {
         now - A constant NSDate that represents now
     */
     func checkForCompletedRun() {
-        let matchingRuns = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '%\(self.date.shortDateString())%'") as! [Run] //1
+        let matchingRuns = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '%\(self.date.toShortDateString)%'") as! [Run] //1
         var rank = 0 //2
         var matchingRun: Run? //3
 
@@ -108,7 +108,7 @@ class PlannedRun: NSObject {
 
         let now = NSDate() //5
 
-        if rank == 0 && now.compare(self.date as Date) == .orderedAscending { //6
+        if rank == 0 && now.compare(self.date) == .orderedAscending { //6
             rank = -1 //a
         }
 

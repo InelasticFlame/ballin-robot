@@ -14,8 +14,8 @@ class Plan: NSObject {
 
     private(set) var ID: Int //A property that stores the ID of the Plan; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
     var name: String //A string property that stores the name of the plan
-    var startDate: NSDate //An NSDate property that stores the startDate of the plan
-    var endDate: NSDate //An NSDate property that stores the endDate of the plan
+    var startDate: Date //An NSDate property that stores the startDate of the plan
+    var endDate: Date //An NSDate property that stores the endDate of the plan
     var active = false //A boolean property that stores whether the plan is active or not
     var plannedRuns = [PlannedRun]() //An array of PlannedRun objects that stores the planned runs for the plan
 
@@ -31,7 +31,7 @@ class Plan: NSObject {
     :param: startDate The date that the Plan starts as an NSDate.
     :param: endDate The date that the Plan ends as an NSDate.
     */
-    init(ID: Int, name: String, startDate: NSDate, endDate: NSDate) {
+    init(ID: Int, name: String, startDate: Date, endDate: Date) {
         self.ID = ID
         self.name = name
         self.startDate = startDate
@@ -55,10 +55,10 @@ class Plan: NSObject {
         endDate - A constant NSDate that is the very end of the plan end date day
     */
     func checkIfActive() {
-        let today = NSDate()
+        let today = Date()
         let endDate = self.endDate.addingTimeInterval(86399)
 
-        if today.earlierDate(startDate as Date) == startDate as Date && today.laterDate(endDate as Date) == endDate as Date {
+        if today.earlierDate(startDate) == startDate && today.laterDate(endDate) == endDate {
             self.active = true
         } else {
             self.active = false

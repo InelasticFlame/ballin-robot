@@ -26,19 +26,19 @@ class ExtensionsTest: XCTestCase {
     func test_givenShortDateString_whenInitialisingDate_thenDateIsCorrect() {
         let dateString = "07/06/2014"
 
-        let dateRes = NSDate(shortDateString: dateString)
+        let dateRes = Date(shortDateString: dateString)
         let expectDate = Date.init(dateString: "07/06/2014", format: "dd/MM/yyyy")
 
-        XCTAssertEqual(dateRes as Date, expectDate)
+        XCTAssertEqual(dateRes, expectDate)
     }
 
     func test_givenDatabaseDateString_whenInitialisingDate_thenDateIsCorrect() {
         let dateString = "07/06/201417:54:23"
 
-        let dateRes = NSDate(databaseString: dateString)
+        let dateRes = Date(databaseString: dateString)
         let expectDate = Date.init(dateString: "07/06/201417:54:23", format: "dd/MM/yyyyHH:mm:ss")
 
-        XCTAssertEqual(dateRes as Date, expectDate)
+        XCTAssertEqual(dateRes, expectDate)
     }
 
     func test_givenDate_whenConvertingToDatabaseString_thenStringIsCorrect() {
@@ -81,7 +81,7 @@ class ExtensionsTest: XCTestCase {
         let date = Date.init(dateString: "07/06/201417:54:23", format: "dd/MM/yyyyHH:mm:ss") as NSDate
 
         let stringRes = date.timeString12Hour()
-        let expectString = "05:54 pm"
+        let expectString = "05:54 PM"
 
         XCTAssertEqual(stringRes, expectString)
     }

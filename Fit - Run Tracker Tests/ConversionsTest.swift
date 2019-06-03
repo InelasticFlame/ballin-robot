@@ -104,9 +104,9 @@ class ConversionsTest: XCTestCase {
     }
 
     private func CreateRuns() -> [Run] {
-        let date1 = NSDate.init(timeIntervalSinceReferenceDate: 5000)
-        let date2 = NSDate.init(timeIntervalSinceReferenceDate: 8000)
-        let date3 = NSDate.init(timeIntervalSinceReferenceDate: 3000)
+        let date1 = Date(timeIntervalSinceReferenceDate: 5000)
+        let date2 = Date(timeIntervalSinceReferenceDate: 8000)
+        let date3 = Date(timeIntervalSinceReferenceDate: 3000)
 
         let run1 = Run(runID: 1, distance: 9.76, dateTime: date1, pace: 0, duration: 0, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
         let run2 = Run(runID: 2, distance: 6.5, dateTime: date2, pace: 0, duration: 0, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
@@ -116,9 +116,9 @@ class ConversionsTest: XCTestCase {
     }
 
     private func CreatePlannedRuns() -> [PlannedRun] {
-        let date1 = NSDate.init(timeIntervalSinceReferenceDate: 5000)
-        let date2 = NSDate.init(timeIntervalSinceReferenceDate: 8000)
-        let date3 = NSDate.init(timeIntervalSinceReferenceDate: 3000)
+        let date1 = Date(timeIntervalSinceReferenceDate: 5000)
+        let date2 = Date(timeIntervalSinceReferenceDate: 8000)
+        let date3 = Date(timeIntervalSinceReferenceDate: 3000)
 
         let plannedRun1 = PlannedRun(ID: 1, date: date1, distance: 5, duration: 5, details: nil)
         let plannedRun2 = PlannedRun(ID: 2, date: date2, distance: 5, duration: 5, details: nil)
