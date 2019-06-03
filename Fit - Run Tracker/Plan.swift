@@ -58,7 +58,7 @@ class Plan: NSObject {
         let today = Date()
         let endDate = self.endDate.addingTimeInterval(86399)
 
-        if today.earlierDate(startDate as Date) == startDate as Date && today.laterDate(endDate as Date) == endDate as Date {
+        if today.earlierDate(startDate) == startDate && today.laterDate(endDate) == endDate {
             self.active = true
         } else {
             self.active = false

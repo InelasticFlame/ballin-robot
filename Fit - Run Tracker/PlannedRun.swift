@@ -108,7 +108,7 @@ class PlannedRun: NSObject {
 
         let now = NSDate() //5
 
-        if rank == 0 && now.compare(self.date as Date) == .orderedAscending { //6
+        if rank == 0 && now.compare(self.date) == .orderedAscending { //6
             rank = -1 //a
         }
 

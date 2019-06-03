@@ -102,7 +102,7 @@ class RepeatSettingsTableViewController: UITableViewController {
         } else if let repeatEnd = repeatEnd { //2
             let repeatEndDate = Date(shortDateString: repeatEnd) //a
             tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //b
-            repeatEndDatePicker.date = repeatEndDate as Date //c
+            repeatEndDatePicker.date = repeatEndDate //c
             dateDetailLabel.text = repeatEnd //d
         }
     }

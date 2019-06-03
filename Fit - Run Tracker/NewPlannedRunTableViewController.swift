@@ -289,7 +289,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
 
                 var plannedRunDate = plannedRunDatePicker.date //xiii
 
-                while plannedRunDate.compare(repeatEndDate as Date) == .orderedAscending { //xiv
+                while plannedRunDate.compare(repeatEndDate) == .orderedAscending { //xiv
                     let plannedRun = PlannedRun(ID: 0, date: plannedRunDate, distance: planDistance, duration: planDuration, details: runDetailsTextField.text) //xv
                     Database().savePlannedRun(plannedRun, forPlan: plan)
                     plannedRunDate = plannedRunDate.addingTimeInterval(timeInterval) //xvi
