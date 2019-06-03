@@ -152,7 +152,7 @@ class CaloriesAndWeightViewController: UIViewController {
         } else if currentDate.isYesterday { //2
             self.navigationItem.prompt = "Yesterday" //c
         } else { //3
-            self.navigationItem.prompt = currentDate.asShortDateString
+            self.navigationItem.prompt = currentDate.toShortDateString
         }
     }
 

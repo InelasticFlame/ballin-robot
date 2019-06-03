@@ -30,7 +30,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     */
     override func viewWillAppear(_ animated: Bool) {
         repeatEndDatePicker.minimumDate = plannedRunDate //1
-        dateDetailLabel.text = repeatEndDatePicker.date.asShortDateString //2
+        dateDetailLabel.text = repeatEndDatePicker.date.toShortDateString //2
     }
 
     /**
@@ -70,7 +70,7 @@ class RepeatSettingsTableViewController: UITableViewController {
 
             if let previousVC = self.navigationController?.viewControllers[viewControllers - 2] as? NewPlannedRunTableViewController { //a
                 if tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text == "Date" { //b
-                    let selectedEndDate = repeatEndDatePicker.date.asShortDateString
+                    let selectedEndDate = repeatEndDatePicker.date.toShortDateString
                     previousVC.setRepeatEndDetailLabelText(repeatEndOption: selectedEndDate) //i
                 } else { //c
                     if let selectedRepeatEndOption = tableView.cellForRow(at: indexPath as IndexPath)?.textLabel?.text {
@@ -145,7 +145,7 @@ class RepeatSettingsTableViewController: UITableViewController {
     :param: sender The UIDatePicker that triggered the method to be called.
     */
     @IBAction func endDatePickerValueChanged(sender: UIDatePicker) {
-        dateDetailLabel.text = repeatEndDatePicker.date.asShortDateString //1
+        dateDetailLabel.text = repeatEndDatePicker.date.toShortDateString //1
         clearCheckmarks() //2
         tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark //3
     }

@@ -63,8 +63,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         if let run = run { //4
             overlayView.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance) //c
             overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) as String //d
-            overlayView.timeLabel.text = run.dateTime.as12HourTimeString //e
-            overlayView.dateLabel.text = run.dateTime.asShortDateString //f
+            overlayView.timeLabel.text = run.dateTime.to12HourTimeString //e
+            overlayView.dateLabel.text = run.dateTime.toShortDateString //f
 
             let progressBackground = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width * CGFloat(run.score / 1000), height: 35)) //g
             progressBackground.backgroundColor = run.scoreColour() //h

@@ -116,7 +116,7 @@ class AddRunTableViewController: UITableViewController {
         if let notification = notification { //1
             checkRunValues(notification: notification) //a
         }
-        runDateDetailLabel.text = runDatePicker.date.asShortDateString
+        runDateDetailLabel.text = runDatePicker.date.toShortDateString
         runDistanceDetailLabel.text = runDistancePicker.selectedDistance().distanceStr //3
         runPaceDetailLabel.text = runPacePicker.selectedPace().paceStr //4
         runDurationDetailLabel.text = runDurationPicker.selectedDuration().durationStr //5

@@ -61,7 +61,7 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yyyyHH:mm:ss" as a string
     */
     func databaseString() -> String {
-        return (self as Date).asDatabaseString
+        return (self as Date).toDatabaseString
     }
 
     /**
@@ -77,7 +77,7 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yyyy" as a string
     */
     func shortDateString() -> String {
-        return (self as Date).asShortDateString
+        return (self as Date).toShortDateString
     }
 
     /**
@@ -86,7 +86,7 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yy" as a string
     */
     func shortestDateString() -> String {
-        return (self as Date).asShortestDateString
+        return (self as Date).toShortestDateString
     }
 
     /**
@@ -95,7 +95,7 @@ extension NSDate {
     :returns: The date in the form "/MM/yyyy" as a string
     */
     func monthYearString() -> String {
-        return (self as Date).asMonthYearString
+        return (self as Date).toMonthYearString
     }
 
     /**
@@ -104,7 +104,7 @@ extension NSDate {
     :returns: The time portion of the date in the form "HH:mm a" as a string
     */
     func timeString12Hour() -> String {
-        return (self as Date).as12HourTimeString
+        return (self as Date).to12HourTimeString
     }
 
     /**

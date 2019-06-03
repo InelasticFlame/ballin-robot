@@ -110,7 +110,7 @@ class WeightHistoryViewController: UIViewController {
 
                 DispatchQueue.main.async {
                     /* BLOCK B START */
-                    let dateStr = startDate.asShortestDateString //Z
+                    let dateStr = startDate.toShortestDateString //Z
                     let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
                     let xStr = dateStr.substring(to: charsToRemoveTo) //X
 
@@ -125,7 +125,7 @@ class WeightHistoryViewController: UIViewController {
             if result == nil { //c
                 DispatchQueue.main.async {
                     /* BLOCK C START */
-                    let dateStr = startDate.asShortestDateString //U
+                    let dateStr = startDate.toShortestDateString //U
                     let charsToRemoveTo = dateStr.index(dateStr.endIndex, offsetBy: -3)
                     let xStr = dateStr.substring(to: charsToRemoveTo) //X
 

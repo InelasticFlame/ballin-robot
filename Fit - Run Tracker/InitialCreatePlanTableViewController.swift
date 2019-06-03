@@ -46,8 +46,8 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
 
         endDatePicker.minimumDate = startDatePicker.date.add(1.days)
         startDatePicker.minimumDate = Date()
-        startDateDetailLabel.text = startDatePicker.date.asShortDateString
-        endDateDetailLabel.text = endDatePicker.date.asShortDateString
+        startDateDetailLabel.text = startDatePicker.date.toShortDateString
+        endDateDetailLabel.text = endDatePicker.date.toShortDateString
     }
 
     // MARK: - Text Field
@@ -77,9 +77,9 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that called the action (in this case the startDatePicker).
     */
     @objc func updateStartDate(sender: AnyObject) {
-        startDateDetailLabel.text = startDatePicker.date.asShortDateString
+        startDateDetailLabel.text = startDatePicker.date.toShortDateString
         endDatePicker.minimumDate = startDatePicker.date.add(1.days)
-        endDateDetailLabel.text = endDatePicker.date.asShortDateString
+        endDateDetailLabel.text = endDatePicker.date.toShortDateString
     }
 
     /**
@@ -89,7 +89,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that called the action (in this case the endDatePicker).
     */
     @objc func updateEndDate(sender: AnyObject) {
-        endDateDetailLabel.text = endDatePicker.date.asShortDateString
+        endDateDetailLabel.text = endDatePicker.date.toShortDateString
     }
 
     // MARK: - Table View Data Source

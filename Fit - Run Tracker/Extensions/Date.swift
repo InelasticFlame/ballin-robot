@@ -16,29 +16,29 @@ extension Date {
     private static let monthYearDateFormat: String = "MM/yyyy"
     private static let twelveHourTimeFormat: String = "hh:mm a"
 
-    init (shortDateString: String) {
+    public init (shortDateString: String) {
         self.init(dateString: shortDateString, format: Date.shortDateFormat)
     }
 
-    init (databaseString: String) {
+    public init (databaseString: String) {
         self.init(dateString: databaseString, format: Date.databaseFormat)
     }
 
-    var asDatabaseString: String { return self.format(with: Date.databaseFormat) }
+    public var toDatabaseString: String { return self.format(with: Date.databaseFormat) }
 
-    var asShortDateString: String { return self.format(with: Date.shortDateFormat) }
+    public var toShortDateString: String { return self.format(with: Date.shortDateFormat) }
 
-    var asShortestDateString: String { return self.format(with: Date.shortestDateFormat) }
+    public var toShortestDateString: String { return self.format(with: Date.shortestDateFormat) }
 
-    var asMonthYearString: String { return self.format(with: Date.monthYearDateFormat) }
+    public var toMonthYearString: String { return self.format(with: Date.monthYearDateFormat) }
 
-    var as12HourTimeString: String { return self.format(with: Date.twelveHourTimeFormat) }
+    public var to12HourTimeString: String { return self.format(with: Date.twelveHourTimeFormat) }
 
-    func startOfDay() -> Date {
+    public func startOfDay() -> Date {
         return Date(year: self.year, month: self.month, day: self.day)
     }
 
-    func endOfDay() -> Date {
+    public func endOfDay() -> Date {
         return Date(year: self.year, month: self.month, day: self.day, hour: 23, minute: 59, second: 59)
     }
 }
