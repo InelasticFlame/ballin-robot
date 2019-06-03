@@ -27,7 +27,7 @@ extension NSDate {
 
     /**
     This initialiser takes a date string in the form "dd/MM/yyyy" and creates a new NSDate object with this date.
-    
+
     :param: shortDateString the date as a string to create the NSDate with.
     */
     convenience init (shortDateString: String) {
@@ -41,7 +41,7 @@ extension NSDate {
 
     /**
     This initialiser takes a date string in the form "dd/MM/yyyyHH:mm:ss" and creates a new NSDate object with this date, this is used when a run is loaded from the database.
-    
+
     :param: databaseString A string of the date to create the NSDate with.
     */
     convenience init (databaseString: String) {
@@ -61,11 +61,7 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yyyyHH:mm:ss" as a string
     */
     func databaseString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyyHH:mm:ss"
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
-
-        return dateFormatter.string(from: self as Date)
+        return (self as Date).asDatabaseString
     }
 
     /**
@@ -74,18 +70,14 @@ extension NSDate {
     2. Sets the date format
     3. Sets the locale to the en_GB (for consistency)
     4. Returns the string created by the date formatter
-    
+
     Uses the following local variables:
         dateFormatter - A constant NSDateFormatter used to create the string.
-    
+
     :returns: The date in the form "dd/MM/yyyy" as a string
     */
     func shortDateString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
-
-        return dateFormatter.string(from: self as Date)
+        return (self as Date).asShortDateString
     }
 
     /**
@@ -94,11 +86,7 @@ extension NSDate {
     :returns: The date in the form "dd/MM/yy" as a string
     */
     func shortestDateString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/YY"
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
-
-        return dateFormatter.string(from: self as Date)
+        return (self as Date).asShortestDateString
     }
 
     /**
@@ -107,13 +95,7 @@ extension NSDate {
     :returns: The date in the form "/MM/yyyy" as a string
     */
     func monthYearString() -> String {
-        let dateFormatter = DateFormatter()
-        let month = dateFormatter.calendar.component(.month, from: self as Date)
-        let year = dateFormatter.calendar.component(.year, from: self as Date)
-
-        let monthYearString = NSString(format: "%02i/%04i", month, year)
-
-        return monthYearString as String
+        return (self as Date).asMonthYearString
     }
 
     /**
@@ -122,33 +104,25 @@ extension NSDate {
     :returns: The time portion of the date in the form "HH:mm a" as a string
     */
     func timeString12Hour() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB") as Locale
-
-        return dateFormatter.string(from: self as Date)
+        return (self as Date).as12HourTimeString
     }
 
     /**
     Returns true if a date is in today.
-    
+
     :returns: A boolean that indicates if the date is in today or not.
     */
     func isToday() -> Bool {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) //1
-
-        return calendar!.isDateInToday(self as Date) //2
+        return (self as Date).isToday
     }
 
     /**
     Returns true if a date was yesterday.
-    
+
     :returns: A boolean that indicates if the date is in yesterday or not.
     */
     func isYesterday() -> Bool {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) //1
-
-        return calendar!.isDateInYesterday(self as Date) //2
+        return (self as Date).isYesterday
     }
 }
 

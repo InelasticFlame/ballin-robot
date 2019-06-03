@@ -89,7 +89,7 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     :param: sender The object that called the action (in this case the endDatePicker).
     */
     @objc func updateEndDate(sender: AnyObject) {
-        endDateDetailLabel.text = (endDatePicker.date as NSDate).shortDateString()
+        endDateDetailLabel.text = endDatePicker.date.asShortDateString
     }
 
     // MARK: - Table View Data Source
