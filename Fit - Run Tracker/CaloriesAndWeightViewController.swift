@@ -24,7 +24,6 @@ class CaloriesAndWeightViewController: UIViewController {
     @IBOutlet weak var weightErrorLabel: UILabel!
 
     // MARK: - Global Variables
-    private let secondsInDay: Double = 86400 //A global double constant that stores the number of seconds in a day
     private let healthStore = HKHealthStore() //A global HKHealthStore that is used to access the HealthKit data store
 
     private var currentDate = Date()
@@ -249,9 +248,7 @@ class CaloriesAndWeightViewController: UIViewController {
         let caloriesBurnt = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned) //2
         let caloriesConsumed = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryEnergyConsumed) //3
 
-        let startOfCurrentDate = currentDate.startOfDay()
-        let endOfCurrentDate = currentDate.endOfDay()
-        let predicate = HKQuery.predicateForSamples(withStart: startOfCurrentDate, end: endOfCurrentDate, options: []) //4
+        let predicate = HKQuery.predicateForSamples(withStart: currentDate.startOfDay(), end: currentDate.endOfDay(), options: []) //4
 
         self.healthStore.retrieveSumOfSample(quantityType: caloriesConsumed!, unit: unit, predicate: predicate) { (sum, error) -> Void in //5
             /* BLOCK A START */ //6

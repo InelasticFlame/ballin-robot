@@ -20,7 +20,6 @@ class InitialCreatePlanTableViewController: UITableViewController, UITextFieldDe
     @IBOutlet weak var warningLabel: UILabel!
 
     // MARK: - Global Variables
-    private let secondsInDay: Double = 86400 //A global constant that stores the number of seconds in a day
 
     /* Boolean values that track whether the date picker cells are currently being shown */
     private var editingStartDate = false

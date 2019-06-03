@@ -20,7 +20,6 @@ class WeightHistoryViewController: UIViewController {
 
     // MARK: - Global Variables
 
-    private let secondsInDay: Double = 86400 //A global constant that stores the number of seconds in a day
     private let healthStore = HKHealthStore() //A global HKHealthStore that is used to access the HealthKit data store
 
     private var graphCoords = [GraphCoordinate]() //A global mutable array of GraphCoordiantes that stores the graphCoords
