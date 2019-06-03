@@ -39,9 +39,7 @@ class WeightHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let startDate = Date().startOfDay()
-        let endDate = startDate.endOfDay()
-        loadWeightForLast7Days(startDate: startDate, endDate: endDate) //3
+        loadWeightForLast7Days(startDate: Date().startOfDay(), endDate: Date().endOfDay()) //3
     }
 
     // MARK: - Graph Data Loading
