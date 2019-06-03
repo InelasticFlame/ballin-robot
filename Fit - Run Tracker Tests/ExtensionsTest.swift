@@ -81,7 +81,7 @@ class ExtensionsTest: XCTestCase {
         let date = Date.init(dateString: "07/06/201417:54:23", format: "dd/MM/yyyyHH:mm:ss") as NSDate
 
         let stringRes = date.timeString12Hour()
-        let expectString = "05:54 pm"
+        let expectString = "05:54 PM"
 
         XCTAssertEqual(stringRes, expectString)
     }
