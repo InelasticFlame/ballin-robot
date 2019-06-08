@@ -172,12 +172,12 @@ class AddRunTableViewController: UITableViewController {
 
             if (currentPicker == "DISTANCE" || currentPicker == "PACE") && (lastPicker == "DISTANCE" || lastPicker == "PACE") { //c
                 if runPace != 0 && runDistance != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
-                    let newDuration = Int(runDistance * Double(runPace)) //iii
+                    let newDuration = Int(runDistance.rawValue * Double(runPace)) //iii
                     runDurationPicker.setDuration(duration: newDuration) //iv
                 }
             } else if (currentPicker == "DISTANCE" || currentPicker == "DURATION") && (lastPicker == "DISTANCE" || lastPicker == "DURATION") { //d
                 if runDuration != 0 && runDistance != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
-                    let newPace = Int(Double(runDuration) / runDistance) //v
+                    let newPace = Int(Double(runDuration) / runDistance.rawValue) //v
                     runPacePicker.setPace(pace: newPace) //vi
                 }
             } else if (currentPicker == "PACE" || currentPicker == "DURATION") && (lastPicker == "PACE" || lastPicker == "DURATION") {
@@ -224,7 +224,7 @@ class AddRunTableViewController: UITableViewController {
             let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker!.date, pace: runPace, duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
             run.calculateRunScore() //b
             Database().saveRun(run) //c
-            Database().increaseShoeMiles(selectedShoe, byAmount: runDistance) //d
+            Database().increaseShoeMiles(selectedShoe, byAmount: runDistance.rawValue) //d
             self.navigationController?.popViewController(animated: true) //e
         } else { //3
             let error = "At least 2 from distance, pace and duration must have been input." //f

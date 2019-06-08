@@ -171,7 +171,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.distance, (long)run.pace, (long)run.duration, run.score, (long)run.shoe.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.rawDistance, (long)run.pace, (long)run.duration, run.runScore, (long)run.shoe.ID]; //a
         
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
@@ -397,8 +397,8 @@ static Database *_database; //A global variable that stores the current instance
     NSInteger fastestMile = [userDefaults integerForKey:[ObjConstants fastestMileKey]]; //4
     NSInteger fastestAvgPace = [userDefaults integerForKey:[ObjConstants fastestAvgPaceKey]]; //5
  
-    if (run.distance > longestDistance) { //6
-        [userDefaults setDouble:run.distance forKey:[ObjConstants longestDistanceKey]]; //a
+    if (run.rawDistance > longestDistance) { //6
+        [userDefaults setDouble:run.rawDistance forKey:[ObjConstants longestDistanceKey]]; //a
     }
     if (run.duration > longestDuration) { //7
         [userDefaults setInteger:run.duration forKey:[ObjConstants longestDurationKey]]; //a
@@ -562,7 +562,7 @@ static Database *_database; //A global variable that stores the current instance
                 NSDate *date = [[NSDate alloc] initWithDatabaseString:[NSString stringWithUTF8String:dateTimeStr]]; //x
                 
                 
-                Run *run = [[Run alloc] initWithRunID:ID distance:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil splits:nil]; //xi
+                Run *run = [[Run alloc] initWithRunID:ID distanceInMiles:distance dateTime:date pace:pace duration:duration shoe:runShoe runScore:score runLocations:nil splits:nil]; //xi
                 run.locations = [self loadRunLocationsForRun:run]; //xii
                 run.splits = [self loadRunSplitsForRun:run]; //xiii
                 
@@ -839,7 +839,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.distance, (long)plannedRun.duration, plannedRun.details, (long)plan.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.rawDistance, (long)plannedRun.duration, plannedRun.details, (long)plan.ID]; //a
         const char *sqlChar = [sql UTF8String]; //b
         char *errorMessage; //c
         
@@ -985,7 +985,7 @@ static Database *_database; //A global variable that stores the current instance
                 const int duration = (int)sqlite3_column_int(statement, 3); //v
                 const char *details = (char *)sqlite3_column_text(statement, 4); //vi
                 
-                PlannedRun *plannedRun = [[PlannedRun alloc] initWithID:plannedRunID date:[[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:plannedDateStr]] distance: distance duration:duration details:[NSString stringWithUTF8String:details]]; //vii
+                PlannedRun *plannedRun = [[PlannedRun alloc] initWithID:plannedRunID date:[[NSDate alloc] initWithShortDateString:[NSString stringWithUTF8String:plannedDateStr]] distanceInMiles: distance duration:duration details:[NSString stringWithUTF8String:details]]; //vii
                 [plannedRuns addObject:plannedRun]; //viii
             }
         }
@@ -1191,7 +1191,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.miles, shoe.imageName]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblShoes(ShoeName, CurrentMiles, ShoeImagePath) VALUES ('%@', '%1.2f', '%@')", shoe.name, shoe.rawMiles, shoe.imageName]; //a
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
         
@@ -1239,7 +1239,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles + amount, (long)shoe.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.rawMiles + amount, (long)shoe.ID]; //a
         const char *sqlChar = [sql UTF8String]; //b
         char *errorMessage; //c
         
@@ -1285,7 +1285,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
-        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.miles - amount, (long)shoe.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"UPDATE tblShoes SET CurrentMiles = '%1.2f' WHERE ShoeID = '%li'", shoe.rawMiles - amount, (long)shoe.ID]; //a
         const char *sqlChar = [sql UTF8String]; //b
         char *errorMessage; //c
         
@@ -1355,7 +1355,7 @@ static Database *_database; //A global variable that stores the current instance
                 const double currentDistance = (double)sqlite3_column_double(statement, 2); //iv
                 const char *shoeImageName = (char *)sqlite3_column_text(statement, 3); //v
                 
-                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImageName]]; //vi
+                Shoe *shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] rawMiles:currentDistance imageName:[NSString stringWithUTF8String:shoeImageName]]; //vi
                 
                 [shoes addObject:shoe]; //vii
             }
@@ -1421,7 +1421,7 @@ static Database *_database; //A global variable that stores the current instance
                 const double currentDistance = (double)sqlite3_column_double(statement, 2); //iv
                 const char *shoeImageName = (char *)sqlite3_column_text(statement, 3); //v
                 
-                shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] miles:currentDistance imageName:[NSString stringWithUTF8String:shoeImageName]]; //vi
+                shoe = [[Shoe alloc] initWithID:shoeID name:[NSString stringWithUTF8String:shoeName] rawMiles:currentDistance imageName:[NSString stringWithUTF8String:shoeImageName]]; //vi
             }
         }
         

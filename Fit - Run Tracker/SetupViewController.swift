@@ -85,7 +85,7 @@ class SetupViewController: UIViewController {
             let distanceGoal = userDefaults.double(forKey: Constants.DefaultsKeys.Distance.GoalKey) //5
             if distanceUnit == Constants.DefaultsKeys.Distance.KmUnit { //6
                 distanceSegment.selectedSegmentIndex = 1 //b
-                goalDistanceStepper.value = distanceGoal * Conversions().milesToKm //c
+                goalDistanceStepper.value = distanceGoal * Conversions.milesToKm //c
             } else { //7
                 goalDistanceStepper.value = distanceGoal //d
             }
@@ -101,7 +101,7 @@ class SetupViewController: UIViewController {
             let weightGoal = userDefaults.double(forKey: Constants.DefaultsKeys.Weight.GoalKey) //11
             if weightUnit == Constants.DefaultsKeys.Weight.PoundUnit { //12
                 weightSegment.selectedSegmentIndex = 1 //f
-                weightStepper.value = weightGoal * Conversions().kgToPounds //g
+                weightStepper.value = weightGoal * Conversions.kgToPounds //g
             } else { //13
                 weightStepper.value = weightGoal //h
             }
@@ -156,7 +156,7 @@ class SetupViewController: UIViewController {
         } else { //3
             //Kilometres
             userDefaults.set(Constants.DefaultsKeys.Distance.KmUnit, forKey: Constants.DefaultsKeys.Distance.UnitKey) //c
-            userDefaults.set(Conversions().kmToMiles * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //d
+            userDefaults.set(Conversions.kmToMiles * goalDistanceStepper.value, forKey: Constants.DefaultsKeys.Distance.GoalKey) //d
         }
 
         if paceSegment.selectedSegmentIndex == 0 { //4
@@ -174,7 +174,7 @@ class SetupViewController: UIViewController {
         } else { //7
             //Pounds
             userDefaults.set(Constants.DefaultsKeys.Weight.PoundUnit, forKey: Constants.DefaultsKeys.Weight.UnitKey) //i
-            userDefaults.set(weightStepper.value * Conversions().poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey) //j
+            userDefaults.set(weightStepper.value * Conversions.poundsToKg, forKey: Constants.DefaultsKeys.Weight.GoalKey) //j
         }
 
         userDefaults.set(Int(calorieStepper.value), forKey: Constants.DefaultsKeys.Calories.GoalKey) //8

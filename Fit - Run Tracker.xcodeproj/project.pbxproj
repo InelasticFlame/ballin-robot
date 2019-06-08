@@ -25,7 +25,6 @@
 		B621B74E1A48C65100A4A49C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B621B74D1A48C65100A4A49C /* Images.xcassets */; };
 		B621B7511A48C65100A4A49C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B621B74F1A48C65100A4A49C /* LaunchScreen.xib */; };
 		B621B7691A48C66E00A4A49C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B621B7681A48C66E00A4A49C /* Database.m */; };
-		B621B76B1A48C67F00A4A49C /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B76A1A48C67F00A4A49C /* Run.swift */; };
 		B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B76C1A48C68900A4A49C /* Shoe.swift */; };
 		B621B76F1A48C74800A4A49C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B621B76E1A48C74800A4A49C /* libsqlite3.dylib */; };
 		B621B7791A48D2D100A4A49C /* Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621B7781A48D2D100A4A49C /* Conversions.swift */; };
@@ -38,6 +37,9 @@
 		B6487FA21AB1DD7600DB905E /* PersonalBestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6487FA11AB1DD7600DB905E /* PersonalBestsTableViewController.swift */; };
 		B649540C1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */; };
 		B649540E1AA3627800A00C1B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B649540D1AA3627800A00C1B /* HealthKit.framework */; };
+		B650074922AC35FF002CCA44 /* RunScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074622AC35FE002CCA44 /* RunScore.swift */; };
+		B650074A22AC35FF002CCA44 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074722AC35FF002CCA44 /* Distance.swift */; };
+		B650074B22AC35FF002CCA44 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074822AC35FF002CCA44 /* Run.swift */; };
 		B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */; };
 		B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */; };
 		B668D7C61AB86F6C00CC5E51 /* ShoeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */; };
@@ -131,7 +133,6 @@
 		B621B7661A48C66D00A4A49C /* Fit - Run Tracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fit - Run Tracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		B621B7671A48C66E00A4A49C /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		B621B7681A48C66E00A4A49C /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
-		B621B76A1A48C67F00A4A49C /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		B621B76C1A48C68900A4A49C /* Shoe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shoe.swift; sourceTree = "<group>"; };
 		B621B76E1A48C74800A4A49C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		B621B7781A48D2D100A4A49C /* Conversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversions.swift; sourceTree = "<group>"; };
@@ -145,6 +146,9 @@
 		B649540B1AA35BD400A00C1B /* CaloriesAndWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesAndWeightViewController.swift; sourceTree = "<group>"; };
 		B649540D1AA3627800A00C1B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		B649540F1AA36D4A00A00C1B /* CG4 Coursework.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "CG4 Coursework.entitlements"; sourceTree = "<group>"; };
+		B650074622AC35FE002CCA44 /* RunScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunScore.swift; path = "Fit - Run Tracker/Run/RunScore.swift"; sourceTree = SOURCE_ROOT; };
+		B650074722AC35FF002CCA44 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Distance.swift; path = "Fit - Run Tracker/Run/Distance.swift"; sourceTree = SOURCE_ROOT; };
+		B650074822AC35FF002CCA44 /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Run.swift; path = "Fit - Run Tracker/Run/Run.swift"; sourceTree = SOURCE_ROOT; };
 		B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSplitsTableViewController.swift; sourceTree = "<group>"; };
 		B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanBackSegue.swift; sourceTree = "<group>"; };
 		B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoeTableViewCell.swift; sourceTree = "<group>"; };
@@ -280,6 +284,7 @@
 		B621B7411A48C65100A4A49C /* Fit - Run Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B650074522AC35EA002CCA44 /* Run */,
 				B6DBBB6822A5B3ED0078B7E3 /* Extensions */,
 				B647B1AC22A40E2B00150530 /* Strava */,
 				B69B80C32274F762000C05D2 /* PersonalBests */,
@@ -324,7 +329,6 @@
 			isa = PBXGroup;
 			children = (
 				B67382B81A9F791600497D69 /* GraphCoordinate.swift */,
-				B621B76A1A48C67F00A4A49C /* Run.swift */,
 				B621B76C1A48C68900A4A49C /* Shoe.swift */,
 				B621B77A1A48DB5400A4A49C /* Plan.swift */,
 				B621B77C1A48DB6B00A4A49C /* PlannedRun.swift */,
@@ -400,6 +404,16 @@
 				B6DD2D161AA79E2D0081BAE7 /* WeightHistoryViewController.swift */,
 			);
 			name = "Calories and Weight";
+			sourceTree = "<group>";
+		};
+		B650074522AC35EA002CCA44 /* Run */ = {
+			isa = PBXGroup;
+			children = (
+				B650074722AC35FF002CCA44 /* Distance.swift */,
+				B650074822AC35FF002CCA44 /* Run.swift */,
+				B650074622AC35FE002CCA44 /* RunScore.swift */,
+			);
+			path = Run;
 			sourceTree = "<group>";
 		};
 		B65387991AB0B3620022325C /* Page View */ = {
@@ -833,6 +847,7 @@
 				B647B1AE22A40E4C00150530 /* StravaClient.swift in Sources */,
 				B6ECC73B1A93F5D1009FE6C0 /* NewPlannedRunTableViewController.swift in Sources */,
 				B621B76D1A48C68900A4A49C /* Shoe.swift in Sources */,
+				B650074A22AC35FF002CCA44 /* Distance.swift in Sources */,
 				B69B80C72274F799000C05D2 /* PersonalBestStore.swift in Sources */,
 				B69B80C92274F7AF000C05D2 /* PersonalBestCellFactory.swift in Sources */,
 				B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */,
@@ -854,19 +869,20 @@
 				B69B80C12274F6CD000C05D2 /* RunCellFactory.swift in Sources */,
 				B6CFA95C1A9F6067000EDB00 /* Graph.swift in Sources */,
 				B621B7691A48C66E00A4A49C /* Database.m in Sources */,
-				B621B76B1A48C67F00A4A49C /* Run.swift in Sources */,
 				B63601501A9A0ACA0020FB80 /* Extensions.swift in Sources */,
 				B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */,
 				B668D7C61AB86F6C00CC5E51 /* ShoeTableViewCell.swift in Sources */,
 				B60B10CE1A96306D003B30C9 /* CreatePlanViewController.swift in Sources */,
 				B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */,
 				B6ECC7391A93D776009FE6C0 /* PacePicker.swift in Sources */,
+				B650074922AC35FF002CCA44 /* RunScore.swift in Sources */,
 				B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */,
 				B6F664C31AB09F0C0079AA18 /* RunPageViewController.swift in Sources */,
 				B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */,
 				B6DD2D1E1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,
 				B6DD2D171AA79E2D0081BAE7 /* WeightHistoryViewController.swift in Sources */,
+				B650074B22AC35FF002CCA44 /* Run.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

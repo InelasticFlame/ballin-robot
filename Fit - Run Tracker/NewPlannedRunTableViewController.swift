@@ -232,7 +232,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
     */
     @IBAction func donePressed(sender: AnyObject) {
         var error = "" //1
-        var planDistance = 0.0
+        var planDistance = Distance<Miles>(0.0)
         var planDuration = 0
 
         self.runDetailsTextField.resignFirstResponder() //2

@@ -130,7 +130,7 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
             let minutesPerKm = self.selectedRow(inComponent: 0) //a
             let secondsPerKm = self.selectedRow(inComponent: 1) //b
 
-            let doublePace = (60.0 * (Double(minutesPerKm)) * (1/Conversions().kmToMiles)) + ((Double(secondsPerKm)) * (1/Conversions().kmToMiles)) //d
+            let doublePace = (60.0 * (Double(minutesPerKm)) * (1/Conversions.kmToMiles)) + ((Double(secondsPerKm)) * (1/Conversions.kmToMiles)) //d
 
             pace = Int(doublePace) //e
             paceStr = NSString(format: "%02i:%02i /km", minutesPerKm, secondsPerKm) as String //f

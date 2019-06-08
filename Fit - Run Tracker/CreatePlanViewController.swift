@@ -115,7 +115,7 @@ class CreatePlanViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.dateLabel.text = plannedRun?.date.toShortestDateString //3
         cell.detailsLabel.text = plannedRun?.details //4
         if plannedRun!.distance > 0 { //5
-            cell.distanceDurationLabel.text = Conversions().distanceForInterface(distance: plannedRun!.distance) //a
+            cell.distanceDurationLabel.text = plannedRun!.distance.toString(Miles.unit) //a
         } else { //6
             cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun!.duration) //b
         }

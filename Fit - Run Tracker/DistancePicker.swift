@@ -106,7 +106,7 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     :returns: distance - The distance selected in the picker as a double.
     :returns: distanceStr - The distance selected as a string in the user's chosen unit.
     */
-    func selectedDistance() -> (distance: Double, distanceStr: String) {
+    func selectedDistance() -> (distance: Distance<Miles>, distanceStr: String) {
         var distance = 0.00
         var distanceStr = ""
 
@@ -124,11 +124,11 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
 
             let totalKmDistance = kilometres + (hundredthsKilometres/100)
 
-            distance = Conversions().kmToMiles * totalKmDistance
+            distance = Conversions.kmToMiles * totalKmDistance
             distanceStr = "\(totalKmDistance) km"
         }
 
-        return (distance, distanceStr)
+        return (Distance<Miles>(distance), distanceStr)
     }
 
     /**

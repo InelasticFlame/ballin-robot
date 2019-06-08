@@ -111,7 +111,7 @@ This method is used to retrieve a user's runs from their Strava account. In the 
                 [CLCoords addObject:coordinate]; //ii
             }
             
-            Run *run = [[Run alloc] initWithRunID:activity.id distance:distance dateTime:dateTime pace:pace duration:duration shoe:nil runScore:0 runLocations:CLCoords splits:nil]; //i
+            Run *run = [[Run alloc] initWithRunID:activity.id distanceInMiles:distance dateTime:dateTime pace:pace duration:duration shoe:nil runScore:0 runLocations:CLCoords splits:nil]; //i
             [run calculateRunScore]; //j
             
             if ([run valid] == YES) { //k
