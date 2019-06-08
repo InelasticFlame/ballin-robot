@@ -87,7 +87,7 @@ class Conversions: NSObject {
     // MARK: Array Sorting
 
     func totalUpRunMiles(runs: Array<Run>) -> Distance<Miles> {
-        var total = Distance<Miles>(0)
+        var total = 0.miles
         for run: Run in runs {
             total += run.distance
         }

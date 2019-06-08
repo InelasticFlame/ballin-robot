@@ -6,7 +6,6 @@
 //  Copyright © 2019 William Ray. All rights reserved.
 //
 
-import Foundation
 import Tagged
 
 protocol DistanceUnit {}
