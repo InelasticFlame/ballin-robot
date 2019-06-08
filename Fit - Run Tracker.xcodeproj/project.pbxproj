@@ -41,6 +41,8 @@
 		B650074A22AC35FF002CCA44 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074722AC35FF002CCA44 /* Distance.swift */; };
 		B650074B22AC35FF002CCA44 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074822AC35FF002CCA44 /* Run.swift */; };
 		B650074D22AC48EA002CCA44 /* DistanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074C22AC48EA002CCA44 /* DistanceTest.swift */; };
+		B650074F22AC4EDC002CCA44 /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074E22AC4EDC002CCA44 /* Duration.swift */; };
+		B650075122AC502B002CCA44 /* Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650075022AC502B002CCA44 /* Speed.swift */; };
 		B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */; };
 		B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */; };
 		B668D7C61AB86F6C00CC5E51 /* ShoeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */; };
@@ -151,6 +153,8 @@
 		B650074722AC35FF002CCA44 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Distance.swift; path = "Fit - Run Tracker/Run/Distance.swift"; sourceTree = SOURCE_ROOT; };
 		B650074822AC35FF002CCA44 /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Run.swift; path = "Fit - Run Tracker/Run/Run.swift"; sourceTree = SOURCE_ROOT; };
 		B650074C22AC48EA002CCA44 /* DistanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceTest.swift; sourceTree = "<group>"; };
+		B650074E22AC4EDC002CCA44 /* Duration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Duration.swift; sourceTree = "<group>"; };
+		B650075022AC502B002CCA44 /* Speed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speed.swift; sourceTree = "<group>"; };
 		B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSplitsTableViewController.swift; sourceTree = "<group>"; };
 		B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanBackSegue.swift; sourceTree = "<group>"; };
 		B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoeTableViewCell.swift; sourceTree = "<group>"; };
@@ -413,6 +417,8 @@
 			isa = PBXGroup;
 			children = (
 				B650074722AC35FF002CCA44 /* Distance.swift */,
+				B650074E22AC4EDC002CCA44 /* Duration.swift */,
+				B650075022AC502B002CCA44 /* Speed.swift */,
 				B650074822AC35FF002CCA44 /* Run.swift */,
 				B650074622AC35FE002CCA44 /* RunScore.swift */,
 			);
@@ -832,6 +838,7 @@
 				B6F9A0E11A9226AC00C5828F /* TrainingPlansTableViewController.swift in Sources */,
 				B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */,
 				B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */,
+				B650075122AC502B002CCA44 /* Speed.swift in Sources */,
 				B6DBBB6A22A5B3FE0078B7E3 /* Date.swift in Sources */,
 				B6F2DCF422590DA800233179 /* CellFactory.swift in Sources */,
 				B621B77B1A48DB5400A4A49C /* Plan.swift in Sources */,
@@ -882,6 +889,7 @@
 				B650074922AC35FF002CCA44 /* RunScore.swift in Sources */,
 				B6ECC7371A93D6D4009FE6C0 /* DurationPicker.swift in Sources */,
 				B6F664C31AB09F0C0079AA18 /* RunPageViewController.swift in Sources */,
+				B650074F22AC4EDC002CCA44 /* Duration.swift in Sources */,
 				B602096E1AAF2D3D00559D2F /* MoreTableViewController.swift in Sources */,
 				B6DD2D1E1AA8D0110081BAE7 /* AddNewShoeTableViewController.swift in Sources */,
 				B618ABFA1A5336AD0050EFF0 /* MapOverlay.swift in Sources */,

@@ -13,6 +13,7 @@ protocol DistanceUnit {}
 enum Miles: DistanceUnit {
     case unit
 }
+
 enum Kilometres: DistanceUnit {
     case unit
 }
