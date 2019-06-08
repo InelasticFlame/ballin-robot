@@ -40,6 +40,7 @@
 		B650074922AC35FF002CCA44 /* RunScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074622AC35FE002CCA44 /* RunScore.swift */; };
 		B650074A22AC35FF002CCA44 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074722AC35FF002CCA44 /* Distance.swift */; };
 		B650074B22AC35FF002CCA44 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074822AC35FF002CCA44 /* Run.swift */; };
+		B650074D22AC48EA002CCA44 /* DistanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650074C22AC48EA002CCA44 /* DistanceTest.swift */; };
 		B653879B1AB0B5570022325C /* RunSplitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */; };
 		B668B4C01A935D230010325B /* CreatePlanBackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */; };
 		B668D7C61AB86F6C00CC5E51 /* ShoeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */; };
@@ -149,6 +150,7 @@
 		B650074622AC35FE002CCA44 /* RunScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunScore.swift; path = "Fit - Run Tracker/Run/RunScore.swift"; sourceTree = SOURCE_ROOT; };
 		B650074722AC35FF002CCA44 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Distance.swift; path = "Fit - Run Tracker/Run/Distance.swift"; sourceTree = SOURCE_ROOT; };
 		B650074822AC35FF002CCA44 /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Run.swift; path = "Fit - Run Tracker/Run/Run.swift"; sourceTree = SOURCE_ROOT; };
+		B650074C22AC48EA002CCA44 /* DistanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceTest.swift; sourceTree = "<group>"; };
 		B653879A1AB0B5570022325C /* RunSplitsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSplitsTableViewController.swift; sourceTree = "<group>"; };
 		B668B4BF1A935D230010325B /* CreatePlanBackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanBackSegue.swift; sourceTree = "<group>"; };
 		B668D7C51AB86F6C00CC5E51 /* ShoeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoeTableViewCell.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				B603C15F224AC9ED00B7A3A0 /* ConversionsTest.swift */,
 				B6001F8D224FB6F600477A1A /* ExtensionsTest.swift */,
 				B6098E88224822EE00D6DDA7 /* Info.plist */,
+				B650074C22AC48EA002CCA44 /* DistanceTest.swift */,
 			);
 			path = "Fit - Run Tracker Tests";
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B650074D22AC48EA002CCA44 /* DistanceTest.swift in Sources */,
 				B603C160224AC9ED00B7A3A0 /* ConversionsTest.swift in Sources */,
 				B6001F8E224FB6F600477A1A /* ExtensionsTest.swift in Sources */,
 				B694FC3B2280831C0074A893 /* PersonalBestsStoreTest.swift in Sources */,

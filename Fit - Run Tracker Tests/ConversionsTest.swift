@@ -80,7 +80,7 @@ class ConversionsTest: XCTestCase {
 
         let total = Conversions().totalUpRunMiles(runs: runs)
 
-        XCTAssertEqual(total, 30.47, accuracy: 0.001)
+        XCTAssertEqual(total.rawValue, 30.47, accuracy: 0.001)
     }
 
     func test_givenUnsortedRuns_whenSortedByDate_orderIsCorrectAndDescending() {
