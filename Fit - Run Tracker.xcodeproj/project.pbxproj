@@ -417,8 +417,8 @@
 			isa = PBXGroup;
 			children = (
 				B650074722AC35FF002CCA44 /* Distance.swift */,
-				B650074E22AC4EDC002CCA44 /* Duration.swift */,
 				B650075022AC502B002CCA44 /* Speed.swift */,
+				B650074E22AC4EDC002CCA44 /* Duration.swift */,
 				B650074822AC35FF002CCA44 /* Run.swift */,
 				B650074622AC35FE002CCA44 /* RunScore.swift */,
 			);
