@@ -171,7 +171,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.rawDistance, (long)run.pace, (long)run.duration, run.runScore, (long)run.shoe.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.rawDistance, (long)run.rawPace, (long)run.duration, run.runScore, (long)run.shoe.ID]; //a
         
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
@@ -403,8 +403,8 @@ static Database *_database; //A global variable that stores the current instance
     if (run.duration > longestDuration) { //7
         [userDefaults setInteger:run.duration forKey:[ObjConstants longestDurationKey]]; //a
     }
-    if ((run.pace < fastestAvgPace) || (fastestAvgPace == 0)) { //8
-        [userDefaults setInteger:run.pace forKey:[ObjConstants fastestAvgPaceKey]]; //a
+    if ((run.rawPace < fastestAvgPace) || (fastestAvgPace == 0)) { //8
+        [userDefaults setInteger:run.rawPace forKey:[ObjConstants fastestAvgPaceKey]]; //a
     }
     
     for (int splitNo = 0; splitNo < run.splits.count; splitNo++) { //9

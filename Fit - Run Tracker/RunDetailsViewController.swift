@@ -74,7 +74,8 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
             overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //k
             overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //l
 
-            overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(pace: run.pace) //m
+            // TODO proper pace unit
+            overlayView.averagePaceLabel.text = run.pace.toString(MinutesPerMile.unit) //m
             overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(duration: run.duration) //n
 
             overlayView.averagePaceDurationView.addBorder(borderWidth: 2) //o

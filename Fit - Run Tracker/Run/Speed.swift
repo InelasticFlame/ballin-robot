@@ -20,12 +20,20 @@ enum MinutesPerMile: SpeedUnit {
     case unit
 }
 
+enum SecondsPerMile: SpeedUnit {
+    case unit
+}
+
 enum MilesPerHour: SpeedUnit {
     case unit
 }
 
-protocol ScientificUnit: RawRepresentable where RawValue == Double {
+protocol ScientificUnit {
     associatedtype SUnit
+
+    var rawValue: Double { get }
+
+    init(rawValue: Double)
 }
 
 protocol UnitPreservingArithmetic: ScientificUnit {
@@ -48,43 +56,43 @@ protocol UnitPreservingArithmetic: ScientificUnit {
 extension UnitPreservingArithmetic {
 
     static func + (lhs: Self, rhs: Self) -> Self {
-        return self.init(rawValue: lhs.rawValue + rhs.rawValue)!
+        return self.init(rawValue: lhs.rawValue + rhs.rawValue)
     }
 
     static func - (lhs: Self, rhs: Self) -> Self {
-        return self.init(rawValue: lhs.rawValue + rhs.rawValue)!
+        return self.init(rawValue: lhs.rawValue + rhs.rawValue)
     }
 
     static func * (lhs: Self, rhs: Double) -> Self {
-        return self.init(rawValue: lhs.rawValue * rhs)!
+        return self.init(rawValue: lhs.rawValue * rhs)
     }
 
     static func * (lhs: Double, rhs: Self) -> Self {
-        return self.init(rawValue: lhs * rhs.rawValue)!
+        return self.init(rawValue: lhs * rhs.rawValue)
     }
 
     static func * (lhs: Self, rhs: Int) -> Self {
-        return self.init(rawValue: lhs.rawValue * Double(rhs))!
+        return self.init(rawValue: lhs.rawValue * Double(rhs))
     }
 
     static func * (lhs: Int, rhs: Self) -> Self {
-        return self.init(rawValue: Double(lhs) * rhs.rawValue)!
+        return self.init(rawValue: Double(lhs) * rhs.rawValue)
     }
 
     static func / (lhs: Self, rhs: Double) -> Self {
-        return self.init(rawValue: lhs.rawValue / rhs)!
+        return self.init(rawValue: lhs.rawValue / rhs)
     }
 
     static func / (lhs: Double, rhs: Self) -> Self {
-        return self.init(rawValue: lhs / rhs.rawValue)!
+        return self.init(rawValue: lhs / rhs.rawValue)
     }
 
     static func / (lhs: Self, rhs: Int) -> Self {
-        return self.init(rawValue: lhs.rawValue / Double(rhs))!
+        return self.init(rawValue: lhs.rawValue / Double(rhs))
     }
 
     static func / (lhs: Int, rhs: Self) -> Self {
-        return self.init(rawValue: Double(lhs) / rhs.rawValue)!
+        return self.init(rawValue: Double(lhs) / rhs.rawValue)
     }
 
 }
@@ -94,13 +102,41 @@ class Speed<U: SpeedUnit>: UnitPreservingArithmetic {
 
     var rawValue: Double
 
-    required init?(rawValue: RawValue) {
+    required init(rawValue: Double) {
         self.rawValue = rawValue
     }
 
     init(_ speed: Double) {
         self.rawValue = speed
     }
+}
+
+extension Speed where U == SecondsPerMile {
+
+    func toMinutesPerMile() -> Speed<MinutesPerMile> {
+        return Speed<MinutesPerMile>(self.rawValue / 60)
+    }
+
+}
+
+extension Speed where U == MinutesPerMile {
+
+    func toString(_ unit: SpeedUnit) -> String {
+        if unit is MinutesPerMile {
+            let minutes = Int(self.rawValue)
+            let seconds = Int((self.rawValue - floor(self.rawValue)) * 60)
+            return (NSString(format: "%02i:%02i", minutes, seconds) as String) + " min/mile"
+        }
+
+        if unit is KilometresPerHour {
+            let mph = 60.0 / self.rawValue
+            let kmh = Double(mph) * Conversions.milesToKm
+            return (NSString(format: "%1.2f", kmh) as String) + " km/h"
+        }
+
+        return "Unsupported unit."
+    }
+
 }
 
 extension Double {

@@ -16,7 +16,8 @@ class RunCellFactory: CellFactory {
         // TODO: should check what the display unit is
         cell.distanceLabel.text = run.distance.toString(Miles.unit)
         cell.dateLabel.text = run.dateTime.toShortDateString
-        cell.paceLabel.text = Conversions().averagePaceForInterface(pace: run.pace)
+        // TODO proper unit
+        cell.paceLabel.text = run.pace.toString(MinutesPerMile.unit)
         cell.durationLabel.text = Conversions().runDurationForInterface(duration: run.duration)
 
         cell.progressView.backgroundColor = run.score.colour

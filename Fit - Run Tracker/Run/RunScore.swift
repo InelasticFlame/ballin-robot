@@ -29,7 +29,7 @@ struct RunScore {
 class RunScorer {
 
     static func score(run: Run) -> RunScore {
-        let pointsFromPacePower = 1000.0/Float(run.pace)
+        let pointsFromPacePower = 1000.0/Float(run.pace.rawValue)
         let pointsFromAveragePace = Double(pow(2.4, pointsFromPacePower) * 120)
 
         let pointsFromDistancePower = run.distance.rawValue / 10.0

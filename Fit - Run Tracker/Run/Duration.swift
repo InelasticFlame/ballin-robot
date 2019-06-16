@@ -22,4 +22,16 @@ enum Hours: DurationUnit {
     case unit
 }
 
-typealias Duration = Tagged<DurationUnit, Double>
+class Duration<U: DurationUnit>: UnitPreservingArithmetic {
+    typealias SUnit = U
+
+    var rawValue: Double
+
+    required init(rawValue: Double) {
+        self.rawValue = rawValue
+    }
+
+    init(_ speed: Double) {
+        self.rawValue = speed
+    }
+}

@@ -17,7 +17,10 @@ import UIKit
     var rawDistance: Double { return distance.rawValue }
 
     var dateTime: Date
-    var pace: Int
+
+    var rawPace: Int { return Int(pace.rawValue * 3600) }
+    var pace: Speed<MinutesPerMile>
+
     var duration: Int
     var shoe: Shoe?
 
@@ -33,7 +36,7 @@ import UIKit
         self.ID = 0
         self.distance = 0
         self.dateTime = Date()
-        self.pace = 0
+        self.pace = 0.minutesPerMile
         self.duration = 0
         self.score = RunScore(0)
     }
@@ -55,7 +58,7 @@ import UIKit
         self.ID = runID
         self.distance = distance
         self.dateTime = dateTime
-        self.pace = pace
+        self.pace = pace.minutesPerMile
         self.duration = duration
         self.shoe = shoe
         self.score = RunScore(runScore)
@@ -70,9 +73,9 @@ import UIKit
     // TEMP to maintain database compat
     init(runID: Int, distanceInMiles: Double, dateTime: Date, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
         self.ID = runID
-        self.distance = Distance<Miles>(distanceInMiles)
+        self.distance = distanceInMiles.miles
         self.dateTime = dateTime
-        self.pace = pace
+        self.pace = pace.minutesPerMile
         self.duration = duration
         self.shoe = shoe
         self.score = RunScore(runScore)
@@ -109,10 +112,10 @@ import UIKit
     */
     // swiftlint:disable large_tuple
     func calculateRunFinishTimes() -> (fiveK: String, tenK: String, halfMarathon: String, fullMarathon: String) {
-        let fiveK = Int(Double(self.pace) * 3.1) //1
-        let tenK = Int(Double(self.pace) * 6.2)
-        let halfMarathon = Int(Double(self.pace) * 13.1)
-        let fullMarathon = Int(Double(self.pace) * 26.2)
+        let fiveK = Int((self.pace * 3.1).rawValue) //1
+        let tenK = Int((self.pace * 6.2).rawValue)
+        let halfMarathon = Int((self.pace * 13.1).rawValue)
+        let fullMarathon = Int((self.pace * 26.2).rawValue)
 
         let fiveKStr = Conversions().runDurationForInterface(duration: fiveK) //2
         let tenKStr = Conversions().runDurationForInterface(duration: tenK)
@@ -127,7 +130,7 @@ import UIKit
     This is to handle the case where a run returned from Strava has erroneous values e.g. -1
     */
     @objc func valid() -> Bool {
-        if self.distance > 0 && self.duration > 0 && self.pace > 0 {
+        if self.distance > 0 && self.duration > 0 && self.pace.rawValue > 0 {
             return true
         } else {
             return false
