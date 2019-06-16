@@ -130,7 +130,7 @@ import UIKit
     This is to handle the case where a run returned from Strava has erroneous values e.g. -1
     */
     @objc func valid() -> Bool {
-        if self.distance > 0 && self.duration > 0 && self.pace.rawValue > 0 {
+        if self.distance > 0 && self.duration > 0 && self.pace > 0.minutesPerMile {
             return true
         } else {
             return false

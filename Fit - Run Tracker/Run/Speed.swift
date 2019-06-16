@@ -28,12 +28,24 @@ enum MilesPerHour: SpeedUnit {
     case unit
 }
 
-protocol ScientificUnit {
+protocol ScientificUnit: Comparable {
     associatedtype SUnit
 
     var rawValue: Double { get }
 
     init(rawValue: Double)
+}
+
+extension ScientificUnit {
+
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+
 }
 
 protocol UnitPreservingArithmetic: ScientificUnit {
