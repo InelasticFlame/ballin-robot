@@ -13,22 +13,22 @@ import UIKit
     // MARK: - Properties
 
     var ID: Int
+    var dateTime: Date
+    var shoe: Shoe?
+    var locations = [CLLocation]()
+    var splits = [Int]()
+
     var distance: Distance<Miles>
     var rawDistance: Double { return distance.rawValue }
-
-    var dateTime: Date
 
     var rawPace: Int { return Int(pace.rawValue * 3600) }
     var pace: Speed<MinutesPerMile>
 
-    var duration: Int
-    var shoe: Shoe?
+    var duration: Duration<Seconds>
+    var rawDuration: Int { return Int(duration.rawValue) }
 
     var score: RunScore
     var runScore: Double { return score.value }
-
-    var locations = [CLLocation]()
-    var splits = [Int]()
 
     // MARK: - Initialisation
 
@@ -37,7 +37,7 @@ import UIKit
         self.distance = 0.miles
         self.dateTime = Date()
         self.pace = 0.minutesPerMile
-        self.duration = 0
+        self.duration = 0.secs
         self.score = RunScore(0)
     }
 
@@ -54,7 +54,7 @@ import UIKit
     :param: runLocations The array of CLLocation objects that map the route of the run.
     :param: splits The mile splits for the run as an Array of Integers in seconds per mile.
     */
-    init(runID: Int, distance: Distance<Miles>, dateTime: Date, pace: Speed<MinutesPerMile>, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
+    init(runID: Int, distance: Distance<Miles>, dateTime: Date, pace: Speed<MinutesPerMile>, duration: Duration<Seconds>, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
         self.ID = runID
         self.distance = distance
         self.dateTime = dateTime
@@ -76,7 +76,7 @@ import UIKit
         self.distance = distanceInMiles.miles
         self.dateTime = dateTime
         self.pace = pace.secondsPerMile.toMinutesPerMile()
-        self.duration = duration
+        self.duration = duration.secs
         self.shoe = shoe
         self.score = RunScore(runScore)
         if let _locations = runLocations { //if there are locations, store them
@@ -130,7 +130,7 @@ import UIKit
     This is to handle the case where a run returned from Strava has erroneous values e.g. -1
     */
     @objc func valid() -> Bool {
-        if self.distance > 0.miles && self.duration > 0 && self.pace > 0.minutesPerMile {
+        if self.distance > 0.miles && self.duration > 0.secs && self.pace > 0.minutesPerMile {
             return true
         } else {
             return false

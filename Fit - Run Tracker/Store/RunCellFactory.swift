@@ -18,7 +18,7 @@ class RunCellFactory: CellFactory {
         cell.dateLabel.text = run.dateTime.toShortDateString
         // TODO proper unit
         cell.paceLabel.text = run.pace.toString(MinutesPerMile.unit)
-        cell.durationLabel.text = Conversions().runDurationForInterface(duration: run.duration)
+        cell.durationLabel.text = Conversions().runDurationForInterface(duration: Int(run.duration.rawValue))
 
         cell.progressView.backgroundColor = run.score.colour
         cell.progressView.alpha = 0.4

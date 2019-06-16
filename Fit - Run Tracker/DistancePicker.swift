@@ -145,9 +145,9 @@ class DistancePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     
     :param: distance The distance to set the picker to as a double in miles.
     */
-    func setDistance(distance: Double) {
-        let miles = Int(distance) //1
-        let hundredthsMiles = Int((distance - Double(miles)) * 100) //2
+    func setDistance(distance: Distance<Miles>) {
+        let miles = Int(distance.rawValue) //1
+        let hundredthsMiles = Int(((distance - miles.miles) * 100).rawValue) //2
 
         self.selectRow(miles, inComponent: 0, animated: false) //3
         self.selectRow(hundredthsMiles, inComponent: 1, animated: false) //4

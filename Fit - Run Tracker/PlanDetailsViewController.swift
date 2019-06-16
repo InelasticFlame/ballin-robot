@@ -158,7 +158,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 // TODO: should check what the display unit is
                 cell.distanceDurationLabel.text = plannedRun.distance.toString(Miles.unit)
             } else { //d
-                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun.duration) //i
+                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: Int(plannedRun.duration.rawValue)) //i
             }
 
             if plannedRun.matchRank == 0 { //e

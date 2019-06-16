@@ -171,7 +171,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //2
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //3
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.rawDistance, (long)run.rawPace, (long)run.duration, run.runScore, (long)run.shoe.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblRuns(RunDateTime, RunDistance, RunPace, RunDuration, RunScore, ShoeID) VALUES('%@', '%1.2f', '%li', '%li', '%1.2f', '%li')", run.dateTime.databaseString, run.rawDistance, (long)run.rawPace, (long)run.rawDuration, run.runScore, (long)run.shoe.ID]; //a
         
         const char *sqlChar = [sql UTF8String]; //b
         sqlite3_stmt *statement; //c
@@ -400,8 +400,8 @@ static Database *_database; //A global variable that stores the current instance
     if (run.rawDistance > longestDistance) { //6
         [userDefaults setDouble:run.rawDistance forKey:[ObjConstants longestDistanceKey]]; //a
     }
-    if (run.duration > longestDuration) { //7
-        [userDefaults setInteger:run.duration forKey:[ObjConstants longestDurationKey]]; //a
+    if (run.rawDuration > longestDuration) { //7
+        [userDefaults setInteger:run.rawDuration forKey:[ObjConstants longestDurationKey]]; //a
     }
     if ((run.rawPace < fastestAvgPace) || (fastestAvgPace == 0)) { //8
         [userDefaults setInteger:run.rawPace forKey:[ObjConstants fastestAvgPaceKey]]; //a
@@ -839,7 +839,7 @@ static Database *_database; //A global variable that stores the current instance
     const char *charDbPath = [_databasePath UTF8String]; //1
     
     if (sqlite3_open(charDbPath, &_database) == SQLITE_OK) { //2
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.rawDistance, (long)plannedRun.duration, plannedRun.details, (long)plan.ID]; //a
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO tblPlannedRuns(PlannedDate, RunDistance, RunDuration, Details, PlanID) VALUES ('%@', '%1.2f', '%li', '%@', %li)", plannedRun.date.shortDateString, plannedRun.rawDistance, (long)plannedRun.rawDuration, plannedRun.details, (long)plan.ID]; //a
         const char *sqlChar = [sql UTF8String]; //b
         char *errorMessage; //c
         

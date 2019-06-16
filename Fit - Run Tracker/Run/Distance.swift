@@ -49,6 +49,10 @@ extension Distance where SUnit == Miles {
         return (NSString(format: "%1.2f", self.rawValue) as String) + " miles"
     }
 
+    static func * (lhs: Distance, speed: Speed<MinutesPerMile>) -> Duration<Minutes> {
+        return (lhs.rawValue * speed.rawValue).mins
+    }
+
 }
 
 extension Distance where SUnit == Kilometres {
