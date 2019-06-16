@@ -154,7 +154,7 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             cell.dateLabel.text = plannedRun.date.toShortestDateString //a
             cell.detailLabel.text = plannedRun.details //b
 
-            if plannedRun.distance > 0 { //c
+            if plannedRun.distance > 0.miles { //c
                 // TODO: should check what the display unit is
                 cell.distanceDurationLabel.text = plannedRun.distance.toString(Miles.unit)
             } else { //d

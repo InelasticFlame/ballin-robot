@@ -243,7 +243,7 @@ class NewPlannedRunTableViewController: UITableViewController, UITextFieldDelega
             planDuration = plannedDurationPicker.selectedDuration().duration //b
         }
 
-        if planDistance == 0 && planDuration == 0 { //5
+        if planDistance == 0.miles && planDuration == 0 { //5
             error += "A run must have a distance or duration greater than 0. \n" //c
         }
 

@@ -171,12 +171,12 @@ class AddRunTableViewController: UITableViewController {
             }
 
             if (currentPicker == "DISTANCE" || currentPicker == "PACE") && (lastPicker == "DISTANCE" || lastPicker == "PACE") { //c
-                if runPace != 0 && runDistance != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
+                if runPace != 0 && runDistance != 0.miles { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newDuration = Int(runDistance.rawValue * Double(runPace)) //iii
                     runDurationPicker.setDuration(duration: newDuration) //iv
                 }
             } else if (currentPicker == "DISTANCE" || currentPicker == "DURATION") && (lastPicker == "DISTANCE" || lastPicker == "DURATION") { //d
-                if runDuration != 0 && runDistance != 0 { //(Checks the values aren't 0 as a user may have set them to 0)
+                if runDuration != 0 && runDistance != 0.miles { //(Checks the values aren't 0 as a user may have set them to 0)
                     let newPace = Int(Double(runDuration) / runDistance.rawValue) //v
                     runPacePicker.setPace(pace: newPace) //vi
                 }
@@ -220,7 +220,7 @@ class AddRunTableViewController: UITableViewController {
         let runDuration = runDurationPicker.selectedDuration().duration
         let selectedShoe: Shoe? = runShoePicker.selectedShoe()
 
-        if runDistance > 0 && runPace > 0 && runDuration > 0 { //2
+        if runDistance > 0.miles && runPace > 0 && runDuration > 0 { //2
             let run = Run(runID: 0, distance: runDistance, dateTime: runDatePicker!.date, pace: runPace.secondsPerMile.toMinutesPerMile(), duration: runDuration, shoe: selectedShoe, runScore: 0, runLocations: nil, splits: nil) //a
             run.calculateRunScore() //b
             Database().saveRun(run) //c

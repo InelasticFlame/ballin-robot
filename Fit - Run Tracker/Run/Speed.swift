@@ -31,7 +31,7 @@ enum MilesPerHour: SpeedUnit {
 protocol ScientificUnit: Comparable {
     associatedtype SUnit
 
-    var rawValue: Double { get }
+    var rawValue: Double { get set }
 
     init(rawValue: Double)
 }
@@ -51,7 +51,10 @@ extension ScientificUnit {
 protocol UnitPreservingArithmetic: ScientificUnit {
 
     static func + (lhs: Self, rhs: Self) -> Self
+    static func += (lhs: inout Self, rhs: Self)
+
     static func - (lhs: Self, rhs: Self) -> Self
+    static func -= (lhs: inout Self, rhs: Self)
 
     static func * (lhs: Self, rhs: Double) -> Self
     static func * (lhs: Double, rhs: Self) -> Self
@@ -71,8 +74,16 @@ extension UnitPreservingArithmetic {
         return self.init(rawValue: lhs.rawValue + rhs.rawValue)
     }
 
+    static func += (lhs: inout Self, rhs: Self) {
+        lhs.rawValue += rhs.rawValue
+    }
+
     static func - (lhs: Self, rhs: Self) -> Self {
         return self.init(rawValue: lhs.rawValue + rhs.rawValue)
+    }
+
+    static func -= (lhs: inout Self, rhs: Self) {
+        lhs.rawValue -= rhs.rawValue
     }
 
     static func * (lhs: Self, rhs: Double) -> Self {
@@ -109,7 +120,7 @@ extension UnitPreservingArithmetic {
 
 }
 
-class Speed<U: SpeedUnit>: UnitPreservingArithmetic {
+final class Speed<U: SpeedUnit>: UnitPreservingArithmetic {
     typealias SUnit = U
 
     var rawValue: Double

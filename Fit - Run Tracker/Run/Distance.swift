@@ -6,8 +6,6 @@
 //  Copyright © 2019 William Ray. All rights reserved.
 //
 
-import Tagged
-
 protocol DistanceUnit {}
 
 enum Miles: DistanceUnit {
@@ -18,11 +16,24 @@ enum Kilometres: DistanceUnit {
     case unit
 }
 
-typealias Distance<T: DistanceUnit> = Tagged<T, Double>
+final class Distance<U: DistanceUnit>: UnitPreservingArithmetic {
+    typealias SUnit = U
 
-extension Tagged where RawValue == Double, Tag == Miles {
+    var rawValue: Double
 
-    init(_ value: Double) {
+    required init(rawValue: Double) {
+        self.rawValue = rawValue
+    }
+
+    init(_ speed: Double) {
+        self.rawValue = speed
+    }
+
+}
+
+extension Distance where SUnit == Miles {
+
+    convenience init(_ value: Double) {
         self.init(rawValue: value)
     }
 
@@ -40,9 +51,9 @@ extension Tagged where RawValue == Double, Tag == Miles {
 
 }
 
-extension Tagged where RawValue == Double, Tag == Kilometres {
+extension Distance where SUnit == Kilometres {
 
-    init(_ value: Double) {
+    convenience init(_ value: Double) {
         self.init(rawValue: value)
     }
 

@@ -34,7 +34,7 @@ import UIKit
 
     override init() {
         self.ID = 0
-        self.distance = 0
+        self.distance = 0.miles
         self.dateTime = Date()
         self.pace = 0.minutesPerMile
         self.duration = 0
@@ -130,7 +130,7 @@ import UIKit
     This is to handle the case where a run returned from Strava has erroneous values e.g. -1
     */
     @objc func valid() -> Bool {
-        if self.distance > 0 && self.duration > 0 && self.pace > 0.minutesPerMile {
+        if self.distance > 0.miles && self.duration > 0 && self.pace > 0.minutesPerMile {
             return true
         } else {
             return false

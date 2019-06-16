@@ -22,7 +22,7 @@ enum Hours: DurationUnit {
     case unit
 }
 
-class Duration<U: DurationUnit>: UnitPreservingArithmetic {
+final class Duration<U: DurationUnit>: UnitPreservingArithmetic {
     typealias SUnit = U
 
     var rawValue: Double
