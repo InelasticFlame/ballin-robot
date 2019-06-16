@@ -23,7 +23,7 @@ class DevStravaClient: StravaClient {
     }
 
     func loadRuns() -> [Run] {
-        return [Run(runID: 1, distance: 15.4, dateTime: Date(), pace: 540, duration: 8316, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)]
+        return [Run(runID: 1, distance: 15.4, dateTime: Date(), pace: 9.minutesPerMile, duration: 8316, shoe: nil, runScore: 0.0, runLocations: nil, splits: nil)]
     }
 
 }

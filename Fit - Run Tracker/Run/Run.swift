@@ -54,11 +54,11 @@ import UIKit
     :param: runLocations The array of CLLocation objects that map the route of the run.
     :param: splits The mile splits for the run as an Array of Integers in seconds per mile.
     */
-    init(runID: Int, distance: Distance<Miles>, dateTime: Date, pace: Int, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
+    init(runID: Int, distance: Distance<Miles>, dateTime: Date, pace: Speed<MinutesPerMile>, duration: Int, shoe: Shoe?, runScore: Double, runLocations: Array<CLLocation>?, splits: Array<Int>?) {
         self.ID = runID
         self.distance = distance
         self.dateTime = dateTime
-        self.pace = pace.minutesPerMile
+        self.pace = pace
         self.duration = duration
         self.shoe = shoe
         self.score = RunScore(runScore)
@@ -75,7 +75,7 @@ import UIKit
         self.ID = runID
         self.distance = distanceInMiles.miles
         self.dateTime = dateTime
-        self.pace = pace.minutesPerMile
+        self.pace = pace.secondsPerMile.toMinutesPerMile()
         self.duration = duration
         self.shoe = shoe
         self.score = RunScore(runScore)

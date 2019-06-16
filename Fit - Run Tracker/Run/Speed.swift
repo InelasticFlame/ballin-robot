@@ -141,6 +141,10 @@ extension Speed where U == MinutesPerMile {
 
 extension Double {
 
+    var secondsPerMile: Speed<SecondsPerMile> {
+        return Speed<SecondsPerMile>(self)
+    }
+
     var minutesPerMile: Speed<MinutesPerMile> {
         return Speed<MinutesPerMile>(self)
     }
@@ -152,6 +156,10 @@ extension Double {
 }
 
 extension Int {
+
+    var secondsPerMile: Speed<SecondsPerMile> {
+        return Double(self).secondsPerMile
+    }
 
     var minutesPerMile: Speed<MinutesPerMile> {
         return Double(self).minutesPerMile
