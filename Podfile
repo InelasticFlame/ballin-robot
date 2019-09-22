@@ -10,6 +10,7 @@ target 'Fit - Run Tracker' do
   pod "AFNetworking", "~> 2.0"
   pod "Mantle", "1.5"
   pod "DateToolsSwift"
+  pod "Tagged", "~> 0.4"
 
   target 'Fit - Run Tracker Tests' do
     inherit! :search_paths

@@ -124,8 +124,11 @@ class HomeTableViewController: UITableViewController {
                 currentShoe = 0
             }
 
-            shoeNameLabel.text = shoes[currentShoe!].name //d
-            shoeDistanceLabel.text = Conversions().distanceForInterface(distance: shoes[currentShoe!].miles) //e
+            let shoe = shoes[currentShoe!]
+
+            shoeNameLabel.text = shoe.name //d
+            // TODO: should check what the display unit is
+            shoeDistanceLabel.text = shoe.miles.toString(Miles.unit)
             let shoeImage = shoes[currentShoe!].loadImage() //f
             if shoeImage != nil { //g
                 shoeImageView.image = shoeImage //i
@@ -170,7 +173,7 @@ class HomeTableViewController: UITableViewController {
         let currentMonth = Date().toMonthYearString
         // HAHAHAHAHAHAHHAHAHAHAHHAHAHAHAH
         let runs = Database().loadRuns(withQuery: "WHERE RunDateTime LIKE '___\(currentMonth)%'") as! [Run] //4
-        let totalMiles = Conversions().totalUpRunMiles(runs: runs) //5
+        let totalMiles = Conversions().totalUpRunMiles(runs: runs).rawValue //5
         let progress = CGFloat(totalMiles/goalMiles) //6
 
         let progressFrame = CGRect(x: 0, y: 0, width: distanceProgressView.frame.width, height: distanceProgressView.frame.height) //7

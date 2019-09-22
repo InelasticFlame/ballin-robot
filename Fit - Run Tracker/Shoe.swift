@@ -14,7 +14,9 @@ class Shoe: NSObject {
 
     private(set) var ID: Int //A property that stores the ID of the Shoe; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
     var name: String //A string property that stores the name of the shoe
-    var miles: Double //A double property that stores the current miles of the shoe
+    var miles: Distance<Miles> //A double property that stores the current miles of the shoe
+    var rawMiles: Double { return miles.rawValue }
+
     var imageName: String? //A string property that stores the imageName (this is used to construct the imagePath)
 
     // MARK: - Initialisation
@@ -27,10 +29,18 @@ class Shoe: NSObject {
     :param: miles The distance ran in the Shoe in miles as a double.
     :param: imageName The name of the Shoe's image store in the local documents directory. This is optional.
     */
-    init(ID: Int, name: String, miles: Double, imageName: String?) {
+    init(ID: Int, name: String, miles: Distance<Miles>, imageName: String?) {
         self.ID = ID
         self.name = name
         self.miles = miles
+        self.imageName = imageName
+    }
+
+    // TEMP for database compat
+    init(ID: Int, name: String, rawMiles: Double, imageName: String?) {
+        self.ID = ID
+        self.name = name
+        self.miles = Distance<Miles>(rawMiles)
         self.imageName = imageName
     }
 

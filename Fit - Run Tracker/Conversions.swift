@@ -12,24 +12,25 @@ class Conversions: NSObject {
 
     // MARK: Conversion Constants
 
-    let kmToMiles = 0.621371192
-    let milesToKm = 1.609344
-    let poundsToKg = 0.453592
-    let kgToPounds = 2.20462
+    static let kmToMiles = 0.621371192
+    static let milesToKm = 1.609344
+    static let poundsToKg = 0.453592
+    static let kgToPounds = 2.20462
+    static let kmToM = 0.001
 
     // MARK: Conversion Methods
 
     func metresPerSecondToSecondsPerMile(metresPerSec: Double) -> Double {
         let metresPerHour = metresPerSec * 3600
         let kmPerHour: Double = metresPerHour / 1000
-        let milesPerHour: Double = kmPerHour * kmToMiles
+        let milesPerHour: Double = kmPerHour * Conversions.kmToMiles
         let secPerMile = 3600 / milesPerHour
 
         return secPerMile
     }
 
     func metresToMiles(meters: Double) -> (Double) {
-        let miles = (meters/1000)*kmToMiles
+        let miles = (meters/1000) * Conversions.kmToMiles
 
         return miles
     }
@@ -46,7 +47,7 @@ class Conversions: NSObject {
             paceString = (NSString(format: "%02i:%02i", minutes, seconds) as String) + " min/mile"
         } else if paceUnit == Constants.DefaultsKeys.Pace.KMPerH {
             let mph = 3600.0/Double(pace)
-            let kmh = Double(mph) * milesToKm
+            let kmh = Double(mph) * Conversions.milesToKm
             paceString = (NSString(format: "%1.2f", kmh) as String) + " km/h"
         }
 
@@ -76,7 +77,7 @@ class Conversions: NSObject {
         if distanceUnit == Constants.DefaultsKeys.Distance.MilesUnit || distanceUnit == "" {
             distanceString = (NSString(format: "%1.2f", distance) as String) + " miles"
         } else if distanceUnit == Constants.DefaultsKeys.Distance.KmUnit {
-            let kilometres = distance * milesToKm
+            let kilometres = distance * Conversions.milesToKm
             distanceString = (NSString(format: "%1.2f", kilometres) as String) + " km"
         }
 
@@ -85,8 +86,8 @@ class Conversions: NSObject {
 
     // MARK: Array Sorting
 
-    func totalUpRunMiles(runs: Array<Run>) -> Double {
-        var total = 0.0
+    func totalUpRunMiles(runs: Array<Run>) -> Distance<Miles> {
+        var total = 0.miles
         for run: Run in runs {
             total += run.distance
         }

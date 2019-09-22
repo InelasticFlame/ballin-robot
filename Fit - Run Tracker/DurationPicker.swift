@@ -105,7 +105,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     :returns: duration - The duration selected as an integer in seconds.
     :returns: durationStr - The duration selected as a string in the form HH:mm:ss
     */
-    func selectedDuration() -> (duration: Int, durationStr: String) {
+    func selectedDuration() -> (duration: Duration<Seconds>, durationStr: String) {
         var duration = 0 //1
         var durationStr = "" //2
 
@@ -116,7 +116,7 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         duration = (hours * 3600) + (minutes * 60) + seconds //6
         durationStr = NSString(format: "%ih %02im %02is", hours, minutes, seconds) as String //7
 
-        return (duration, durationStr) //8
+        return (duration.secs, durationStr) //8
     }
 
     /**
@@ -137,11 +137,12 @@ class DurationPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     
     :param: duration The duration to set the picker to as an integer in seconds.
     */
-    func setDuration(duration: Int) {
-        let hours = duration/3600
-        let remainingSeconds = duration % 3600
+    func setDuration(duration: Duration<Seconds>) {
+        let rawSecs = Int(duration.rawValue)
+        let hours = rawSecs / 3600
+        let remainingSeconds = rawSecs % 3600
         let minutes = remainingSeconds/60
-        let seconds = duration % 60
+        let seconds = rawSecs % 60
 
         self.selectRow(hours, inComponent: 0, animated: false)
         self.selectRow(minutes, inComponent: 1, animated: false)

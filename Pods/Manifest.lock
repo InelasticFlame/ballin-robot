@@ -27,12 +27,14 @@ PODS:
   - Mantle (1.5):
     - Mantle/extobjc (= 1.5)
   - Mantle/extobjc (1.5)
+  - Tagged (0.4.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - DateToolsSwift
   - FRDStravaClient (~> 1.0.2)
   - Mantle (= 1.5)
+  - Tagged (~> 0.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -40,13 +42,15 @@ SPEC REPOS:
     - DateToolsSwift
     - FRDStravaClient
     - Mantle
+    - Tagged
 
 SPEC CHECKSUMS:
   AFNetworking: 8dd5f9b9691e09186393069a12cc3b5ed7c8b511
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FRDStravaClient: ab35c439a42a1f5e657281a26d1c8387c14795c8
   Mantle: 3bf6db311c8b4a19b6be01f2483fa4590aa166f3
+  Tagged: a6babffe08b180c499a7a422661621bd4f330840
 
-PODFILE CHECKSUM: df80816b6e2054e394788c279f01e2833ecbd67a
+PODFILE CHECKSUM: 8efff71ea26ccebeaa177a0feb528328519114c8
 
 COCOAPODS: 1.5.3

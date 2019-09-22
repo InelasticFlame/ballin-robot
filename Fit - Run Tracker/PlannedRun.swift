@@ -14,8 +14,13 @@ class PlannedRun: NSObject {
 
     private(set) var ID: Int //A property that stores the ID of the Plan; private(set) means that it can only be written from inside this class, but can be read by any class (this is to ensure Database integrity by prevent the unique ID being changed)
     var date: Date //An NSDate property that stores the date of the planned run
-    var distance: Double //A double property that stores the distance of the planned run (if 0 => planned run is for a duration instead)
-    var duration: Int //An integer property that stores the duration of the planned run (if 0 => planned run is for a distance instead)
+
+    var distance: Distance<Miles> //A double property that stores the distance of the planned run (if 0 => planned run is for a duration instead)
+    var rawDistance: Double { return distance.rawValue }
+
+    var duration: Duration<Seconds> //An integer property that stores the duration of the planned run (if 0 => planned run is for a distance instead)
+    var rawDuration: Int { return Int(duration.rawValue) }
+
     var details: String? //A string property that store any details of the planned run
 
     var matchingRun: Run? //An optional Run property that stores the matching run (if there is one)
@@ -37,11 +42,23 @@ class PlannedRun: NSObject {
     :param: duration The duration to be ran in seconds as an integer (if the planned run is for a distance this value should be 0).
     :param: details The details for the Planned Run as a string. This value is optional.
     */
-    init(ID: Int, date: Date, distance: Double, duration: Int, details: String?) {
+    init(ID: Int, date: Date, distance: Distance<Miles>, duration: Duration<Seconds>, details: String?) {
         self.ID = ID
         self.date = date
         self.distance = distance
         self.duration = duration
+        self.details = details
+
+        super.init()
+        self.checkForCompletedRun() //1
+    }
+
+    // TEMP for db compat
+    init(ID: Int, date: Date, distanceInMiles: Double, duration: Int, details: String?) {
+        self.ID = ID
+        self.date = date
+        self.distance = Distance<Miles>(distanceInMiles)
+        self.duration = duration.secs
         self.details = details
 
         super.init()
@@ -87,19 +104,19 @@ class PlannedRun: NSObject {
 
         for run: Run in matchingRuns { //4
             if rank < 2 { //a
-                if run.distance >= self.distance && self.distance != 0 { //i
+                if run.distance >= self.distance && self.distance != 0.miles { //i
                     rank = 2 //Y
                     matchingRun = run //Z
-                } else if run.duration >= self.duration && self.duration != 0 { //ii
+                } else if run.duration >= self.duration && self.duration != 0.secs { //ii
                     rank = 2 //Y
                     matchingRun = run //Z
                 }
             }
             if rank < 1 { //b
-                if run.distance >= (self.distance * 0.5) && self.distance != 0 { //i
+                if run.distance >= (self.distance * 0.5) && self.distance != 0.miles { //i
                     rank = 1 //Y
                     matchingRun = run //Z
-                } else if run.duration >= Int(Double(self.duration) * 0.5) && self.duration != 0 { //ii
+                } else if run.duration >= self.duration * 0.5 && self.duration != 0.secs { //ii
                     rank = 1 //Y
                     matchingRun = run //Z
                 }

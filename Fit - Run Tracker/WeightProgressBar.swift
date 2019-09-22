@@ -123,8 +123,8 @@ class WeightProgressBar: UIView {
             goalString = NSString(format: "Goal: %1.2f kg", Double(goalWeight)) as String //a
             weightTextString = NSString(format: "Weight: %1.2f kg", Double(currentWeight)) as String //b
         } else { //17
-            goalString = NSString(format: "Goal: %1.2f lb", Double(goalWeight) * Conversions().kgToPounds) as String //c
-            weightTextString = NSString(format: "Weight: %1.2f lb", Double(currentWeight) * Conversions().kgToPounds) as String //d
+            goalString = NSString(format: "Goal: %1.2f lb", Double(goalWeight) * Conversions.kgToPounds) as String //c
+            weightTextString = NSString(format: "Weight: %1.2f lb", Double(currentWeight) * Conversions.kgToPounds) as String //d
         }
 
         let goalStringSize = goalString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 12.0)])) //18

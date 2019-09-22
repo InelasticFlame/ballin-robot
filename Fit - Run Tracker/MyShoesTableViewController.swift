@@ -87,7 +87,7 @@ class MyShoesTableViewController: UITableViewController {
             let shoe = shoes[indexPath.row] //d
 
             cell.shoeNameLabel.text = shoe.name //e
-            cell.shoeMilesLabel.text = Conversions().distanceForInterface(distance: shoe.miles) //f
+            cell.shoeMilesLabel.text = shoe.miles.toString(Miles.unit) //f
 
             let shoeImage = shoe.loadImage() //g
 

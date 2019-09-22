@@ -154,10 +154,11 @@ class PlanDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             cell.dateLabel.text = plannedRun.date.toShortestDateString //a
             cell.detailLabel.text = plannedRun.details //b
 
-            if plannedRun.distance > 0 { //c
-                cell.distanceDurationLabel.text = Conversions().distanceForInterface(distance: plannedRun.distance) //i
+            if plannedRun.distance > 0.miles { //c
+                // TODO: should check what the display unit is
+                cell.distanceDurationLabel.text = plannedRun.distance.toString(Miles.unit)
             } else { //d
-                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: plannedRun.duration) //i
+                cell.distanceDurationLabel.text = Conversions().runDurationForInterface(duration: Int(plannedRun.duration.rawValue)) //i
             }
 
             if plannedRun.matchRank == 0 { //e

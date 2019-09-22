@@ -61,20 +61,22 @@ class RunDetailsViewController: UIViewController, MKMapViewDelegate {
         }
 
         if let run = run { //4
-            overlayView.distanceLabel.text = Conversions().distanceForInterface(distance: run.distance) //c
-            overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score) as String //d
+            // TODO: should check what the display unit is
+            overlayView.distanceLabel.text = run.distance.toString(Miles.unit) //c
+            overlayView.scoreLabel.text = NSString(format: "%1.1lf pnts", run.score.value) as String //d
             overlayView.timeLabel.text = run.dateTime.to12HourTimeString //e
             overlayView.dateLabel.text = run.dateTime.toShortDateString //f
 
-            let progressBackground = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width * CGFloat(run.score / 1000), height: 35)) //g
-            progressBackground.backgroundColor = run.scoreColour() //h
+            let progressBackground = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width * CGFloat(run.score.value / 1000), height: 35)) //g
+            progressBackground.backgroundColor = run.score.colour //h
             progressBackground.alpha = 0.4 //i
             overlayView.headerOverlay.addSubview(progressBackground) //j
             overlayView.headerOverlay.bringSubviewToFront(overlayView.dateLabel) //k
             overlayView.headerOverlay.bringSubviewToFront(overlayView.timeLabel) //l
 
-            overlayView.averagePaceLabel.text = Conversions().averagePaceForInterface(pace: run.pace) //m
-            overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(duration: run.duration) //n
+            // TODO proper pace unit
+            overlayView.averagePaceLabel.text = run.pace.toString(MinutesPerMile.unit) //m
+            overlayView.durationLabel.text = "Time: " + Conversions().runDurationForInterface(duration: run.rawDuration) //n
 
             overlayView.averagePaceDurationView.addBorder(borderWidth: 2) //o
             mapKitView.addBorder(borderWidth: 2) //p

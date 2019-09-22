@@ -112,10 +112,10 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
         secondsPerKm - An integer constant that stores the seconds part per kilometer
         doublePace - A double constant that stores the pace in seconds per mile
     
-    :returns: pace - An integer value that is the selected pace in seconds per mile.
+    :returns: pace
     :returns: paceStr - The pace that is selected as a string in the user's chosen unit.
     */
-    func selectedPace() -> (pace: Int, paceStr: String) {
+    func selectedPace() -> (pace: Speed<MinutesPerMile>, paceStr: String) {
         var pace = 0 //1
         var paceStr = "" //2
 
@@ -130,13 +130,13 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
             let minutesPerKm = self.selectedRow(inComponent: 0) //a
             let secondsPerKm = self.selectedRow(inComponent: 1) //b
 
-            let doublePace = (60.0 * (Double(minutesPerKm)) * (1/Conversions().kmToMiles)) + ((Double(secondsPerKm)) * (1/Conversions().kmToMiles)) //d
+            let doublePace = (60.0 * (Double(minutesPerKm)) * (1/Conversions.kmToMiles)) + ((Double(secondsPerKm)) * (1/Conversions.kmToMiles)) //d
 
             pace = Int(doublePace) //e
             paceStr = NSString(format: "%02i:%02i /km", minutesPerKm, secondsPerKm) as String //f
         }
 
-        return (pace, paceStr) //5
+        return (pace.secondsPerMile.toMinutesPerMile(), paceStr) //5
     }
 
     /**
@@ -153,9 +153,9 @@ class PacePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     :params: pace The pace to set the picker to as an integer in seconds per mile.
     */
-    func setPace(pace: Int) {
-        let minutes = pace / 60
-        let seconds = pace % 60
+    func setPace(pace: Speed<MinutesPerMile>) {
+        let minutes = Int(pace.rawValue)
+        let seconds = Int((pace.rawValue - Double(minutes)) * 60)
 
         self.selectRow(minutes, inComponent: 0, animated: false)
         self.selectRow(seconds, inComponent: 1, animated: false)
