@@ -62,6 +62,7 @@
 		B69B80C92274F7AF000C05D2 /* PersonalBestCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80C82274F7AF000C05D2 /* PersonalBestCellFactory.swift */; };
 		B69B80CB2274FA19000C05D2 /* PersonalBestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B80CA2274FA19000C05D2 /* PersonalBestTableViewCell.swift */; };
 		B69E48031AA614DB00129A08 /* WeightProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69E48021AA614DB00129A08 /* WeightProgressBar.swift */; };
+		B6A4648E2337CD6A003DBED2 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A4648D2337CD6A003DBED2 /* Unit.swift */; };
 		B6B19FE91A4F89D800978FED /* RunsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */; };
 		B6C5FA001A7000DC00405D25 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */; };
 		B6C9CC1D1A7EC21D00EE8B5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */; };
@@ -175,6 +176,7 @@
 		B69B80C82274F7AF000C05D2 /* PersonalBestCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestCellFactory.swift; sourceTree = "<group>"; };
 		B69B80CA2274FA19000C05D2 /* PersonalBestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBestTableViewCell.swift; sourceTree = "<group>"; };
 		B69E48021AA614DB00129A08 /* WeightProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightProgressBar.swift; sourceTree = "<group>"; };
+		B6A4648D2337CD6A003DBED2 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		B6B19FE81A4F89D800978FED /* RunsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunsTableViewController.swift; sourceTree = "<group>"; };
 		B6C5F9FF1A7000DC00405D25 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		B6C9CC1C1A7EC21D00EE8B5E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				B650074E22AC4EDC002CCA44 /* Duration.swift */,
 				B650074822AC35FF002CCA44 /* Run.swift */,
 				B650074622AC35FE002CCA44 /* RunScore.swift */,
+				B6A4648D2337CD6A003DBED2 /* Unit.swift */,
 			);
 			path = Run;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				B67382B91A9F791600497D69 /* GraphCoordinate.swift in Sources */,
 				B6FB78121A86AA4400667897 /* PlanDetailsTableViewCell.swift in Sources */,
 				B6F9A0E11A9226AC00C5828F /* TrainingPlansTableViewController.swift in Sources */,
+				B6A4648E2337CD6A003DBED2 /* Unit.swift in Sources */,
 				B6FB780F1A86A7C700667897 /* PlanDetailsViewController.swift in Sources */,
 				B668DB071A4DDF2700DC7CE6 /* HomeTableViewController.swift in Sources */,
 				B650075122AC502B002CCA44 /* Speed.swift in Sources */,

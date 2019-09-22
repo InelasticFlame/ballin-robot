@@ -108,9 +108,9 @@ class ConversionsTest: XCTestCase {
         let date2 = Date(timeIntervalSinceReferenceDate: 8000)
         let date3 = Date(timeIntervalSinceReferenceDate: 3000)
 
-        let run1 = Run(runID: 1, distance: 9.76.miles, dateTime: date1, pace: 0.minutesPerMile, duration: 0, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
-        let run2 = Run(runID: 2, distance: 6.5.miles, dateTime: date2, pace: 0.minutesPerMile, duration: 0, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
-        let run3 = Run(runID: 3, distance: 14.21.miles, dateTime: date3, pace: 0.minutesPerMile, duration: 0, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
+        let run1 = Run(runID: 1, distance: 9.76.miles, dateTime: date1, pace: 0.minutesPerMile, duration: 0.secs, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
+        let run2 = Run(runID: 2, distance: 6.5.miles, dateTime: date2, pace: 0.minutesPerMile, duration: 0.secs, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
+        let run3 = Run(runID: 3, distance: 14.21.miles, dateTime: date3, pace: 0.minutesPerMile, duration: 0.secs, shoe: nil, runScore: 0, runLocations: [CLLocation](), splits: nil)
 
         return [run1, run2, run3]
     }
@@ -120,9 +120,9 @@ class ConversionsTest: XCTestCase {
         let date2 = Date(timeIntervalSinceReferenceDate: 8000)
         let date3 = Date(timeIntervalSinceReferenceDate: 3000)
 
-        let plannedRun1 = PlannedRun(ID: 1, date: date1, distance: 5.miles, duration: 5, details: nil)
-        let plannedRun2 = PlannedRun(ID: 2, date: date2, distance: 5.miles, duration: 5, details: nil)
-        let plannedRun3 = PlannedRun(ID: 3, date: date3, distance: 5.miles, duration: 5, details: nil)
+        let plannedRun1 = PlannedRun(ID: 1, date: date1, distance: 5.miles, duration: 5.secs, details: nil)
+        let plannedRun2 = PlannedRun(ID: 2, date: date2, distance: 5.miles, duration: 5.secs, details: nil)
+        let plannedRun3 = PlannedRun(ID: 3, date: date3, distance: 5.miles, duration: 5.secs, details: nil)
 
         return [plannedRun1, plannedRun2, plannedRun3]
     }
